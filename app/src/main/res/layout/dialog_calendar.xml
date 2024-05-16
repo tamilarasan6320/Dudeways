@@ -1,0 +1,40 @@
+<!-- dialog_calendar_fullscreen.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/primary"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calendar"
+        android:textSize="@dimen/_12sdp"
+        android:fontFamily="@font/poppins_semibold"
+        android:textColor="@android:color/white"
+        />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:dividerColor="@color/white"
+        app:dividerThickness="@dimen/_2sdp"
+        />
+
+    <CalendarView
+        android:theme="@style/CalenderViewCustom"
+        android:dateTextAppearance="@style/CalenderViewDateCustomText"
+        android:weekDayTextAppearance="@style/CalenderViewWeekCustomText"
+        android:backgroundTint="@color/primary"
+        android:id="@+id/calendarView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="16dp"
+        />
+
+
+</LinearLayout>

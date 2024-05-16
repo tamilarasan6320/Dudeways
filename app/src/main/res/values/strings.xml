@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Dude Ways</string>
+
+    <string name="splash1">"Welcome to our travel community, where every journey begins with a new friendship"</string>
+    <string name="splash2">"Where wanderlust meets companionship - find your perfect travel partner today!"</string>
+    <string name="splash3">"Join a global network of explorers and find your ideal travel buddy."</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string-array name="days_of_week">
+        <item>Sunday</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+    </string-array>
+
+
+</resources>

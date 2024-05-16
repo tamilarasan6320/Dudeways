@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardUseCompatPadding="true"
+    android:elevation="0dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="@dimen/_8sdp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <LinearLayout
+            android:padding="@dimen/_8sdp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Shafeeka"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_16sdp" />
+
+
+            <TextView
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:text="/@shafeeka12"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/_14sdp" />
+
+            <TextView
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:text="4h"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/_14sdp" />
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_160sdp"
+            android:background="@drawable/solo_travel"
+            />
+
+
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/_8sdp"
+            android:padding="@dimen/_8sdp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:layout_gravity="center"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
+                android:background="@drawable/location_ic"
+                />
+
+
+            <TextView
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Munnar Kerala"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:fontFamily="@font/poppins_medium"
+                />
+
+
+        </LinearLayout>
+
+
+
+
+        <RelativeLayout
+            android:padding="@dimen/_8sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+
+            <TextView
+                android:layout_toLeftOf="@+id/ivShare"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Trip to Kerala, looking for travel partner"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14sdp"
+                android:fontFamily="@font/poppins_semibold"
+                />
+
+
+            <ImageView
+                android:layout_centerVertical="true"
+                android:id="@+id/ivShare"
+                android:layout_alignParentRight="true"
+                android:layout_width="@dimen/_22sdp"
+                android:layout_height="@dimen/_22sdp"
+                android:background="@drawable/share_ic"
+                />
+
+
+
+        </RelativeLayout>
+
+
+
+
+        <LinearLayout
+            android:weightSum="2"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_weight="1"
+                android:padding="@dimen/_10sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:background="@drawable/interest_ic"
+                    />
+
+                <TextView
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Interested"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:background="@color/primary"
+                android:layout_weight="1"
+                android:padding="@dimen/_10sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <ImageView
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:background="@drawable/connect_ic"
+                    />
+
+                <TextView
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Connect"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_14sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</com.google.android.material.card.MaterialCardView>

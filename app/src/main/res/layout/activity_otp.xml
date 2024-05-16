@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_centerVertical="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/_10sdp">
+
+
+        <TextView
+            android:id="@+id/tvSplashText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlSplashImage"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Welcome to your account!"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_24sdp" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlSplashImage"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="Enter the 6- digit verification code we sent to your mobile device"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10sdp" />
+
+
+        <in.aabhasjindal.otptextview.OtpTextView
+            android:id="@+id/otpview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:textColor="@color/black"
+            app:bar_height="@dimen/_2sdp"
+            android:fontFamily="@font/poppins_medium"
+            app:height="@dimen/_35sdp"
+            app:length="6"
+            app:otp_box_background="@drawable/edit_text1"
+            app:otp_text_size="@dimen/_18sdp"
+            app:width="@dimen/_35sdp" />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnVerifyOTP"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="@dimen/_24sdp"
+            android:fontFamily="@font/poppins_medium"
+            app:backgroundTint="@null"
+            android:background="@drawable/gradient_button"
+            android:text="Verify OTP"
+            android:textAllCaps="false"
+            android:textSize="@dimen/_14sdp"
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnResendOTP"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:strokeColor="@color/primary"
+            app:strokeWidth="2dp"
+            android:backgroundTint="@color/primary_extra_light"
+            android:fontFamily="@font/poppins_medium"
+            android:paddingVertical="@dimen/_8sdp"
+            android:text="Resend OTP"
+            android:textColor="@color/black"
+            android:textAllCaps="false"
+            android:textSize="@dimen/_14sdp"
+            app:cornerRadius="@dimen/_5sdp" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="By continuing you agree to our \nTerms of Service Privacy Policy \nContent Policy"
+        android:gravity="center"
+        android:textSize="@dimen/_8sdp"
+        android:fontFamily="@font/poppins_medium"
+        android:textColor="@color/black"
+        android:layout_marginBottom="@dimen/_10sdp"
+        />
+
+</RelativeLayout>

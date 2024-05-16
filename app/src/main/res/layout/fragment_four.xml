@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Activity.Trip.Fragment.FourFragment">
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/_20sdp"
+        android:orientation="vertical"
+        android:padding="@dimen/_10sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+
+
+
+        <TextView
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="When are you planning to go?"
+            android:textSize="@dimen/_14sdp"
+            android:fontFamily="@font/poppins_semibold"
+            android:textColor="@color/black"
+            />
+
+        <TextView
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="From"
+            android:textSize="@dimen/_12sdp"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/black"
+            />
+
+
+        <EditText
+
+            android:id="@+id/edStartDate"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text1"
+            android:hint="Start Date"
+            android:fontFamily="@font/poppins_medium"
+            android:padding="@dimen/_10sdp"
+            android:textCursorDrawable="@drawable/color_cursor"
+            android:editable="false"
+            />
+
+
+
+
+        <TextView
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="To"
+            android:textSize="@dimen/_12sdp"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/black"
+            />
+
+
+        <EditText
+            android:id="@+id/edEndDate"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text1"
+            android:hint="End Date"
+            android:fontFamily="@font/poppins_medium"
+            android:padding="@dimen/_10sdp"
+            android:editable="false"
+            />
+
+    </LinearLayout>
+
+
+</FrameLayout>

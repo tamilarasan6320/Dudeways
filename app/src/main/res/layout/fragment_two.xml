@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.Trip.Fragment.twoFragment">
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/_20sdp"
+        android:id="@+id/llLocation"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Where are you now?"
+            android:textSize="@dimen/_14sdp"
+            android:fontFamily="@font/poppins_semibold"
+            android:textColor="@color/black"
+            />
+
+        <TextView
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Type your current location and select from the list."
+            android:textSize="@dimen/_12sdp"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/black"
+            />
+
+
+        <EditText
+            android:id="@+id/etMobileNumber"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text1"
+            android:hint="Location"
+            android:fontFamily="@font/poppins_medium"
+            android:padding="@dimen/_10sdp"
+            android:textCursorDrawable="@drawable/color_cursor"
+            />
+
+
+    </LinearLayout>
+
+</FrameLayout>

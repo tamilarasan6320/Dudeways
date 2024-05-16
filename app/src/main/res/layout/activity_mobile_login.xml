@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_centerVertical="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/_10sdp">
+
+
+        <TextView
+            android:id="@+id/tvSplashText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlSplashImage"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="What’s your Mobile Phone Number?"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_24sdp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <RelativeLayout
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+
+                <EditText
+                    android:id="@+id/etMobileNumber"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text1"
+                    android:hint="Mobile Number"
+                    android:fontFamily="@font/poppins_medium"
+                    android:padding="@dimen/_10sdp"
+                    android:inputType="number"
+                    android:maxLength="10"
+                    android:textCursorDrawable="@drawable/color_cursor"
+                    />
+
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnGenerateOtp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="@dimen/_24sdp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Generate OTP"
+            android:textAllCaps="false"
+            android:textSize="@dimen/_14sdp"
+            app:backgroundTint="@null"
+            android:background="@drawable/gradient_button" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="By continuing you agree to our \nTerms of Service Privacy Policy \nContent Policy"
+        android:gravity="center"
+        android:textSize="@dimen/_8sdp"
+        android:fontFamily="@font/poppins_medium"
+        android:textColor="@color/black"
+        android:layout_marginBottom="@dimen/_10sdp"
+        />
+
+</RelativeLayout>

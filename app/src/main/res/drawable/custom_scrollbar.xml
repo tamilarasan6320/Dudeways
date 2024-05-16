@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/custom_scrollbar.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/primary"/> <!-- Set the color of the scrollbar -->
+    <corners android:radius="4dp"/> <!-- Set the corner radius to define the shape of the scrollbar -->
+</shape>

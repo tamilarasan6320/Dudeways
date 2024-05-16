@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.ProfileActivity">
+
+
+
+    <RelativeLayout
+        android:padding="@dimen/_20sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/arrow_left"
+            />
+
+    </RelativeLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/llProfile"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your updated profile picture"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12sdp"
+            android:fontFamily="@font/poppins_medium"
+            />
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_marginTop="@dimen/_20sdp"
+            android:id="@+id/ivProfile"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_100sdp"
+            android:src="@drawable/ic_launcher_background"
+            />
+
+
+
+    </LinearLayout>
+
+
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:layout_below="@+id/llProfile"
+        android:id="@+id/btnUpdateProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_50sdp"
+        android:fontFamily="@font/poppins_medium"
+        app:backgroundTint="@null"
+        android:background="@drawable/gradient_button"
+        android:text="Update profile"
+        android:textAllCaps="false"
+        android:textSize="@dimen/_14sdp"
+         />
+
+</RelativeLayout>
