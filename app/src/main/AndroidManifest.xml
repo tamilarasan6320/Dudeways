@@ -97,7 +97,7 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="gmw.app.dudeways.provider"
+            android:authorities="com.app.dudeways.provider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "789941112934",
+    "project_id": "dudeways-c8f31",
+    "storage_bucket": "dudeways-c8f31.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:789941112934:android:7a24f74cc38e7df78bdda7",
+        "android_client_info": {
+          "package_name": "com.app.dudeways"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWHtzikXBUPPoscHyaO0rEiusQ5MsNmFg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

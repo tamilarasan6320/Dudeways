@@ -8,7 +8,36 @@
     android:layout_height="match_parent">
 
 
+    <RelativeLayout
+        android:padding="@dimen/_10sdp"
+        android:id="@+id/rltoolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_centerVertical="true"
+            android:id="@+id/ivProfile"
+            android:layout_width="@dimen/_34sdp"
+            android:layout_height="@dimen/_34sdp"
+            android:background="@drawable/logo"
+            />
+
+        <ImageView
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/ivProfile"
+            android:id="@+id/ivTitle"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_45sdp"
+            android:background="@drawable/tittle_img"
+            />
+
+
+
+    </RelativeLayout>
+
+
     <FrameLayout
+        android:layout_below="@+id/rltoolbar"
         android:layout_above="@+id/bottomNavigationView"
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
