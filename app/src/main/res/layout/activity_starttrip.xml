@@ -29,137 +29,7 @@
 
 
 
-        <LinearLayout
-            android:gravity="center"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:weightSum="3.3"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
-
-            <RelativeLayout
-                android:paddingVertical="@dimen/_5sdp"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content">
-
-
-
-
-
-                <com.google.android.material.divider.MaterialDivider
-                    android:id="@+id/divider1"
-                    app:dividerThickness="@dimen/_1sdp"
-                    android:layout_centerVertical="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-
-
-                <TextView
-                    android:id="@+id/tv1"
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="@dimen/_24sdp"
-                    android:text="1"
-                    android:textColor="@color/black"
-                    android:gravity="center"
-                    android:fontFamily="@font/poppins_regular"
-                    android:textSize="@dimen/_16sdp"
-                    />
-
-
-
-
-
-
-            </RelativeLayout>
-
-
-
-            <RelativeLayout
-                android:paddingVertical="@dimen/_5sdp"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content">
-
-
-                <com.google.android.material.divider.MaterialDivider
-                    app:dividerColor="@color/grey"
-                    app:dividerThickness="@dimen/_1sdp"
-                    android:layout_centerVertical="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:id="@+id/tv2"
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="@dimen/_24sdp"
-                    android:text="2"
-                    android:textColor="@color/black"
-                    android:gravity="center"
-                    android:fontFamily="@font/poppins_regular"
-                    android:textSize="@dimen/_16sdp"
-                    android:background="@drawable/round_shape_stroke"
-                    />
-
-            </RelativeLayout>
-            <RelativeLayout
-                android:paddingVertical="@dimen/_5sdp"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content">
-
-
-                <com.google.android.material.divider.MaterialDivider
-                    app:dividerColor="@color/grey"
-                    app:dividerThickness="@dimen/_1sdp"
-                    android:layout_centerVertical="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:id="@+id/tv3"
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="@dimen/_24sdp"
-                    android:text="3"
-                    android:textColor="@color/black"
-                    android:gravity="center"
-                    android:fontFamily="@font/poppins_regular"
-                    android:textSize="@dimen/_16sdp"
-                    android:background="@drawable/round_shape_stroke"
-                    />
-            </RelativeLayout>
-            <RelativeLayout
-                android:paddingVertical="@dimen/_5sdp"
-                android:layout_weight="0.3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/tv4"
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="@dimen/_24sdp"
-                    android:text="4"
-                    android:textColor="@color/black"
-                    android:gravity="center"
-                    android:fontFamily="@font/poppins_regular"
-                    android:textSize="@dimen/_16sdp"
-                    android:background="@drawable/round_shape_stroke"
-                    />
-            </RelativeLayout>
-
-
-
-
-
-
-
-
-
-
-
-
-        </LinearLayout>
 
 
 
@@ -189,7 +59,7 @@
         android:fontFamily="@font/poppins_medium"
         app:backgroundTint="@null"
         android:background="@drawable/gradient_button"
-        android:text="Save"
+        android:text="Next"
         android:textAllCaps="false"
         android:textSize="@dimen/_14sdp" />
 

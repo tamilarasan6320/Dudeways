@@ -17,7 +17,9 @@
             android:layout_gravity="center"
             android:layout_width="@dimen/_50sdp"
             android:layout_height="@dimen/_50sdp"
-            android:src="@drawable/ic_launcher_background"
+            android:src="@drawable/solo_travel"
+            app:civ_border_width="2dp"
+            app:civ_border_color="@color/primary"
             />
 
 
@@ -44,7 +46,7 @@
                 android:background="@drawable/corners_bg"
                 android:backgroundTint="@color/primary"
                android:paddingHorizontal="@dimen/_10sdp"
-                android:paddingVertical="@dimen/_4sdp"
+                android:paddingVertical="@dimen/_8sdp"
                 android:layout_width="@dimen/_120sdp"
                 android:layout_height="wrap_content">
 
@@ -52,15 +54,15 @@
                 <ImageView
                     android:layout_centerVertical="true"
                     android:layout_width="@dimen/_14sdp"
-                    android:layout_height="@dimen/_10sdp"
-                    android:background="@drawable/connect_ic"
+                    android:layout_height="@dimen/_14sdp"
+                    android:background="@drawable/chat_ic"
                     />
 
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="connect"
+                    android:text="Chat"
                     android:layout_centerInParent="true"
                     android:textSize="@dimen/_10sdp"
                     android:fontFamily="@font/poppins_medium"
@@ -88,8 +90,8 @@
         android:layout_marginTop="@dimen/_4sdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:dividerColor="@color/primary_light"
-        app:dividerThickness="@dimen/_1sdp"
+        app:dividerColor="@color/primary_extra_light"
+        app:dividerThickness="@dimen/_2sdp"
         />
 
 </RelativeLayout>

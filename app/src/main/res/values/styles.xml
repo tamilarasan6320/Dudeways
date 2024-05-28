@@ -8,18 +8,33 @@
         <item name="android:backgroundTint">@color/primary</item>
     </style>
 
-    <style name="CalenderViewCustom" parent="Theme.AppCompat">
-        <item name="colorAccent">@color/primary</item>
-        <item name="colorPrimary">@color/white</item>
+
+
+    <!-- Custom style for calendar date -->
+    <style name="CalendarDateTextAppearance">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
-    <style name="CalenderViewDateCustomText" parent="android:TextAppearance.DeviceDefault.Small">
+    <!-- Custom style for calendar week day -->
+    <style name="CalendarWeekDayTextAppearance">
+        <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/white</item>
-        <item name="android:weekNumberColor">@color/primary</item>
     </style>
 
     <style name="CalenderViewWeekCustomText" parent="android:TextAppearance.DeviceDefault.Small">
         <item name="android:textColor">@color/white</item>
+    </style>
+
+    <!-- Custom CalendarView style -->
+    <style name="CalenderViewCustom" parent="Theme.AppCompat">
+        <item name="colorControlActivated">@color/primary</item>
+        <item name="android:textColorPrimary">@color/white</item>
+    </style>
+
+
+    <style name="CalenderViewDateCustomText" parent="Theme.AppCompat">
+        <item name="android:textColor">@drawable/calender_date_selector</item>
     </style>
 
 

@@ -48,7 +48,7 @@
             android:fontFamily="@font/poppins_medium"
             app:height="@dimen/_35sdp"
             app:length="6"
-            app:otp_box_background="@drawable/edit_text1"
+            app:otp_box_background="@drawable/edit_text2"
             app:otp_text_size="@dimen/_18sdp"
             app:width="@dimen/_35sdp" />
 
@@ -91,9 +91,9 @@
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="By continuing you agree to our \nTerms of Service Privacy Policy \nContent Policy"
+        android:text="@string/terms_and_conditions"
         android:gravity="center"
-        android:textSize="@dimen/_8sdp"
+        android:textSize="@dimen/_10sdp"
         android:fontFamily="@font/poppins_medium"
         android:textColor="@color/black"
         android:layout_marginBottom="@dimen/_10sdp"

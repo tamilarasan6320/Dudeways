@@ -44,8 +44,10 @@
             android:layout_marginHorizontal="@dimen/_10sdp"
             android:layout_width="@dimen/_80sdp"
             android:layout_height="@dimen/_80sdp"
-            android:src="@drawable/ic_launcher_background"
             android:layout_alignParentBottom="true"
+            android:src="@drawable/solo_travel"
+            app:civ_border_width="2dp"
+            app:civ_border_color="@color/primary"
             />
 
     </RelativeLayout>
@@ -163,11 +165,14 @@
 
 
 
+
+
+
     <LinearLayout
+        android:layout_marginTop="@dimen/_10sdp"
         android:layout_below="@+id/llProfileActions"
         android:id="@+id/llProfileStats"
         android:gravity="center"
-        android:padding="@dimen/_10sdp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -176,6 +181,7 @@
 
 
         <TextView
+            android:id="@+id/tvTripsPosted"
             android:gravity="center"
             android:layout_weight="1"
             android:layout_width="match_parent"
@@ -186,6 +192,7 @@
             android:textColor="@color/black"
             />
         <TextView
+            android:id="@+id/tvConnections"
             android:gravity="center"
             android:layout_weight="1"
             android:layout_width="match_parent"
@@ -196,6 +203,7 @@
             android:textColor="@color/black"
             />
         <TextView
+            android:id="@+id/tvInterested"
             android:gravity="center"
             android:layout_weight="1"
             android:layout_width="match_parent"
@@ -205,6 +213,65 @@
             android:fontFamily="@font/poppins_medium"
             android:textColor="@color/black"
             />
+
+
+
+
+
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_below="@+id/llProfileStats"
+        android:id="@+id/llProfile"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+
+
+
+
+        <RelativeLayout
+            android:id="@+id/rlTrips"
+            android:layout_marginHorizontal="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:padding="@dimen/_5sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/topcorner_bg"
+            android:backgroundTint="@color/primary"
+            />
+        <RelativeLayout
+            android:visibility="invisible"
+            android:id="@+id/rlConnections"
+            android:layout_marginHorizontal="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:padding="@dimen/_5sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/topcorner_bg"
+            android:backgroundTint="@color/primary"
+            />
+
+        <RelativeLayout
+            android:visibility="invisible"
+            android:id="@+id/rlInterested"
+            android:layout_marginHorizontal="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:padding="@dimen/_5sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/topcorner_bg"
+            android:backgroundTint="@color/primary"
+            />
+
+
+
+
+
 
 
 

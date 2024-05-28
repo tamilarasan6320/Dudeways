@@ -1,14 +1,15 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.googleGmsGoogleServices)
 }
 
 android {
-    namespace 'gmw.app.paring'
+    namespace 'gmw.app.dudeways'
     compileSdk 34
 
     defaultConfig {
-        applicationId "gmw.app.paring"
+        applicationId "gmw.app.dudeways"
         minSdk 24
         targetSdk 34
         versionCode 1
@@ -65,6 +66,7 @@ dependencies {
     implementation libs.material
     implementation libs.androidx.activity
     implementation libs.androidx.constraintlayout
+    implementation libs.firebase.analytics
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit
     androidTestImplementation libs.androidx.espresso.core
@@ -85,4 +87,10 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.14.2'
 
     implementation 'com.github.CanHub:Android-Image-Cropper:3.1.2'
+
+
+    implementation 'com.android.volley:volley:1.2.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 }

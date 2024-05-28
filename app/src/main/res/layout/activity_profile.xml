@@ -15,6 +15,7 @@
         android:layout_height="wrap_content">
 
         <ImageButton
+            android:id="@+id/ibBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/arrow_left"
@@ -25,9 +26,9 @@
 
 
     <LinearLayout
+        android:layout_marginTop="@dimen/_100sdp"
         android:id="@+id/llProfile"
         android:gravity="center"
-        android:layout_centerInParent="true"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -43,33 +44,53 @@
             />
 
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <RelativeLayout
             android:layout_marginTop="@dimen/_20sdp"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="wrap_content">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ivProfile"
             android:layout_width="@dimen/_100sdp"
             android:layout_height="@dimen/_100sdp"
-            android:src="@drawable/ic_launcher_background"
+            android:src="@drawable/profile_placeholder"
+            app:civ_border_width="2dp"
+            app:civ_border_color="@color/primary"
             />
+
+        <ImageView
+            android:id="@+id/ivEditProfile"
+            android:layout_marginTop="@dimen/_70sdp"
+            android:layout_alignParentRight="true"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:background="@drawable/pencil_ic"
+            />
+
+
+
+        </RelativeLayout>
+
 
 
 
     </LinearLayout>
 
 
-
     <com.google.android.material.button.MaterialButton
-        android:layout_marginHorizontal="@dimen/_10sdp"
-        android:layout_below="@+id/llProfile"
         android:id="@+id/btnUpdateProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginHorizontal="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_50sdp"
-        android:fontFamily="@font/poppins_medium"
-        app:backgroundTint="@null"
+        android:layout_marginBottom="63dp"
         android:background="@drawable/gradient_button"
+        android:fontFamily="@font/poppins_medium"
         android:text="Update profile"
         android:textAllCaps="false"
         android:textSize="@dimen/_14sdp"
-         />
+        app:backgroundTint="@null" />
 
 </RelativeLayout>

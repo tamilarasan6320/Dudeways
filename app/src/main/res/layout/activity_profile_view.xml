@@ -21,17 +21,30 @@
 
 
             <ImageView
+                android:id="@+id/ivCover"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_110sdp"
                 android:background="@drawable/cover_img"
+                android:scaleType="fitXY"
                 />
 
 
             <ImageButton
+                android:id="@+id/ivBack"
                 android:layout_margin="@dimen/_10sdp"
                 android:layout_width="@dimen/_24sdp"
                 android:layout_height="@dimen/_18sdp"
                 android:background="@drawable/arrow_left"
+                />
+
+
+            <ImageView
+                android:id="@+id/ivCamera"
+                android:layout_width="@dimen/_34sdp"
+                android:layout_height="@dimen/_34sdp"
+                android:background="@drawable/cam_ic"
+                android:layout_alignParentRight="true"
+                android:layout_margin="@dimen/_10sdp"
                 />
 
         </RelativeLayout>
@@ -39,14 +52,46 @@
 
 
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <RelativeLayout
+            android:layout_alignParentBottom="true"
+            android:layout_width="@dimen/_70sdp"
             android:layout_marginBottom="@dimen/_10sdp"
             android:layout_marginHorizontal="@dimen/_10sdp"
-            android:layout_width="@dimen/_80sdp"
-            android:layout_height="@dimen/_80sdp"
-            android:src="@drawable/ic_launcher_background"
+            android:layout_height="wrap_content">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civProfile"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_70sdp"
+                android:src="@drawable/profile_placeholder"
+                app:civ_border_width="2dp"
+                app:civ_border_color="@color/primary"
+                />
+
+            <ImageView
+                android:id="@+id/ivAddProfile"
+                android:layout_marginTop="@dimen/_45sdp"
+                android:layout_alignParentRight="true"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:background="@drawable/add_profile_ic"
+                />
+
+        </RelativeLayout>
+
+
+
+
+        <ImageView
+            android:layout_marginRight="@dimen/_5sdp"
             android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:background="@drawable/edit_ic"
+            android:layout_marginBottom="@dimen/_30sdp"
             />
+
 
     </RelativeLayout>
 
@@ -101,9 +146,9 @@
 
 
     <LinearLayout
+        android:layout_below="@+id/llProfileDetails"
         android:id="@+id/llProfileStats"
         android:gravity="center"
-        android:layout_above="@+id/llProfileOptions"
         android:padding="@dimen/_10sdp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -150,12 +195,12 @@
 
 
     <LinearLayout
+        android:layout_below="@+id/llProfileStats"
         android:id="@+id/llProfileOptions"
         android:layout_marginBottom="@dimen/_20sdp"
         android:layout_marginHorizontal="@dimen/_10sdp"
-        android:padding="@dimen/_10sdp"
+        android:padding="@dimen/_14sdp"
         android:background="@drawable/round_corner_stroke"
-        android:layout_alignParentBottom="true"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -163,6 +208,7 @@
 
 
         <RelativeLayout
+            android:id="@+id/rlStorepoints"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -179,7 +225,7 @@
                 android:layout_marginLeft="@dimen/_50sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Points"
+                android:text="Store Points"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_14sdp"
                 android:fontFamily="@font/poppins_semibold"
@@ -188,8 +234,8 @@
         </RelativeLayout>
 
         <com.google.android.material.divider.MaterialDivider
-            android:layout_marginTop="@dimen/_14sdp"
-            android:layout_marginBottom="@dimen/_14sdp"
+           android:layout_marginTop="@dimen/_14sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:dividerColor="@color/black"
@@ -221,8 +267,8 @@
 
         </RelativeLayout>
         <com.google.android.material.divider.MaterialDivider
-            android:layout_marginTop="@dimen/_14sdp"
-            android:layout_marginBottom="@dimen/_14sdp"
+           android:layout_marginTop="@dimen/_14sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:dividerColor="@color/black"
@@ -253,14 +299,82 @@
 
         </RelativeLayout>
         <com.google.android.material.divider.MaterialDivider
-            android:layout_marginTop="@dimen/_14sdp"
-            android:layout_marginBottom="@dimen/_14sdp"
+           android:layout_marginTop="@dimen/_14sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:dividerColor="@color/black"
             app:dividerThickness="@dimen/_1sdp"
             />
         <RelativeLayout
+            android:id="@+id/rlVerificationBadge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:background="@drawable/verfy_ic"
+                />
+
+
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/_50sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Verification Badge"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14sdp"
+                android:fontFamily="@font/poppins_semibold"
+                />
+
+        </RelativeLayout>
+        <com.google.android.material.divider.MaterialDivider
+           android:layout_marginTop="@dimen/_14sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:dividerColor="@color/black"
+            app:dividerThickness="@dimen/_1sdp"
+            />
+
+        <RelativeLayout
+            android:id="@+id/rlDeactiveaccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:background="@drawable/deactivate_ic"
+                />
+
+
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/_50sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Deactivte account"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14sdp"
+                android:fontFamily="@font/poppins_semibold"
+                />
+
+        </RelativeLayout>
+        <com.google.android.material.divider.MaterialDivider
+           android:layout_marginTop="@dimen/_14sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:dividerColor="@color/black"
+            app:dividerThickness="@dimen/_1sdp"
+            />
+        <RelativeLayout
+            android:id="@+id/rlLogout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
