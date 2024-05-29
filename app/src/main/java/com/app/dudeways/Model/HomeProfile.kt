@@ -19,6 +19,8 @@ class HomeProfile {
     var datetime: String? = null
     var updated_at: String? = null
     var created_at: String? = null
+    var friend: String? = null
+    var verified: String? = null
 
 
     constructor(
@@ -36,7 +38,10 @@ class HomeProfile {
         datetime: String?,
         updated_at: String?,
         created_at: String?,
-        user_profile: String?
+        user_profile: String?,
+        friend: String?,
+        verified: String?
+
     ) {
         this.id = id
         this.user_name = user_name
@@ -53,6 +58,8 @@ class HomeProfile {
         this.updated_at = updated_at
         this.created_at = created_at
         this.user_profile = user_profile
+        this.friend = friend
+        this.verified = verified
     }
 
 

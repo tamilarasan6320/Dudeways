@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.app.dudeways.Activity.HomeActivity
 import com.google.gson.Gson
 import com.app.dudeways.Activity.ProfileViewActivity
 import com.app.dudeways.Adapter.HomeCategoryAdapter
@@ -37,10 +38,7 @@ class HomeFragment : Fragment() {
         activity = requireActivity()
         session = Session(activity)
 
-        binding.civProfile.setOnClickListener {
-            val intent = Intent(activity, ProfileViewActivity::class.java)
-            startActivity(intent)
-        }
+        (activity as HomeActivity).binding.rltoolbar.visibility = View.VISIBLE
 
         val linearLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         binding.rvProfileList.layoutManager = linearLayoutManager

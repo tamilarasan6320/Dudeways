@@ -30,14 +30,34 @@
             android:layout_height="wrap_content">
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Glancy"
-                android:textSize="@dimen/_14sdp"
-                android:fontFamily="@font/poppins_regular"
-                android:textColor="@color/black"
-                />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Glancy"
+                    android:textSize="@dimen/_14sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/black"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Last seen 04:03 PM"
+                    android:textSize="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/black"
+                    />
+
+
+            </LinearLayout>
+
+
+
 
 
 
@@ -47,19 +67,22 @@
                 android:backgroundTint="@color/primary"
                android:paddingHorizontal="@dimen/_10sdp"
                 android:paddingVertical="@dimen/_8sdp"
-                android:layout_width="@dimen/_120sdp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
 
                 <ImageView
+                    android:id="@+id/ivChat"
                     android:layout_centerVertical="true"
                     android:layout_width="@dimen/_14sdp"
                     android:layout_height="@dimen/_14sdp"
                     android:background="@drawable/chat_ic"
+                    android:layout_marginRight="@dimen/_10sdp"
                     />
 
 
                 <TextView
+                    android:layout_toRightOf="@+id/ivChat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Chat"

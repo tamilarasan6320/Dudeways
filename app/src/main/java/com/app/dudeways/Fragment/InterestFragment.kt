@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.app.dudeways.Activity.HomeActivity
 import com.app.dudeways.Activity.ProfileViewActivity
 import com.app.dudeways.Adapter.ConnectAdapter
 import com.app.dudeways.Model.Connect
@@ -29,11 +30,8 @@ class InterestFragment : Fragment() {
 
 
 
-        binding.civProfile.setOnClickListener {
+        (activity as HomeActivity).binding.rltoolbar.visibility = View.VISIBLE
 
-            val intent = Intent(activity, ProfileViewActivity::class.java)
-            startActivity(intent)
-        }
 
         val linearLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         binding.rvConnectList.layoutManager = linearLayoutManager

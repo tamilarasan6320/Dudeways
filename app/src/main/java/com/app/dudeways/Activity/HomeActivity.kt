@@ -1,6 +1,7 @@
 package com.app.dudeways.Activity
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -55,6 +56,13 @@ class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
         homeFragment = HomeFragment()
         notification = NotificationFragment()
         interestFragment = InterestFragment()
+
+
+
+        binding.civProfile.setOnClickListener {
+            val intent = Intent(activity, ProfileViewActivity::class.java)
+            startActivity(intent)
+        }
 
 
         fm = supportFragmentManager

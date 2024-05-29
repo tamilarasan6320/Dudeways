@@ -8,43 +8,10 @@
 
 
 
-    <RelativeLayout
-        android:padding="@dimen/_10sdp"
-        android:id="@+id/rlToolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-
-
-
-        <TextView
-            android:visibility="invisible"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Dude Ways"
-            android:textSize="@dimen/_20sdp"
-            android:fontFamily="@font/poppins_semibold"
-            android:textColor="@color/primary"
-            />
-
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/civProfile"
-            android:layout_width="@dimen/_34sdp"
-            android:layout_height="@dimen/_34sdp"
-            android:src="@drawable/solo_travel"
-            android:layout_alignParentEnd="true"
-            app:civ_border_width="2dp"
-            app:civ_border_color="@color/primary"
-            />
-
-
-    </RelativeLayout>
 
     <TextView
         android:padding="@dimen/_4sdp"
         android:id="@+id/tvTitle"
-        android:layout_below="@+id/rlToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Travellers Showing Interested to your profile"

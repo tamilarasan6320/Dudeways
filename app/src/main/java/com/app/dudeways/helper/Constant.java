@@ -11,6 +11,7 @@ public class Constant {
 
     public static final String UPDATE_IMAGE = BaseUrl + "update_image";
     public static final String TRIP_LIST = BaseUrl + "trip_list";
+    public static final String ADD_FRIENDS = BaseUrl + "add_friends";
     public static final String MYBOOKS = BaseUrl + "mybooks";
     public static final String CART_LIST = BaseUrl + "cartlist";
     public static final String ADD_TO_CART = BaseUrl + "booklist/add-cart";
@@ -35,6 +36,8 @@ public class Constant {
     public static final String MOBILE = "mobile";
     public static final String ID = "id";
     public static final String USER_ID = "user_id";
+    public static final String FRIEND_USER_ID = "friend_user_id";
+    public static final String FRIEND = "friend";
 
     public static final String NAME = "name";
     public static final String SEARCH = "search";

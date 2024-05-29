@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.app.dudeways.Activity.HomeActivity
 import com.app.dudeways.Activity.Trip.StarttripActivity
 import com.app.dudeways.databinding.FragmentTripBinding
 
@@ -32,6 +33,8 @@ class TripFragment : Fragment() {
 
         }
 
+
+        (activity as HomeActivity).binding.rltoolbar.visibility = View.GONE
 
         return binding.root
 

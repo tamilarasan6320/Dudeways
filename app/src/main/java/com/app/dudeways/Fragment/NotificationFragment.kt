@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.app.dudeways.Activity.HomeActivity
 import com.app.dudeways.Activity.ProfileViewActivity
 import com.app.dudeways.Adapter.NotificationAdapter
 import com.app.dudeways.Model.Notification
@@ -28,12 +29,8 @@ class NotificationFragment : Fragment() {
         binding = FragmentNotificationBinding.inflate(inflater, container, false)
         activity = requireActivity()
 
+        (activity as HomeActivity).binding.rltoolbar.visibility = View.VISIBLE
 
-        binding.civProfile.setOnClickListener {
-
-            val intent = Intent(activity, ProfileViewActivity::class.java)
-            startActivity(intent)
-        }
 
 
         val linearLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)

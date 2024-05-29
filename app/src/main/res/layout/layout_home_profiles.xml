@@ -30,6 +30,16 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/_14sdp" />
 
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/ivVerify"
+                android:layout_marginHorizontal="@dimen/_2sdp"
+                android:layout_gravity="center"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:background="@drawable/verify_ic"
+                />
+
 
             <TextView
                 android:id="@+id/tvUsername"
@@ -107,7 +117,7 @@
 
 
             <TextView
-                android:id="@+id/tvDescription"
+                android:id="@+id/tvTitle"
                 android:layout_toLeftOf="@+id/ivShare"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -163,10 +173,36 @@
                 android:fontFamily="@font/poppins_regular"
                 />
 
+            <TextView
+                android:layout_marginLeft="@dimen/_4sdp"
+                android:id="@+id/tvmore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/more"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_10sdp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:fontFamily="@font/poppins_medium"
+                />
+
+
 
         </LinearLayout>
 
 
+        <TextView
+            android:paddingHorizontal="@dimen/_4sdp"
+            android:visibility="gone"
+            android:id="@+id/tvDescription"
+            android:layout_toLeftOf="@+id/ivShare"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Trip to Kerala, looking for travel partner"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12sdp"
+            android:fontFamily="@font/poppins_semibold"
+            />
 
         <LinearLayout
             android:layout_marginTop="@dimen/_10sdp"

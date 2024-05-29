@@ -58,24 +58,35 @@ class MobileLoginActivity : AppCompatActivity() {
             if (result) {
                 try {
                     val jsonObject: JSONObject = JSONObject(response)
-                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
+                        if (jsonObject.getBoolean(Constant.SUCCESS)) {
 
 
-
-                        val registered = jsonObject.getString("registered")
+                            val registered = jsonObject.getString("registered")
 
 
                         if (registered == "true") {
+                            val `object` = JSONObject(response)
+                            val jsonobj = `object`.getJSONObject(Constant.DATA)
+                            session.setData(Constant.USER_ID, jsonobj.getString(Constant.ID))
+                            session.setData(Constant.NAME, jsonobj.getString(Constant.NAME))
+                            session.setData(Constant.EMAIL, jsonobj.getString(Constant.EMAIL))
+                            session.setData(Constant.AGE, jsonobj.getString(Constant.AGE))
+                            session.setData(Constant.GENDER, jsonobj.getString (Constant.GENDER))
+                            session.setData(Constant.PROFESSION, jsonobj.getString(Constant.PROFESSION))
+                            session.setData(Constant.STATE, jsonobj.getString(Constant.STATE))
+                            session.setData(Constant.CITY, jsonobj.getString(Constant.CITY))
+                            session.setData(Constant.PROFILE, jsonobj.getString(Constant.PROFILE))
+                            session.setData(Constant.MOBILE, jsonobj.getString(Constant.MOBILE))
+                            session.setData(Constant.REFER_CODE, jsonobj.getString(Constant.REFER_CODE))
                             val intent = Intent(activity,OtpActivity::class.java)
                             session.setData("login", "1")
                             startActivity(intent)
                             finish()
-                        } else {
+                        } else if (registered == "false") {
                              val intent = Intent(activity,OtpActivity::class.java)
                             session.setData("login", "0")
                             startActivity(intent)
                             finish()
-
                         }
 
 
