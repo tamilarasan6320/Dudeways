@@ -43,7 +43,7 @@ class HomePtofilesAdapter(
 
 
 
-        holder.tvName.text = report.user_name
+        holder.tvName.text = report.name
         holder.tvLocation.text = report.to_location
         holder.tvDescription.text = report.trip_description
         holder.tvUsername.text = "@"+report.unique_name
@@ -52,7 +52,7 @@ class HomePtofilesAdapter(
 
 
         // check report.user_name is more than 10 latters
-        if (report.user_name?.length!! > 10) {
+        if (report.name?.length!! > 10) {
             if (report.unique_name?.length!! > 7) {
                 holder.tvUsername.text = "@"+ report.unique_name!!.substring(0, 7) + ".."
             } else {
@@ -111,10 +111,10 @@ class HomePtofilesAdapter(
 
         }
 
-        Glide.with(activitys).load(report.user_profile).placeholder(R.drawable.placeholder_bg)
+        Glide.with(activitys).load(report.trip_image).placeholder(R.drawable.placeholder_bg)
             .into(holder.ivProfileImage)
 
-        Glide.with(activitys).load(report.user_profile).placeholder(R.drawable.placeholder_bg)
+        Glide.with(activitys).load(report.profile).placeholder(R.drawable.placeholder_bg)
             .into(holder.ivProfile)
 
 

@@ -39,6 +39,7 @@ class MessagesFragment : Fragment() {
 
 
         activity = requireActivity()
+        session = Session(activity)
 
         (activity as HomeActivity).binding.rltoolbar.visibility = View.VISIBLE
 
@@ -69,8 +70,8 @@ class MessagesFragment : Fragment() {
                         for (i in 0 until jsonArray.length()) {
                             val jsonObject1 = jsonArray.getJSONObject(i)
                             if (jsonObject1 != null) {
-                                val connect = g.fromJson(jsonObject1.toString(), Chatlist::class.java)
-                                chat_list.add(connect)
+                                val chat_lists = g.fromJson(jsonObject1.toString(), Chatlist::class.java)
+                                chat_list.add(chat_lists)
                             }
                         }
 

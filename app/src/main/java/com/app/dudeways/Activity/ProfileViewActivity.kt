@@ -57,6 +57,11 @@ class ProfileViewActivity : AppCompatActivity() {
         binding.tvState.text = session.getData(Constant.STATE)
         binding.tvGender.text = session.getData(Constant.GENDER)
 
+        binding.rlMytrips.setOnClickListener {
+            val intent = Intent(activity, MytripsActivity::class.java)
+            startActivity(intent)
+        }
+
 
         binding.ivBack.setOnClickListener{
             onBackPressed()

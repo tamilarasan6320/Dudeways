@@ -11,8 +11,10 @@ public class Constant {
 
     public static final String UPDATE_IMAGE = BaseUrl + "update_image";
     public static final String TRIP_LIST = BaseUrl + "trip_list";
+    public static final String MY_TRIP_LIST = BaseUrl + "my_trip_list";
     public static final String FREINDS_LIST = BaseUrl + "friends_list";
     public static final String CHAT_LIST = BaseUrl + "chat_list";
+    public static final String NOTFICATION_LIST = BaseUrl + "notification_list";
     public static final String ADD_FRIENDS = BaseUrl + "add_friends";
     public static final String MYBOOKS = BaseUrl + "mybooks";
     public static final String CART_LIST = BaseUrl + "cartlist";

@@ -1,9 +1,6 @@
 package com.app.dudeways.Model
 
-class HomeProfile {
-
-
-
+class Mytriplist {
     var id: String? = null
     var name: String? = null
     var unique_name: String? = null
@@ -22,6 +19,7 @@ class HomeProfile {
     var friend: String? = null
     var verified: String? = null
     var trip_image: String? = null
+    var trip_status: String? = null
 
 
     constructor(
@@ -42,7 +40,8 @@ class HomeProfile {
         profile: String?,
         friend: String?,
         verified: String?,
-        trip_image: String?
+        trip_image: String?,
+        trip_status: String?
 
     ) {
         this.id = id
@@ -63,8 +62,7 @@ class HomeProfile {
         this.friend = friend
         this.verified = verified
         this.trip_image = trip_image
+        this.trip_status = trip_status
     }
-
-
 
 }
