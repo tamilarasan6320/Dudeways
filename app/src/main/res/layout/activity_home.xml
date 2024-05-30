@@ -25,7 +25,7 @@
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/ivProfile"
             android:id="@+id/ivTitle"
-            android:layout_width="@dimen/_100sdp"
+            android:layout_width="@dimen/_140sdp"
             android:layout_height="@dimen/_40sdp"
             android:background="@drawable/tittle_img"
             />

@@ -9,7 +9,7 @@
 
     <item
         android:id="@+id/navIntersts"
-        android:icon="@drawable/added_frd"
+        android:icon="@drawable/nav_interests"
         android:title="Friends" />
 
     <item

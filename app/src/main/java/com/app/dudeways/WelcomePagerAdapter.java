@@ -12,7 +12,6 @@ import androidx.viewpager.widget.PagerAdapter;
 
 import com.bumptech.glide.Glide;
 
-
 public class WelcomePagerAdapter extends PagerAdapter {
 
     private Context context;
@@ -28,8 +27,6 @@ public class WelcomePagerAdapter extends PagerAdapter {
             R.string.splash2,
             R.string.splash3
     };
-
-
 
     public WelcomePagerAdapter(Context context) {
         this.context = context;
@@ -54,23 +51,8 @@ public class WelcomePagerAdapter extends PagerAdapter {
         ImageView slideTitleImage = view.findViewById(R.id.ivSplashImage);
         TextView slideHeading = view.findViewById(R.id.tvSplashText);
 
-
         Glide.with(context).load(images[position]).placeholder(R.drawable.welcome1).into(slideTitleImage);
-
-//
-//        // Using Glide to load images efficiently
-//        Glide.with(context)
-//                .load(images[position])
-//                .apply(new RequestOptions()
-//                        .placeholder(R.drawable.logo) // Placeholder image while loading
-//                      //  .error(R.drawable.error) // Error image if loading fails
-//                        .diskCacheStrategy(DiskCacheStrategy.ALL) // Caching
-//                        .override(800, 600) // Resizing the image
-//                )
-//                .into(slideTitleImage);
-
         slideHeading.setText(headings[position]);
-
 
         container.addView(view);
         return view;

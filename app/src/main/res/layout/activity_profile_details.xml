@@ -34,7 +34,8 @@
                 android:hint="Name"
                 app:hintTextColor="@color/primary"
                 app:boxStrokeColor="@color/primary"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etName"
@@ -43,8 +44,7 @@
                     android:fontFamily="@font/poppins_medium"
                     android:inputType="textEmailAddress"
                     android:maxLength="15"
-                    android:cursorVisible="false"
-                    android:textCursorDrawable="@drawable/color_cursor" />
+                   />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Email Field -->
@@ -55,7 +55,8 @@
                 android:hint="E-mail id"
                 app:hintTextColor="@color/primary"
                 app:boxStrokeColor="@color/primary"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etEmail"
@@ -63,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_medium"
                     android:inputType="textEmailAddress"
-                    android:textCursorDrawable="@drawable/color_cursor" />
+                   />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -171,6 +172,7 @@
                 app:hintTextColor="@color/primary"
                 app:boxStrokeColor="@color/primary"
                 android:visibility="gone"
+                android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -180,7 +182,7 @@
                     android:fontFamily="@font/poppins_medium"
                     android:inputType="number"
                     android:maxLength="10"
-                    android:textCursorDrawable="@drawable/color_cursor" />
+                   />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -191,7 +193,8 @@
                 android:hint="Age"
                 app:hintTextColor="@color/primary"
                 app:boxStrokeColor="@color/primary"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etAge"
@@ -199,7 +202,8 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_medium"
                     android:inputType="number"
-                    android:textCursorDrawable="@drawable/color_cursor" />
+                    android:maxLength="2"
+                   />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Profession Field -->
@@ -211,7 +215,8 @@
                 android:hint="Profession"
                 app:hintTextColor="@color/primary"
                 app:boxStrokeColor="@color/primary"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etProfession"
@@ -224,7 +229,7 @@
                     android:focusableInTouchMode="true"
                     android:cursorVisible="false"
                     android:focusable="false"
-                    android:textCursorDrawable="@drawable/color_cursor" />
+                   />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.card.MaterialCardView
@@ -259,7 +264,8 @@
                 android:hint="City"
                 app:hintTextColor="@color/primary"
                 app:boxStrokeColor="@color/primary"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etcity"
@@ -267,7 +273,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_medium"
                     android:inputType="text"
-                    android:textCursorDrawable="@drawable/color_cursor" />
+                   />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -279,7 +285,8 @@
                 android:hint="State"
                 app:hintTextColor="@color/primary"
                 app:boxStrokeColor="@color/primary"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etState"
@@ -292,7 +299,7 @@
                     android:focusableInTouchMode="true"
                     android:cursorVisible="false"
                     android:focusable="false"
-                    android:textCursorDrawable="@drawable/color_cursor" />
+                   />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.card.MaterialCardView
@@ -327,7 +334,8 @@
                 android:hint="Refer code (optional)"
                 app:hintTextColor="@color/primary"
                 app:boxStrokeColor="@color/primary"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etRefferCode"
@@ -335,7 +343,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_medium"
                     android:inputType="text"
-                    android:textCursorDrawable="@drawable/color_cursor" />
+                   />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Save Button -->

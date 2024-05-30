@@ -2,10 +2,12 @@ package com.app.dudeways.Activity
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Patterns
 import android.view.View
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -17,7 +19,7 @@ import com.app.dudeways.helper.Constant
 import com.app.dudeways.helper.Session
 import org.json.JSONException
 import org.json.JSONObject
-
+import java.lang.reflect.Field
 
 class ProfileDetailsActivity : AppCompatActivity() {
 
@@ -28,7 +30,6 @@ class ProfileDetailsActivity : AppCompatActivity() {
     var select_option = "0"
     var gender = ""
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileDetailsBinding.inflate(layoutInflater)
@@ -36,6 +37,15 @@ class ProfileDetailsActivity : AppCompatActivity() {
         activity = this
         session = Session(activity)
 
+        // Set custom cursor color
+        setCursorDrawableColor(binding.etName, R.drawable.color_cursor)
+        setCursorDrawableColor(binding.etEmail, R.drawable.color_cursor)
+        setCursorDrawableColor(binding.etMobileNumber, R.drawable.color_cursor)
+        setCursorDrawableColor(binding.etAge, R.drawable.color_cursor)
+        setCursorDrawableColor(binding.etProfession, R.drawable.color_cursor)
+        setCursorDrawableColor(binding.etcity, R.drawable.color_cursor)
+        setCursorDrawableColor(binding.etState, R.drawable.color_cursor)
+        setCursorDrawableColor(binding.etRefferCode, R.drawable.color_cursor)
 
         binding.llMale.setOnClickListener {
             binding.llMale.backgroundTintList = resources.getColorStateList(R.color.primary)
@@ -74,16 +84,12 @@ class ProfileDetailsActivity : AppCompatActivity() {
             gender = "others"
         }
 
-
-
-
         binding.btnSave.setOnClickListener {
-
             if (binding.etName.text.toString().isEmpty()) {
                 binding.etName.error = "Please enter name"
                 return@setOnClickListener
             } else if (binding.etName.text.toString().length < 4) {
-                binding.etName.error = "Name should be atleast 4 characters"
+                binding.etName.error = "Name should be at least 4 characters"
                 return@setOnClickListener
             } else if (binding.etEmail.text.toString().isEmpty()) {
                 binding.etEmail.error = "Please enter email"
@@ -91,7 +97,7 @@ class ProfileDetailsActivity : AppCompatActivity() {
             } else if (!Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.text).matches()) {
                 binding.etEmail.error = "Enter a valid Email address"
                 return@setOnClickListener
-            } else if (select_option.equals("0")) {
+            } else if (select_option == "0") {
                 Toast.makeText(this, "Please select Gender", Toast.LENGTH_SHORT).show()
             } else if (binding.etProfession.text.toString().isEmpty()) {
                 binding.etProfession.error = "Please enter profession"
@@ -104,12 +110,8 @@ class ProfileDetailsActivity : AppCompatActivity() {
                 return@setOnClickListener
             } else {
                 register()
-
             }
-
-
         }
-
 
         binding.etProfession.setOnClickListener {
             binding.cardProfession.visibility = View.VISIBLE
@@ -119,40 +121,15 @@ class ProfileDetailsActivity : AppCompatActivity() {
             binding.cardstate.visibility = View.VISIBLE
             showProfessionDialogstate(binding.etState)
         }
-
-
     }
 
     private fun showProfessionDialogstate(etState: EditText) {
         val State = listOf(
-            "Andhra Pradesh",
-            "Arunachal Pradesh",
-            "Assam",
-            "Bihar",
-            "Chhattisgarh",
-            "Goa",
-            "Gujarat",
-            "Haryana",
-            "Himachal Pradesh",
-            "Jharkhand",
-            "Karnataka",
-            "Kerala",
-            "Madhya Pradesh",
-            "Maharashtra",
-            "Manipur",
-            "Meghalaya",
-            "Mizoram",
-            "Nagaland",
-            "Odisha",
-            "Punjab",
-            "Rajasthan",
-            "Sikkim",
-            "Tamil Nadu",
-            "Telangana",
-            "Tripura",
-            "Uttar Pradesh",
-            "Uttarakhand",
-            "West Bengal"
+            "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa",
+            "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala",
+            "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland",
+            "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura",
+            "Uttar Pradesh", "Uttarakhand", "West Bengal"
         )
         val adapter = ProfessionAdapter(State) { selectedProfession ->
             binding.etState.setText(selectedProfession)
@@ -172,37 +149,18 @@ class ProfileDetailsActivity : AppCompatActivity() {
         }
         binding.rvProfession.adapter = adapter
         binding.rvProfession.layoutManager = LinearLayoutManager(this)
-
     }
 
-
-    private fun showGenderDialog(editText: EditText) {
-        val genderOptions = arrayOf("Male", "Female")
-
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Select Gender")
-            .setItems(genderOptions) { _, which ->
-                val selectedGender = genderOptions[which]
-                editText.setText(selectedGender)
-                //   binding.etGender.error = null
-            }
-//            .setNegativeButton("Cancel") { dialog, _ ->
-//                dialog.dismiss()
-//            }
-        val dialog = builder.create()
-        dialog.show()
+    private fun setCursorDrawableColor(editText: EditText, drawableRes: Int) {
+        try {
+            val drawable: Drawable = resources.getDrawable(drawableRes, null)
+            val field: Field = TextView::class.java.getDeclaredField("mCursorDrawableRes")
+            field.isAccessible = true
+            field.set(editText, drawable)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
-
-    private fun unselectall() {
-        binding.llMale.backgroundTintList = resources.getColorStateList(R.color.primary_extra_light)
-        binding.llFemale.backgroundTintList =
-            resources.getColorStateList(R.color.primary_extra_light)
-        binding.llOthers.backgroundTintList =
-            resources.getColorStateList(R.color.primary_extra_light)
-    }
-
-
-
 
     private fun register() {
         val params: MutableMap<String, String> = HashMap()
@@ -226,7 +184,7 @@ class ProfileDetailsActivity : AppCompatActivity() {
                         session.setData(Constant.NAME, jsonobj.getString(Constant.NAME))
                         session.setData(Constant.EMAIL, jsonobj.getString(Constant.EMAIL))
                         session.setData(Constant.AGE, jsonobj.getString(Constant.AGE))
-                        session.setData(Constant.GENDER, jsonobj.getString (Constant.GENDER))
+                        session.setData(Constant.GENDER, jsonobj.getString(Constant.GENDER))
                         session.setData(Constant.PROFESSION, jsonobj.getString(Constant.PROFESSION))
                         session.setData(Constant.STATE, jsonobj.getString(Constant.STATE))
                         session.setData(Constant.CITY, jsonobj.getString(Constant.CITY))
@@ -241,7 +199,6 @@ class ProfileDetailsActivity : AppCompatActivity() {
 
                         session.setBoolean("is_logged_in", true)
 
-
                     } else {
                         Toast.makeText(
                             activity,
@@ -255,9 +212,4 @@ class ProfileDetailsActivity : AppCompatActivity() {
             }
         }, activity, Constant.REGISTER, params, true, 1)
     }
-
-
-
-
-
 }

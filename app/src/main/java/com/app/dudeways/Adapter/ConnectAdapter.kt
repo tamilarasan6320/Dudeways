@@ -5,10 +5,13 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dudeways.Activity.ProfileinfoActivity
 import com.app.dudeways.Model.Connect
 import com.app.dudeways.R
+import com.bumptech.glide.Glide
 
 class ConnectAdapter(
     val activity: Activity,
@@ -37,11 +40,16 @@ class ConnectAdapter(
         holder.itemView.setOnClickListener{
             val intent = Intent(activity, ProfileinfoActivity::class.java)
             activity.startActivity(intent)
-
         }
 
 
-//        holder.tvName.text = report.name
+       holder.tvName.text = report.name
+       holder.tvLatestseen.text = report.last_seen
+
+        Glide.with(activitys)
+            .load(report.profile)
+            .placeholder(R.drawable.placeholder_bg)
+            .into(holder.ivProfile)
 
 
     }
@@ -53,7 +61,9 @@ class ConnectAdapter(
 
     internal class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 //
-//        val tvName: TextView = itemView.findViewById(R.id.tvName)
+       val tvName: TextView = itemView.findViewById(R.id.tvName)
+       val tvLatestseen: TextView = itemView.findViewById(R.id.tvLatestseen)
+        val ivProfile:ImageView = itemView.findViewById(R.id.ivProfile)
 
 
     }

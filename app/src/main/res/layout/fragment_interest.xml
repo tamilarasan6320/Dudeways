@@ -9,20 +9,8 @@
 
 
 
-    <TextView
-        android:padding="@dimen/_4sdp"
-        android:id="@+id/tvTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Travellers Showing Interested to your profile"
-        android:textSize="@dimen/_12sdp"
-        android:fontFamily="@font/poppins_semibold"
-        android:textColor="@color/black"
-        />
-
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_below="@+id/tvTitle"
         android:id="@+id/rvConnectList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

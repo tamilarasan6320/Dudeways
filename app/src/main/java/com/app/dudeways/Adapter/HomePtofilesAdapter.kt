@@ -50,6 +50,20 @@ class HomePtofilesAdapter(
         holder.tvDate.text = "From "+report.from_date+" to "+report.to_date
         holder.tvTitle.text = report.trip_title
 
+
+        // check report.user_name is more than 10 latters
+        if (report.user_name?.length!! > 10) {
+            if (report.unique_name?.length!! > 7) {
+                holder.tvUsername.text = "@"+ report.unique_name!!.substring(0, 7) + ".."
+            } else {
+                holder.tvUsername.text = "@"+report.unique_name
+            }
+        } else {
+            holder.tvUsername.text = "@"+report.unique_name
+        }
+
+        //holder.tvUsername only show 5 latters end with ..
+
         holder.tvmore.setOnClickListener {
             if (holder.tvDescription.visibility == View.VISIBLE) {
                 holder.tvDescription.visibility = View.GONE
@@ -61,6 +75,7 @@ class HomePtofilesAdapter(
         }
 
 
+        var friend_data: String
 
         if (report.verified == "1") {
             holder.ivVerify.visibility = View.VISIBLE
@@ -69,7 +84,7 @@ class HomePtofilesAdapter(
         }
 
 
-        val friend_data = "" + report.friend
+        friend_data = "" + report.friend
         if (friend_data == "0") {
             holder.ivaddFriend.setBackgroundResource(R.drawable.add_account)
             holder.tvAddFriend.text = "Add to Friend"
@@ -81,15 +96,13 @@ class HomePtofilesAdapter(
 
         holder.rlAddFriend.setOnClickListener {
             // Change the background of rlAddFriend
-
-            val friend_data = "" + report.friend
-
-
             if (friend_data == "0") {
                 val friend = "1"
+                friend_data = "1"
                 add_freind(holder.ivaddFriend, holder.tvAddFriend, report.id,friend)
             } else if (friend_data == "1"   ) {
                 val friend = "2"
+                 friend_data = "0"
                 add_freind(holder.ivaddFriend, holder.tvAddFriend, report.id,friend)
             }
 
@@ -100,6 +113,9 @@ class HomePtofilesAdapter(
 
         Glide.with(activitys).load(report.user_profile).placeholder(R.drawable.placeholder_bg)
             .into(holder.ivProfileImage)
+
+        Glide.with(activitys).load(report.user_profile).placeholder(R.drawable.placeholder_bg)
+            .into(holder.ivProfile)
 
 
     }
@@ -123,6 +139,7 @@ class HomePtofilesAdapter(
         val ivVerify: ImageView = itemView.findViewById(R.id.ivVerify)
         val tvTitle: TextView = itemView.findViewById(R.id.tvTitle)
         val tvmore: TextView = itemView.findViewById(R.id.tvmore)
+        val ivProfile:ImageView = itemView.findViewById(R.id.ivProfile)
 
 
     }

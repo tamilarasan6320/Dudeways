@@ -39,7 +39,9 @@
                     android:hint="Mobile Number"
                     app:hintTextColor="@color/primary"
                     app:boxStrokeColor="@color/primary"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
+                    >
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etMobileNumber"

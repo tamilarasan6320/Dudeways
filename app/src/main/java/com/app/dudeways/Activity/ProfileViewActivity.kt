@@ -11,6 +11,7 @@ import com.canhub.cropper.CropImage
 import com.canhub.cropper.CropImageView
 import com.app.dudeways.R
 import com.app.dudeways.databinding.ActivityProfileViewBinding
+import com.app.dudeways.helper.Constant
 import com.app.dudeways.helper.Session
 import java.io.File
 
@@ -50,6 +51,11 @@ class ProfileViewActivity : AppCompatActivity() {
             pickImageFromGallery()
         }
 
+
+        binding.tvProfessional.text = session.getData(Constant.PROFESSION)
+        binding.tvCity.text = session.getData(Constant.CITY)
+        binding.tvState.text = session.getData(Constant.STATE)
+        binding.tvGender.text = session.getData(Constant.GENDER)
 
 
         binding.ivBack.setOnClickListener{

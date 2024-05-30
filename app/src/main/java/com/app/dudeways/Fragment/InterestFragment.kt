@@ -7,12 +7,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dudeways.Activity.HomeActivity
 import com.app.dudeways.Activity.ProfileViewActivity
 import com.app.dudeways.Adapter.ConnectAdapter
+import com.app.dudeways.Adapter.HomePtofilesAdapter
 import com.app.dudeways.Model.Connect
+import com.app.dudeways.Model.HomeProfile
 import com.app.dudeways.databinding.FragmentInterestBinding
+import com.app.dudeways.helper.ApiConfig
+import com.app.dudeways.helper.Constant
+import com.app.dudeways.helper.Session
+import com.google.gson.Gson
+import org.json.JSONException
+import org.json.JSONObject
 
 
 class InterestFragment : Fragment() {
@@ -20,6 +29,7 @@ class InterestFragment : Fragment() {
 
     lateinit var binding : FragmentInterestBinding
     lateinit var activity : Activity
+    lateinit var session : Session
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,6 +38,7 @@ class InterestFragment : Fragment() {
         binding = FragmentInterestBinding.inflate(inflater, container, false)
         activity = requireActivity()
 
+        session = Session(activity)
 
 
         (activity as HomeActivity).binding.rltoolbar.visibility = View.VISIBLE
@@ -44,23 +55,47 @@ class InterestFragment : Fragment() {
     }
 
 
+
     private fun NotificationList() {
-        val connect = ArrayList<Connect>()
-        val cat1 = Connect("1", "Shafeeka", "")
+        val params: MutableMap<String, String> = HashMap()
+        params[Constant.USER_ID] = session.getData(Constant.USER_ID)
 
+        ApiConfig.RequestToVolley({ result, response ->
+            if (result) {
+                try {
+                    val jsonObject = JSONObject(response)
+                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
+                        val jsonArray = jsonObject.getJSONArray(Constant.DATA)
+                        val g = Gson()
+                        val connect_list = ArrayList<Connect>()
 
+                        for (i in 0 until jsonArray.length()) {
+                            val jsonObject1 = jsonArray.getJSONObject(i)
+                            if (jsonObject1 != null) {
+                                val connect = g.fromJson(jsonObject1.toString(), Connect::class.java)
+                                connect_list.add(connect)
+                            }
+                        }
 
+                        val connectAdapter = ConnectAdapter(requireActivity(),connect_list)
+                        binding.rvConnectList.adapter = connectAdapter
+                    } else {
+                        Toast.makeText(
+                            activity,
+                            jsonObject.getString(Constant.MESSAGE),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }
 
-        repeat(5){
-            connect.add(cat1)
-        }
-
-
-
-
-        val connectAdapter = ConnectAdapter(requireActivity(),connect)
-        binding.rvConnectList.adapter = connectAdapter
+            // Stop the refreshing animation once the network request is complete
+//            binding.swipeRefreshLayout.isRefreshing = false
+        }, activity, Constant.FREINDS_LIST, params, true, 1)
     }
+
 
 
 
