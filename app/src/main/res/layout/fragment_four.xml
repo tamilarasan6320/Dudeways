@@ -176,7 +176,6 @@
 
 
         <EditText
-
             android:id="@+id/edStartDate"
             android:layout_marginTop="@dimen/_4sdp"
             android:layout_width="match_parent"

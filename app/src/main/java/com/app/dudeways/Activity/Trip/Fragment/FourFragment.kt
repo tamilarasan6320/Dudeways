@@ -58,8 +58,11 @@ class FourFragment : Fragment() {
 
 
     private fun showDatePickerDialog() {
-        val dialog = Dialog(requireContext())
+
+        val dialog = Dialog(activity, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen)
         dialog.setContentView(R.layout.dialog_calendar)
+        dialog.setCanceledOnTouchOutside(true)
+
 
         // Set dialog window to full screen
         dialog.window?.setLayout(
@@ -93,8 +96,9 @@ class FourFragment : Fragment() {
         dialog.show()
     }
     private fun showDatePickerDialog1() {
-        val dialog = Dialog(requireContext())
+        val dialog = Dialog(activity, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen)
         dialog.setContentView(R.layout.dialog_calendar)
+        dialog.setCanceledOnTouchOutside(true)
 
         // Set dialog window to full screen
         dialog.window?.setLayout(

@@ -8,12 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import com.app.dudeways.Activity.Trip.StarttripActivity
 import com.app.dudeways.databinding.FragmentThreeBinding
+import com.app.dudeways.helper.Session
 
 
 class threeFragment : Fragment() {
 
     lateinit var binding: FragmentThreeBinding
     lateinit var activity: Activity
+    lateinit var session: Session
 
 
     override fun onCreateView(
@@ -24,11 +26,16 @@ class threeFragment : Fragment() {
         binding = FragmentThreeBinding.inflate(layoutInflater)
 
         activity = requireActivity()
+        session = Session(activity)
 
         (activity as StarttripActivity).binding.tvTitle.visibility = View.GONE
         (activity as StarttripActivity).binding.btnNext.visibility = View.VISIBLE
         (activity as StarttripActivity).binding.btnBack.visibility = View.VISIBLE
         (activity as StarttripActivity).binding.btnNext.text = "Next"
+
+
+
+
 
         return binding.root
     }

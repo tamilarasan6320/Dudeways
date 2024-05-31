@@ -107,9 +107,10 @@
 
 
         <TextView
+            android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Shafeeka"
+            android:text=""
             android:textSize="@dimen/_14sdp"
             android:fontFamily="@font/poppins_semibold"
             android:textColor="@color/black"
@@ -117,9 +118,10 @@
 
 
         <TextView
+            android:id="@+id/tvUsername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="/@shafeeka12"
+            android:text=""
             android:textSize="@dimen/_12sdp"
             android:fontFamily="@font/poppins_medium"
             android:textColor="@color/text_grey"
@@ -130,9 +132,10 @@
 
 
         <TextView
+            android:id="@+id/tvPlace"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Chennai , Tamil Nadu"
+            android:text=""
             android:textSize="@dimen/_14sdp"
             android:fontFamily="@font/poppins_semibold"
             android:textColor="@color/black"

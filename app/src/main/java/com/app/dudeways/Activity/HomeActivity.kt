@@ -19,11 +19,15 @@ import com.app.dudeways.Fragment.TripFragment
 import com.app.dudeways.Fragment.ViewFragment
 import com.app.dudeways.R
 import com.app.dudeways.databinding.ActivityHomeBinding
+import com.app.dudeways.helper.Constant
+import com.app.dudeways.helper.Session
+import com.bumptech.glide.Glide
 
 class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListener {
 
     lateinit var binding: ActivityHomeBinding
     lateinit var activity: Activity
+    lateinit var session: Session
 
     private lateinit var fm: FragmentManager
 
@@ -45,6 +49,7 @@ class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
 
         binding = ActivityHomeBinding.inflate(layoutInflater)
         activity = this
+        session = Session(activity)
         setContentView(binding.root)
 
 
@@ -74,6 +79,12 @@ class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
 
         fm.beginTransaction().replace(R.id.fragment_container, tripFragment).commit()
         bottomNavigationView!!.selectedItemId = R.id.navHome
+
+        val profile = session.getData(Constant.PROFILE)
+
+        Glide.with(activity).load(profile).placeholder(R.drawable.profile_placeholder)
+            .into(binding.civProfile)
+
 
 
     }

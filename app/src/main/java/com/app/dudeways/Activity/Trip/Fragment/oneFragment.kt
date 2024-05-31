@@ -7,17 +7,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.app.dudeways.Activity.Trip.StarttripActivity
 import com.app.dudeways.R
 import com.app.dudeways.databinding.FragmentOneBinding
+import com.app.dudeways.helper.Constant
+import com.app.dudeways.helper.Session
 
 class oneFragment : Fragment() {
 
     lateinit var binding: FragmentOneBinding
     lateinit var activity: Activity
+    lateinit var session: Session
     private var selectedItemPosition = RecyclerView.NO_POSITION
 
     override fun onCreateView(
@@ -27,6 +31,7 @@ class oneFragment : Fragment() {
         binding = FragmentOneBinding.inflate(layoutInflater)
 
         activity = requireActivity()
+        session = Session(activity)
 
         (activity as StarttripActivity).binding.tvTitle.visibility = View.VISIBLE
         (activity as StarttripActivity).binding.btnNext.visibility = View.VISIBLE
@@ -63,9 +68,18 @@ class oneFragment : Fragment() {
             val itemHolder = holder
             val image = list[position].toInt()
             Glide.with(activity).load(image).into(itemHolder.ivImage)
-
             if (position == selectedItemPosition) {
                 itemHolder.ivCheck.visibility = View.VISIBLE
+                if (position == 0) {
+                    session.setData(Constant.TRIP_TYPE, "Road Trip")
+                } else if (position == 1) {
+                    session.setData(Constant.TRIP_TYPE, "Adventure Trip")
+                } else if (position == 2) {
+                    session.setData(Constant.TRIP_TYPE, "Explore Cities")
+                } else if (position == 3) {
+                    session.setData(Constant.TRIP_TYPE, "Airport Flyover")
+                }
+                session.setData(Constant.TRIP_TYPE, position.toString())
             } else {
                 itemHolder.ivCheck.visibility = View.GONE
             }
@@ -86,5 +100,9 @@ class oneFragment : Fragment() {
             var ivImage: ImageView = itemView.findViewById(R.id.ivImage)
             var ivCheck: ImageView = itemView.findViewById(R.id.ivCheck)
         }
+    }
+
+    fun isItemSelected(): Boolean {
+        return selectedItemPosition != RecyclerView.NO_POSITION
     }
 }

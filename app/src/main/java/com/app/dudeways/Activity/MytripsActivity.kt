@@ -38,6 +38,10 @@ class MytripsActivity : AppCompatActivity() {
         val linearLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         binding.rvMytriplist.layoutManager = linearLayoutManager
 
+        binding.ivBack.setOnClickListener {
+            onBackPressed()
+        }
+
 
         mytripList()
 

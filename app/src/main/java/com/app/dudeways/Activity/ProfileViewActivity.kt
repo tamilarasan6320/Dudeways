@@ -56,6 +56,9 @@ class ProfileViewActivity : AppCompatActivity() {
         binding.tvCity.text = session.getData(Constant.CITY)
         binding.tvState.text = session.getData(Constant.STATE)
         binding.tvGender.text = session.getData(Constant.GENDER)
+        binding.tvName.text = session.getData(Constant.NAME)
+        binding.tvUsername.text = "@"+session.getData(Constant.UNIQUE_NAME)
+        binding.tvPlace.text = session.getData(Constant.CITY) + ", " + session.getData(Constant.STATE)
 
         binding.rlMytrips.setOnClickListener {
             val intent = Intent(activity, MytripsActivity::class.java)

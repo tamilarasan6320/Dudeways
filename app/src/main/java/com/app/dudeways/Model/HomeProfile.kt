@@ -14,7 +14,7 @@ class HomeProfile {
     var trip_title: String? = null
     var trip_description: String? = null
     var from_location: String? = null
-    var to_location: String? = null
+    var location: String? = null
     var meetup_location: String? = null
     var datetime: String? = null
     var updated_at: String? = null
@@ -34,7 +34,7 @@ class HomeProfile {
         trip_title: String?,
         trip_description: String?,
         from_location: String?,
-        to_location: String?,
+        location: String?,
         meetup_location: String?,
         datetime: String?,
         updated_at: String?,
@@ -54,7 +54,7 @@ class HomeProfile {
         this.trip_title = trip_title
         this.trip_description = trip_description
         this.from_location = from_location
-        this.to_location = to_location
+        this.location = location
         this.meetup_location = meetup_location
         this.datetime = datetime
         this.updated_at = updated_at

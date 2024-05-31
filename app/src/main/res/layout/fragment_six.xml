@@ -159,37 +159,67 @@
 
 
         <TextView
-            android:layout_marginTop="@dimen/_20sdp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Meetup Point"
-            android:textSize="@dimen/_14sdp"
-            android:fontFamily="@font/poppins_semibold"
-            android:textColor="@color/black"
-            />
-
-        <TextView
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Select a public place where your group will meetup before the trip"
+            android:text="Place this image to attract users to join your trip."
             android:textSize="@dimen/_12sdp"
             android:fontFamily="@font/poppins_regular"
             android:textColor="@color/black"
             />
 
 
-        <EditText
-            android:id="@+id/etMobileNumber"
-            android:layout_marginTop="@dimen/_12sdp"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvProof1"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_gravity="center"
+            app:strokeWidth="@dimen/_1sdp"
+            app:strokeColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ivProof1"
+                android:layout_width="@dimen/_120sdp"
+                android:layout_height="@dimen/_120sdp"
+                android:scaleType="fitXY"
+                />
+
+
+            <ImageButton
+                android:id="@+id/ivAddProof1"
+                android:layout_gravity="center"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:background="@drawable/add_icon"
+                />
+
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+
+
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_marginTop="@dimen/_100sdp"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_above="@+id/btnBack"
+            android:id="@+id/btnNext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/edit_text1"
-            android:hint="Location"
             android:fontFamily="@font/poppins_medium"
-            android:padding="@dimen/_10sdp"
-            android:textCursorDrawable="@drawable/color_cursor"
-            />
+            app:backgroundTint="@null"
+            android:background="@drawable/gradient_button"
+            android:text="Next"
+            android:textAllCaps="false"
+            android:textSize="@dimen/_14sdp" />
+
+
+
+
 
     </LinearLayout>
 
