@@ -49,7 +49,7 @@ class StarttripActivity : AppCompatActivity() {
             btnNext(it)
         }
 
-        binding.btnBack.setOnClickListener{
+        binding.ivBack.setOnClickListener{
             btnBack(it)
         }
 
@@ -125,66 +125,64 @@ class StarttripActivity : AppCompatActivity() {
         when (fragment) {
             is oneFragment -> {
 
-                fm.beginTransaction().replace(R.id.frameLayout, threeFragment()).commit()
-                onResume()
-
-//                if (fragment.isItemSelected()) {
-//                    fm.beginTransaction().replace(R.id.frameLayout, threeFragment()).commit()
-//                    onResume()
-//                } else {
-//                    Toast.makeText(this, "Please select a trip plan", Toast.LENGTH_SHORT).show()
-//                }
+                if (fragment.isItemSelected()) {
+                    fm.beginTransaction().replace(R.id.frameLayout, threeFragment()).commit()
+                    onResume()
+                } else {
+                    Toast.makeText(this, "Please select a trip plan", Toast.LENGTH_SHORT).show()
+                }
             }
 
             is threeFragment -> {
                 // call fragment etLocation
-//                if ((fragment as threeFragment).binding.etLocation.text.toString().isEmpty()) {
-//                    (fragment as threeFragment).binding.etLocation.error = "Please enter location"
-//                }
-//                else {
-//                    session.setData(Constant.TRIP_LOCATION, (fragment as threeFragment).binding.etLocation.text.toString())
-//                    fm.beginTransaction().replace(R.id.frameLayout, FourFragment()).commit()
-//                    onResume()
-//                }
+                if ((fragment as threeFragment).binding.etLocation.text.toString().isEmpty()) {
+                    (fragment as threeFragment).binding.etLocation.error = "Please enter location"
+                }
+                else {
+                    session.setData(Constant.TRIP_LOCATION, (fragment as threeFragment).binding.etLocation.text.toString())
+                    fm.beginTransaction().replace(R.id.frameLayout, FourFragment()).commit()
+                    onResume()
+                }
 
-                fm.beginTransaction().replace(R.id.frameLayout, FourFragment()).commit()
-                onResume()
+
 
             }
             is FourFragment -> {
-
-                fm.beginTransaction().replace(R.id.frameLayout, FiveFragment()).commit()
-                onResume()
-//                if ((fragment as FourFragment).binding.edStartDate.text.toString().isEmpty()) {
-//                    (fragment as FourFragment).binding.edStartDate.error = "Please enter start date"
-//                } else if ((fragment as FourFragment).binding.edEndDate.text.toString().isEmpty()) {
-//                    (fragment as FourFragment).binding.edEndDate.error = "Please enter end date"
-//                } else {
-//                    session.setData(Constant.TRIP_FROM_DATE, (fragment as FourFragment).binding.edStartDate.text.toString())
-//                    session.setData(Constant.TRIP_TO_DATE, (fragment as FourFragment).binding.edEndDate.text.toString())
-//                    fm.beginTransaction().replace(R.id.frameLayout, FiveFragment()).commit()
-//                    onResume()
-//                }
+                if ((fragment as FourFragment).binding.edStartDate.text.toString().isEmpty()) {
+                    (fragment as FourFragment).binding.edStartDate.error = "Please enter start date"
+                } else if ((fragment as FourFragment).binding.edEndDate.text.toString().isEmpty()) {
+                    (fragment as FourFragment).binding.edEndDate.error = "Please enter end date"
+                } else {
+                    session.setData(Constant.TRIP_FROM_DATE, (fragment as FourFragment).binding.edStartDate.text.toString())
+                    session.setData(Constant.TRIP_TO_DATE, (fragment as FourFragment).binding.edEndDate.text.toString())
+                    fm.beginTransaction().replace(R.id.frameLayout, FiveFragment()).commit()
+                    onResume()
+                }
 
             }
             is FiveFragment -> {
-                fm.beginTransaction().replace(R.id.frameLayout, SixFragment()).commit()
-                onResume()
-
-//                if ((fragment as FiveFragment).binding.etTripName.text.toString().isEmpty()) {
-//                    (fragment as FiveFragment).binding.etTripName.error = "Please enter trip name"
-//                }else if ((fragment as FiveFragment).binding.etDescription.text.toString().isEmpty()) {
-//                    (fragment as FiveFragment).binding.etDescription.error = "Please enter description"
-//                }
-//                else {
-//                    session.setData(Constant.TRIP_TITLE, (fragment as FiveFragment).binding.etTripName.text.toString())
-//                    session.setData(Constant.TRIP_DESCRIPTION, (fragment as FiveFragment).binding.etDescription.text.toString())
-//                    fm.beginTransaction().replace(R.id.frameLayout, SixFragment()).commit()
-//                    onResume()
-//                }
+                if ((fragment as FiveFragment).binding.etTripName.text.toString().isEmpty()) {
+                    (fragment as FiveFragment).binding.etTripName.error = "Please enter trip name"
+                }else if ((fragment as FiveFragment).binding.etDescription.text.toString().isEmpty()) {
+                    (fragment as FiveFragment).binding.etDescription.error = "Please enter description"
+                }
+                else {
+                    session.setData(Constant.TRIP_TITLE, (fragment as FiveFragment).binding.etTripName.text.toString())
+                    session.setData(Constant.TRIP_DESCRIPTION, (fragment as FiveFragment).binding.etDescription.text.toString())
+                    fm.beginTransaction().replace(R.id.frameLayout, SixFragment()).commit()
+                    onResume()
+                }
 
 
             }
+            is SixFragment -> {
+
+
+                       // fragment as SixFragment call function addtrip
+                          (fragment as SixFragment).addtrip()
+
+            }
+
         } }
 
 

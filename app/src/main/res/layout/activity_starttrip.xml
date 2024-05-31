@@ -10,22 +10,43 @@
 
     <LinearLayout
         android:layout_above="@+id/btnNext"
-        android:layout_marginTop="@dimen/_20sdp"
         android:orientation="vertical"
         android:padding="@dimen/_10sdp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
 
-        <TextView
-            android:id="@+id/tvTitle"
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Start a Trip"
-            android:textSize="@dimen/_22sdp"
-            android:fontFamily="@font/poppins_semibold"
-            android:textColor="@color/primary"
-            />
+            android:layout_height="wrap_content">
+
+
+
+            <ImageView
+                android:visibility="invisible"
+                android:layout_centerVertical="true"
+                android:id="@+id/ivBack"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="20dp"
+                android:background="@drawable/arrow_left"
+                />
+
+
+            <TextView
+                android:layout_centerVertical="true"
+               android:layout_toRightOf="@+id/ivBack"
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Start a Trip"
+                android:textSize="@dimen/_22sdp"
+                android:fontFamily="@font/poppins_semibold"
+                android:textColor="@color/primary"
+                />
+
+
+        </RelativeLayout>
 
 
 
@@ -50,9 +71,9 @@
 
 
     <com.google.android.material.button.MaterialButton
+        android:layout_alignParentBottom="true"
         android:layout_marginHorizontal="@dimen/_10sdp"
         android:layout_marginBottom="@dimen/_10sdp"
-        android:layout_above="@+id/btnBack"
         android:id="@+id/btnNext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -63,22 +84,7 @@
         android:textAllCaps="false"
         android:textSize="@dimen/_14sdp" />
 
-    <com.google.android.material.button.MaterialButton
-        android:layout_alignParentBottom="true"
-        android:layout_marginHorizontal="@dimen/_10sdp"
-        android:layout_marginBottom="@dimen/_10sdp"
-        android:id="@+id/btnBack"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:strokeColor="@color/primary"
-        app:strokeWidth="2dp"
-        android:backgroundTint="@color/primary_extra_light"
-        android:fontFamily="@font/poppins_medium"
-        android:paddingVertical="@dimen/_8sdp"
-        android:text="Back"
-        android:textColor="@color/black"
-        android:textAllCaps="false"
-        android:textSize="@dimen/_14sdp"
-        app:cornerRadius="@dimen/_5sdp" />
+
+
 
 </RelativeLayout>

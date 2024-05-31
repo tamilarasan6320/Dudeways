@@ -202,23 +202,6 @@
 
 
 
-        <com.google.android.material.button.MaterialButton
-            android:layout_marginTop="@dimen/_100sdp"
-            android:layout_marginHorizontal="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
-            android:layout_above="@+id/btnBack"
-            android:id="@+id/btnNext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_medium"
-            app:backgroundTint="@null"
-            android:background="@drawable/gradient_button"
-            android:text="Next"
-            android:textAllCaps="false"
-            android:textSize="@dimen/_14sdp" />
-
-
-
 
 
     </LinearLayout>

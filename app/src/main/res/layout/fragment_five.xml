@@ -197,7 +197,7 @@
             android:lines="10"
             android:background="@drawable/edit_text1"
             android:hint=""
-            android:textAlignment="textStart"
+            android:gravity="start"
             android:fontFamily="@font/poppins_medium"
             android:padding="@dimen/_10sdp"
             android:textCursorDrawable="@drawable/color_cursor"

@@ -1,28 +1,26 @@
 package com.app.dudeways.Activity.Trip.Fragment
 
-import android.Manifest
 import android.app.Activity
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
+import com.app.dudeways.Activity.HomeActivity
 import com.app.dudeways.Activity.Trip.StarttripActivity
 import com.app.dudeways.databinding.FragmentSixBinding
+import com.app.dudeways.helper.ApiConfig
 import com.app.dudeways.helper.Constant
 import com.app.dudeways.helper.Session
 import com.canhub.cropper.CropImage
 import com.canhub.cropper.CropImageView
+import org.json.JSONException
+import org.json.JSONObject
 import java.io.File
 
 class SixFragment : Fragment() {
@@ -45,17 +43,13 @@ class SixFragment : Fragment() {
         activity = requireActivity()
         session = Session(activity)
 
-        (activity as StarttripActivity).binding.tvTitle.visibility = View.GONE
+        (activity as StarttripActivity).binding.tvTitle.visibility = View.INVISIBLE
         (activity as StarttripActivity).binding.btnNext.text = "Start Trip"
-        (activity as StarttripActivity).binding.btnBack.visibility = View.VISIBLE
 
         binding.ivAddProof1.setOnClickListener {
             pickImageFromGallery()
         }
 
-        binding.btnNext.setOnClickListener {
-            addtrip()
-        }
 
         return binding.root
     }
@@ -71,22 +65,24 @@ class SixFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK) {
+        if (resultCode == AppCompatActivity.RESULT_OK) {
             if (requestCode == REQUEST_IMAGE_GALLERY) {
                 imageUri = data?.data
                 CropImage.activity(imageUri)
-                    .start(requireContext(), this)
+                    .setAspectRatio(1, 1) // Set aspect ratio to 1:1 for a square crop
+                    .setCropShape(CropImageView.CropShape.OVAL) // Set crop shape to oval
+                    .start(requireContext(),this)
             } else if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-                val result: CropImage.ActivityResult = CropImage.getActivityResult(data)!!
-                filePath1 = result.getUriFilePath(requireContext(), true)
-                val imgFile: File = File(filePath1)
-                if (imgFile.exists()) {
-                    val myBitmap = BitmapFactory.decodeFile(imgFile.absolutePath)
-
-
+                val result: CropImage.ActivityResult? = CropImage.getActivityResult(data)
+                if (result != null) {
+                    filePath1 = result.getUriFilePath(activity, true)
+                    val imgFile = File(filePath1)
+                    if (imgFile.exists()) {
+                        val myBitmap = BitmapFactory.decodeFile(imgFile.absolutePath)
                         binding.ivProof1.setImageBitmap(myBitmap)
                         binding.ivAddProof1.visibility = View.GONE
 
+                    }
                 }
             }
         }
@@ -94,7 +90,67 @@ class SixFragment : Fragment() {
 
 
 
-    private fun addtrip() {
-        // Your add trip implementation here
+    fun addtripImage(id: String) {
+        val params: MutableMap<String, String> = HashMap()
+        params[Constant.TRIP_ID] = id.toString()
+        val FileParams: MutableMap<String, String> = HashMap()
+        FileParams[Constant.TRIP_IMAGE] = filePath1!!
+        ApiConfig.RequestToVolleyMulti({ result, response ->
+            if (result) {
+                try {
+                    val jsonObject = JSONObject(response)
+                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
+
+
+                        val intent = Intent(activity, HomeActivity::class.java)
+                        startActivity(intent)
+                        activity.finish()
+
+                        Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                    Toast.makeText(activity, "JSON Parsing Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                Toast.makeText(activity," $result" , Toast.LENGTH_SHORT).show()
+            }
+        }, activity, Constant.UPDATE_TRIP_IMAGE, params, FileParams)
     }
+    fun addtrip() {
+        val params: MutableMap<String, String> = HashMap()
+        params[Constant.USER_ID] = session.getData(Constant.USER_ID)
+        params[Constant.TRIP_TYPE] = session.getData(Constant.TRIP_TYPE)
+        params[Constant.TRIP_FROM_DATE] = session.getData(Constant.TRIP_FROM_DATE)
+        params[Constant.TRIP_TO_DATE] = session.getData(Constant.TRIP_TO_DATE)
+        params[Constant.TRIP_TITLE] = session.getData(Constant.TRIP_TITLE)
+        params[Constant.TRIP_DESCRIPTION] = session.getData(Constant.TRIP_DESCRIPTION)
+        params[Constant.TRIP_LOCATION] = session.getData(Constant.TRIP_LOCATION)
+        ApiConfig.RequestToVolley({ result, response ->
+            if (result) {
+                try {
+                    val jsonObject = JSONObject(response)
+                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
+                        val `object` = JSONObject(response)
+                        val jsonobj = `object`.getJSONObject(Constant.DATA)
+                        session.setData(Constant.USER_ID, jsonobj.getString(Constant.ID))
+
+                        val id = jsonobj.getString(Constant.ID)
+                        addtripImage(id)
+
+                    } else {
+                        Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                    Toast.makeText(activity, "JSON Parsing Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                Toast.makeText(activity," $result" , Toast.LENGTH_SHORT).show()
+            }
+        }, activity, Constant.ADD_TRIP, params, true,1)
+    }
+
 }

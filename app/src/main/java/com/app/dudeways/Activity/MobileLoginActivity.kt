@@ -60,11 +60,8 @@ class MobileLoginActivity : AppCompatActivity() {
                     val jsonObject: JSONObject = JSONObject(response)
                         if (jsonObject.getBoolean(Constant.SUCCESS)) {
 
-
                             val registered = jsonObject.getString("registered")
-
-
-                        if (registered == "true") {
+                            if (registered == "true") {
                             val `object` = JSONObject(response)
                             val jsonobj = `object`.getJSONObject(Constant.DATA)
                             session.setData(Constant.USER_ID, jsonobj.getString(Constant.ID))

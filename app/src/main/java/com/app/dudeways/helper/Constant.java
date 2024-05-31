@@ -11,19 +11,21 @@ public class Constant {
 
     public static final String UPDATE_IMAGE = BaseUrl + "update_image";
     public static final String TRIP_LIST = BaseUrl + "trip_list";
-    public static final String TRIP_TYPE = BaseUrl + "trip_type";
-    public static final String TRIP_LOCATION = BaseUrl + "trip_location";
+    public static final String TRIP_TYPE =  "trip_type";
+    public static final String TRIP_LOCATION = "location";
     public static final String TRIP_DETAILS = BaseUrl + "trip_details";
-    public static final String TRIP_TITLE = BaseUrl + "trip_title";
-    public static final String TRIP_DESCRIPTION = BaseUrl + "trip_description";
-    public static final String TRIP_FROM_DATE = BaseUrl + "trip_date";
-    public static final String TRIP_TO_DATE = BaseUrl + "trip_to_date";
-    public static final String TRIP_IMAGE = BaseUrl + "trip_image";
+    public static final String TRIP_TITLE =  "trip_title";
+    public static final String TRIP_DESCRIPTION =  "trip_description";
+    public static final String TRIP_FROM_DATE = "from_date";
+    public static final String TRIP_TO_DATE =  "to_date";
+    public static final String TRIP_IMAGE = "trip_image";
     public static final String MY_TRIP_LIST = BaseUrl + "my_trip_list";
     public static final String FREINDS_LIST = BaseUrl + "friends_list";
     public static final String CHAT_LIST = BaseUrl + "chat_list";
     public static final String NOTFICATION_LIST = BaseUrl + "notification_list";
     public static final String ADD_FRIENDS = BaseUrl + "add_friends";
+    public static final String ADD_TRIP = BaseUrl + "add_trip";
+    public static final String UPDATE_TRIP_IMAGE = BaseUrl + "update_trip_image";
     public static final String MYBOOKS = BaseUrl + "mybooks";
     public static final String CART_LIST = BaseUrl + "cartlist";
     public static final String ADD_TO_CART = BaseUrl + "booklist/add-cart";
@@ -48,6 +50,7 @@ public class Constant {
     public static final String MOBILE = "mobile";
     public static final String ID = "id";
     public static final String USER_ID = "user_id";
+    public static final String TRIP_ID = "trip_id";
     public static final String FRIEND_USER_ID = "friend_user_id";
     public static final String FRIEND = "friend";
 

@@ -12,6 +12,7 @@
 
     <LinearLayout
         android:id="@+id/llTrip"
+        android:padding="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_20sdp"
         android:orientation="vertical"
         android:layout_width="match_parent"
