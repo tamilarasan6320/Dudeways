@@ -42,7 +42,7 @@ class ProfileActivity : AppCompatActivity() {
 
         binding.btnUpdateProfile.setOnClickListener {
 
-            if (session.getBoolean(Constant.PROFILE) == true) {
+            if (session!!.getBoolean("is_profile_in")) {
 //                Toast.makeText(this, "lease select profile image", Toast.LENGTH_SHORT).show()
 //                val intent = Intent(activity, HomeActivity::class.java)
 //                startActivity(intent)
@@ -75,54 +75,7 @@ class ProfileActivity : AppCompatActivity() {
         finish()
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private fun order(bookid: String) {
-        val params: MutableMap<String, String> = java.util.HashMap()
-        params[Constant.USER_ID] = session.getData(Constant.USER_ID)
-        params[Constant.BOOKID] = bookid
-        val FileParams: MutableMap<String, String> = java.util.HashMap()
-        FileParams[Constant.IMAGE] = filePath1!!
 
-
-        ApiConfig.RequestToVolleyMulti({ result, response ->
-            if (result) {
-                try {
-                    val jsonObject = JSONObject(response)
-                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
-                        Toast.makeText(
-                            activity,
-                            "" + jsonObject.getString(Constant.MESSAGE),
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-
-
-                        //                        Intent intent = new Intent(activity, PaymentStatusActivity.class);
-//                        intent.putExtra("id", bookid);
-//                        intent.putExtra("price", price);
-//                        intent.putExtra("name", name);
-//                        intent.putExtra("sub_name", sub_name);
-//                        intent.putExtra("image", image);
-//                        intent.putExtra("code", code);
-//                        intent.putExtra("publication", publication);
-//                        intent.putExtra("regulation", regulation);
-//                        startActivity(intent);
-                    } else {
-                        Toast.makeText(
-                            activity,
-                            "" + jsonObject.getString(Constant.MESSAGE),
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-
-
-                    }
-                } catch (e: JSONException) {
-                    e.printStackTrace()
-                }
-            }
-        }, activity, Constant.ORDER, params, FileParams)
-    }
 
 
     private fun uploadProfile() {
@@ -193,7 +146,7 @@ class ProfileActivity : AppCompatActivity() {
                         val myBitmap = BitmapFactory.decodeFile(imgFile.absolutePath)
                         binding.ivProfile.setImageBitmap(myBitmap)
                         binding.ivEditProfile.visibility = View.GONE
-                        session!!.setBoolean(Constant.PROFILE, true)
+                        session!!.setBoolean("is_profile_in",true)
                     }
                 }
             }

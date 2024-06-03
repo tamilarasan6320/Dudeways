@@ -7,10 +7,14 @@ public class Constant {
 
 
     public static final String REGISTER = BaseUrl + "register";
+    public static final String UPDATE_USERS = BaseUrl + "update_users";
     public static final String CHECK_MOBILE = BaseUrl + "check_mobile";
+    public static final String CHECK_EMAIL = BaseUrl + "check_email";
 
     public static final String UPDATE_IMAGE = BaseUrl + "update_image";
+    public static final String UPDATE_COVER_IMG = BaseUrl + "update_cover_img";
     public static final String TRIP_LIST = BaseUrl + "trip_list";
+    public static final String POINTS_LIST = BaseUrl + "points_list";
     public static final String TRIP_TYPE =  "trip_type";
     public static final String TRIP_LOCATION = "location";
     public static final String TRIP_DETAILS = BaseUrl + "trip_details";
@@ -78,6 +82,7 @@ public class Constant {
     public static final String PAYMENT_PROOF = "payment_proof";
 
     public static final String PROFILE = "profile";
+    public static final String COVER_IMG = "cover_img";
     public static final String BOOKID = "book_id";
     public static final String CART_ID = "cart_id";
 }

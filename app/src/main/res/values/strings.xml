@@ -10,6 +10,7 @@
     <string name="id_verification_description">An ID verification helps us check that you are a real person and you are really you. It also helps us keep secure and trustworthy. How does it work?\n\nFirst you will add a picture of yourself and provide a clear picture of your ID. We will then quickly match both the pictures.</string>
     <string name="more"><u>more...</u></string>
     <string name="less"><u>less...</u></string>
+    <string name="default_web_client_id">789941112934-hh4j9ueivjq4uei4e2k3g3414qvmhnod.apps.googleusercontent.com</string>
 
 
     <string-array name="days_of_week">

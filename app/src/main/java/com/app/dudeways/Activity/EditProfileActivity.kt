@@ -9,10 +9,13 @@ import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dudeways.R
+import com.app.dudeways.databinding.ActivityEditProfileBinding
 import com.app.dudeways.databinding.ActivityProfileDetailsBinding
 import com.app.dudeways.helper.ApiConfig
 import com.app.dudeways.helper.Constant
@@ -21,68 +24,29 @@ import org.json.JSONException
 import org.json.JSONObject
 import java.lang.reflect.Field
 
-class ProfileDetailsActivity : AppCompatActivity() {
+class EditProfileActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityProfileDetailsBinding
+    lateinit var binding: ActivityEditProfileBinding
     lateinit var activity: Activity
     lateinit var session: Session
-
-    var select_option = "0"
-    var gender = ""
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityProfileDetailsBinding.inflate(layoutInflater)
+        setContentView(R.layout.activity_edit_profile)
+        binding = ActivityEditProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
         activity = this
         session = Session(activity)
 
-        // Set custom cursor color
-        setCursorDrawableColor(binding.etName, R.drawable.color_cursor)
-        setCursorDrawableColor(binding.etEmail, R.drawable.color_cursor)
-        setCursorDrawableColor(binding.etMobileNumber, R.drawable.color_cursor)
-        setCursorDrawableColor(binding.etAge, R.drawable.color_cursor)
-        setCursorDrawableColor(binding.etProfession, R.drawable.color_cursor)
-        setCursorDrawableColor(binding.etcity, R.drawable.color_cursor)
-        setCursorDrawableColor(binding.etState, R.drawable.color_cursor)
-        setCursorDrawableColor(binding.etRefferCode, R.drawable.color_cursor)
 
-        binding.llMale.setOnClickListener {
-            binding.llMale.backgroundTintList = resources.getColorStateList(R.color.primary)
-            binding.llFemale.backgroundTintList =
-                resources.getColorStateList(R.color.primary_extra_light)
-            binding.llOthers.backgroundTintList =
-                resources.getColorStateList(R.color.primary_extra_light)
-            binding.tvMale.setTextColor(resources.getColor(R.color.white))
-            binding.tvFemale.setTextColor(resources.getColor(R.color.black))
-            binding.tvOthers.setTextColor(resources.getColor(R.color.black))
-            select_option = "1"
-            gender = "male"
-        }
-        binding.llFemale.setOnClickListener {
-            binding.llFemale.backgroundTintList = resources.getColorStateList(R.color.primary)
-            binding.llMale.backgroundTintList =
-                resources.getColorStateList(R.color.primary_extra_light)
-            binding.llOthers.backgroundTintList =
-                resources.getColorStateList(R.color.primary_extra_light)
-            binding.tvMale.setTextColor(resources.getColor(R.color.black))
-            binding.tvFemale.setTextColor(resources.getColor(R.color.white))
-            binding.tvOthers.setTextColor(resources.getColor(R.color.black))
-            select_option = "2"
-            gender = "female"
-        }
-        binding.llOthers.setOnClickListener {
-            binding.tvMale.setTextColor(resources.getColor(R.color.black))
-            binding.tvFemale.setTextColor(resources.getColor(R.color.black))
-            binding.tvOthers.setTextColor(resources.getColor(R.color.white))
-            binding.llOthers.backgroundTintList = resources.getColorStateList(R.color.primary)
-            binding.llMale.backgroundTintList =
-                resources.getColorStateList(R.color.primary_extra_light)
-            binding.llFemale.backgroundTintList =
-                resources.getColorStateList(R.color.primary_extra_light)
-            select_option = "3"
-            gender = "others"
-        }
+        binding.etMobileNumber.setText(session.getData(Constant.MOBILE))
+        binding.etName.setText(session.getData(Constant.NAME))
+        binding.etEmail.setText(session.getData(Constant.EMAIL))
+        binding.etAge.setText(session.getData(Constant.AGE))
+        binding.etProfession.setText(session.getData(Constant.PROFESSION))
+        binding.etState.setText(session.getData(Constant.STATE))
+        binding.etcity.setText(session.getData(Constant.CITY))
+
+
 
         binding.btnSave.setOnClickListener {
             if (binding.etName.text.toString().isEmpty()) {
@@ -91,9 +55,13 @@ class ProfileDetailsActivity : AppCompatActivity() {
             } else if (binding.etName.text.toString().length < 4) {
                 binding.etName.error = "Name should be at least 4 characters"
                 return@setOnClickListener
-            } else if (select_option == "0") {
-                Toast.makeText(this, "Please select Gender", Toast.LENGTH_SHORT).show()
-            } else if (binding.etProfession.text.toString().isEmpty()) {
+            } else if (binding.etEmail.text.toString().isEmpty()) {
+                binding.etEmail.error = "Please enter email"
+                return@setOnClickListener
+            } else if (!Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.text).matches()) {
+                binding.etEmail.error = "Enter a valid Email address"
+                return@setOnClickListener
+            }  else if (binding.etProfession.text.toString().isEmpty()) {
                 binding.etProfession.error = "Please enter profession"
                 return@setOnClickListener
             } else if (binding.etState.text.toString().isEmpty()) {
@@ -115,6 +83,10 @@ class ProfileDetailsActivity : AppCompatActivity() {
             binding.cardstate.visibility = View.VISIBLE
             showProfessionDialogstate(binding.etState)
         }
+
+
+
+
     }
 
     private fun showProfessionDialogstate(etState: EditText) {
@@ -145,23 +117,16 @@ class ProfileDetailsActivity : AppCompatActivity() {
         binding.rvProfession.layoutManager = LinearLayoutManager(this)
     }
 
-    private fun setCursorDrawableColor(editText: EditText, drawableRes: Int) {
-        try {
-            val drawable: Drawable = resources.getDrawable(drawableRes, null)
-            val field: Field = TextView::class.java.getDeclaredField("mCursorDrawableRes")
-            field.isAccessible = true
-            field.set(editText, drawable)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
+
 
     private fun register() {
         val params: MutableMap<String, String> = HashMap()
+        params[Constant.USER_ID] = session.getData(Constant.USER_ID)
+        params[Constant.MOBILE] = session.getData(Constant.MOBILE)
         params[Constant.NAME] = binding.etName.text.toString()
-        params[Constant.EMAIL] = session.getData(Constant.EMAIL)
+        params[Constant.EMAIL] = binding.etEmail.text.toString()
+        params[Constant.GENDER]= session.getData(Constant.GENDER)
         params[Constant.AGE] = binding.etAge.text.toString()
-        params[Constant.GENDER] = gender.toString()
         params[Constant.PROFESSION] = binding.etProfession.text.toString()
         params[Constant.STATE] = binding.etState.text.toString()
         params[Constant.CITY] = binding.etcity.text.toString()
@@ -187,7 +152,7 @@ class ProfileDetailsActivity : AppCompatActivity() {
                         session.setData(Constant.REFER_CODE, jsonobj.getString(Constant.REFER_CODE))
                         session.setData(Constant.REFERRED_BY, jsonobj.getString(Constant.REFERRED_BY))
                         Toast.makeText(activity, "" + jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
-                        val intent = Intent(activity, ProfileActivity::class.java)
+                        val intent = Intent(activity, HomeActivity::class.java)
                         startActivity(intent)
                         finish()
 
@@ -204,6 +169,6 @@ class ProfileDetailsActivity : AppCompatActivity() {
                     e.printStackTrace()
                 }
             }
-        }, activity, Constant.REGISTER, params, true, 1)
+        }, activity, Constant.UPDATE_USERS, params, true, 1)
     }
 }

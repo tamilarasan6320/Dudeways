@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_semibold"
-                android:text="Personal Details"
+                android:text="Edit Profile"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_24sdp" />
 
@@ -44,12 +44,11 @@
                     android:fontFamily="@font/poppins_medium"
                     android:inputType="textEmailAddress"
                     android:maxLength="15"
-                   />
+                    />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Email Field -->
             <com.google.android.material.textfield.TextInputLayout
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_20sdp"
@@ -65,105 +64,13 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_medium"
                     android:inputType="textEmailAddress"
-                   />
+                    />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Gender"
-                android:textSize="@dimen/_16sdp"
-                android:fontFamily="@font/poppins_semibold"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:textColor="@color/black" />
-
-            <!-- Gender Selection -->
-            <LinearLayout
-                android:weightSum="3"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:id="@+id/llMale"
-                    android:orientation="horizontal"
-                    android:paddingVertical="@dimen/_5sdp"
-                    android:paddingHorizontal="@dimen/_10sdp"
-                    android:background="@drawable/corners_bg"
-                    android:backgroundTint="@color/primary_extra_light"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-
-
-                    <TextView
-                        android:id="@+id/tvMale"
-                        android:layout_gravity="center"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Male"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/poppins_medium" />
-
-                </LinearLayout>
-
-                <Space
-                    android:layout_width="@dimen/_4sdp"
-                    android:layout_height="wrap_content" />
-
-                <LinearLayout
-                    android:id="@+id/llFemale"
-                    android:orientation="horizontal"
-                    android:paddingVertical="@dimen/_5sdp"
-                    android:paddingHorizontal="@dimen/_10sdp"
-                    android:background="@drawable/corners_bg"
-                    android:backgroundTint="@color/primary_extra_light"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-
-
-                    <TextView
-                        android:id="@+id/tvFemale"
-                        android:layout_gravity="center"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Female"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/poppins_medium" />
-
-                </LinearLayout>
-
-                <Space
-                    android:layout_width="@dimen/_4sdp"
-                    android:layout_height="wrap_content" />
-
-                <LinearLayout
-                    android:id="@+id/llOthers"
-                    android:orientation="horizontal"
-                    android:paddingVertical="@dimen/_5sdp"
-                    android:paddingHorizontal="@dimen/_10sdp"
-                    android:background="@drawable/corners_bg"
-                    android:backgroundTint="@color/primary_extra_light"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/tvOthers"
-                        android:layout_gravity="center"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Others"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/poppins_medium" />
-
-                </LinearLayout>
-            </LinearLayout>
 
 
 
 
-            <!-- Mobile Number Field -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilMobileNumber"
                 android:layout_width="match_parent"
@@ -183,7 +90,7 @@
                     android:fontFamily="@font/poppins_medium"
                     android:inputType="number"
                     android:maxLength="10"
-                   />
+                    />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -204,7 +111,7 @@
                     android:fontFamily="@font/poppins_medium"
                     android:inputType="number"
                     android:maxLength="2"
-                   />
+                    />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Profession Field -->
@@ -230,7 +137,7 @@
                     android:focusableInTouchMode="true"
                     android:cursorVisible="false"
                     android:focusable="false"
-                   />
+                    />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.card.MaterialCardView
@@ -274,7 +181,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_medium"
                     android:inputType="text"
-                   />
+                    />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -300,7 +207,7 @@
                     android:focusableInTouchMode="true"
                     android:cursorVisible="false"
                     android:focusable="false"
-                   />
+                    />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.card.MaterialCardView
@@ -327,25 +234,7 @@
                 </androidx.core.widget.NestedScrollView>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Refer Code Field -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:hint="Refer code (optional)"
-                app:hintTextColor="@color/primary"
-                app:boxStrokeColor="@color/primary"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etRefferCode"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_medium"
-                    android:inputType="text"
-                   />
-            </com.google.android.material.textfield.TextInputLayout>
+   
 
             <!-- Save Button -->
             <com.google.android.material.button.MaterialButton

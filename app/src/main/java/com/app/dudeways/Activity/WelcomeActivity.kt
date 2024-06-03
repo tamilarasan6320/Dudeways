@@ -70,7 +70,7 @@ class WelcomeActivity : AppCompatActivity() {
     }
 
     private fun navigateToLogin() {
-        val intent = Intent(this, MobileLoginActivity::class.java)
+        val intent = Intent(this, GoogleLoginActivity::class.java)
         startActivity(intent)
         finish()
     }

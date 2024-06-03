@@ -59,7 +59,6 @@ class MobileLoginActivity : AppCompatActivity() {
                 try {
                     val jsonObject: JSONObject = JSONObject(response)
                         if (jsonObject.getBoolean(Constant.SUCCESS)) {
-
                             val registered = jsonObject.getString("registered")
                             if (registered == "true") {
                             val `object` = JSONObject(response)

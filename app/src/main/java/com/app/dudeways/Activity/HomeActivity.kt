@@ -22,6 +22,11 @@ import com.app.dudeways.databinding.ActivityHomeBinding
 import com.app.dudeways.helper.Constant
 import com.app.dudeways.helper.Session
 import com.bumptech.glide.Glide
+import com.onesignal.OneSignal
+import com.onesignal.debug.LogLevel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListener {
 
@@ -30,6 +35,8 @@ class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
     lateinit var session: Session
 
     private lateinit var fm: FragmentManager
+
+    val ONESIGNAL_APP_ID = "4f929ed9-584d-4208-a3e8-7de1ae4f679e"
 
     private var bottomNavigationView: BottomNavigationView? = null
 
@@ -51,6 +58,20 @@ class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
         activity = this
         session = Session(activity)
         setContentView(binding.root)
+
+
+        // Verbose Logging set to help debug issues, remove before releasing your app.
+        OneSignal.Debug.logLevel = LogLevel.VERBOSE
+
+        // OneSignal Initialization
+        OneSignal.initWithContext(this, ONESIGNAL_APP_ID)
+
+        // requestPermission will show the native Android notification permission prompt.
+        // NOTE: It's recommended to use a OneSignal In-App Message to prompt instead.
+        CoroutineScope(Dispatchers.IO).launch {
+            OneSignal.Notifications.requestPermission(false)
+        }
+
 
 
         tripFragment = TripFragment()

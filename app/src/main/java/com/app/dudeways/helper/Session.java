@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
+import com.app.dudeways.Activity.GoogleLoginActivity;
 import com.app.dudeways.Activity.SplashscreenActivity;
 
 
@@ -49,14 +50,14 @@ public class Session {
 
 
     public void logoutUser(Activity activity) {
-        Intent i = new Intent(activity, SplashscreenActivity.class);
+        Intent i = new Intent(activity, GoogleLoginActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         activity.startActivity(i);
         activity.finish();
         editor.clear();
         editor.commit();
-
+        clearData();
         new Session(_activity).setBoolean("is_logged_in", false);
 
     }

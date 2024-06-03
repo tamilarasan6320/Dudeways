@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.app.dudeways.R
 import com.app.dudeways.databinding.ActivitySplashscreenBinding
 import com.app.dudeways.helper.Session
+import com.google.android.gms.auth.api.signin.GoogleSignIn
 
 class SplashscreenActivity : AppCompatActivity() {
     lateinit var binding: ActivitySplashscreenBinding
@@ -43,9 +44,13 @@ class SplashscreenActivity : AppCompatActivity() {
     private fun GotoActivity() {
         handler?.postDelayed({
             if (session!!.getBoolean("is_logged_in")) {
-                val intent = Intent(activity, HomeActivity::class.java)
-                startActivity(intent)
-                finish()
+                if (GoogleSignIn.getLastSignedInAccount(this) != null) {
+                    val intent = Intent(activity,HomeActivity::class.java)
+                    startActivity(intent)
+                }
+//                val intent = Intent(activity ,GoogleLoginActivity::class.java)
+//                startActivity(intent)
+//                finish()
             } else {
                 val intent = Intent(activity, WelcomeActivity::class.java)
                 startActivity(intent)
@@ -53,5 +58,11 @@ class SplashscreenActivity : AppCompatActivity() {
             }
 
         }, 100)
+    }
+
+
+    override fun onStart() {
+        super.onStart()
+
     }
 }

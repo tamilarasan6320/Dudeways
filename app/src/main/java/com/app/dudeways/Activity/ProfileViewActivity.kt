@@ -1,18 +1,31 @@
 package com.app.dudeways.Activity
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.canhub.cropper.CropImage
 import com.canhub.cropper.CropImageView
 import com.app.dudeways.R
 import com.app.dudeways.databinding.ActivityProfileViewBinding
+import com.app.dudeways.helper.ApiConfig
 import com.app.dudeways.helper.Constant
 import com.app.dudeways.helper.Session
+import com.bumptech.glide.Glide
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.firebase.auth.FirebaseAuth
+import org.json.JSONException
+import org.json.JSONObject
 import java.io.File
 
 class ProfileViewActivity : AppCompatActivity() {
@@ -21,6 +34,11 @@ class ProfileViewActivity : AppCompatActivity() {
     lateinit var activity: Activity
     lateinit var session: Session
 
+    lateinit var mGoogleSignInClient: GoogleSignInClient
+
+    private val auth by lazy {
+        FirebaseAuth.getInstance()
+    }
 
     var filePath1: String? = null
     var imageUri: Uri? = null
@@ -41,9 +59,21 @@ class ProfileViewActivity : AppCompatActivity() {
 
         session = Session(activity)
 
+        // call requestIdToken as follows
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+
         binding.ivAddProfile.setOnClickListener {
             isCameraRequest = false
             pickImageFromGallery()
+        }
+
+        binding.ivEdit.setOnClickListener {
+            val intent = Intent(activity, EditProfileActivity::class.java)
+            startActivity(intent)
         }
 
         binding.ivCamera.setOnClickListener {
@@ -51,6 +81,9 @@ class ProfileViewActivity : AppCompatActivity() {
             pickImageFromGallery()
         }
 
+
+        Glide.with(activity).load(session.getData(Constant.COVER_IMG)).placeholder(R.drawable.cover_img).into(binding.ivCover)
+        Glide.with(activity).load(session.getData(Constant.PROFILE)).placeholder(R.drawable.profile_placeholder).into(binding.civProfile)
 
         binding.tvProfessional.text = session.getData(Constant.PROFESSION)
         binding.tvCity.text = session.getData(Constant.CITY)
@@ -71,9 +104,33 @@ class ProfileViewActivity : AppCompatActivity() {
         }
 
         binding.rlStorepoints.setOnClickListener {
-            val intent = Intent(activity, StorepointsActivity::class.java)
-            startActivity(intent)
+            val dialogView = layoutInflater.inflate(R.layout.dialog_custom, null)
+
+            val dialogBuilder = AlertDialog.Builder(activity)
+                .setView(dialogView)
+                .create()
+            val title = dialogView.findViewById<TextView>(R.id.dialog_title)
+            val btnPurchase = dialogView.findViewById<Button>(R.id.btnPurchase)
+            val btnFreePoints = dialogView.findViewById<Button>(R.id.btnFreePoints)
+
+            btnPurchase.setOnClickListener {
+                val intent = Intent(activity, PurchasepointActivity::class.java)
+                startActivity(intent)
+                dialogBuilder.dismiss()
+            }
+
+            btnFreePoints.setOnClickListener {
+                val intent = Intent(activity, FreePointsActivity::class.java)
+                startActivity(intent)
+                dialogBuilder.dismiss()
+            }
+
+
+
+
+            dialogBuilder.show()
         }
+
 
         binding.rlDeactiveaccount.setOnClickListener {
             val intent = Intent(activity, DeactivateActivity::class.java)
@@ -86,8 +143,11 @@ class ProfileViewActivity : AppCompatActivity() {
         }
 
         binding.rlLogout.setOnClickListener {
-            session.logoutUser(activity)
-            finish()
+            mGoogleSignInClient.signOut().addOnCompleteListener {
+                session.logoutUser(activity)
+                Toast.makeText(this, "Logging Out", Toast.LENGTH_SHORT).show()
+                finish()
+            }
         }
 
     }
@@ -130,9 +190,10 @@ class ProfileViewActivity : AppCompatActivity() {
                         val myBitmap = BitmapFactory.decodeFile(imgFile.absolutePath)
                         if (isCameraRequest) {
                             binding.ivCover.setImageBitmap(myBitmap)
+                            uploadCover()
                         } else {
                             binding.civProfile.setImageBitmap(myBitmap)
-                            binding.ivAddProfile.visibility = View.GONE
+                            uploadProfile()
                         }
                     }
                 }
@@ -142,5 +203,72 @@ class ProfileViewActivity : AppCompatActivity() {
 
 }
 
+
+    private fun uploadProfile() {
+        val params: MutableMap<String, String> = HashMap()
+        params[Constant.USER_ID] = session.getData(Constant.USER_ID)
+        val FileParams: MutableMap<String, String> = HashMap()
+        FileParams[Constant.PROFILE] = filePath1!!
+        ApiConfig.RequestToVolleyMulti({ result, response ->
+            if (result) {
+                try {
+                    val jsonObject = JSONObject(response)
+                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
+                        val `object` = JSONObject(response)
+                        val jsonobj = `object`.getJSONObject(Constant.DATA)
+                        session.setData(Constant.USER_ID, jsonobj.getString(Constant.ID))
+                        session.setData(Constant.NAME, jsonobj.getString(Constant.NAME))
+                        session.setData(Constant.UNIQUE_NAME, jsonobj.getString(Constant.UNIQUE_NAME))
+                        session.setData(Constant.EMAIL, jsonobj.getString(Constant.EMAIL))
+                        session.setData(Constant.AGE, jsonobj.getString(Constant.AGE))
+                        session.setData(Constant.GENDER, jsonobj.getString(Constant.GENDER))
+                        session.setData(Constant.PROFESSION, jsonobj.getString(Constant.PROFESSION))
+                        session.setData(Constant.STATE, jsonobj.getString(Constant.STATE))
+                        session.setData(Constant.CITY, jsonobj.getString(Constant.CITY))
+                        session.setData(Constant.PROFILE, jsonobj.getString(Constant.PROFILE))
+                        session.setData(Constant.MOBILE, jsonobj.getString(Constant.MOBILE))
+                        session.setData(Constant.REFER_CODE, jsonobj.getString(Constant.REFER_CODE))
+                        session.setData(Constant.REFERRED_BY, jsonobj.getString(Constant.REFERRED_BY))
+                        session.setData(Constant.PROFILE, jsonobj.getString(Constant.PROFILE))
+                        Glide.with(activity).load(session.getData(Constant.PROFILE)).placeholder(R.drawable.profile_placeholder).into(binding.civProfile)
+
+                        Toast.makeText(activity, "" + jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
+
+                    } else {
+                        Toast.makeText(activity, "" + jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }
+        }, activity, Constant.UPDATE_IMAGE, params, FileParams)
+    }
+    private fun uploadCover() {
+        val params: MutableMap<String, String> = HashMap()
+        params[Constant.USER_ID] = session.getData(Constant.USER_ID)
+        val FileParams: MutableMap<String, String> = HashMap()
+        FileParams[Constant.COVER_IMG] = filePath1!!
+        ApiConfig.RequestToVolleyMulti({ result, response ->
+            if (result) {
+                try {
+                    val jsonObject = JSONObject(response)
+                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
+                        val `object` = JSONObject(response)
+                        val jsonobj = `object`.getJSONObject(Constant.DATA)
+                        session.setData(Constant.USER_ID, jsonobj.getString(Constant.ID))
+                        session.setData(Constant.COVER_IMG, jsonobj.getString(Constant.COVER_IMG))
+                        Glide.with(activity).load(session.getData(Constant.COVER_IMG)).placeholder(R.drawable.cover_img).into(binding.ivCover)
+
+                        Toast.makeText(activity, "" + jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
+
+                    } else {
+                        Toast.makeText(activity, "" + jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }
+        }, activity, Constant.UPDATE_COVER_IMG, params, FileParams)
+    }
 
 }

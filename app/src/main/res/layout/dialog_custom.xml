@@ -1,0 +1,57 @@
+<!-- res/layout/dialog_custom.xml -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_gravity="center"
+        android:id="@+id/dialog_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="You have 0 Points"
+        android:textSize="@dimen/_14sdp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/poppins_semibold" />
+
+
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_gravity="center"
+        android:id="@+id/btnPurchase"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/_24sdp"
+        android:fontFamily="@font/poppins_medium"
+        app:backgroundTint="@null"
+        android:background="@drawable/gradient_button"
+        android:text="Purchase Points"
+        android:textAllCaps="false"
+        android:textSize="@dimen/_14sdp"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_gravity="center"
+        android:id="@+id/btnFreePoints"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:strokeColor="@color/primary"
+        app:strokeWidth="2dp"
+        android:backgroundTint="@color/primary_extra_light"
+        android:fontFamily="@font/poppins_medium"
+        android:paddingVertical="@dimen/_4sdp"
+        android:text="Free Points"
+        android:textColor="@color/black"
+        android:textAllCaps="false"
+        android:textSize="@dimen/_14sdp"
+        app:cornerRadius="@dimen/_5sdp" />
+
+
+
+</LinearLayout>

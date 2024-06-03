@@ -22,8 +22,7 @@
             <ImageView
                 android:id="@+id/ivCover"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_110sdp"
-                android:background="@drawable/cover_img"
+                android:layout_height="@dimen/_120sdp"
                 android:scaleType="fitXY"
                 />
 
@@ -82,13 +81,15 @@
 
 
         <ImageView
+            android:id="@+id/ivEdit"
             android:layout_marginRight="@dimen/_5sdp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
+            android:scaleType="fitXY"
             android:background="@drawable/edit_ic"
-            android:layout_marginBottom="@dimen/_30sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
             />
 
 
