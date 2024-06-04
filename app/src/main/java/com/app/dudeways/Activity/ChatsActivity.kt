@@ -30,7 +30,7 @@ import org.json.JSONException
 import org.json.JSONObject
 import kotlin.random.Random
 
-class ChatsActivity : AppCompatActivity() , OnMessagesFetchedListener {
+class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
 
     lateinit var binding: ActivityChatsBinding
     lateinit var activity: Activity
@@ -43,14 +43,13 @@ class ChatsActivity : AppCompatActivity() , OnMessagesFetchedListener {
 
     var sender_id = ""
     var receiver_id = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_chats)
         binding = ActivityChatsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         activity = this
         session = Session(activity)
-        setContentView(binding.root)
-
 
         sender_id = session.getData(Constant.USER_ID)
         receiver_id = intent.getStringExtra("chat_user_id").toString()
@@ -61,127 +60,98 @@ class ChatsActivity : AppCompatActivity() , OnMessagesFetchedListener {
             .placeholder(R.drawable.placeholder_bg)
             .into(binding.ivProfile)
 
-
         binding.ivBack.setOnClickListener {
             onBackPressed()
         }
 
-        binding.sendButton?.setOnClickListener {
-            binding?.messageEdittext?.text?.let { message ->
-                if (message.isNotEmpty()) {
-                    updateMessages(
-                        sender_id,
-                        receiver_id,
-                        message = message.toString()
-                    )
-                    message.clear()
-                } else {
-                    makeToast("Enter text to send")
-                }
+        binding.sendButton.setOnClickListener {
+            val message = binding.messageEdittext.text.toString()
+            if (message.isNotEmpty()) {
+                updateMessages(sender_id, receiver_id, message)
+                binding.messageEdittext.text.clear()
+            } else {
+                makeToast("Enter text to send")
             }
         }
 
-        fetchMessages(
-            senderID = sender_id,
-            receiverID = receiver_id,
-            onMessagesFetchedListener = this
-        )
-        binding?.progressCircular?.visibility = if (isLoading) View.VISIBLE else View.GONE
-
-
+        fetchMessages(sender_id, receiver_id, this)
+        binding.progressCircular.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
-
-    private fun fetchMessages(
-        senderID: String,
-        receiverID: String,
-        onMessagesFetchedListener: OnMessagesFetchedListener
-    ) {
+    private fun fetchMessages(senderID: String, receiverID: String, onMessagesFetchedListener: OnMessagesFetchedListener) {
         val conversations: MutableList<ChatModel?> = mutableListOf()
-        val reference = databaseReference
-            .child("CHATS_V2")
-            .child(senderID)
-            .child(receiverID)
+        val reference = databaseReference.child("CHATS_V2").child(senderID).child(receiverID)
 
-        reference
-            .get()
-            .addOnSuccessListener { dataSnapshot ->
-                if (dataSnapshot.exists()) {
-                    for (child in dataSnapshot.children) {
-                        val chatModel = child.getValue(ChatModel::class.java)
-                        if (chatModel != null) {
-                            Log
-                                .e("Conversations", chatModel.toString())
-                            conversations
-                                .add(chatModel)
-                        }
+        reference.get().addOnSuccessListener { dataSnapshot ->
+            if (dataSnapshot.exists()) {
+                for (child in dataSnapshot.children) {
+                    val chatModel = child.getValue(ChatModel::class.java)
+                    if (chatModel != null) {
+                        Log.e("fetchMessages", "ChatModel: $chatModel")
+                        conversations.add(chatModel)
                     }
                 }
-                onMessagesFetchedListener.onMessagesFetched(conversations)
+            } else {
+                Log.e("fetchMessages", "No messages found")
             }
-            .addOnFailureListener { exception ->
-                onMessagesFetchedListener.onError(exception.message.toString())
+            onMessagesFetchedListener.onMessagesFetched(conversations)
+        }.addOnFailureListener { exception ->
+            Log.e("fetchMessages", "Error fetching messages: ${exception.message}")
+            onMessagesFetchedListener.onError(exception.message.toString())
+        }
+
+        reference.addChildEventListener(object : ChildEventListener {
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                val chatModel = snapshot.getValue(ChatModel::class.java)
+                Log.e("onChildAdded", "ChatModel: $chatModel")
+                onMessagesFetchedListener.onMessageAdded(chatModel)
             }
 
-        reference.addChildEventListener(
-            object : ChildEventListener {
-                override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                    val chatModel = snapshot.getValue(ChatModel::class.java)
-                    onMessagesFetchedListener
-                        .onMessageAdded(chatModel)
-                }
-
-                override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                    val chatModel = snapshot.getValue(ChatModel::class.java)
-                    onMessagesFetchedListener
-                        .onMessageChanged(chatModel)
-                }
-
-                override fun onChildRemoved(snapshot: DataSnapshot) {
-                    val chatModel = snapshot.getValue(ChatModel::class.java)
-                    onMessagesFetchedListener
-                        .onMessageRemoved(chatModel)
-                }
-
-                override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-                    //
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    //
-                }
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                val chatModel = snapshot.getValue(ChatModel::class.java)
+                Log.e("onChildChanged", "ChatModel: $chatModel")
+                onMessagesFetchedListener.onMessageChanged(chatModel)
             }
-        )
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+                val chatModel = snapshot.getValue(ChatModel::class.java)
+                Log.e("onChildRemoved", "ChatModel: $chatModel")
+                onMessagesFetchedListener.onMessageRemoved(chatModel)
+            }
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                // No implementation needed
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("onCancelled", "DatabaseError: ${error.message}")
+            }
+        })
     }
 
-    private fun updateMessages(
-        senderID: String,
-        receiverID: String,
-        message: String,
-    ) {
-        val chatID: String = Random.nextInt(100000, 999999).toString()
-        databaseReference
-            .child("CHATS_V2")
-            .child(senderID)
-            .child(receiverID)
-            .child(chatID)
-            .setValue(
-                ChatModel(
-                    attachmentType = "TEXT",
-                    chatID = chatID,
-                    dateTime = Timestamp.now().toDate().time.toString(),
-                    message = message,
-                    msgSeen = false,
-                    receiverID = receiverID,
-                    senderID = senderID,
-                    type = "TEXT",
-                    sentBy = session?.getData(Constant.NAME)
-                )
-            )
-            .addOnCompleteListener { task ->
+    private fun updateMessages(senderID: String, receiverID: String, message: String) {
+        val chatID = Random.nextInt(100000, 999999).toString()
+        val chatModel = ChatModel(
+            attachmentType = "TEXT",
+            chatID = chatID,
+            dateTime = Timestamp.now().toDate().time.toString(),
+            message = message,
+            msgSeen = false,
+            receiverID = receiverID,
+            senderID = senderID,
+            type = "TEXT",
+            sentBy = session.getData(Constant.NAME)
+        )
+        Log.e("updateMessages", "Sending message: $chatModel")
+        databaseReference.child("CHATS_V2").child(senderID).child(receiverID).child(chatID)
+            .setValue(chatModel).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     addchat(message)
-                    makeToast("Messages updated")
+                    makeToast("Message sent")
+                    Log.e("updateMessages", "Message sent successfully")
+                } else {
+                    makeToast("Failed to send message")
+                    Log.e("updateMessages", "Failed to send message: ${task.exception?.message}")
                 }
             }
     }
@@ -190,24 +160,17 @@ class ChatsActivity : AppCompatActivity() , OnMessagesFetchedListener {
         messages = conversations
         with(messages) {
             if (isEmpty()) {
-                //Empty Conversation
                 isLoading = false
                 makeToast("Empty message")
             } else {
-                messages.sortBy {
-                    it?.dateTime
-                }
-                chatAdapter = ChatAdapter(
-                    messages,
-                    onClick = {
-
-                    },
-                    session!!
-                )
-                binding.RVChats?.apply {
+                messages.sortBy { it?.dateTime }
+                chatAdapter = ChatAdapter(messages, onClick = {}, session)
+                binding.RVChats.apply {
                     layoutManager = LinearLayoutManager(this@ChatsActivity)
                     adapter = chatAdapter
                 }
+                isLoading = false
+                binding.progressCircular.visibility = View.GONE
             }
         }
     }
@@ -217,29 +180,29 @@ class ChatsActivity : AppCompatActivity() , OnMessagesFetchedListener {
         chatModel?.let {
             if (messages.none { existingChatModel -> existingChatModel?.chatID == chatModel.chatID }) {
                 messages.add(chatModel)
-                messages.sortBy {
-                    it?.dateTime
-                }
+                messages.sortBy { it?.dateTime }
                 chatAdapter?.notifyDataSetChanged()
+                Log.e("onMessageAdded", "Message added: $chatModel")
             }
         }
     }
 
     override fun onMessageChanged(chatModel: ChatModel?) {
-
+        Log.e("onMessageChanged", "Message changed: $chatModel")
+        // Handle message update if necessary
     }
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onMessageRemoved(chatModel: ChatModel?) {
-        messages
-            .remove(chatModel)
+        messages.remove(chatModel)
         chatAdapter?.notifyDataSetChanged()
+        Log.e("onMessageRemoved", "Message removed: $chatModel")
     }
 
     override fun onError(errorMessage: String) {
-
+        makeToast("Error: $errorMessage")
+        Log.e("onError", "Error: $errorMessage")
     }
-
 
     private fun addchat(message: String) {
         val params: MutableMap<String, String> = HashMap()
@@ -251,19 +214,15 @@ class ChatsActivity : AppCompatActivity() , OnMessagesFetchedListener {
                 try {
                     val jsonObject = JSONObject(response)
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
-
-                        Toast.makeText(activity,""+ jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
-
-
+                        Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
                     } else {
-                        Toast.makeText(activity, ""+jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
                     }
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
             }
-
-
         }, activity, Constant.ADD_CHAT, params, true, 1)
     }
 }
+
