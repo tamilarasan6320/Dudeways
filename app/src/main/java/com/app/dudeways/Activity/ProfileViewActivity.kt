@@ -232,6 +232,12 @@ class ProfileViewActivity : AppCompatActivity() {
                         session.setData(Constant.PROFILE, jsonobj.getString(Constant.PROFILE))
                         Glide.with(activity).load(session.getData(Constant.PROFILE)).placeholder(R.drawable.profile_placeholder).into(binding.civProfile)
 
+                        // call resume() the HomeActivity
+                        onResume()
+
+
+
+
                         Toast.makeText(activity, "" + jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
 
                     } else {
@@ -259,6 +265,7 @@ class ProfileViewActivity : AppCompatActivity() {
                         session.setData(Constant.COVER_IMG, jsonobj.getString(Constant.COVER_IMG))
                         Glide.with(activity).load(session.getData(Constant.COVER_IMG)).placeholder(R.drawable.cover_img).into(binding.ivCover)
 
+                        onResume()
                         Toast.makeText(activity, "" + jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
 
                     } else {

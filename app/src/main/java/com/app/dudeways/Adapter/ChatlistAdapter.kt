@@ -13,6 +13,8 @@ import com.app.dudeways.Activity.ChatsActivity
 import com.app.dudeways.Activity.ProfileinfoActivity
 import com.app.dudeways.Model.Chatlist
 import com.app.dudeways.R
+import com.app.dudeways.helper.Constant
+import com.app.dudeways.helper.Session
 import com.bumptech.glide.Glide
 
 class ChatlistAdapter(
@@ -37,6 +39,7 @@ class ChatlistAdapter(
     override fun onBindViewHolder(holderParent: RecyclerView.ViewHolder, position: Int) {
         val holder: ItemHolder = holderParent as ItemHolder
         val report: Chatlist = chatlist[position]
+        val session = Session(activity)
 
 
         holder.TV_user_name.text = report.name
@@ -58,6 +61,10 @@ class ChatlistAdapter(
 
         holder.itemView.setOnClickListener{
             val intent = Intent(activity, ChatsActivity::class.java)
+            intent.putExtra("id", report.id)
+            intent.putExtra("name", report.name)
+            session.setData("reciver_profile", report.profile)
+            intent.putExtra("user_id", report.user_id)
             activity.startActivity(intent)
         }
 

@@ -144,4 +144,12 @@ class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
         return true
     }
 
+    // on resume
+    override fun onResume() {
+        super.onResume()
+        val profile = session.getData(Constant.PROFILE)
+        Glide.with(activity).load(profile).placeholder(R.drawable.profile_placeholder)
+            .into(binding.civProfile)
+    }
+
 }
