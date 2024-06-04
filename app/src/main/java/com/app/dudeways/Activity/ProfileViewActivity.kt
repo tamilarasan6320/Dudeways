@@ -82,7 +82,7 @@ class ProfileViewActivity : AppCompatActivity() {
         }
 
 
-        Glide.with(activity).load(session.getData(Constant.COVER_IMG)).placeholder(R.drawable.cover_img).into(binding.ivCover)
+        Glide.with(activity).load(session.getData(Constant.COVER_IMG)).placeholder(R.drawable.placeholder_bg).into(binding.ivCover)
         Glide.with(activity).load(session.getData(Constant.PROFILE)).placeholder(R.drawable.profile_placeholder).into(binding.civProfile)
 
         binding.tvProfessional.text = session.getData(Constant.PROFESSION)
@@ -92,6 +92,22 @@ class ProfileViewActivity : AppCompatActivity() {
         binding.tvName.text = session.getData(Constant.NAME)
         binding.tvUsername.text = "@"+session.getData(Constant.UNIQUE_NAME)
         binding.tvPlace.text = session.getData(Constant.CITY) + ", " + session.getData(Constant.STATE)
+
+
+        val gender = session.getData(Constant.GENDER)
+        val age = session.getData(Constant.AGE)
+        binding.ivAge.text = age
+
+        if(gender == "male") {
+            binding.ivGender.setBackgroundDrawable(resources.getDrawable(R.drawable.male_ic))
+        }
+        else {
+            binding.ivGender.setBackgroundDrawable(resources.getDrawable(R.drawable.female_ic))
+        }
+
+
+
+
 
         binding.rlMytrips.setOnClickListener {
             val intent = Intent(activity, MytripsActivity::class.java)

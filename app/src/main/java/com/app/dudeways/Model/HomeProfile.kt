@@ -6,6 +6,7 @@ class HomeProfile {
 
     var id: String? = null
     var name: String? = null
+    var user_id: String? = null
     var unique_name: String? = null
     var profile: String? = null
     var planning: String? = null
@@ -42,9 +43,11 @@ class HomeProfile {
         profile: String?,
         friend: String?,
         verified: String?,
-        trip_image: String?
+        trip_image: String?,
+        user_id: String?
 
     ) {
+        this.user_id = user_id
         this.id = id
         this.name = name
         this.unique_name = unique_name

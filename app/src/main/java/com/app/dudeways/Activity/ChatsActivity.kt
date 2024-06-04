@@ -5,17 +5,15 @@ import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.activity.enableEdgeToEdge
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dudeways.Adapter.ChatAdapter
 import com.app.dudeways.Model.ChatModel
 import com.app.dudeways.R
 import com.app.dudeways.databinding.ActivityChatsBinding
-import com.app.dudeways.databinding.ActivityHomeBinding
 import com.app.dudeways.extentions.makeToast
+import com.app.dudeways.helper.ApiConfig
 import com.app.dudeways.helper.Constant
 import com.app.dudeways.helper.Session
 import com.app.dudeways.listeners.OnMessagesFetchedListener
@@ -28,6 +26,8 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import org.json.JSONException
+import org.json.JSONObject
 import kotlin.random.Random
 
 class ChatsActivity : AppCompatActivity() , OnMessagesFetchedListener {
@@ -53,7 +53,7 @@ class ChatsActivity : AppCompatActivity() , OnMessagesFetchedListener {
 
 
         sender_id = session.getData(Constant.USER_ID)
-        receiver_id = intent.getStringExtra("user_id").toString()
+        receiver_id = intent.getStringExtra("chat_user_id").toString()
 
         binding.tvName.text = intent.getStringExtra("name")
         Glide.with(activity)
@@ -102,7 +102,6 @@ class ChatsActivity : AppCompatActivity() , OnMessagesFetchedListener {
             .child("CHATS_V2")
             .child(senderID)
             .child(receiverID)
-
 
         reference
             .get()
@@ -181,6 +180,7 @@ class ChatsActivity : AppCompatActivity() , OnMessagesFetchedListener {
             )
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+                    addchat(message)
                     makeToast("Messages updated")
                 }
             }
@@ -238,5 +238,32 @@ class ChatsActivity : AppCompatActivity() , OnMessagesFetchedListener {
 
     override fun onError(errorMessage: String) {
 
+    }
+
+
+    private fun addchat(message: String) {
+        val params: MutableMap<String, String> = HashMap()
+        params[Constant.USER_ID] = session.getData(Constant.USER_ID)
+        params[Constant.CHAT_USER_ID] = receiver_id
+        params[Constant.MESSAGE] = message
+        ApiConfig.RequestToVolley({ result, response ->
+            if (result) {
+                try {
+                    val jsonObject = JSONObject(response)
+                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
+
+                        Toast.makeText(activity,""+ jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
+
+
+                    } else {
+                        Toast.makeText(activity, ""+jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }
+
+
+        }, activity, Constant.ADD_CHAT, params, true, 1)
     }
 }

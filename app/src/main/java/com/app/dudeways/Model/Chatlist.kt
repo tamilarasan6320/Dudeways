@@ -10,6 +10,7 @@ class Chatlist {
     var name: String? = null
     var profile: String? = null
     var chat_user_id: String? = null
+    var online_status: String? = null
     var latest_message: String? = null
     var latest_msg_time: String? = null
     var msg_seen: String? = null
@@ -23,6 +24,7 @@ class Chatlist {
         name: String?,
         profile: String?,
         chat_user_id: String?,
+        online_status: String?,
         latest_message: String?,
         latest_msg_time: String?,
         msg_seen: String?,
@@ -41,6 +43,7 @@ class Chatlist {
         this.datetime = datetime
         this.updated_at = updated_at
         this.created_at = created_at
+        this.online_status = online_status
     }
 
 

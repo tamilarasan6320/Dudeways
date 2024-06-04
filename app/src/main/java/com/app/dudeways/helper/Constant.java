@@ -14,6 +14,7 @@ public class Constant {
     public static final String UPDATE_IMAGE = BaseUrl + "update_image";
     public static final String UPDATE_COVER_IMG = BaseUrl + "update_cover_img";
     public static final String TRIP_LIST = BaseUrl + "trip_list";
+    public static final String ADD_CHAT = BaseUrl + "add_chat";
     public static final String POINTS_LIST = BaseUrl + "points_list";
     public static final String TRIP_TYPE =  "trip_type";
     public static final String TRIP_LOCATION = "location";
@@ -54,6 +55,7 @@ public class Constant {
     public static final String MOBILE = "mobile";
     public static final String ID = "id";
     public static final String USER_ID = "user_id";
+    public static final String CHAT_USER_ID = "chat_user_id";
     public static final String TRIP_ID = "trip_id";
     public static final String FRIEND_USER_ID = "friend_user_id";
     public static final String FRIEND = "friend";

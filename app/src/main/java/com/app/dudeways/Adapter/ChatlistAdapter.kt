@@ -45,6 +45,12 @@ class ChatlistAdapter(
         holder.TV_user_name.text = report.name
         holder.TV_message_content.text = report.latest_message
 
+        if (report.online_status == "1") {
+            holder.IV_online_status.visibility = View.VISIBLE
+        } else {
+            holder.IV_online_status.visibility = View.GONE
+        }
+
         if (report.msg_seen == "1") {
             holder.IC_read.visibility = View.VISIBLE
         } else {
@@ -55,7 +61,7 @@ class ChatlistAdapter(
 
         Glide.with(activitys)
             .load(report.profile)
-            .placeholder(R.drawable.placeholder_bg)
+            .placeholder(R.drawable.profile_placeholder)
             .into(holder.IV_user_profile)
 
 
@@ -64,7 +70,7 @@ class ChatlistAdapter(
             intent.putExtra("id", report.id)
             intent.putExtra("name", report.name)
             session.setData("reciver_profile", report.profile)
-            intent.putExtra("user_id", report.user_id)
+            intent.putExtra("chat_user_id", report.chat_user_id)
             activity.startActivity(intent)
         }
 
@@ -87,6 +93,7 @@ class ChatlistAdapter(
         val IV_user_profile: ImageView = itemView.findViewById(R.id.IV_user_profile)
         val TV_message_content: TextView = itemView.findViewById(R.id.TV_message_content)
         val TV_sent_time: TextView = itemView.findViewById(R.id.TV_sent_time)
+        val IV_online_status: ImageView = itemView.findViewById(R.id.IV_online_status)
 
 
     }

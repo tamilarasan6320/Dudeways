@@ -1,6 +1,7 @@
 package com.app.dudeways.Adapter
 
 import android.app.Activity
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.app.dudeways.Activity.ChatsActivity
 import com.bumptech.glide.Glide
 import com.app.dudeways.Model.HomeProfile
 import com.app.dudeways.R
@@ -41,7 +43,7 @@ class HomePtofilesAdapter(
         val holder: ItemHolder = holderParent as ItemHolder
         val report: HomeProfile = homeProfile[position]
 
-
+        val session = Session(activity)
 
         holder.tvName.text = report.name
         holder.tvLocation.text = report.location
@@ -111,6 +113,15 @@ class HomePtofilesAdapter(
 
         }
 
+        holder.rlChat.setOnClickListener {
+            val intent = Intent(activity, ChatsActivity::class.java)
+            intent.putExtra("id", report.id)
+            intent.putExtra("name", report.name)
+            session.setData("reciver_profile", report.profile)
+            intent.putExtra("chat_user_id", report.user_id)
+            activity.startActivity(intent)
+        }
+
         Glide.with(activitys).load(report.trip_image).placeholder(R.drawable.placeholder_bg)
             .into(holder.ivProfileImage)
 
@@ -140,6 +151,7 @@ class HomePtofilesAdapter(
         val tvTitle: TextView = itemView.findViewById(R.id.tvTitle)
         val tvmore: TextView = itemView.findViewById(R.id.tvmore)
         val ivProfile:ImageView = itemView.findViewById(R.id.ivProfile)
+        val rlChat:RelativeLayout = itemView.findViewById(R.id.rlChat)
 
 
     }
