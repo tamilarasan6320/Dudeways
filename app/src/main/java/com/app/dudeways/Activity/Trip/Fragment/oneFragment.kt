@@ -87,10 +87,13 @@ class oneFragment : Fragment() {
             itemHolder.itemView.setOnClickListener {
                 val previousSelectedPosition = selectedItemPosition
                 selectedItemPosition = holder.adapterPosition
+               // Toast.makeText(activity, "Selected: $position  ${session.getData(Constant.TRIP_TYPE)}", Toast.LENGTH_SHORT).show()
+                session.setData(Constant.TRIP_TYPE, position.toString())
                 notifyItemChanged(previousSelectedPosition)
                 notifyItemChanged(holder.adapterPosition)
             }
         }
+
 
         override fun getItemCount(): Int {
             return list.size

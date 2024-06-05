@@ -69,9 +69,11 @@ class SixFragment : Fragment() {
             if (requestCode == REQUEST_IMAGE_GALLERY) {
                 imageUri = data?.data
                 CropImage.activity(imageUri)
-                    .setAspectRatio(1, 1) // Set aspect ratio to 1:1 for a square crop
-                    .setCropShape(CropImageView.CropShape.OVAL) // Set crop shape to oval
-                    .start(requireContext(),this)
+                    // calculate the aspect ratio x of the image
+                    // calculate the aspect ratio y of the image
+                    .setAspectRatio(5, 3) // Set aspect ratio to 4:3 for full width and height
+                    .setCropShape(CropImageView.CropShape.RECTANGLE) // Set crop shape to rectangle
+                    .start(requireContext(), this)
             } else if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
                 val result: CropImage.ActivityResult? = CropImage.getActivityResult(data)
                 if (result != null) {
@@ -120,9 +122,20 @@ class SixFragment : Fragment() {
         }, activity, Constant.UPDATE_TRIP_IMAGE, params, FileParams)
     }
     fun addtrip() {
+        val trip_type = ""
+        if (session.getData(Constant.TRIP_TYPE) == "0") {
+            trip_type == "Road Trip"
+        } else if (session.getData(Constant.TRIP_TYPE) == "1") {
+            trip_type == "Adventure Trip"
+        } else if (session.getData(Constant.TRIP_TYPE) == "2") {
+            trip_type == "Explore Cities"
+        } else if (session.getData(Constant.TRIP_TYPE) == "3") {
+            trip_type == "Airport Flyover"
+        }
+
         val params: MutableMap<String, String> = HashMap()
         params[Constant.USER_ID] = session.getData(Constant.USER_ID)
-        params[Constant.TRIP_TYPE] = session.getData(Constant.TRIP_TYPE)
+        params[Constant.TRIP_TYPE] = trip_type.toString()
         params[Constant.TRIP_FROM_DATE] = session.getData(Constant.TRIP_FROM_DATE)
         params[Constant.TRIP_TO_DATE] = session.getData(Constant.TRIP_TO_DATE)
         params[Constant.TRIP_TITLE] = session.getData(Constant.TRIP_TITLE)
