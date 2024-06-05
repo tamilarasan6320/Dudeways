@@ -10,7 +10,6 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.app.dudeways.Activity.ChatsActivity
 import com.app.dudeways.Activity.ProfileinfoActivity
 import com.app.dudeways.Model.Chatlist
 import com.app.dudeways.Model.Mytriplist

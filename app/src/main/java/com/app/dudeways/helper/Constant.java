@@ -13,6 +13,9 @@ public class Constant {
 
     public static final String UPDATE_IMAGE = BaseUrl + "update_image";
     public static final String UPDATE_COVER_IMG = BaseUrl + "update_cover_img";
+    public static final String VERIFY_FRONT_IMAGE = BaseUrl + "verify_front_image";
+    public static final String VERIFY_BACK_IMAGE = BaseUrl + "verify_back_image";
+    public static final String VERIFY_SELFIE_IMAGE = BaseUrl + "verify_selfie_image";
     public static final String TRIP_LIST = BaseUrl + "trip_list";
     public static final String ADD_CHAT = BaseUrl + "add_chat";
     public static final String POINTS_LIST = BaseUrl + "points_list";
@@ -46,6 +49,7 @@ public class Constant {
     public static final String AUTHORIZATION = "Authorization";
     public static final String TOKEN = "token";
     public static final String PROOF1 = "proof1";
+    public static final String PROOF2 = "proof2";
     public static final String FrontPROOF= "front_proof";
     public static final String BackPROOF = "back_proof";
 
@@ -85,6 +89,9 @@ public class Constant {
 
     public static final String PROFILE = "profile";
     public static final String COVER_IMG = "cover_img";
+    public static final String FRONT_IMAGE = "front_image";
+    public static final String BACK_IMAGE = "back_image";
+    public static final String SELFIE_IMAGE = "selfie_image";
     public static final String BOOKID = "book_id";
     public static final String CART_ID = "cart_id";
 }

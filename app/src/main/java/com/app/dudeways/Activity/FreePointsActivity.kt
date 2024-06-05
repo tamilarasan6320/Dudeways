@@ -39,7 +39,7 @@ class FreePointsActivity : AppCompatActivity() {
 
         binding.llStep2.setOnClickListener {
 
-            startActivity(Intent(activity, SpinwheelActivity::class.java))
+            startActivity(Intent(activity, spinActivity::class.java))
 
         }
 

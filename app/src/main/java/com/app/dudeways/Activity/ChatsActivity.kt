@@ -36,14 +36,16 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
     lateinit var activity: Activity
     lateinit var session: Session
     private var isLoading: Boolean = true
-    private val firebaseDatabase: FirebaseDatabase = Firebase.database("https://dudeways-c8f31-default-rtdb.asia-southeast1.firebasedatabase.app")
+    private val firebaseDatabase: FirebaseDatabase =
+        Firebase.database("https://dudeways-c8f31-default-rtdb.asia-southeast1.firebasedatabase.app")
     private val databaseReference: DatabaseReference = firebaseDatabase.reference
     private var chatAdapter: ChatAdapter? = null
     private var messages = mutableListOf<ChatModel?>()
 
-    var sender_id = ""
-    var receiver_id = ""
-
+    private var senderId = ""
+    private var receiverId = ""
+    private var senderName: String? = null
+    private var receiverName: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityChatsBinding.inflate(layoutInflater)
@@ -51,36 +53,56 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
         activity = this
         session = Session(activity)
 
-        sender_id = session.getData(Constant.USER_ID)
-        receiver_id = intent.getStringExtra("chat_user_id").toString()
+        senderId = session.getData(Constant.USER_ID)
+        receiverId = intent.getStringExtra("chat_user_id").toString()
+        /**
+         * Name of the sender (Current User)
+         */
+        senderName = session.getData(Constant.NAME)
+        /**
+         * Name of the receiver (Opposite User)
+         */
+        receiverName = intent.getStringExtra("name")
+        binding.tvName.text = receiverName
 
-        binding.tvName.text = intent.getStringExtra("name")
         Glide.with(activity)
             .load(session.getData("reciver_profile"))
             .placeholder(R.drawable.placeholder_bg)
             .into(binding.ivProfile)
 
         binding.ivBack.setOnClickListener {
-            onBackPressed()
+            onBackPressedDispatcher
+                .onBackPressed()
         }
 
         binding.sendButton.setOnClickListener {
             val message = binding.messageEdittext.text.toString()
             if (message.isNotEmpty()) {
-                updateMessages(sender_id, receiver_id, message)
+                //TODO : Fix the sender and receiver Name for efficient null Handling
+                updateMessagesForSender(
+                    senderId,
+                    receiverId,
+                    senderName ?: "TestSender",
+                    receiverName ?: "TestReceiver",
+                    message
+                )
                 binding.messageEdittext.text.clear()
             } else {
                 makeToast("Enter text to send")
             }
         }
 
-        fetchMessages(sender_id, receiver_id, this)
+        fetchMessages(senderName!!, receiverName!!, this)
         binding.progressCircular.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
-    private fun fetchMessages(senderID: String, receiverID: String, onMessagesFetchedListener: OnMessagesFetchedListener) {
+    private fun fetchMessages(
+        senderName: String,
+        receiverName: String,
+        onMessagesFetchedListener: OnMessagesFetchedListener
+    ) {
         val conversations: MutableList<ChatModel?> = mutableListOf()
-        val reference = databaseReference.child("CHATS_V2").child(senderID).child(receiverID)
+        val reference = databaseReference.child("CHATS_V2").child(senderName).child(receiverName)
 
         reference.get().addOnSuccessListener { dataSnapshot ->
             if (dataSnapshot.exists()) {
@@ -129,7 +151,13 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
         })
     }
 
-    private fun updateMessages(senderID: String, receiverID: String, message: String) {
+    private fun updateMessagesForSender(
+        senderID: String,
+        receiverID: String,
+        senderName: String,
+        receiverName: String,
+        message: String
+    ) {
         val chatID = Random.nextInt(100000, 999999).toString()
         val chatModel = ChatModel(
             attachmentType = "TEXT",
@@ -143,14 +171,60 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
             sentBy = session.getData(Constant.NAME)
         )
         Log.e("updateMessages", "Sending message: $chatModel")
-        databaseReference.child("CHATS_V2").child(senderID).child(receiverID).child(chatID)
-            .setValue(chatModel).addOnCompleteListener { task ->
+        databaseReference.child("CHATS_V2")
+            .child(senderName)
+            .child(receiverName)
+            .child(chatID)
+            .setValue(chatModel)
+            .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    addchat(message)
+                    addChat(message)
+                    updateMessagesForReceiver(
+                        senderID,
+                        receiverID,
+                        chatID,
+                        senderName,
+                        receiverName,
+                        message
+                    )
                     makeToast("Message sent")
                     Log.e("updateMessages", "Message sent successfully")
                 } else {
                     makeToast("Failed to send message")
+                    Log.e("updateMessages", "Failed to send message: ${task.exception?.message}")
+                }
+            }
+    }
+
+    private fun updateMessagesForReceiver(
+        senderID: String,
+        receiverID: String,
+        chatID: String,
+        senderName: String,
+        receiverName: String,
+        message: String
+    ) {
+        val chatModel = ChatModel(
+            attachmentType = "TEXT",
+            chatID = chatID,
+            dateTime = Timestamp.now().toDate().time.toString(),
+            message = message,
+            msgSeen = false,
+            receiverID = senderID,
+            senderID = receiverID,
+            type = "TEXT",
+            sentBy = session.getData(Constant.NAME)
+        )
+        Log.e("updateMessages", "Sending message: $chatModel")
+        databaseReference.child("CHATS_V2")
+            .child(receiverName)
+            .child(senderName)
+            .child(chatID)
+            .setValue(chatModel)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.e("updateMessages", "Message updated for receiver")
+                } else {
                     Log.e("updateMessages", "Failed to send message: ${task.exception?.message}")
                 }
             }
@@ -204,19 +278,27 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
         Log.e("onError", "Error: $errorMessage")
     }
 
-    private fun addchat(message: String) {
+    private fun addChat(message: String) {
         val params: MutableMap<String, String> = HashMap()
         params[Constant.USER_ID] = session.getData(Constant.USER_ID)
-        params[Constant.CHAT_USER_ID] = receiver_id
+        params[Constant.CHAT_USER_ID] = receiverId
         params[Constant.MESSAGE] = message
         ApiConfig.RequestToVolley({ result, response ->
             if (result) {
                 try {
                     val jsonObject = JSONObject(response)
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
-                        Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            activity,
+                            jsonObject.getString(Constant.MESSAGE),
+                            Toast.LENGTH_SHORT
+                        ).show()
                     } else {
-                        Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            activity,
+                            jsonObject.getString(Constant.MESSAGE),
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 } catch (e: JSONException) {
                     e.printStackTrace()

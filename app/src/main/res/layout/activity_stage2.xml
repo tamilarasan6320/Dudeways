@@ -70,6 +70,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
+                android:scaleType="fitXY"
                 android:id="@+id/ivProof1"
                 android:layout_width="@dimen/_120sdp"
                 android:layout_height="@dimen/_120sdp"/>

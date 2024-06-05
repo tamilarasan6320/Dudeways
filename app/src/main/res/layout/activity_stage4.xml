@@ -15,6 +15,7 @@
         android:layout_height="wrap_content">
 
         <ImageButton
+            android:visibility="gone"
             android:layout_centerVertical="true"
             android:id="@+id/ivBack"
             android:layout_width="@dimen/_24sdp"
@@ -24,7 +25,6 @@
 
         <TextView
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/_14sdp"
             android:layout_toRightOf="@+id/ivBack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -84,7 +84,7 @@
     <com.google.android.material.button.MaterialButton
         android:layout_marginHorizontal="@dimen/_14sdp"
         android:layout_marginBottom="@dimen/_50sdp"
-        android:id="@+id/btnVerifyOTP"
+        android:id="@+id/btnVerify"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

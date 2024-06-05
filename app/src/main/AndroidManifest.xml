@@ -78,6 +78,10 @@
             android:launchMode="singleInstance">
 
         </activity>
+
+        <activity android:name=".Activity.ChatsActivity"
+            android:exported="false" />
+
         <activity
             android:name=".Activity.ProfileDetailsActivity"
             android:exported="false"
@@ -100,9 +104,7 @@
 
              <intent-filter>
              <action android:name="android.intent.action.MAIN" />
-
-
-             <category android:name="android.intent.category.LAUNCHER" />
+                 <category android:name="android.intent.category.LAUNCHER" />
              </intent-filter>
         </activity> <!-- Theme is optional and only needed if default theme has no action bar. -->
         <activity

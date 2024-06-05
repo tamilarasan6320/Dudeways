@@ -34,7 +34,7 @@ class Stage1Activity : AppCompatActivity() {
         }
 
         val proof1 = session.getData(Constant.PROOF1)
-        val proof2 = session.getData(Constant.FrontPROOF)
+        val proof2 = session.getData(Constant.PROOF2)
 
         if (proof1 == "1") {
             isStep1Clicked = true
@@ -64,6 +64,8 @@ class Stage1Activity : AppCompatActivity() {
                 val intent = Intent(activity, Stage3Activity::class.java)
                 startActivity(intent)
             }
+
+
         }
 
 
