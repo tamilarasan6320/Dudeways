@@ -16,8 +16,8 @@
         <RelativeLayout
             android:id="@+id/rl1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
+            android:layout_height="wrap_content"
+            android:background="@color/primary_extra_light">
 
 
             <ImageView
@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_120sdp"
                 android:scaleType="fitXY"
-                />
+                android:visibility="invisible" />
 
 
             <ImageButton
@@ -39,8 +39,8 @@
 
             <ImageView
                 android:id="@+id/ivCamera"
-                android:layout_width="@dimen/_34sdp"
-                android:layout_height="@dimen/_34sdp"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
                 android:background="@drawable/cam_ic"
                 android:layout_alignParentRight="true"
                 android:layout_margin="@dimen/_10sdp"
@@ -132,12 +132,13 @@
 
 
             <LinearLayout
+                android:id="@+id/ivGenderColor"
                 android:gravity="center"
                 android:paddingVertical="@dimen/_2sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:paddingHorizontal="@dimen/_8sdp"
                 android:orientation="horizontal"
-                android:backgroundTint="@color/primary"
+                android:backgroundTint="@color/blue_200"
                 android:background="@drawable/corners_bg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
@@ -146,27 +147,27 @@
                     android:id="@+id/ivGender"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:layout_width="@dimen/_14sdp"
-                    android:layout_height="@dimen/_14sdp"
+                    android:layout_width="@dimen/_8sdp"
+                    android:layout_height="@dimen/_8sdp"
                     android:backgroundTint="@color/white"
                     />
 
                 <TextView
                     android:id="@+id/ivAge"
                     android:gravity="center"
+                    android:paddingTop="@dimen/_2sdp"
                     android:layout_gravity="center"
                     android:layout_marginLeft="@dimen/_4sdp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
-                    android:textSize="@dimen/_12sdp"
+                    android:textSize="@dimen/_8sdp"
                     android:textColor="@color/white"
                     android:fontFamily="@font/poppins_regular"
                     />
 
-
-
             </LinearLayout>
+
 
         </LinearLayout>
 
@@ -194,18 +195,45 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
-            android:textSize="@dimen/_14sdp"
-            android:fontFamily="@font/poppins_semibold"
-            android:textColor="@color/black"
+            android:textSize="@dimen/_10sdp"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/text_grey"
             />
 
 
 
+        <LinearLayout
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/_10sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Introduction"
+                android:textSize="@dimen/_12sdp"
+                android:fontFamily="@font/poppins_semibold"
+                android:textColor="@color/black"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I want to travel"
+                android:textSize="@dimen/_10sdp"
+                android:fontFamily="@font/poppins_regular"
+                android:textColor="@color/text_grey"
+                />
+
+
+        </LinearLayout>
 
 
 
         <LinearLayout
-            android:paddingVertical="@dimen/_10sdp"
+            android:paddingTop="@dimen/_10sdp"
             android:weightSum="2"
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -271,7 +299,7 @@
 
         </LinearLayout>
         <LinearLayout
-            android:paddingVertical="@dimen/_10sdp"
+            android:paddingTop="@dimen/_10sdp"
             android:weightSum="2"
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -537,7 +565,7 @@
             <ImageView
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
-                android:background="@drawable/deactivate_ic"
+                android:background="@drawable/feedback_ic"
                 />
 
 
@@ -546,7 +574,35 @@
                 android:layout_marginLeft="@dimen/_50sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Deactivte account"
+                android:text="Give Feedback"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"
+                android:fontFamily="@font/poppins_medium"
+                />
+
+        </RelativeLayout>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_24sdp"/>
+        <RelativeLayout
+            android:id="@+id/rlCustomerSupport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:background="@drawable/customer_suppor_ic"
+                />
+
+
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/_50sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Customer Support"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12sdp"
                 android:fontFamily="@font/poppins_medium"

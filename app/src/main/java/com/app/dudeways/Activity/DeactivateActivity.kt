@@ -30,22 +30,22 @@ class DeactivateActivity : AppCompatActivity() {
         }
 
 
-        val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+//        val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
+//        recyclerView.layoutManager = LinearLayoutManager(this)
 
-        val options = listOf(
-            Option("I have safety concerns with ______"),
-            Option("I got another ________ account"),
-            Option("I will be back soon. This is temporary."),
-            Option("I think am getting too many emails and notifications ."),
-            Option("I have a privacy concern."),
-            Option("I spent too much time on this app"),
-            Option("I don’t understand how it works.")
+//        val options = listOf(
+//            Option("I have safety concerns with ______"),
+//            Option("I got another ________ account"),
+//            Option("I will be back soon. This is temporary."),
+//            Option("I think am getting too many emails and notifications ."),
+//            Option("I have a privacy concern."),
+//            Option("I spent too much time on this app"),
+//            Option("I don’t understand how it works.")
+//
+//        )
 
-        )
-
-        val adapter = OptionsAdapter(options)
-        recyclerView.adapter = adapter
+//        val adapter = OptionsAdapter(options)
+//        recyclerView.adapter = adapter
 
     }
 }

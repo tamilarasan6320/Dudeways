@@ -3,6 +3,8 @@ package com.app.dudeways.Activity
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
+import android.content.res.ColorStateList
+import androidx.core.content.ContextCompat
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
@@ -105,6 +107,13 @@ class ProfileViewActivity : AppCompatActivity() {
             binding.ivGender.setBackgroundDrawable(resources.getDrawable(R.drawable.female_ic))
         }
 
+        if (gender == "male") {
+            binding.ivGenderColor.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.blue_200))
+        } else {
+            binding.ivGenderColor.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.primary))
+        }
+
+
 
 
 
@@ -153,6 +162,11 @@ class ProfileViewActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.rlCustomerSupport.setOnClickListener {
+            val intent = Intent(activity, CustomerSupportActivity::class.java)
+            startActivity(intent)
+        }
+
         binding.rlVerificationBadge.setOnClickListener {
             val intent = Intent(activity, IdverficationActivity::class.java)
             startActivity(intent)
@@ -187,7 +201,7 @@ class ProfileViewActivity : AppCompatActivity() {
                 if (isCameraRequest) {
                     // Configure CropImage for rectangular crop
                     CropImage.activity(imageUri)
-                        .setAspectRatio(4, 3) // Set aspect ratio for a rectangle
+                        .setAspectRatio(4, 1) // Set aspect ratio for a rectangle
                         .setCropShape(CropImageView.CropShape.RECTANGLE) // Set crop shape to rectangle
                         .start(this)
                 } else {

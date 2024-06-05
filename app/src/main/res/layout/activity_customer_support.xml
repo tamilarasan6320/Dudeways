@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.CustomerSupportActivity">
+
+
+    <RelativeLayout
+        android:id="@+id/rlToolbar"
+        android:padding="@dimen/_20sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:layout_centerVertical="true"
+            android:id="@+id/ivBack"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_18sdp"
+            android:background="@drawable/arrow_left"
+            />
+
+        <TextView
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/_14sdp"
+            android:layout_toRightOf="@+id/ivBack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Customer Suppoet"
+            android:textSize="@dimen/_14sdp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/poppins_medium"
+            />
+
+
+    </RelativeLayout>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_below="@+id/rlToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:padding="@dimen/_10sdp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardUseCompatPadding="true"
+                    android:elevation="2dp"
+                    app:cardElevation="@dimen/_2sdp"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    app:cardCornerRadius="@dimen/_8sdp">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+
+                        <LinearLayout
+                            android:padding="@dimen/_8sdp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:layout_marginRight="@dimen/_5sdp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/whatsapp_logo_ic"
+                                android:layout_width="@dimen/_30sdp"
+                                android:layout_height="@dimen/_30sdp"/>
+
+                            <TextView
+                                android:layout_gravity="center"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_semibold"
+                                android:text="Whatsapp"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12sdp" />
+
+
+                        </LinearLayout>
+
+
+                        <TextView
+                            android:paddingHorizontal="@dimen/_4sdp"
+                            android:layout_toLeftOf="@+id/ivShare"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Join our whatsapp group to get instant offers and updates"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp"
+                            android:fontFamily="@font/poppins_regular"
+                            />
+
+                        <LinearLayout
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:weightSum="2"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <RelativeLayout
+                                android:id="@+id/rlWhatsappLinkShare"
+                                android:background="@drawable/bg_coner"
+                                android:layout_weight="1"
+                                android:padding="@dimen/_10sdp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+
+                                <ImageView
+                                    android:id="@+id/ivWhatsappLinkShare"
+                                    android:layout_centerVertical="true"
+                                    android:layout_width="@dimen/_20sdp"
+                                    android:layout_height="@dimen/_20sdp"
+                                    android:background="@drawable/share_ic"
+                                    android:backgroundTint="@color/black"
+                                    />
+
+                                <TextView
+                                    android:id="@+id/tvWhatsappLinkShare"
+                                    android:layout_centerVertical="true"
+                                    android:gravity="center"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Share"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/_10sdp"
+                                    android:fontFamily="@font/poppins_medium"
+                                    />
+
+                            </RelativeLayout>
+                            <RelativeLayout
+                                android:id="@+id/rlWhatsappLinkJoin"
+                                android:background="@color/green"
+                                android:layout_weight="1"
+                                android:padding="@dimen/_10sdp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+
+                                <ImageView
+                                    android:id="@+id/ivWhatsappLinkJoin"
+                                    android:layout_centerVertical="true"
+                                    android:layout_width="@dimen/_20sdp"
+                                    android:layout_height="@dimen/_18sdp"
+                                    android:background="@drawable/chat_ic"
+                                    android:backgroundTint="@color/white"
+                                    />
+
+                                <TextView
+                                    android:id="@+id/tvWhatsappLinkJoin"
+                                    android:layout_centerVertical="true"
+                                    android:gravity="center"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Join"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/_10sdp"
+                                    android:fontFamily="@font/poppins_medium"
+                                    />
+
+                            </RelativeLayout>
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardUseCompatPadding="true"
+                    android:elevation="2dp"
+                    app:cardElevation="@dimen/_2sdp"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    app:cardCornerRadius="@dimen/_8sdp">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+
+                        <LinearLayout
+                            android:padding="@dimen/_8sdp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:layout_marginRight="@dimen/_5sdp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/telegram_logo_ic"
+                                android:layout_width="@dimen/_30sdp"
+                                android:layout_height="@dimen/_30sdp"/>
+
+                            <TextView
+                                android:layout_gravity="center"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_semibold"
+                                android:text="Telegram"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12sdp" />
+
+
+                        </LinearLayout>
+
+
+                        <TextView
+                            android:paddingHorizontal="@dimen/_4sdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Join our telegram channel to get instant offers and updates"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp"
+                            android:fontFamily="@font/poppins_regular"
+                            />
+
+                        <LinearLayout
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:weightSum="2"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <RelativeLayout
+                                android:id="@+id/rlTelegramLinkShare"
+                                android:background="@drawable/bg_coner"
+                                android:layout_weight="1"
+                                android:padding="@dimen/_10sdp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+
+                                <ImageView
+                                    android:id="@+id/ivTelegramLinkShare"
+                                    android:layout_centerVertical="true"
+                                    android:layout_width="@dimen/_20sdp"
+                                    android:layout_height="@dimen/_20sdp"
+                                    android:background="@drawable/share_ic"
+                                    android:backgroundTint="@color/black"
+                                    />
+
+                                <TextView
+                                    android:id="@+id/tvTelegramLinkShare"
+                                    android:layout_centerVertical="true"
+                                    android:gravity="center"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Share"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/_10sdp"
+                                    android:fontFamily="@font/poppins_medium"
+                                    />
+
+                            </RelativeLayout>
+                            <RelativeLayout
+                                android:id="@+id/rlTelegramLinkJoin"
+                                android:background="@color/blue_300"
+                                android:layout_weight="1"
+                                android:padding="@dimen/_10sdp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+
+                                <ImageView
+                                    android:id="@+id/ivTelegramLinkJoin"
+                                    android:layout_centerVertical="true"
+                                    android:layout_width="@dimen/_20sdp"
+                                    android:layout_height="@dimen/_18sdp"
+                                    android:background="@drawable/chat_ic"
+                                    android:backgroundTint="@color/white"
+                                    />
+
+                                <TextView
+                                    android:id="@+id/tvTelegramLinkJoin"
+                                    android:layout_centerVertical="true"
+                                    android:gravity="center"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Join"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/_10sdp"
+                                    android:fontFamily="@font/poppins_medium"
+                                    />
+
+                            </RelativeLayout>
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_marginHorizontal="@dimen/_14sdp"
+                android:id="@+id/btn_chat_support"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_24sdp"
+                android:fontFamily="@font/poppins_medium"
+                app:backgroundTint="@null"
+                android:background="@drawable/gradient_button"
+                android:text="Chat Support"
+                android:textAllCaps="false"
+                android:textSize="@dimen/_14sdp"
+                />
+
+
+
+
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</RelativeLayout>

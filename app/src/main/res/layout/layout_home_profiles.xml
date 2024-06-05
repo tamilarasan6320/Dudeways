@@ -35,7 +35,7 @@
                 android:fontFamily="@font/poppins_semibold"
                 android:text="Shafeeka"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_14sdp" />
+                android:textSize="@dimen/_12sdp" />
 
             <ImageView
                 android:visibility="gone"
@@ -58,7 +58,7 @@
                 android:fontFamily="@font/poppins_regular"
                 android:text=""
                 android:textColor="@color/text_grey"
-                android:textSize="@dimen/_14sdp" />
+                android:textSize="@dimen/_12sdp" />
 
             <TextView
                 android:layout_marginLeft="@dimen/_10sdp"
@@ -68,7 +68,7 @@
                 android:fontFamily="@font/poppins_regular"
                 android:text="\u00B7 4h"
                 android:textColor="@color/text_grey"
-                android:textSize="@dimen/_14sdp" />
+                android:textSize="@dimen/_12sdp" />
 
 
         </LinearLayout>
@@ -208,8 +208,8 @@
             android:layout_height="wrap_content"
             android:text="Trip to Kerala, looking for travel partner"
             android:textColor="@color/black"
-            android:textSize="@dimen/_12sdp"
-            android:fontFamily="@font/poppins_semibold"
+            android:textSize="@dimen/_10sdp"
+            android:fontFamily="@font/poppins_regular"
             />
 
         <LinearLayout
@@ -271,7 +271,7 @@
                     android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Chat"
+                    android:text="Start Chat"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_10sdp"
                     android:fontFamily="@font/poppins_medium"

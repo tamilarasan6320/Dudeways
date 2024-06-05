@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
         android:name=".helper.ApiConfig"
@@ -35,12 +35,7 @@
         <activity
             android:name=".Activity.FreePointsActivity"
             android:exported="false" />
-        <activity
-            android:name=".Activity.MytripsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Activity.ChatsActivity"
-            android:exported="false" />
+
         <activity
             android:name=".Activity.Stage4Activity"
             android:exported="false" />
@@ -55,6 +50,9 @@
             android:exported="false" />
         <activity
             android:name=".Activity.DeactivateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.CustomerSupportActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.IdverficationActivity"
@@ -77,7 +75,9 @@
         <activity
             android:name=".Activity.HomeActivity"
             android:exported="false"
-            android:launchMode="singleInstance" />
+            android:launchMode="singleInstance">
+
+        </activity>
         <activity
             android:name=".Activity.ProfileDetailsActivity"
             android:exported="false"
@@ -97,11 +97,13 @@
             android:name=".Activity.SplashscreenActivity"
             android:exported="true"
             android:launchMode="singleInstance">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+             <intent-filter>
+             <action android:name="android.intent.action.MAIN" />
+
+
+             <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
         </activity> <!-- Theme is optional and only needed if default theme has no action bar. -->
         <activity
             android:name="com.canhub.cropper.CropImageActivity"
