@@ -255,6 +255,7 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
         soundPool.play(receiveTone, 1f, 1f, 0, 0, 1f)
     }
 
+
     @SuppressLint("NotifyDataSetChanged")
     override fun onMessagesFetched(conversations: MutableList<ChatModel?>) {
         messages = conversations
