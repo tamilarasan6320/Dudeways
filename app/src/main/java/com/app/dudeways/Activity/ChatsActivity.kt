@@ -53,6 +53,8 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
     private lateinit var soundPool: SoundPool
     private var sentTone: Int = 0
     private var receiveTone: Int = 0
+
+    private var isConversationsFetching: Boolean = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -124,20 +126,23 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
         val conversations: MutableList<ChatModel?> = mutableListOf()
         val reference = databaseReference.child("CHATS_V2").child(senderName).child(receiverName)
 
-        reference.get().addOnSuccessListener { dataSnapshot ->
-            dataSnapshot.takeIf { it.exists() }?.let { conversationSnapShot ->
-                for (child in conversationSnapShot.children) {
-                    val chatModel = child.getValue(ChatModel::class.java)
-                    chatModel.takeIf { it != null }?.let { conversationModel ->
-                        logInfo(CHATS_ACTIVITY, "ChatModel: $chatModel")
-                        conversations.add(conversationModel)
-                    } ?: logError(CHATS_ACTIVITY, "Unable to load your conversations.")
-                }
-            } ?: logInfo(CHATS_ACTIVITY, "No messages found.")
-            onMessagesFetchedListener.onMessagesFetched(conversations)
-        }.addOnFailureListener { exception ->
-            logError(CHATS_ACTIVITY, "Error fetching messages: ${exception.message}")
-            onMessagesFetchedListener.onError(exception.message.toString())
+        if (isConversationsFetching) {
+            reference.get().addOnSuccessListener { dataSnapshot ->
+                dataSnapshot.takeIf { it.exists() }?.let { conversationSnapShot ->
+                    for (child in conversationSnapShot.children) {
+                        val chatModel = child.getValue(ChatModel::class.java)
+                        chatModel.takeIf { it != null }?.let { conversationModel ->
+                            logInfo(CHATS_ACTIVITY, "ChatModel: $chatModel")
+                            conversations.add(conversationModel)
+                        } ?: logError(CHATS_ACTIVITY, "Unable to load your conversations.")
+                    }
+                } ?: logInfo(CHATS_ACTIVITY, "No messages found.")
+                onMessagesFetchedListener.onMessagesFetched(conversations)
+                isConversationsFetching = false
+            }.addOnFailureListener { exception ->
+                logError(CHATS_ACTIVITY, "Error fetching messages: ${exception.message}")
+                onMessagesFetchedListener.onError(exception.message.toString())
+            }
         }
 
         reference.addChildEventListener(object : ChildEventListener {
@@ -254,19 +259,17 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
     }
 
 
-    @SuppressLint("NotifyDataSetChanged")
     override fun onMessagesFetched(conversations: MutableList<ChatModel?>) {
         messages = conversations
         with(messages) {
             takeIf { isNotEmpty() }?.let {
                 messages.sortBy { it?.dateTime }
                 chatAdapter = ChatAdapter(messages, onClick = {}, session)
-                chatAdapter?.notifyDataSetChanged()
                 binding.RVChats.apply {
                     layoutManager = LinearLayoutManager(this@ChatsActivity)
                     adapter = chatAdapter
                 }
-            } ?: logError("conversations", "Conversations are empty.")
+            } ?: logInfo("conversations", "Conversations are empty.")
         }
     }
 
@@ -275,28 +278,35 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
         chatModel?.let {
             if (messages.none { existingChatModel -> existingChatModel?.chatID == chatModel.chatID }) {
                 messages.add(chatModel)
-                playReceiveTone()
+                messages.any { it?.sentBy != session.getData(Constant.NAME) }.let { fromSender ->
+                    if (fromSender) {
+                        playReceiveTone()
+                    }
+                }
                 messages.sortBy { it?.dateTime }
                 chatAdapter?.notifyDataSetChanged()
-                Log.e("onMessageAdded", "Message added: $chatModel")
+                binding.RVChats.smoothScrollToPosition(
+                    (chatAdapter?.itemCount?.minus(1) ?: 0)
+                )
+                logInfo("$CHATS_ACTIVITY onMessageAdded", "Message added: $chatModel")
             }
         }
     }
 
     override fun onMessageChanged(chatModel: ChatModel?) {
-        Log.e("onMessageChanged", "Message changed: $chatModel")
+        logInfo(" $CHATS_ACTIVITY onMessageChanged", "Message changed: $chatModel")
     }
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onMessageRemoved(chatModel: ChatModel?) {
         messages.remove(chatModel)
         chatAdapter?.notifyDataSetChanged()
-        Log.e("onMessageRemoved", "Message removed: $chatModel")
+        logInfo("$CHATS_ACTIVITY onMessageRemoved", "Message removed: $chatModel")
     }
 
     override fun onError(errorMessage: String) {
         makeToast("Error: $errorMessage")
-        Log.e("onError", "Error: $errorMessage")
+        logError("$CHATS_ACTIVITY onError", "Error: $errorMessage")
     }
 
     private fun addChat(message: String) {
