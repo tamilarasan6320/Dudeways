@@ -20,85 +20,86 @@
         android:theme="@style/Theme.Paring"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
         <activity
-            android:name=".activity.GoogleLoginActivity"
+            android:name=".Activity.GoogleLoginActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.EditProfileActivity"
+            android:name=".Activity.EditProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.SpinwheelActivity"
+            android:name=".Activity.SpinwheelActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.PurchasepointActivity"
+            android:name=".Activity.PurchasepointActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.FreePointsActivity"
+            android:name=".Activity.FreePointsActivity"
             android:exported="false" />
 
         <activity
-            android:name=".activity.Stage4Activity"
+            android:name=".Activity.Stage4Activity"
             android:exported="false" />
         <activity
-            android:name=".activity.Stage3Activity"
+            android:name=".Activity.Stage3Activity"
             android:exported="false" />
         <activity
-            android:name=".activity.Stage2Activity"
+            android:name=".Activity.Stage2Activity"
             android:exported="false" />
         <activity
-            android:name=".activity.Stage1Activity"
+            android:name=".Activity.Stage1Activity"
             android:exported="false" />
         <activity
-            android:name=".activity.DeactivateActivity"
+            android:name=".Activity.DeactivateActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.CustomerSupportActivity"
+            android:name=".Activity.CustomerSupportActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.IdverficationActivity"
+            android:name=".Activity.IdverficationActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.StorepointsActivity"
+            android:name=".Activity.StorepointsActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.ProfileinfoActivity"
+            android:name=".Activity.ProfileinfoActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.ProfileViewActivity"
+            android:name=".Activity.ProfileViewActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.Trip.StarttripActivity"
+            android:name=".Activity.Trip.StarttripActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.ProfileActivity"
+            android:name=".Activity.ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.HomeActivity"
+            android:name=".Activity.HomeActivity"
             android:exported="false"
             android:launchMode="singleInstance">
 
         </activity>
 
-        <activity android:name=".activity.ChatsActivity"
+        <activity android:name=".Activity.ChatsActivity"
             android:exported="false" />
 
         <activity
-            android:name=".activity.ProfileDetailsActivity"
+            android:name=".Activity.ProfileDetailsActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".activity.OtpActivity"
+            android:name=".Activity.OtpActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".activity.MobileLoginActivity"
+            android:name=".Activity.MobileLoginActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".activity.WelcomeActivity"
+            android:name=".Activity.WelcomeActivity"
             android:exported="true" />
         <activity
-            android:name=".activity.SplashscreenActivity"
+            android:name=".Activity.SplashscreenActivity"
             android:exported="true"
             android:launchMode="singleInstance">
 

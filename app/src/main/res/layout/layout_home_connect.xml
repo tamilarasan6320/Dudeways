@@ -64,6 +64,7 @@
 
 
             <RelativeLayout
+                android:id="@+id/rlChat"
                 android:layout_alignParentRight="true"
                 android:background="@drawable/corners_bg"
                 android:backgroundTint="@color/primary"

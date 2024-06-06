@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.app.dudeways.activity.ChatsActivity
+import com.app.dudeways.Activity.ChatsActivity
 import com.app.dudeways.Model.Chatlist
 import com.app.dudeways.R
 import com.app.dudeways.helper.Session

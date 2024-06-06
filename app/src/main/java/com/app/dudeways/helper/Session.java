@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
-import com.app.dudeways.activity.GoogleLoginActivity;
+import com.app.dudeways.Activity.GoogleLoginActivity;
 
 
 public class Session {

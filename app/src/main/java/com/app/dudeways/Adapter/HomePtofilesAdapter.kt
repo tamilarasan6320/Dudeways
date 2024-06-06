@@ -10,7 +10,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.app.dudeways.activity.ChatsActivity
+import com.app.dudeways.Activity.ChatsActivity
 import com.bumptech.glide.Glide
 import com.app.dudeways.Model.HomeProfile
 import com.app.dudeways.R

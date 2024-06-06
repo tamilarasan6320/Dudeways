@@ -6,11 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.app.dudeways.activity.ProfileinfoActivity
+import com.app.dudeways.Activity.ChatsActivity
+import com.app.dudeways.Activity.ProfileinfoActivity
 import com.app.dudeways.Model.Connect
 import com.app.dudeways.R
+import com.app.dudeways.helper.Session
 import com.bumptech.glide.Glide
 
 class ConnectAdapter(
@@ -36,9 +39,21 @@ class ConnectAdapter(
         val holder: ItemHolder = holderParent as ItemHolder
         val report: Connect = connect[position]
 
+        val session = Session(activity)
+
 
         holder.itemView.setOnClickListener{
             val intent = Intent(activity, ProfileinfoActivity::class.java)
+            activity.startActivity(intent)
+        }
+
+
+        holder.rlChat.setOnClickListener {
+            val intent = Intent(activity, ChatsActivity::class.java)
+            intent.putExtra("id", report.id)
+            intent.putExtra("name", report.name)
+            session.setData("reciver_profile", report.profile)
+            intent.putExtra("chat_user_id", report.friend_user_id)
             activity.startActivity(intent)
         }
 
@@ -64,6 +79,7 @@ class ConnectAdapter(
        val tvName: TextView = itemView.findViewById(R.id.tvName)
        val tvLatestseen: TextView = itemView.findViewById(R.id.tvLatestseen)
         val ivProfile:ImageView = itemView.findViewById(R.id.ivProfile)
+        val rlChat:RelativeLayout = itemView.findViewById(R.id.rlChat)
 
 
     }

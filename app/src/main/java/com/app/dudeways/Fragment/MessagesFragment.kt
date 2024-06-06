@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.app.dudeways.activity.HomeActivity
+import com.app.dudeways.Activity.HomeActivity
 import com.app.dudeways.Adapter.ChatlistAdapter
 import com.app.dudeways.Model.Chatlist
 import com.app.dudeways.databinding.FragmentMessagesBinding

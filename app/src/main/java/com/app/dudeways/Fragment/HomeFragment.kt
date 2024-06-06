@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.app.dudeways.activity.HomeActivity
+import com.app.dudeways.Activity.HomeActivity
 import com.google.gson.Gson
 import com.app.dudeways.Adapter.HomeCategoryAdapter
 import com.app.dudeways.Adapter.HomePtofilesAdapter
