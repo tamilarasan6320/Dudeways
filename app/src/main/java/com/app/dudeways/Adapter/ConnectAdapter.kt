@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.app.dudeways.Activity.ProfileinfoActivity
+import com.app.dudeways.activity.ProfileinfoActivity
 import com.app.dudeways.Model.Connect
 import com.app.dudeways.R
 import com.bumptech.glide.Glide

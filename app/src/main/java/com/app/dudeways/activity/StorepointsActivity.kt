@@ -1,0 +1,26 @@
+package com.app.dudeways.activity
+
+import android.app.Activity
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.app.dudeways.R
+import com.app.dudeways.databinding.ActivityStorepointsBinding
+
+class StorepointsActivity : AppCompatActivity() {
+
+
+    lateinit var binding: ActivityStorepointsBinding
+    lateinit var activity: Activity
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_storepoints)
+
+        binding = ActivityStorepointsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        activity = this
+
+        binding.ivBack.setOnClickListener {
+            onBackPressed()
+        }
+    }
+}

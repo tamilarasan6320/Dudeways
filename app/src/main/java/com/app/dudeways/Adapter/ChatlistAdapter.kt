@@ -2,18 +2,15 @@ package com.app.dudeways.Adapter
 
 import android.app.Activity
 import android.content.Intent
-import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.app.dudeways.Activity.ChatsActivity
-import com.app.dudeways.Activity.ProfileinfoActivity
+import com.app.dudeways.activity.ChatsActivity
 import com.app.dudeways.Model.Chatlist
 import com.app.dudeways.R
-import com.app.dudeways.helper.Constant
 import com.app.dudeways.helper.Session
 import com.bumptech.glide.Glide
 

@@ -1,7 +1,6 @@
 package com.app.dudeways.Fragment
 
 import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,12 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.app.dudeways.Activity.HomeActivity
-import com.app.dudeways.Activity.ProfileViewActivity
+import com.app.dudeways.activity.HomeActivity
 import com.app.dudeways.Adapter.ConnectAdapter
-import com.app.dudeways.Adapter.HomePtofilesAdapter
 import com.app.dudeways.Model.Connect
-import com.app.dudeways.Model.HomeProfile
 import com.app.dudeways.databinding.FragmentInterestBinding
 import com.app.dudeways.helper.ApiConfig
 import com.app.dudeways.helper.Constant

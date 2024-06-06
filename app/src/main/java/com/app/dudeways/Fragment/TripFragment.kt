@@ -7,8 +7,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.app.dudeways.Activity.HomeActivity
-import com.app.dudeways.Activity.Trip.StarttripActivity
+import com.app.dudeways.activity.HomeActivity
+import com.app.dudeways.activity.Trip.StarttripActivity
 import com.app.dudeways.databinding.FragmentTripBinding
 
 
