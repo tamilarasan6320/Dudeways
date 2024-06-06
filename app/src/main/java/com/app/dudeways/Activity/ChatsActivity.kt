@@ -14,6 +14,8 @@ import com.app.dudeways.Adapter.ChatAdapter
 import com.app.dudeways.Model.ChatModel
 import com.app.dudeways.R
 import com.app.dudeways.databinding.ActivityChatsBinding
+import com.app.dudeways.extentions.logError
+import com.app.dudeways.extentions.logInfo
 import com.app.dudeways.extentions.makeToast
 import com.app.dudeways.helper.ApiConfig
 import com.app.dudeways.helper.Constant
@@ -37,7 +39,6 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
     lateinit var binding: ActivityChatsBinding
     lateinit var activity: Activity
     lateinit var session: Session
-    private var isLoading: Boolean = true
     private val firebaseDatabase: FirebaseDatabase =
         Firebase.database("https://dudeways-c8f31-default-rtdb.asia-southeast1.firebasedatabase.app")
     private val databaseReference: DatabaseReference = firebaseDatabase.reference
@@ -52,7 +53,6 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
     private lateinit var soundPool: SoundPool
     private var sentTone: Int = 0
     private var receiveTone: Int = 0
-    private var loaded: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -102,8 +102,8 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
                 senderName?.let { sName ->
                     receiverName?.let { rName ->
                         updateMessagesForSender(senderId, receiverId, sName, rName, msg)
-                    } ?: makeToast("Unable to send your message.")
-                } ?: makeToast("Unable to send your message.")
+                    } ?: logError(CHATS_ACTIVITY, "Unable to send your message.")
+                } ?: logError(CHATS_ACTIVITY, "Unable to send your message.")
                 binding.messageEdittext.text.clear()
             } ?: makeToast("Enter text to send")
         }
@@ -111,10 +111,9 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
         senderName?.let { sName ->
             receiverName?.let { rName ->
                 fetchMessages(sName, rName, this)
-            } ?: makeToast("Unable to send your message.")
-        } ?: makeToast("Unable to send your message.")
+            } ?: logError(CHATS_ACTIVITY, "Unable to send your message.")
+        } ?: logError(CHATS_ACTIVITY, "Unable to send your message.")
 
-        binding.progressCircular.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     private fun fetchMessages(
@@ -130,33 +129,33 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
                 for (child in conversationSnapShot.children) {
                     val chatModel = child.getValue(ChatModel::class.java)
                     chatModel.takeIf { it != null }?.let { conversationModel ->
-                        Log.e("fetchMessages", "ChatModel: $chatModel")
+                        logInfo(CHATS_ACTIVITY, "ChatModel: $chatModel")
                         conversations.add(conversationModel)
-                    } ?: makeToast("Unable to load your conversations.")
+                    } ?: logError(CHATS_ACTIVITY, "Unable to load your conversations.")
                 }
-            } ?: makeToast("No messages found.")
+            } ?: logInfo(CHATS_ACTIVITY, "No messages found.")
             onMessagesFetchedListener.onMessagesFetched(conversations)
         }.addOnFailureListener { exception ->
-            Log.e("fetchMessages", "Error fetching messages: ${exception.message}")
+            logError(CHATS_ACTIVITY, "Error fetching messages: ${exception.message}")
             onMessagesFetchedListener.onError(exception.message.toString())
         }
 
         reference.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 val chatModel = snapshot.getValue(ChatModel::class.java)
-                Log.e("onChildAdded", "ChatModel: $chatModel")
+                logInfo(CHATS_ACTIVITY, "onChildAdded - ChatModel: $chatModel")
                 onMessagesFetchedListener.onMessageAdded(chatModel)
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
                 val chatModel = snapshot.getValue(ChatModel::class.java)
-                Log.e("onChildChanged", "ChatModel: $chatModel")
+                Log.e(CHATS_ACTIVITY, "onChildChanged - ChatModel: $chatModel")
                 onMessagesFetchedListener.onMessageChanged(chatModel)
             }
 
             override fun onChildRemoved(snapshot: DataSnapshot) {
                 val chatModel = snapshot.getValue(ChatModel::class.java)
-                Log.e("onChildRemoved", "ChatModel: $chatModel")
+                Log.e(CHATS_ACTIVITY, "onChildRemoved - ChatModel: $chatModel")
                 onMessagesFetchedListener.onMessageRemoved(chatModel)
             }
 
@@ -165,7 +164,7 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Log.e("onCancelled", "DatabaseError: ${error.message}")
+                Log.e(CHATS_ACTIVITY, "onCancelled - DatabaseError: ${error.message}")
             }
         })
     }
@@ -189,7 +188,6 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
             type = "TEXT",
             sentBy = session.getData(Constant.NAME)
         )
-        Log.e("updateMessages", "Sending message: $chatModel")
         databaseReference.child("CHATS_V2")
             .child(senderName)
             .child(receiverName)
@@ -207,8 +205,8 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
                         message
                     )
                     playSentTone()
-                    makeToast("Message sent")
-                } ?: makeToast("Failed to send message")
+                    logInfo(CHATS_ACTIVITY, "Message sent")
+                } ?: logError(CHATS_ACTIVITY, "Failed to send message")
             }
     }
 
@@ -238,9 +236,9 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
             .setValue(chatModel)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Log.e("updateMessages", "Message updated for receiver")
+                    logInfo("updateMessages", "Message updated for receiver")
                 } else {
-                    Log.e("updateMessages", "Failed to send message: ${task.exception?.message}")
+                    logError("updateMessages", "Failed to send message: ${task.exception?.message}")
                 }
             }
     }
@@ -263,16 +261,12 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
             takeIf { isNotEmpty() }?.let {
                 messages.sortBy { it?.dateTime }
                 chatAdapter = ChatAdapter(messages, onClick = {}, session)
+                chatAdapter?.notifyDataSetChanged()
                 binding.RVChats.apply {
                     layoutManager = LinearLayoutManager(this@ChatsActivity)
                     adapter = chatAdapter
                 }
-                chatAdapter?.notifyDataSetChanged()
-                isLoading = false
-            } ?: run {
-                isLoading = false
-                makeToast("Empty message")
-            }
+            } ?: logError("conversations", "Conversations are empty.")
         }
     }
 
@@ -291,7 +285,6 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
 
     override fun onMessageChanged(chatModel: ChatModel?) {
         Log.e("onMessageChanged", "Message changed: $chatModel")
-        // Handle message update if necessary
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -316,17 +309,15 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
                 try {
                     val jsonObject = JSONObject(response)
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
-                        Toast.makeText(
-                            activity,
-                            jsonObject.getString(Constant.MESSAGE),
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        logInfo(
+                            CHATS_ACTIVITY,
+                            "Message update to the API."
+                        )
                     } else {
-                        Toast.makeText(
-                            activity,
-                            jsonObject.getString(Constant.MESSAGE),
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        logError(
+                            CHATS_ACTIVITY,
+                            "Message failed to update to the API."
+                        )
                     }
                 } catch (e: JSONException) {
                     e.printStackTrace()
@@ -335,4 +326,6 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
         }, activity, Constant.ADD_CHAT, params, true, 1)
     }
 }
+
+private const val CHATS_ACTIVITY = "ChatsActivity"
 
