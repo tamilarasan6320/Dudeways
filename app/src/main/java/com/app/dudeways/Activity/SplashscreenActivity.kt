@@ -52,7 +52,7 @@ class SplashscreenActivity : AppCompatActivity() {
                 login()
 
             } else {
-                Toast.makeText(activity, "Please login", Toast.LENGTH_SHORT).show()
+             //   Toast.makeText(activity, "Please login", Toast.LENGTH_SHORT).show()
                 val intent = Intent(activity, WelcomeActivity::class.java)
                 startActivity(intent)
                 finish()

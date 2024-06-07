@@ -1,5 +1,7 @@
 package com.app.dudeways.helper;
 
+import org.jetbrains.annotations.NotNull;
+
 public class Constant {
     public static final String MainBaseUrl = "https://dudeways.graymatterworks.com/";
 
@@ -59,6 +61,7 @@ public class Constant {
     public static final String MOBILE = "mobile";
     public static final String ID = "id";
     public static final String USER_ID = "user_id";
+    public static final String TYPE = "type";
     public static final String CHAT_USER_ID = "chat_user_id";
     public static final String TRIP_ID = "trip_id";
     public static final String FRIEND_USER_ID = "friend_user_id";
@@ -94,4 +97,5 @@ public class Constant {
     public static final String SELFIE_IMAGE = "selfie_image";
     public static final String BOOKID = "book_id";
     public static final String CART_ID = "cart_id";
+    public static final String TYPE_TRIP_DATE = "trip_date";
 }

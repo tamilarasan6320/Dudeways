@@ -15,7 +15,7 @@
     <item
         android:id="@+id/navExplore"
         android:icon="@drawable/nav_explore"
-        android:title="Explore" />
+        android:title="Trip" />
 
 
     <item

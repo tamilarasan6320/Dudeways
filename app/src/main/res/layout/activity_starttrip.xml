@@ -34,6 +34,7 @@
 
 
             <TextView
+                android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_centerVertical="true"
                android:layout_toRightOf="@+id/ivBack"
                 android:id="@+id/tvTitle"

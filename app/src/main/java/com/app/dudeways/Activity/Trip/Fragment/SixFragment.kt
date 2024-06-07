@@ -33,6 +33,7 @@ class SixFragment : Fragment() {
     var imageUri: Uri? = null
 
     private val REQUEST_IMAGE_GALLERY = 2
+     var trip_type: String? = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,6 +49,17 @@ class SixFragment : Fragment() {
 
         binding.ivAddProof1.setOnClickListener {
             pickImageFromGallery()
+        }
+
+
+        if (session.getData(Constant.TRIP_TYPE) == "0") {
+            trip_type = "Road Trip"
+        } else if (session.getData(Constant.TRIP_TYPE) == "1") {
+            trip_type = "Adventure Trip"
+        } else if (session.getData(Constant.TRIP_TYPE) == "2") {
+            trip_type = "Explore Cities"
+        } else if (session.getData(Constant.TRIP_TYPE) == "3") {
+            trip_type = "Airport Flyover"
         }
 
 
@@ -122,16 +134,8 @@ class SixFragment : Fragment() {
         }, activity, Constant.UPDATE_TRIP_IMAGE, params, FileParams)
     }
     fun addtrip() {
-        val trip_type = ""
-        if (session.getData(Constant.TRIP_TYPE) == "0") {
-            trip_type == "Road Trip"
-        } else if (session.getData(Constant.TRIP_TYPE) == "1") {
-            trip_type == "Adventure Trip"
-        } else if (session.getData(Constant.TRIP_TYPE) == "2") {
-            trip_type == "Explore Cities"
-        } else if (session.getData(Constant.TRIP_TYPE) == "3") {
-            trip_type == "Airport Flyover"
-        }
+
+
 
         val params: MutableMap<String, String> = HashMap()
         params[Constant.USER_ID] = session.getData(Constant.USER_ID)

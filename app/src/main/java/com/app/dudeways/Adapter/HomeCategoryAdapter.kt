@@ -10,8 +10,10 @@ import android.widget.CalendarView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.app.dudeways.Fragment.HomeFragment
 import com.app.dudeways.Model.HomeCategory
 import com.app.dudeways.R
+import com.app.dudeways.helper.Session
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -19,10 +21,14 @@ import java.util.Locale
 class HomeCategoryAdapter(
     private val activity: Activity,
     private val homeCategories: ArrayList<HomeCategory>
+
 ) : RecyclerView.Adapter<HomeCategoryAdapter.ItemHolder>() {
 
     private var selectedPosition = -1
     private var selectedDate: String? = null
+    private var formattedDate: String? = null
+    // call session
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
         val view: View = LayoutInflater.from(activity).inflate(R.layout.layout_home_category, parent, false)
@@ -31,6 +37,7 @@ class HomeCategoryAdapter(
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
         val category = homeCategories[position]
+
 
         // If position is 2 and a date has been selected, set the date text
         holder.tvName.text = if (position == 2 && selectedDate != null) {
@@ -53,13 +60,18 @@ class HomeCategoryAdapter(
         holder.cardView.setOnClickListener {
             val previousPosition = selectedPosition
             selectedPosition = position
-
             notifyItemChanged(previousPosition)
             notifyItemChanged(position)
+            if (position == 0) {
 
-            if (position == 2) {
+
+            } else if (position == 1) {
+
+            } else if (position == 2) {
                 showDatePickerDialog(holder.tvName)
             }
+
+
         }
     }
 
@@ -88,7 +100,7 @@ class HomeCategoryAdapter(
             selectedDate.set(year, month, dayOfMonth)
 
             val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
-            val formattedDate = dateFormat.format(selectedDate.time)
+           formattedDate = dateFormat.format(selectedDate.time)
 
             tvName.text = formattedDate
             this.selectedDate = formattedDate  // Store the selected date

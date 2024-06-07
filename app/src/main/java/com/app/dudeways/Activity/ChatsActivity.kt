@@ -7,7 +7,6 @@ import android.media.SoundPool
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.dudeways.Adapter.ChatAdapter
@@ -19,6 +18,7 @@ import com.app.dudeways.extentions.logInfo
 import com.app.dudeways.extentions.makeToast
 import com.app.dudeways.helper.ApiConfig
 import com.app.dudeways.helper.Constant
+import com.app.dudeways.helper.ProgressDisplay
 import com.app.dudeways.helper.Session
 import com.app.dudeways.listeners.OnMessagesFetchedListener
 import com.bumptech.glide.Glide
@@ -319,8 +319,7 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
                 try {
                     val jsonObject = JSONObject(response)
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
-                        logInfo(
-                            CHATS_ACTIVITY,
+                        logInfo(CHATS_ACTIVITY,
                             "Message update to the API."
                         )
                     } else {
@@ -333,7 +332,7 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
                     e.printStackTrace()
                 }
             }
-        }, activity, Constant.ADD_CHAT, params, true, 1)
+        }, activity, Constant.ADD_CHAT, params, false, 1)
     }
 }
 

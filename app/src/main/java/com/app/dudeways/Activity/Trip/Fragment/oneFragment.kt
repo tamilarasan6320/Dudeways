@@ -33,7 +33,7 @@ class oneFragment : Fragment() {
         session = Session(activity)
 
         (activity as StarttripActivity).binding.tvTitle.visibility = View.VISIBLE
-        (activity as StarttripActivity).binding.ivBack.visibility = View.INVISIBLE
+        (activity as StarttripActivity).binding.ivBack.visibility = View.VISIBLE
         (activity as StarttripActivity).binding.btnNext.visibility = View.VISIBLE
         (activity as StarttripActivity).binding.btnNext.text = "Next"
 
@@ -69,15 +69,6 @@ class oneFragment : Fragment() {
             Glide.with(activity).load(image).into(itemHolder.ivImage)
             if (position == selectedItemPosition) {
                 itemHolder.ivCheck.visibility = View.VISIBLE
-                if (position == 0) {
-                    session.setData(Constant.TRIP_TYPE, "Road Trip")
-                } else if (position == 1) {
-                    session.setData(Constant.TRIP_TYPE, "Adventure Trip")
-                } else if (position == 2) {
-                    session.setData(Constant.TRIP_TYPE, "Explore Cities")
-                } else if (position == 3) {
-                    session.setData(Constant.TRIP_TYPE, "Airport Flyover")
-                }
                 session.setData(Constant.TRIP_TYPE, position.toString())
             } else {
                 itemHolder.ivCheck.visibility = View.GONE
@@ -86,7 +77,7 @@ class oneFragment : Fragment() {
             itemHolder.itemView.setOnClickListener {
                 val previousSelectedPosition = selectedItemPosition
                 selectedItemPosition = holder.adapterPosition
-               // Toast.makeText(activity, "Selected: $position  ${session.getData(Constant.TRIP_TYPE)}", Toast.LENGTH_SHORT).show()
+               //Toast.makeText(activity, "Selected: $position  ${session.getData(Constant.TRIP_TYPE)}", Toast.LENGTH_SHORT).show()
                 session.setData(Constant.TRIP_TYPE, position.toString())
                 notifyItemChanged(previousSelectedPosition)
                 notifyItemChanged(holder.adapterPosition)

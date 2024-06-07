@@ -170,7 +170,7 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="[City, National Park, Hiking Trail, Mountain, or Airport]"
+            android:text="[Kodaikanal,Ooty,Manali,Munnar, Bangalore]"
             android:textSize="@dimen/_12sdp"
             android:fontFamily="@font/poppins_regular"
             android:textColor="@color/black"
