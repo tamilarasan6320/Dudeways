@@ -2,30 +2,48 @@ package com.app.dudeways.Activity
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.PorterDuff
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.app.dudeways.R
 import com.app.dudeways.databinding.ActivityFreePointsBinding
 import com.app.dudeways.helper.Session
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.reward.RewardedVideoAd
+import com.google.android.gms.ads.reward.RewardedVideoAdListener
+import com.google.android.gms.ads.rewarded.RewardItem
+import com.google.android.gms.ads.rewarded.RewardedAd
+
 
 class FreePointsActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityFreePointsBinding
     lateinit var activity: Activity
     lateinit var session: Session
+    private lateinit var adMobRewardedVideoAd: RewardedVideoAd
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_free_points)
-
         binding = ActivityFreePointsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         activity = this
         session = Session(activity)
+        MobileAds.initialize(this)
+        adMobRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this)
 
+        loadRewardedVideoAd()
+
+        binding.progressBar.indeterminateDrawable.setColorFilter(
+            ContextCompat.getColor(this, R.color.primary),
+            PorterDuff.Mode.SRC_IN
+        )
 
         binding.llStep1.setOnClickListener {
-
-            startActivity(Intent(activity, IdverficationActivity::class.java))
 
         }
 
@@ -35,10 +53,67 @@ class FreePointsActivity : AppCompatActivity() {
 
         binding.llStep2.setOnClickListener {
 
-            startActivity(Intent(activity, spinActivity::class.java))
-
         }
 
+        // Set OnClickListener for Step 3 button
+        binding.llStep3.setOnClickListener {
+            // Check if the ad is loaded before allowing the user to watch it
+            if (adMobRewardedVideoAd.isLoaded) {
+                showRewardedVideoAd()
+            } else {
+                loadRewardedVideoAd()
+                showRewardedVideoAd()
+            }
+        }
+    }
 
+    private val adId = "ca-app-pub-3940256099942544/5224354917"
+
+    private fun loadRewardedVideoAd() {
+        adMobRewardedVideoAd.rewardedVideoAdListener = object : RewardedVideoAdListener {
+            override fun onRewardedVideoAdLoaded() {
+                binding.progressBar.visibility = View.GONE
+             //   Toast.makeText(this@FreePointsActivity, "Ad Loaded", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onRewardedVideoAdOpened() {
+              //  Toast.makeText(this@FreePointsActivity, "Ad Opened", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onRewardedVideoStarted() {
+               // Toast.makeText(this@FreePointsActivity, "Video Started", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onRewardedVideoAdClosed() {
+            //    Toast.makeText(this@FreePointsActivity, "Ad Closed", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onRewarded(p0: com.google.android.gms.ads.reward.RewardItem?) {
+                TODO("Not yet implemented")
+            }
+
+
+            override fun onRewardedVideoAdLeftApplication() {
+              //  Toast.makeText(this@FreePointsActivity, "Left Application", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onRewardedVideoAdFailedToLoad(i: Int) {
+             //   Toast.makeText(this@FreePointsActivity, "Ad Failed To Load", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onRewardedVideoCompleted() {
+              //  Toast.makeText(this@FreePointsActivity, "Video Completed", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        adMobRewardedVideoAd.loadAd(adId, AdRequest.Builder().build())
+    }
+
+    private fun showRewardedVideoAd() {
+        if (adMobRewardedVideoAd.isLoaded) {
+            adMobRewardedVideoAd.show()
+        } else {
+            adMobRewardedVideoAd.loadAd(adId, AdRequest.Builder().build())
+        }
     }
 }

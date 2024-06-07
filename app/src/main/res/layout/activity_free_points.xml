@@ -7,6 +7,13 @@
     android:layout_height="match_parent"
     tools:context=".Activity.FreePointsActivity">
 
+    <ProgressBar
+        android:layout_centerInParent="true"
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
 
     <RelativeLayout
         android:id="@+id/rlToolbar"
@@ -168,6 +175,71 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Get Daily Points Free"
+                android:textSize="@dimen/_14sdp"
+                android:textColor="@color/primary"
+                android:fontFamily="@font/poppins_semibold"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/llStep3"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:padding="@dimen/_10sdp"
+            android:background="@drawable/round_corner_stroke"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Watch Video"
+                    android:textSize="@dimen/_12sdp"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/poppins_semibold"
+                    />
+
+
+                <ImageView
+                    android:visibility="invisible"
+                    android:id="@+id/ivProofCheck3"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:src="@drawable/check_ic"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:scaleType="fitXY"
+                    />
+
+
+            </RelativeLayout>
+
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                app:dividerColor="@color/black"
+                android:thickness="@dimen/_2sdp"
+                />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Get Free Points"
                 android:textSize="@dimen/_14sdp"
                 android:textColor="@color/primary"
                 android:fontFamily="@font/poppins_semibold"

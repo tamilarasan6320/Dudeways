@@ -23,5 +23,7 @@
         <item>Saturday</item>
     </string-array>
 
+    <string name="admob_app_id">ca-app-pub-8693482193769963~4468032819</string>
+
 
 </resources>
