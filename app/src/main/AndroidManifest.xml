@@ -21,9 +21,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
 
+        <activity android:name=".Activity.MytripsActivity"
+            android:exported="false" />
+
         <activity
             android:name=".Activity.GoogleLoginActivity"
-            android:exported="false" />
+
         <activity
             android:name=".Activity.EditProfileActivity"
             android:exported="false" />
