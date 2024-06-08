@@ -10,6 +10,7 @@ import com.app.dudeways.R
 import com.app.dudeways.databinding.ActivityStage1Binding
 import com.app.dudeways.helper.Constant
 import com.app.dudeways.helper.Session
+import com.bumptech.glide.Glide
 
 class Stage1Activity : AppCompatActivity() {
 
@@ -33,6 +34,8 @@ class Stage1Activity : AppCompatActivity() {
            onBackPressed()
         }
 
+        Glide.with(activity).load(session.getData(Constant.PROFILE)).placeholder(R.drawable.profile_placeholder).into(binding.civProfile)
+
         val proof1 = session.getData(Constant.PROOF1)
         val proof2 = session.getData(Constant.PROOF2)
 
@@ -53,6 +56,7 @@ class Stage1Activity : AppCompatActivity() {
             } else {
                 val intent = Intent(activity, Stage2Activity::class.java)
                 startActivity(intent)
+                finish()
             }
 
         }
@@ -63,6 +67,7 @@ class Stage1Activity : AppCompatActivity() {
             } else {
                 val intent = Intent(activity, Stage3Activity::class.java)
                 startActivity(intent)
+                finish()
             }
 
 

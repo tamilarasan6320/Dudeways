@@ -35,6 +35,7 @@ class SplashscreenActivity : AppCompatActivity() {
         }
 
 
+
         activity = this
         session = Session(activity)
         handler = Handler()
@@ -92,6 +93,8 @@ class SplashscreenActivity : AppCompatActivity() {
                             session.setData(Constant.PROFILE, jsonobj.getString(Constant.PROFILE))
                             session.setData(Constant.MOBILE, jsonobj.getString(Constant.MOBILE))
                             session.setData(Constant.REFER_CODE, jsonobj.getString(Constant.REFER_CODE))
+                            session.setData(Constant.COVER_IMG, jsonobj.getString(Constant.COVER_IMG))
+
                             if (GoogleSignIn.getLastSignedInAccount(this) != null) {
                                 val intent = Intent(activity,HomeActivity::class.java)
                                 startActivity(intent)

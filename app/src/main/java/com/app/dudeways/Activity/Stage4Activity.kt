@@ -6,7 +6,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.app.dudeways.R
 import com.app.dudeways.databinding.ActivityStage4Binding
+import com.app.dudeways.helper.Constant
 import com.app.dudeways.helper.Session
+import com.bumptech.glide.Glide
 
 class Stage4Activity : AppCompatActivity() {
 
@@ -27,6 +29,9 @@ class Stage4Activity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
+        Glide.with(activity).load(session.getData(Constant.PROFILE)).placeholder(R.drawable.profile_placeholder).into(binding.civProfile)
+
 
 
     }

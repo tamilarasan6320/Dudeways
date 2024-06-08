@@ -52,7 +52,7 @@ class GoogleLoginActivity : AppCompatActivity() {
         firebaseAuth = FirebaseAuth.getInstance()
 
         binding.googlelogin.setOnClickListener { view: View? ->
-            Toast.makeText(this, "Logging In", Toast.LENGTH_SHORT).show()
+          //  Toast.makeText(this, "Logging In", Toast.LENGTH_SHORT).show()
             signInGoogle()
         }
     }
@@ -137,6 +137,7 @@ class GoogleLoginActivity : AppCompatActivity() {
                             session.setData(Constant.CITY, jsonobj.getString(Constant.CITY))
                             session.setData(Constant.PROFILE, jsonobj.getString(Constant.PROFILE))
                             session.setData(Constant.MOBILE, jsonobj.getString(Constant.MOBILE))
+                            session.setData(Constant.COVER_IMG, jsonobj.getString(Constant.COVER_IMG))
                             session.setData(Constant.REFER_CODE, jsonobj.getString(Constant.REFER_CODE))
                             val intent = Intent(activity, HomeActivity::class.java)
                             startActivity(intent)
@@ -158,5 +159,9 @@ class GoogleLoginActivity : AppCompatActivity() {
             }
         }, activity, Constant.CHECK_EMAIL, params, true, 1)
     }
+
+
+
+    // on
 }
 

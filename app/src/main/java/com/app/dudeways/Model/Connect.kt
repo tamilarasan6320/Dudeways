@@ -8,6 +8,8 @@ class Connect {
     var user_id: String? = null
     var name: String? = null
     var image: String? = null
+    var online_status: String? = null
+
     var last_seen: String? = null
     var friend_user_id: String? = null
     var friend_user_name: String? = null
@@ -19,7 +21,8 @@ class Connect {
 
 
 
-    constructor(id: String?, user_id: String?, name: String?, image: String?, last_seen: String?, friend_user_id: String?, friend_user_name: String?, status: String?, datetime: String?, updated_at: String?, created_at: String?,profile: String?) {
+    constructor(id: String?, online_status: String?,
+                user_id: String?, name: String?, image: String?, last_seen: String?, friend_user_id: String?, friend_user_name: String?, status: String?, datetime: String?, updated_at: String?, created_at: String?,profile: String?) {
         this.id = id
         this.user_id = user_id
         this.name = name
@@ -32,6 +35,7 @@ class Connect {
         this.updated_at = updated_at
         this.created_at = created_at
         this.profile = profile
+        this.online_status = online_status
     }
 
 

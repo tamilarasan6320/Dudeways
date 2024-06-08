@@ -52,6 +52,7 @@ public class Constant {
     public static final String TOKEN = "token";
     public static final String PROOF1 = "proof1";
     public static final String PROOF2 = "proof2";
+    public static final String VERDICATION_STATUS = "0";
     public static final String FrontPROOF= "front_proof";
     public static final String BackPROOF = "back_proof";
 

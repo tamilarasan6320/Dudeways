@@ -44,6 +44,10 @@ class InterestFragment : Fragment() {
         binding.rvConnectList.layoutManager = linearLayoutManager
 
 
+        binding.swipeRefreshLayout.setOnRefreshListener {
+        NotificationList()
+        }
+
         NotificationList()
 
         return binding.root
@@ -88,7 +92,7 @@ class InterestFragment : Fragment() {
             }
 
             // Stop the refreshing animation once the network request is complete
-//            binding.swipeRefreshLayout.isRefreshing = false
+           binding.swipeRefreshLayout.isRefreshing = false
         }, activity, Constant.FREINDS_LIST, params, true, 1)
     }
 

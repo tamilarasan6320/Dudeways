@@ -166,16 +166,24 @@ class ProfileViewActivity : AppCompatActivity() {
         }
 
         binding.rlVerificationBadge.setOnClickListener {
-            val intent = Intent(activity, IdverficationActivity::class.java)
-            startActivity(intent)
+
+            val proof1 = session.getData(Constant.PROOF1)
+            val proof2 = session.getData(Constant.PROOF2)
+
+            if(proof1 == "1" && proof2 == "1") {
+                val intent = Intent(activity, Stage4Activity::class.java)
+                startActivity(intent)
+            }
+            else {
+                val intent = Intent(activity, Stage1Activity::class.java)
+                startActivity(intent)
+            }
+
+
         }
 
         binding.rlLogout.setOnClickListener {
-            mGoogleSignInClient.signOut().addOnCompleteListener {
-                session.logoutUser(activity)
-                Toast.makeText(this, "Logging Out", Toast.LENGTH_SHORT).show()
-                finish()
-            }
+            showLogoutConfirmationDialog()
         }
 
     }
@@ -291,7 +299,7 @@ class ProfileViewActivity : AppCompatActivity() {
                         val jsonobj = `object`.getJSONObject(Constant.DATA)
                         session.setData(Constant.USER_ID, jsonobj.getString(Constant.ID))
                         session.setData(Constant.COVER_IMG, jsonobj.getString(Constant.COVER_IMG))
-                        Glide.with(activity).load(session.getData(Constant.COVER_IMG)).placeholder(R.drawable.cover_img).into(binding.ivCover)
+                        Glide.with(activity).load(session.getData(Constant.COVER_IMG)).placeholder(R.drawable.placeholder_bg).into(binding.ivCover)
 
                         onResume()
                         Toast.makeText(activity, "" + jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
@@ -306,4 +314,37 @@ class ProfileViewActivity : AppCompatActivity() {
         }, activity, Constant.UPDATE_COVER_IMG, params, FileParams)
     }
 
+    private fun showLogoutConfirmationDialog() {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_logout, null)
+
+        val dialogBuilder = AlertDialog.Builder(activity)
+            .setView(dialogView)
+            .create()
+
+
+        val btnLogout = dialogView.findViewById<Button>(R.id.btnLogout)
+        val btnCancel  = dialogView.findViewById<Button>(R.id.btnCancel)
+
+
+
+
+        btnCancel.setOnClickListener {
+            dialogBuilder.dismiss()
+        }
+
+        btnLogout.setOnClickListener {
+            // Perform logout action
+            logoutUser()
+            dialogBuilder.dismiss()
+        }
+
+        dialogBuilder.show()
+    }
+
+    private fun logoutUser() {
+        mGoogleSignInClient.signOut().addOnCompleteListener {
+            session.logoutUser(activity)
+            Toast.makeText(this, "Logged Out", Toast.LENGTH_SHORT).show()
+        }
+    }
 }

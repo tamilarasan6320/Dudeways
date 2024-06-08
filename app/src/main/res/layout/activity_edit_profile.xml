@@ -18,6 +18,16 @@
             android:padding="@dimen/_10sdp">
 
             <TextView
+                android:id="@+id/tvSkip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="SKIP"
+                android:gravity="right"
+                android:textColor="@color/primary"
+                android:textSize="@dimen/_18sdp" />
+
+            <TextView
                 android:id="@+id/tvSplashText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -49,6 +59,7 @@
 
             <!-- Email Field -->
             <com.google.android.material.textfield.TextInputLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_20sdp"

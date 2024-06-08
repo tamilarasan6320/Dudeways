@@ -65,9 +65,18 @@
             android:id="@+id/civProfile"
             android:layout_width="@dimen/_140sdp"
             android:layout_height="@dimen/_140sdp"
-            android:src="@drawable/solo_travel"
             app:civ_border_width="2dp"
             app:civ_border_color="@color/primary"
+            />
+
+        <TextView
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Under Processing..."
+            android:textSize="@dimen/_16sdp"
+            android:textColor="@color/primary"
+            android:fontFamily="@font/poppins_semibold"
             />
 
 
@@ -92,7 +101,7 @@
         android:fontFamily="@font/poppins_medium"
         app:backgroundTint="@null"
         android:background="@drawable/gradient_button"
-        android:text="Under Process"
+        android:text="Back To Home"
         android:textAllCaps="false"
         android:textSize="@dimen/_14sdp"
         />

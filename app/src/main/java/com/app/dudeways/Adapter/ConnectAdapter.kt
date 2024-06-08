@@ -41,6 +41,12 @@ class ConnectAdapter(
 
         val session = Session(activity)
 
+        if (report.online_status == "1") {
+            holder.IV_online_status.visibility = View.VISIBLE
+        } else {
+            holder.IV_online_status.visibility = View.GONE
+        }
+
 
         holder.itemView.setOnClickListener{
             val intent = Intent(activity, ProfileinfoActivity::class.java)
@@ -80,6 +86,7 @@ class ConnectAdapter(
        val tvLatestseen: TextView = itemView.findViewById(R.id.tvLatestseen)
         val ivProfile:ImageView = itemView.findViewById(R.id.ivProfile)
         val rlChat:RelativeLayout = itemView.findViewById(R.id.rlChat)
+        val IV_online_status:ImageView = itemView.findViewById(R.id.IV_online_status)
 
 
     }

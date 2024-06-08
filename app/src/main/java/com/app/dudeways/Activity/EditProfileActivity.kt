@@ -40,6 +40,11 @@ class EditProfileActivity : AppCompatActivity() {
         binding.etcity.setText(session.getData(Constant.CITY))
 
 
+        binding.tvSkip.setOnClickListener {
+            val intent = Intent(activity, HomeActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
 
         binding.btnSave.setOnClickListener {
             if (binding.etName.text.toString().isEmpty()) {

@@ -131,7 +131,7 @@ class Stage3Activity : AppCompatActivity() {
 
                         // Verify the back image here
                         verifyBackImage(bitmap)
-                        Toast.makeText(activity, "" + jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
+                      //  Toast.makeText(activity, "" + jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
 
                     } else {
                         Toast.makeText(activity, "" + jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
@@ -166,7 +166,8 @@ class Stage3Activity : AppCompatActivity() {
                         startActivity(Intent(this, Stage1Activity::class.java))
                         finish()
                         session.setData(Constant.PROOF2, "1")
-                        Toast.makeText(activity, "" + jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
+                        session.setData(Constant.VERDICATION_STATUS,"1")
+                       // Toast.makeText(activity, "" + jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
                     } else {
                         Toast.makeText(activity, "" + jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
                     }
