@@ -38,6 +38,8 @@ class ChatAdapter(
         return conversations.size
     }
 
+    fun getItemInfo(position: Int) : ChatModel? = conversations[position]
+
 
     override fun getItemViewType(position: Int): Int {
         val conversations = conversations[position]
@@ -54,6 +56,7 @@ class ChatAdapter(
             when (binding) {
                 is SenderChatMessageBinding -> {
                     binding.TVMessage.text = chatMessage?.message
+                    chatMessage?.dateTime
                     Glide
                         .with(binding.root.context)
                         .load(session.getData("reciver_profile"))
