@@ -4,11 +4,16 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.media.AudioAttributes
 import android.media.SoundPool
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
+import android.widget.Toast.makeText
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.app.dudeways.Adapter.ChatAdapter
 import com.app.dudeways.Model.ChatModel
 import com.app.dudeways.R
@@ -20,6 +25,7 @@ import com.app.dudeways.helper.ApiConfig
 import com.app.dudeways.helper.Constant
 import com.app.dudeways.helper.ProgressDisplay
 import com.app.dudeways.helper.Session
+import com.app.dudeways.listeners.CustomScrollListener
 import com.app.dudeways.listeners.OnMessagesFetchedListener
 import com.bumptech.glide.Glide
 import com.google.firebase.Timestamp
@@ -32,6 +38,10 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import org.json.JSONException
 import org.json.JSONObject
+import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
+import java.util.Date
+import java.util.Locale
 import kotlin.random.Random
 
 class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
@@ -55,6 +65,7 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
     private var receiveTone: Int = 0
 
     private var isConversationsFetching: Boolean = true
+    private val conversationDates = mutableSetOf<String?>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -258,7 +269,9 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
         soundPool.play(receiveTone, 1f, 1f, 0, 0, 1f)
     }
 
+    private var lastDisplayedDateTime: String? = null
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onMessagesFetched(conversations: MutableList<ChatModel?>) {
         messages = conversations
         with(messages) {
@@ -268,6 +281,25 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
                 binding.RVChats.apply {
                     layoutManager = LinearLayoutManager(this@ChatsActivity)
                     adapter = chatAdapter
+                }
+                binding.RVChats.setOnScrollChangeListener { _, _, _, _, _ ->
+
+                    val layoutManager = binding.RVChats.layoutManager as LinearLayoutManager
+                    val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+
+                    if (firstVisibleItemPosition != RecyclerView.NO_POSITION) {
+                        val chatModel = chatAdapter?.getItemInfo(firstVisibleItemPosition)
+                        val dateTime = chatModel?.dateTime
+
+                        if (dateTime != lastDisplayedDateTime) {
+                            lastDisplayedDateTime = dateTime
+                            val actualDate = Date(dateTime?.toLong() ?: 0)
+                            val formattedDate = SimpleDateFormat("MMM dd yyyy", Locale.getDefault())
+                            dateTime?.let {
+                                binding.TVDate.text = formattedDate.format(actualDate)
+                            }
+                        }
+                    }
                 }
             } ?: logInfo("conversations", "Conversations are empty.")
         }
@@ -319,7 +351,8 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
                 try {
                     val jsonObject = JSONObject(response)
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
-                        logInfo(CHATS_ACTIVITY,
+                        logInfo(
+                            CHATS_ACTIVITY,
                             "Message update to the API."
                         )
                     } else {
