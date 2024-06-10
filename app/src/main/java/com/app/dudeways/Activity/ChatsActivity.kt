@@ -271,7 +271,7 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
 
     private var lastDisplayedDateTime: String? = null
 
-    @RequiresApi(Build.VERSION_CODES.O)
+    @SuppressLint("NotifyDataSetChanged")
     override fun onMessagesFetched(conversations: MutableList<ChatModel?>) {
         messages = conversations
         with(messages) {
@@ -282,6 +282,8 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
                     layoutManager = LinearLayoutManager(this@ChatsActivity)
                     adapter = chatAdapter
                 }
+                binding.RVChats.invalidate()
+                chatAdapter?.notifyDataSetChanged()
                 binding.RVChats.setOnScrollChangeListener { _, _, _, _, _ ->
 
                     val layoutManager = binding.RVChats.layoutManager as LinearLayoutManager
@@ -294,9 +296,10 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
                         if (dateTime != lastDisplayedDateTime) {
                             lastDisplayedDateTime = dateTime
                             val actualDate = Date(dateTime?.toLong() ?: 0)
+                            val todayDate = Date(Timestamp.now().toDate().time)
                             val formattedDate = SimpleDateFormat("MMM dd yyyy", Locale.getDefault())
                             dateTime?.let {
-                                binding.TVDate.text = formattedDate.format(actualDate)
+                                binding.TVDate.text = formattedDate.format(actualDate) ?: formattedDate.format(todayDate)
                             }
                         }
                     }
@@ -307,20 +310,39 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onMessageAdded(chatModel: ChatModel?) {
-        chatModel?.let {
-            if (messages.none { existingChatModel -> existingChatModel?.chatID == chatModel.chatID }) {
-                messages.add(chatModel)
-                messages.any { it?.sentBy != session.getData(Constant.NAME) }.let { fromSender ->
-                    if (fromSender) {
-                        playReceiveTone()
-                    }
+        chatModel?.let { nonEmptyChatModel ->
+            when {
+                messages.isEmpty() -> {
+                    logInfo("$CHATS_ACTIVITY onMessageAdded", "Message added are empty")
+                    messages.add(nonEmptyChatModel)
+                    initializeRecyclerView(messages)
+                    messages.any { it?.sentBy != session.getData(Constant.NAME) }
+                        .let { fromSender ->
+                            if (fromSender) {
+                                playReceiveTone()
+                            }
+                        }
                 }
-                messages.sortBy { it?.dateTime }
-                chatAdapter?.notifyDataSetChanged()
-                binding.RVChats.smoothScrollToPosition(
-                    (chatAdapter?.itemCount?.minus(1) ?: 0)
-                )
-                logInfo("$CHATS_ACTIVITY onMessageAdded", "Message added: $chatModel")
+
+                messages.none { existingChatModel -> existingChatModel?.chatID == chatModel.chatID } -> {
+                    messages.add(nonEmptyChatModel)
+                    messages.any { it?.sentBy != session.getData(Constant.NAME) }
+                        .let { fromSender ->
+                            if (fromSender) {
+                                playReceiveTone()
+                            }
+                        }
+                    messages.sortBy { it?.dateTime }
+                    initializeRecyclerView(messages)
+                    binding.RVChats.smoothScrollToPosition(
+                        (chatAdapter?.itemCount?.minus(1) ?: 0)
+                    )
+                    logInfo("$CHATS_ACTIVITY onMessageAdded", "Message added: $chatModel")
+                }
+
+                else -> {
+
+                }
             }
         }
     }
@@ -341,6 +363,13 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
         logError("$CHATS_ACTIVITY onError", "Error: $errorMessage")
     }
 
+    private fun initializeRecyclerView(conversations : MutableList<ChatModel?>) {
+        binding.RVChats.apply {
+            adapter = ChatAdapter(conversations, onClick = {},session)
+            layoutManager = LinearLayoutManager(this@ChatsActivity)
+            invalidate()
+        }
+    }
     private fun addChat(message: String) {
         val params: MutableMap<String, String> = HashMap()
         params[Constant.USER_ID] = session.getData(Constant.USER_ID)
