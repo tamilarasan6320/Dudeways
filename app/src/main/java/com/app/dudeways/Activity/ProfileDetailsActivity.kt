@@ -113,6 +113,12 @@ class ProfileDetailsActivity : AppCompatActivity() {
             binding.cardstate.visibility = View.VISIBLE
             showProfessionDialogstate(binding.etState)
         }
+
+        binding.btnNext.setOnClickListener {
+            binding.nsProfileDetails.visibility = View.VISIBLE
+            binding.llDescribtion.visibility = View.GONE
+        }
+
     }
 
     private fun showProfessionDialogstate(etState: EditText) {
@@ -163,12 +169,12 @@ class ProfileDetailsActivity : AppCompatActivity() {
         params[Constant.PROFESSION] = binding.etProfession.text.toString()
         params[Constant.STATE] = binding.etState.text.toString()
         params[Constant.CITY] = binding.etcity.text.toString()
+        params[Constant.INTRODUCTION] = binding.etIntroduction.text.toString()
         ApiConfig.RequestToVolley({ result, response ->
             if (result) {
                 try {
                     val jsonObject: JSONObject = JSONObject(response)
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
-
                         val `object` = JSONObject(response)
                         val jsonobj = `object`.getJSONObject(Constant.DATA)
                         session.setData(Constant.USER_ID, jsonobj.getString(Constant.ID))

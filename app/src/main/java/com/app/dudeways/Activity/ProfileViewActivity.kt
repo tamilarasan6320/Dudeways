@@ -9,9 +9,11 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import com.canhub.cropper.CropImage
 import com.canhub.cropper.CropImageView
 import com.app.dudeways.R
@@ -81,6 +83,11 @@ class ProfileViewActivity : AppCompatActivity() {
             pickImageFromGallery()
         }
 
+        binding.rlNotifications.setOnClickListener {
+            val intent = Intent(activity, NotificationActivity::class.java)
+            startActivity(intent)
+        }
+
 
         Glide.with(activity).load(session.getData(Constant.COVER_IMG)).placeholder(R.drawable.placeholder_bg).into(binding.ivCover)
         Glide.with(activity).load(session.getData(Constant.PROFILE)).placeholder(R.drawable.profile_placeholder).into(binding.civProfile)
@@ -133,8 +140,11 @@ class ProfileViewActivity : AppCompatActivity() {
                 .setView(dialogView)
                 .create()
             val title = dialogView.findViewById<TextView>(R.id.dialog_title)
-            val btnPurchase = dialogView.findViewById<Button>(R.id.btnPurchase)
-            val btnFreePoints = dialogView.findViewById<Button>(R.id.btnFreePoints)
+            val btnPurchase = dialogView.findViewById<LinearLayout>(R.id.btnPurchase)
+            val btnFreePoints = dialogView.findViewById<LinearLayout>(R.id.btnFreePoints)
+
+
+            title.text = "You have ${session.getData(Constant.POINTS)} Points"
 
             btnPurchase.setOnClickListener {
                 val intent = Intent(activity, PurchasepointActivity::class.java)
@@ -175,7 +185,7 @@ class ProfileViewActivity : AppCompatActivity() {
                 startActivity(intent)
             }
             else {
-                val intent = Intent(activity, Stage1Activity::class.java)
+                val intent = Intent(activity, IdverficationActivity::class.java)
                 startActivity(intent)
             }
 

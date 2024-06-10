@@ -73,6 +73,7 @@
                 android:scaleType="fitXY"
                 android:id="@+id/ivProof1"
                 android:layout_width="@dimen/_120sdp"
+                android:backgroundTint="@color/green"
                 android:layout_height="@dimen/_120sdp"/>
 
 

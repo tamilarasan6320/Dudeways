@@ -18,33 +18,35 @@
         android:layout_height="wrap_content">
 
 
+
+
+
         <ImageView
             android:id="@+id/wheel1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/wheel1"
+            android:layout_centerInParent="true"/>
+
+        <ImageView
+            android:id="@+id/wheelImage"
             android:layout_centerHorizontal="true"
             android:layout_width="100dp"
             android:layout_height="@dimen/_100sdp"
             android:background="@drawable/target"
             />
 
-
-        <ImageView
-            android:id="@+id/wheelImage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/wheel1"
-            android:layout_centerInParent="true"/>
-
-
-
     </RelativeLayout>
 
 
-    <ImageView
+    <Button
         android:layout_alignParentBottom="true"
         android:id="@+id/spinBtn"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:src="@drawable/custom_button_background"
+        android:text="spin"
+        android:background="@null"
+        android:backgroundTint="@color/primary"
         android:layout_centerInParent="true"/>
 
 

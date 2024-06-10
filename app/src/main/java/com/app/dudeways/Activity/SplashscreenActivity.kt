@@ -94,6 +94,7 @@ class SplashscreenActivity : AppCompatActivity() {
                             session.setData(Constant.MOBILE, jsonobj.getString(Constant.MOBILE))
                             session.setData(Constant.REFER_CODE, jsonobj.getString(Constant.REFER_CODE))
                             session.setData(Constant.COVER_IMG, jsonobj.getString(Constant.COVER_IMG))
+                            session.setData(Constant.POINTS, jsonobj.getString(Constant.POINTS))
 
                             if (GoogleSignIn.getLastSignedInAccount(this) != null) {
                                 val intent = Intent(activity,HomeActivity::class.java)

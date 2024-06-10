@@ -62,6 +62,11 @@ class ProfileActivity : AppCompatActivity() {
             finish()
         }
 
+        binding.tvSkip.setOnClickListener {
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
 
     }
 
@@ -72,6 +77,7 @@ class ProfileActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
+
 
 
 

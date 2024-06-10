@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".helper.ApiConfig"
@@ -21,9 +21,15 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
 
-        <activity android:name=".Activity.MytripsActivity"
-            android:exported="false" />
+        <activity android:name=".Activity.spinActivity"
+            android:exported="false"/>
 
+        <activity
+            android:name=".Activity.NotificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.MytripsActivity"
+            android:exported="false" />
         <activity
             android:name=".Activity.GoogleLoginActivity"
             android:exported="false" />
@@ -39,7 +45,6 @@
         <activity
             android:name=".Activity.FreePointsActivity"
             android:exported="false" />
-
         <activity
             android:name=".Activity.Stage4Activity"
             android:exported="false" />
@@ -79,13 +84,10 @@
         <activity
             android:name=".Activity.HomeActivity"
             android:exported="false"
-            android:launchMode="singleInstance">
-
-        </activity>
-
-        <activity android:name=".Activity.ChatsActivity"
+            android:launchMode="singleInstance"></activity>
+        <activity
+            android:name=".Activity.ChatsActivity"
             android:exported="false" />
-
         <activity
             android:name=".Activity.ProfileDetailsActivity"
             android:exported="false"
@@ -105,11 +107,11 @@
             android:name=".Activity.SplashscreenActivity"
             android:exported="true"
             android:launchMode="singleInstance">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-             <intent-filter>
-             <action android:name="android.intent.action.MAIN" />
-                 <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity> <!-- Theme is optional and only needed if default theme has no action bar. -->
         <activity
             android:name="com.canhub.cropper.CropImageActivity"
@@ -132,7 +134,6 @@
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/admob_app_id" />
-
     </application>
 
 </manifest>

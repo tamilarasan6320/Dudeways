@@ -138,6 +138,7 @@ class GoogleLoginActivity : AppCompatActivity() {
                             session.setData(Constant.PROFILE, jsonobj.getString(Constant.PROFILE))
                             session.setData(Constant.MOBILE, jsonobj.getString(Constant.MOBILE))
                             session.setData(Constant.COVER_IMG, jsonobj.getString(Constant.COVER_IMG))
+                            session.setData(Constant.POINTS, jsonobj.getString(Constant.POINTS))
                             session.setData(Constant.REFER_CODE, jsonobj.getString(Constant.REFER_CODE))
                             val intent = Intent(activity, HomeActivity::class.java)
                             startActivity(intent)

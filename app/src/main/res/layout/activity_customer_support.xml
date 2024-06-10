@@ -313,7 +313,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:layout_marginHorizontal="@dimen/_14sdp"
-                android:id="@+id/btn_chat_support"
+                android:id="@+id/btnchatsupport"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_24sdp"

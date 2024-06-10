@@ -77,6 +77,7 @@ public class Constant {
     public static final String PROFESSION = "profession";
     public static final String STATE = "state";
     public static final String CITY = "city";
+    public static final String INTRODUCTION = "introduction";
     public static final String REFER_CODE = "refer_code";
     public static final String REFERRED_BY = "referred_by";
     public static final String POINTS = "points";
@@ -93,6 +94,7 @@ public class Constant {
 
     public static final String PROFILE = "profile";
     public static final String COVER_IMG = "cover_img";
+
     public static final String FRONT_IMAGE = "front_image";
     public static final String BACK_IMAGE = "back_image";
     public static final String SELFIE_IMAGE = "selfie_image";

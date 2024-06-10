@@ -50,7 +50,7 @@
             android:id="@+id/tvDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Upload the government issued Pan card or Aadhaar card.  We will match this photo with your captured photo."
+            android:text="Take a picture of any of your government issued ID such as Aadhar,Pancard,Driving license, passport."
             android:textSize="@dimen/_12sdp"
             android:textColor="@color/black"
             android:fontFamily="@font/poppins_regular"

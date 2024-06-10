@@ -1,59 +1,135 @@
 <!-- res/layout/dialog_custom.xml -->
-<LinearLayout
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:padding="20dp">
+    app:cardCornerRadius="@dimen/_10sdp"
+    >
+
+    <LinearLayout
+        android:padding="@dimen/_10sdp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
 
     <TextView
         android:layout_gravity="center"
         android:id="@+id/dialog_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="You have 0 Points"
+        android:text=""
         android:textSize="@dimen/_14sdp"
         android:textColor="@color/black"
         android:fontFamily="@font/poppins_semibold" />
 
 
 
-    <com.google.android.material.button.MaterialButton
-        android:layout_gravity="center"
-        android:id="@+id/btnPurchase"
-        android:layout_width="@dimen/_200sdp"
-        android:layout_height="@dimen/_40sdp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="@dimen/_24sdp"
-        android:fontFamily="@font/poppins_medium"
-        app:backgroundTint="@color/primary"
-        android:background="@null"
-        android:text="Purchase Points"
-        android:paddingVertical="@dimen/_6sdp"
-        android:textAllCaps="false"
-        android:textSize="@dimen/_14sdp"
-        app:cornerRadius="@dimen/_5sdp"
-        />
 
-    <com.google.android.material.button.MaterialButton
-        android:layout_gravity="center"
-        android:id="@+id/btnFreePoints"
-        android:layout_width="@dimen/_200sdp"
-        android:layout_height="@dimen/_40sdp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="@dimen/_10sdp"
-        app:strokeColor="@color/primary"
-        app:strokeWidth="2dp"
-        android:backgroundTint="@color/primary_extra_light"
-        android:fontFamily="@font/poppins_medium"
-        android:paddingVertical="@dimen/_6sdp"
-        android:text="Free Points"
-        android:textColor="@color/black"
-        android:textAllCaps="false"
-        android:textSize="@dimen/_14sdp"
-        app:cornerRadius="@dimen/_5sdp" />
+    <LinearLayout
+        android:weightSum="2"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.card.MaterialCardView
+            app:cardCornerRadius="@dimen/_10sdp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="@color/primary"
+            app:cardUseCompatPadding="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
 
+            <LinearLayout
+                android:id="@+id/btnPurchase"
+                android:padding="@dimen/_4sdp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-</LinearLayout>
+
+                <ImageView
+                    android:layout_gravity="center"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:background="@drawable/purchase"
+                    android:backgroundTint="@color/primary_extra_light"
+                    />
+
+
+            <TextView
+                android:layout_marginLeft="@dimen/_4sdp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Purchase Point"
+                android:textAlignment="textStart"
+                android:fontFamily="@font/poppins_bold"
+                android:textSize="@dimen/_12sdp"
+                android:textColor="@color/white"
+                />
+
+            </LinearLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+        <Space
+            android:layout_width="@dimen/_5sdp"
+            android:layout_height="wrap_content"/>
+        <com.google.android.material.card.MaterialCardView
+            app:cardCornerRadius="@dimen/_10sdp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="@color/primary"
+            app:cardUseCompatPadding="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:id="@+id/btnFreePoints"
+                android:padding="@dimen/_4sdp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <ImageView
+                    android:layout_gravity="center"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:background="@drawable/free"
+                    android:backgroundTint="@color/primary_extra_light"
+                    />
+
+
+                <TextView
+                    android:layout_marginLeft="@dimen/_4sdp"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Free \nPoint"
+                    android:textAlignment="textStart"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/white"
+                    />
+
+            </LinearLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+    </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+
+
+</com.google.android.material.card.MaterialCardView>

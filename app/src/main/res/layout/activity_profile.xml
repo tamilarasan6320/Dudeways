@@ -33,6 +33,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <TextView
+            android:padding="@dimen/_4sdp"
+            android:id="@+id/tvSkip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:text="SKIP"
+            android:gravity="right"
+            android:textColor="@color/primary"
+            android:textSize="@dimen/_16sdp" />
+
 
         <TextView
             android:layout_width="wrap_content"

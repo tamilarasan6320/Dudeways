@@ -195,7 +195,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Take a picture of any of your government issued ID such as Driving license, passport."
+                    android:text="Take a picture of any of your government issued ID such as Aadhar,Pancard,Driving license, passport."
                     android:textSize="@dimen/_10sdp"
                     android:textColor="@color/black"
                     android:fontFamily="@font/poppins_regular"

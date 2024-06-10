@@ -21,6 +21,7 @@ import com.app.dudeways.databinding.ActivityStage2Binding
 import com.app.dudeways.helper.ApiConfig
 import com.app.dudeways.helper.Constant
 import com.app.dudeways.helper.Session
+import com.bumptech.glide.Glide
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.File
@@ -56,7 +57,8 @@ class Stage2Activity : AppCompatActivity() {
             if (result.resultCode == Activity.RESULT_OK) {
                  imageBitmap = (result.data?.extras?.get("data") as? Bitmap)!!
                 // Handle the image here
-                binding.ivProof1.setImageBitmap(imageBitmap)
+                Glide.with(activity).load(R.drawable.verify_ic).placeholder(R.drawable.profile_placeholder)
+                    .into(binding.ivProof1)
                 binding.ivAddProof1.visibility = View.GONE
                 isImageUploaded = true
 

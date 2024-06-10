@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.app.dudeways.R
 import com.app.dudeways.databinding.ActivityFreePointsBinding
+import com.app.dudeways.helper.Constant
 import com.app.dudeways.helper.Session
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
@@ -43,16 +44,29 @@ class FreePointsActivity : AppCompatActivity() {
             PorterDuff.Mode.SRC_IN
         )
 
-        binding.llStep1.setOnClickListener {
-
-        }
 
         binding.ivBack.setOnClickListener {
             onBackPressed()
         }
 
-        binding.llStep2.setOnClickListener {
 
+        binding.llStep1.setOnClickListener {
+            val proof1 = session.getData(Constant.PROOF1)
+            val proof2 = session.getData(Constant.PROOF2)
+
+            if(proof1 == "1" && proof2 == "1") {
+                val intent = Intent(activity, Stage4Activity::class.java)
+                startActivity(intent)
+            }
+            else {
+                val intent = Intent(activity, IdverficationActivity::class.java)
+                startActivity(intent)
+            }
+        }
+
+        binding.llStep2.setOnClickListener {
+            val intent = Intent(activity, spinActivity::class.java)
+            startActivity(intent)
         }
 
         // Set OnClickListener for Step 3 button

@@ -24,6 +24,9 @@ import com.app.dudeways.helper.Session
 import com.bumptech.glide.Glide
 import com.onesignal.OneSignal
 import com.onesignal.debug.LogLevel
+import com.zoho.commons.InitConfig
+import com.zoho.livechat.android.listeners.InitListener
+import com.zoho.salesiqembed.ZohoSalesIQ
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -59,6 +62,22 @@ class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
         session = Session(activity)
         setContentView(binding.root)
 
+        val initConfig = InitConfig()
+        ZohoSalesIQ.init(application, "FkbMlSXKPaA%2BrbVuCJR9QcmqYTQwnf5hB07714QDwcxlq6FGJ7wTWEudY%2FC%2Fu%2FWo_in", "4%2Fd2z2OovwMWRsyVJco9oL6l62LOH6ETXnIWbx5fajTX5OQzVbC3xPrMh%2Budk%2Fd0VcMYMMbCSKO86eT99r5kHxAPUVMoqkGLW9ICWevIF8HJ2MeqqJdaBA%3D%3D", initConfig, object :
+            InitListener {
+            override fun onInitSuccess() {
+                // fit place to show the chat launcher
+//                ZohoSalesIQ.Launcher.show(ZohoSalesIQ.Launcher.VisibilityMode.ALWAYS)
+
+            }
+
+            override fun onInitError(errorCode: Int, errorMessage: String) {
+                // Handle initialization errors
+            }
+
+
+
+        })
 
         // Verbose Logging set to help debug issues, remove before releasing your app.
         OneSignal.Debug.logLevel = LogLevel.VERBOSE

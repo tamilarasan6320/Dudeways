@@ -4,6 +4,7 @@ import android.app.Activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.app.dudeways.databinding.ActivityCustomerSupportBinding
+import com.zoho.salesiqembed.ZohoSalesIQ
 
 class CustomerSupportActivity : AppCompatActivity() {
 
@@ -18,8 +19,14 @@ class CustomerSupportActivity : AppCompatActivity() {
 
         activity = this
 
+        binding.btnchatsupport.setOnClickListener {
+            ZohoSalesIQ.Chat.show()
+        }
+
         binding.ivBack.setOnClickListener {
             onBackPressed()
         }
+
+
     }
 }
