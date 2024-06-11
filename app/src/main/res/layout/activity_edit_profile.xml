@@ -60,13 +60,13 @@
 
             <!-- Email Field -->
             <com.google.android.material.textfield.TextInputLayout
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:hint="E-mail id"
                 app:hintTextColor="@color/primary"
                 app:boxStrokeColor="@color/primary"
+                android:clickable="false"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined">
 
@@ -76,8 +76,12 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_medium"
                     android:inputType="textEmailAddress"
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:cursorVisible="false"
                     />
             </com.google.android.material.textfield.TextInputLayout>
+
 
 
 

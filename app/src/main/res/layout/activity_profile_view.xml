@@ -435,7 +435,7 @@
                 android:layout_marginLeft="@dimen/_50sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Notifications"
+                android:text="Manage Notifications"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12sdp"
                 android:fontFamily="@font/poppins_medium"

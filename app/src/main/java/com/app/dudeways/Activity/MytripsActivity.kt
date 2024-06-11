@@ -36,8 +36,12 @@ class MytripsActivity : AppCompatActivity() {
             onBackPressed()
         }
 
-
         mytripList()
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            mytripList()
+        }
+
 
         setContentView(binding.root)
 
@@ -78,7 +82,7 @@ class MytripsActivity : AppCompatActivity() {
             }
 
             // Stop the refreshing animation once the network request is complete
-//            binding.swipeRefreshLayout.isRefreshing = false
+           binding.swipeRefreshLayout.isRefreshing = false
         }, activity, Constant.MY_TRIP_LIST, params, true, 1)
     }
 }

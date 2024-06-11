@@ -1,17 +1,27 @@
 package com.app.dudeways.Activity
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.app.dudeways.Adapter.HomePtofilesAdapter
+import com.app.dudeways.Model.HomeProfile
 import com.app.dudeways.R
 import com.app.dudeways.databinding.ActivityDeactivateBinding
+import com.app.dudeways.helper.ApiConfig
+import com.app.dudeways.helper.Constant
+import com.app.dudeways.helper.Session
+import com.google.gson.Gson
+import org.json.JSONException
+import org.json.JSONObject
 
 class DeactivateActivity : AppCompatActivity() {
 
 
     lateinit var binding: ActivityDeactivateBinding
     lateinit var activity: Activity
-
+    lateinit var session: Session
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,28 +32,53 @@ class DeactivateActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         activity = this
+        session = Session(activity)
 
         binding.ivBack.setOnClickListener {
-           onBackPressed()
+            onBackPressed()
+        }
+
+        binding.btnfeedback.setOnClickListener {
+
+            if (binding.etFeedback.text.toString().isEmpty()) {
+                binding.etFeedback.error = "Please enter feedback"
+                return@setOnClickListener
+            }else{
+                apicall()
+            }
+
         }
 
 
-//        val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
-//        recyclerView.layoutManager = LinearLayoutManager(this)
+    }
 
-//        val options = listOf(
-//            Option("I have safety concerns with ______"),
-//            Option("I got another ________ account"),
-//            Option("I will be back soon. This is temporary."),
-//            Option("I think am getting too many emails and notifications ."),
-//            Option("I have a privacy concern."),
-//            Option("I spent too much time on this app"),
-//            Option("I don’t understand how it works.")
-//
-//        )
+    private fun apicall() {
+        val params: MutableMap<String, String> = HashMap()
+        params[Constant.USER_ID] = session.getData(Constant.USER_ID)
+        params["feedback"] = binding.etFeedback.text.toString()
+        ApiConfig.RequestToVolley({ result, response ->
+            if (result) {
+                try {
+                    val jsonObject = JSONObject(response)
+                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
 
-//        val adapter = OptionsAdapter(options)
-//        recyclerView.adapter = adapter
+                        val intent = Intent(activity, HomeActivity::class.java)
+                        startActivity(intent)
+                        finish()
+
+                        Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
+
+                    } else {
+                        Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }
+
+            // Stop the refreshing animation once the network request is complete
+
+        }, activity, Constant.ADD_FEEDBACK, params, true, 1)
 
     }
 }

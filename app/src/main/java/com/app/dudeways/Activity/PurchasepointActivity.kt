@@ -23,6 +23,7 @@ class PurchasepointActivity : AppCompatActivity() {
     lateinit var binding: ActivityPurchasepointBinding
     lateinit var activity: Activity
     lateinit var session: Session
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPurchasepointBinding.inflate(layoutInflater)
@@ -57,7 +58,7 @@ class PurchasepointActivity : AppCompatActivity() {
                             if (jsonObject1 != null) {
 
 
-                                val id = jsonObject1.getString("id")
+                               val id = jsonObject1.getString("id")
                                 val points = jsonObject1.getString("points")
                                 val offer_percentage = jsonObject1.getString("offer_percentage")
                                 val price = jsonObject1.getString("price")
@@ -66,7 +67,7 @@ class PurchasepointActivity : AppCompatActivity() {
                                 val created_at = jsonObject1.getString("created_at")
 
 
-                                purchaseList.add(PurchaseItem(points, offer_percentage, price))
+                                purchaseList.add(PurchaseItem(points, offer_percentage, price,id))
                             }
                         }
 
@@ -85,8 +86,27 @@ class PurchasepointActivity : AppCompatActivity() {
             }
         }, activity, Constant.POINTS_LIST, params, true, 1)
     }
+    private fun addpurchase(id: String) {
+        val params: MutableMap<String, String> = HashMap()
+        params[Constant.USER_ID] = session.getData(Constant.USER_ID)
+        params["points_id"] = id
+        ApiConfig.RequestToVolley({ result, response ->
+            if (result) {
+                try {
+                    val jsonObject = JSONObject(response)
+                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
+                        Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }
+        }, activity, Constant.ADD_POINTS, params, true, 1)
+    }
 
-    data class PurchaseItem(val title: String, val percentage: String, val price: String)
+    data class PurchaseItem(val title: String, val percentage: String, val price: String, val id: String)
 
     inner class PurchaseAdapter(private val activity: Activity, private val list: ArrayList<PurchaseItem>) : RecyclerView.Adapter<PurchaseAdapter.ItemHolder>() {
 
@@ -108,6 +128,11 @@ class PurchasepointActivity : AppCompatActivity() {
 
 
             holder.tvPrice.text = "₹" + item.price
+
+            holder.itemView.setOnClickListener {
+                addpurchase(item.id)
+            }
+
         }
 
         override fun getItemCount(): Int {

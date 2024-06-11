@@ -9,6 +9,7 @@ public class Constant {
 
 
     public static final String REGISTER = BaseUrl + "register";
+    public static final String PROFESSION_LIST = BaseUrl + "profession_list";
     public static final String UPDATE_USERS = BaseUrl + "update_users";
     public static final String CHECK_MOBILE = BaseUrl + "check_mobile";
     public static final String CHECK_EMAIL = BaseUrl + "check_email";
@@ -19,8 +20,11 @@ public class Constant {
     public static final String VERIFY_BACK_IMAGE = BaseUrl + "verify_back_image";
     public static final String VERIFY_SELFIE_IMAGE = BaseUrl + "verify_selfie_image";
     public static final String TRIP_LIST = BaseUrl + "trip_list";
+    public static final String UPDATE_LOCATION= BaseUrl + "update_location";
+    public static final String ADD_FEEDBACK = BaseUrl + "add_feedback";
     public static final String ADD_CHAT = BaseUrl + "add_chat";
     public static final String POINTS_LIST = BaseUrl + "points_list";
+    public static final String ADD_POINTS = BaseUrl + "add_points";
     public static final String TRIP_TYPE =  "trip_type";
     public static final String TRIP_LOCATION = "location";
     public static final String TRIP_DETAILS = BaseUrl + "trip_details";
@@ -58,6 +62,10 @@ public class Constant {
 
     public static final String VERSION = "version";
     public static final String LINK = "link";
+
+    public static final String LATITUDE = "latitude";
+
+    public static final String LONGITUDE = "longtitude";
 
     public static final String MOBILE = "mobile";
     public static final String ID = "id";

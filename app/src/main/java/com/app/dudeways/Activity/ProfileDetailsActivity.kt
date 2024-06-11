@@ -25,6 +25,8 @@ class ProfileDetailsActivity : AppCompatActivity() {
     lateinit var activity: Activity
     lateinit var session: Session
 
+    var professions = listOf<String>()
+
     var select_option = "0"
     var gender = ""
 
@@ -44,6 +46,8 @@ class ProfileDetailsActivity : AppCompatActivity() {
         setCursorDrawableColor(binding.etcity, R.drawable.color_cursor)
         setCursorDrawableColor(binding.etState, R.drawable.color_cursor)
         setCursorDrawableColor(binding.etRefferCode, R.drawable.color_cursor)
+
+        profession_list()
 
         binding.llMale.setOnClickListener {
             binding.llMale.backgroundTintList = resources.getColorStateList(R.color.primary)
@@ -100,7 +104,14 @@ class ProfileDetailsActivity : AppCompatActivity() {
             } else if (binding.etcity.text.toString().isEmpty()) {
                 binding.etcity.error = "Please enter city"
                 return@setOnClickListener
-            } else {
+            }else if (binding.etIntroduction.text.toString().isEmpty()) {
+                binding.etIntroduction.error = "Please enter introduction"
+                return@setOnClickListener
+            } else if (binding.etIntroduction.text.toString().length < 10) {
+                binding.etIntroduction.error = "Introduction should be at least 10 characters"
+                return@setOnClickListener
+            }
+            else {
                 register()
             }
         }
@@ -139,7 +150,7 @@ class ProfileDetailsActivity : AppCompatActivity() {
     }
 
     private fun showProfessionDialog(etProfession: EditText) {
-        val professions = listOf("Doctor", "Engineer", "Teacher", "Artist", "Lawyer")
+
         val adapter = ProfessionAdapter(professions) { selectedProfession ->
             binding.etProfession.setText(selectedProfession)
             binding.cardProfession.visibility = View.GONE
@@ -209,5 +220,31 @@ class ProfileDetailsActivity : AppCompatActivity() {
                 }
             }
         }, activity, Constant.REGISTER, params, true, 1)
+    }
+    private fun profession_list() {
+        val params: MutableMap<String, String> = HashMap()
+        ApiConfig.RequestToVolley({ result, response ->
+            if (result) {
+                try {
+                    val jsonObject: JSONObject = JSONObject(response)
+                    if (jsonObject.getBoolean("success")) {
+                        val jsonArray = jsonObject.getJSONArray("data")
+                        // Clear previous data
+                        professions = mutableListOf()
+                        for (i in 0 until jsonArray.length()) {
+                            val professionObject = jsonArray.getJSONObject(i)
+                            val profession = professionObject.getString("profession")
+                            professions += profession
+                        }
+                        // Now professions list is populated, you can use it wherever needed
+                        //  Toast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_SHORT).show()
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }
+        }, activity, Constant.PROFESSION_LIST, params, true, 1)
     }
 }

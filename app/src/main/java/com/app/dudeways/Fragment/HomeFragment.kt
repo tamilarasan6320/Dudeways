@@ -82,19 +82,18 @@ class HomeFragment : Fragment() {
                         for (i in 0 until jsonArray.length()) {
                             val jsonObject1 = jsonArray.getJSONObject(i)
                             if (jsonObject1 != null) {
+                                binding.rvProfileList.visibility = View.VISIBLE
                                 val profile = g.fromJson(jsonObject1.toString(), HomeProfile::class.java)
                                 homeProfile.add(profile)
                             }
-                        }
 
+
+                        }
                         val homePtofilesAdapter = HomePtofilesAdapter(requireActivity(), homeProfile)
                         binding.rvProfileList.adapter = homePtofilesAdapter
                     } else {
-                        Toast.makeText(
-                            activity,
-                            jsonObject.getString(Constant.MESSAGE),
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        binding.rvProfileList.visibility = View.GONE
+                        Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
                     }
                 } catch (e: JSONException) {
                     e.printStackTrace()

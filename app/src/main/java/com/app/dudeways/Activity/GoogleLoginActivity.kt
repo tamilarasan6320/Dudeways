@@ -104,13 +104,6 @@ class GoogleLoginActivity : AppCompatActivity() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        if (GoogleSignIn.getLastSignedInAccount(this) != null) {
-            val intent = Intent(activity, HomeActivity::class.java)
-            startActivity(intent)
-        }
-    }
 
 
     private fun login() {
@@ -140,10 +133,12 @@ class GoogleLoginActivity : AppCompatActivity() {
                             session.setData(Constant.COVER_IMG, jsonobj.getString(Constant.COVER_IMG))
                             session.setData(Constant.POINTS, jsonobj.getString(Constant.POINTS))
                             session.setData(Constant.REFER_CODE, jsonobj.getString(Constant.REFER_CODE))
+                            session.setBoolean("is_logged_in", true)
                             val intent = Intent(activity, HomeActivity::class.java)
                             startActivity(intent)
-                            session.setBoolean("is_logged_in", true)
                             finish()
+
+
                         } else if (registered == "false") {
                             val intent = Intent(activity, ProfileDetailsActivity::class.java)
                             startActivity(intent)
@@ -159,6 +154,16 @@ class GoogleLoginActivity : AppCompatActivity() {
                 }
             }
         }, activity, Constant.CHECK_EMAIL, params, true, 1)
+    }
+
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        Toast.makeText(this, "Back Pressed", Toast.LENGTH_SHORT).show()
+        // close the app
+
+
+
     }
 
 
