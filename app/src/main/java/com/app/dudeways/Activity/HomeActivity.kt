@@ -72,55 +72,31 @@ class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
     private var notification = NotificationFragment()
     private var interestFragment = InterestFragment()
 
-
     private lateinit var mFusedLocationClient: FusedLocationProviderClient
     private val permissionId = 2
 
+    private var backPressedTime: Long = 0
+    private lateinit var backToast: Toast
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
-
         binding = ActivityHomeBinding.inflate(layoutInflater)
-        activity = this
-        session = Session(activity)
         setContentView(binding.root)
 
-
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        initializeComponents()
+        initializeOneSignal()
+        initializeZohoSalesIQ()
+        setupBottomNavigation()
+        loadProfilePicture()
 
         getLocation()
+    }
 
-        val initConfig = InitConfig()
-        ZohoSalesIQ.init(application, "FkbMlSXKPaA%2BrbVuCJR9QcmqYTQwnf5hB07714QDwcxlq6FGJ7wTWEudY%2FC%2Fu%2FWo_in", "4%2Fd2z2OovwMWRsyVJco9oL6l62LOH6ETXnIWbx5fajTX5OQzVbC3xPrMh%2Budk%2Fd0VcMYMMbCSKO86eT99r5kHxAPUVMoqkGLW9ICWevIF8HJ2MeqqJdaBA%3D%3D", initConfig, object :
-            InitListener {
-            override fun onInitSuccess() {
-                // fit place to show the chat launcher
-//                ZohoSalesIQ.Launcher.show(ZohoSalesIQ.Launcher.VisibilityMode.ALWAYS)
-
-            }
-
-            override fun onInitError(errorCode: Int, errorMessage: String) {
-                // Handle initialization errors
-            }
-
-
-
-        })
-
-        // Verbose Logging set to help debug issues, remove before releasing your app.
-        OneSignal.Debug.logLevel = LogLevel.VERBOSE
-
-        // OneSignal Initialization
-        OneSignal.initWithContext(this, ONESIGNAL_APP_ID)
-
-        // requestPermission will show the native Android notification permission prompt.
-        // NOTE: It's recommended to use a OneSignal In-App Message to prompt instead.
-        CoroutineScope(Dispatchers.IO).launch {
-            OneSignal.Notifications.requestPermission(false)
-        }
-
-
+    private fun initializeComponents() {
+        activity = this
+        session = Session(activity)
+        fm = supportFragmentManager
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         tripFragment = TripFragment()
         exploreFragment = ExploreFragment()
@@ -131,85 +107,72 @@ class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
         notification = NotificationFragment()
         interestFragment = InterestFragment()
 
+        fm.beginTransaction().replace(R.id.fragment_container, tripFragment).commit()
+    }
 
+    private fun initializeOneSignal() {
+        OneSignal.Debug.logLevel = LogLevel.VERBOSE
+        OneSignal.initWithContext(this, ONESIGNAL_APP_ID)
+        CoroutineScope(Dispatchers.IO).launch {
+            OneSignal.Notifications.requestPermission(false)
+        }
+    }
+
+    private fun initializeZohoSalesIQ() {
+        val initConfig = InitConfig()
+        ZohoSalesIQ.init(application, "FkbMlSXKPaA%2BrbVuCJR9QcmqYTQwnf5hB07714QDwcxlq6FGJ7wTWEudY%2FC%2Fu%2FWo_in", "4%2Fd2z2OovwMWRsyVJco9oL6l62LOH6ETXnIWbx5fajTX5OQzVbC3xPrMh%2Budk%2Fd0VcMYMMbCSKO86eT99r5kHxAPUVMoqkGLW9ICWevIF8HJ2MeqqJdaBA%3D%3D", initConfig, object :
+            InitListener {
+            override fun onInitSuccess() {
+                // Initialization successful
+            }
+
+            override fun onInitError(errorCode: Int, errorMessage: String) {
+                // Handle initialization errors
+            }
+        })
+    }
+
+    private fun setupBottomNavigation() {
+        bottomNavigationView = findViewById(R.id.bottomNavigationView)
+        bottomNavigationView!!.setOnItemSelectedListener(this)
+        bottomNavigationView!!.selectedItemId = R.id.navHome
+    }
+
+    private fun loadProfilePicture() {
+        val profile = session.getData(Constant.PROFILE)
+        Glide.with(activity).load(profile).placeholder(R.drawable.profile_placeholder)
+            .into(binding.civProfile)
 
         binding.civProfile.setOnClickListener {
             val intent = Intent(activity, ProfileViewActivity::class.java)
             startActivity(intent)
         }
-
-
-
-        fm = supportFragmentManager
-
-        fm.beginTransaction().replace(R.id.fragment_container, tripFragment).commit()
-
-        bottomNavigationView = findViewById(R.id.bottomNavigationView)
-        bottomNavigationView!!.setOnItemSelectedListener(this)
-
-        fm.beginTransaction().replace(R.id.fragment_container, tripFragment).commit()
-        bottomNavigationView!!.selectedItemId = R.id.navHome
-
-        val profile = session.getData(Constant.PROFILE)
-
-        Glide.with(activity).load(profile).placeholder(R.drawable.profile_placeholder)
-            .into(binding.civProfile)
-
-
-
     }
 
-
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        val transaction: FragmentTransaction = fm.beginTransaction()
-
-
+        val transaction = fm.beginTransaction()
         when (item.itemId) {
-            R.id.navHome -> {
-                transaction.replace(R.id.fragment_container, homeFragment)
-            }
-
-            R.id.navExplore -> {
-                transaction.replace(R.id.fragment_container, tripFragment)
-            }
-
-            R.id.navIntersts -> {
-                transaction.replace(R.id.fragment_container, interestFragment)
-            }
-
-            R.id.navMessages -> {
-                transaction.replace(R.id.fragment_container, messagesFragment)
-            }
-
-            R.id.navNotification -> {
-                transaction.replace(R.id.fragment_container, notification)
-            }
-
+            R.id.navHome -> transaction.replace(R.id.fragment_container, homeFragment)
+            R.id.navExplore -> transaction.replace(R.id.fragment_container, tripFragment)
+            R.id.navIntersts -> transaction.replace(R.id.fragment_container, interestFragment)
+            R.id.navMessages -> transaction.replace(R.id.fragment_container, messagesFragment)
+            R.id.navNotification -> transaction.replace(R.id.fragment_container, notification)
         }
-
-
-
         transaction.commit()
         return true
     }
 
-    // on resume
-    override fun onResume() {
-        super.onResume()
-        val profile = session.getData(Constant.PROFILE)
-        Glide.with(activity).load(profile).placeholder(R.drawable.profile_placeholder)
-            .into(binding.civProfile)
+    override fun onBackPressed() {
+        if (backPressedTime + 2000 > System.currentTimeMillis()) {
+            backToast.cancel()
+            super.onBackPressed()
+            return
+        } else {
+            backToast = Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT)
+            backToast.show()
+        }
+        backPressedTime = System.currentTimeMillis()
     }
-
-
-
-
-
-
-
-
-
-
 
     @SuppressLint("MissingPermission", "SetTextI18n")
     private fun getLocation() {
@@ -225,10 +188,7 @@ class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
                         val latitude = list?.get(0)?.latitude
                         val longitude = list?.get(0)?.longitude
 
-                        location(latitude,longitude)
-
-                        //   Toast.makeText(this, "Latitude: ${list?.get(0)?.latitude}, Longitude: ${list?.get(0)?.longitude}", Toast.LENGTH_LONG).show()
-
+                        location(latitude, longitude)
                     }
                 }
             } else {
@@ -240,6 +200,7 @@ class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
             requestPermissions()
         }
     }
+
     private fun isLocationEnabled(): Boolean {
         val locationManager: LocationManager =
             getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -247,6 +208,7 @@ class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
             LocationManager.NETWORK_PROVIDER
         )
     }
+
     private fun checkPermissions(): Boolean {
         if (ActivityCompat.checkSelfPermission(
                 this,
@@ -261,6 +223,7 @@ class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
         }
         return false
     }
+
     private fun requestPermissions() {
         ActivityCompat.requestPermissions(
             this,
@@ -271,6 +234,7 @@ class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
             permissionId
         )
     }
+
     @SuppressLint("MissingSuperCall")
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -286,7 +250,7 @@ class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
 
     private fun location(latitude: Double?, longitude: Double?) {
         val params: MutableMap<String, String> = HashMap()
-        params[Constant.USER_ID] = session!!.getData(Constant.USER_ID)
+        params[Constant.USER_ID] = session.getData(Constant.USER_ID)
         params[Constant.LATITUDE] = latitude.toString()
         params[Constant.LONGITUDE] = longitude.toString()
         ApiConfig.RequestToVolley({ result, response ->
@@ -294,12 +258,7 @@ class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
                 try {
                     val jsonObject = JSONObject(response)
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
-
-                    //    Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
-
-
-
-
+                        // Location updated successfully
                     } else {
                         Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
                     }
@@ -307,10 +266,6 @@ class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
                     e.printStackTrace()
                 }
             }
-
-            // Stop the refreshing animation once the network request is complete
         }, activity, Constant.UPDATE_LOCATION, params, true, 1)
-
     }
-
 }

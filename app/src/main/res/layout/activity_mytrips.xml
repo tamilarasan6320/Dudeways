@@ -26,7 +26,7 @@
             android:layout_toRightOf="@+id/ivBack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Mytrip"
+            android:text="My trip"
             android:textSize="@dimen/_14sdp"
             android:textColor="@color/black"
             android:fontFamily="@font/poppins_regular"
@@ -39,12 +39,19 @@
     </RelativeLayout>
 
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_below="@+id/rlToolbar"
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
 
     <androidx.recyclerview.widget.RecyclerView
         android:padding="@dimen/_10sdp"
-        android:layout_below="@+id/rlToolbar"
         android:id="@+id/rvMytriplist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </RelativeLayout>

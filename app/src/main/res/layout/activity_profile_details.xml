@@ -388,7 +388,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_20sdp"
-                android:hint="Introduction"
+                android:hint="Describe Yourself"
                 app:hintTextColor="@color/primary"
                 app:boxStrokeColor="@color/primary"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"

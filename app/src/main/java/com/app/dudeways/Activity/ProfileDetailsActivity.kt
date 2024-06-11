@@ -104,7 +104,14 @@ class ProfileDetailsActivity : AppCompatActivity() {
             } else if (binding.etcity.text.toString().isEmpty()) {
                 binding.etcity.error = "Please enter city"
                 return@setOnClickListener
-            } else {
+            }else if (binding.etIntroduction.text.toString().isEmpty()) {
+                binding.etIntroduction.error = "Please enter introduction"
+                return@setOnClickListener
+            } else if (binding.etIntroduction.text.toString().length < 10) {
+                binding.etIntroduction.error = "Introduction should be at least 10 characters"
+                return@setOnClickListener
+            }
+            else {
                 register()
             }
         }

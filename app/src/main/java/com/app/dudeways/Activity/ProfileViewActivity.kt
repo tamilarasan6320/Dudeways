@@ -4,7 +4,6 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.res.ColorStateList
-import androidx.core.content.ContextCompat
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
@@ -13,15 +12,15 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
-import com.canhub.cropper.CropImage
-import com.canhub.cropper.CropImageView
+import androidx.core.content.ContextCompat
 import com.app.dudeways.R
 import com.app.dudeways.databinding.ActivityProfileViewBinding
 import com.app.dudeways.helper.ApiConfig
 import com.app.dudeways.helper.Constant
 import com.app.dudeways.helper.Session
 import com.bumptech.glide.Glide
+import com.canhub.cropper.CropImage
+import com.canhub.cropper.CropImageView
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -61,12 +60,7 @@ class ProfileViewActivity : AppCompatActivity() {
 
         session = Session(activity)
 
-        // call requestIdToken as follows
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .build()
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+
 
         binding.ivAddProfile.setOnClickListener {
             isCameraRequest = false
@@ -352,9 +346,29 @@ class ProfileViewActivity : AppCompatActivity() {
     }
 
     private fun logoutUser() {
-        mGoogleSignInClient.signOut().addOnCompleteListener {
-            session.logoutUser(activity)
-            Toast.makeText(this, "Logged Out", Toast.LENGTH_SHORT).show()
+
+        session.clearData()
+
+
+        // Sign out from Firebase
+        FirebaseAuth.getInstance().signOut()
+
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+
+
+        // Sign out from Google
+        mGoogleSignInClient.signOut().addOnCompleteListener { // Redirect to Login page
+            val intent: Intent = Intent(this, GoogleLoginActivity::class.java)
+            startActivity(intent)
+            finish()
         }
+
     }
-}
+
+
+    }
