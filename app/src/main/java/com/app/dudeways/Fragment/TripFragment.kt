@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.app.dudeways.Activity.HomeActivity
+import com.app.dudeways.Activity.MytripsActivity
 import com.app.dudeways.Activity.Trip.StarttripActivity
 import com.app.dudeways.databinding.FragmentTripBinding
 
@@ -27,8 +28,12 @@ class TripFragment : Fragment() {
 
 
         binding.btnStart.setOnClickListener {
-
             val intent = Intent(activity, StarttripActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.btnMytrip.setOnClickListener {
+            val intent = Intent(activity, MytripsActivity::class.java)
             startActivity(intent)
 
         }

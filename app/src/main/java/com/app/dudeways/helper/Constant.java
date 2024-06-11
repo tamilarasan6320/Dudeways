@@ -37,6 +37,7 @@ public class Constant {
     public static final String FREINDS_LIST = BaseUrl + "friends_list";
     public static final String CHAT_LIST = BaseUrl + "chat_list";
     public static final String NOTFICATION_LIST = BaseUrl + "notification_list";
+    public static final String UPDATE_NOTIFY = BaseUrl + "update_notify";
     public static final String ADD_FRIENDS = BaseUrl + "add_friends";
     public static final String ADD_TRIP = BaseUrl + "add_trip";
     public static final String UPDATE_TRIP_IMAGE = BaseUrl + "update_trip_image";
@@ -70,6 +71,9 @@ public class Constant {
     public static final String MOBILE = "mobile";
     public static final String ID = "id";
     public static final String USER_ID = "user_id";
+    public static final String MESSAGE_NOTIFY = "message_notify";
+    public static final String ADD_FRIEND_NOTIFY = "add_friend_notify";
+    public static final String VIEW_NOTIFY = "aview_notify";
     public static final String TYPE = "type";
     public static final String CHAT_USER_ID = "chat_user_id";
     public static final String TRIP_ID = "trip_id";

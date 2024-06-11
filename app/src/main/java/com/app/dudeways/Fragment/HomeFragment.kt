@@ -35,8 +35,8 @@ class HomeFragment : Fragment() {
 
     lateinit var binding: FragmentHomeBinding
     lateinit var activity: Activity
-     lateinit var session: Session
-    private var selectedItemPosition = RecyclerView.NO_POSITION
+    lateinit var session: Session
+    private var selectedItemPosition = 0 // Set default position to 0
     private var selectedDated: String? = null
     private var formattedDate: String? = null
 
@@ -62,6 +62,17 @@ class HomeFragment : Fragment() {
         ProfileList("nearby")
         categoryList()
 
+        // Update UI to reflect default selection
+        binding.rvCategoryList.post {
+            binding.rvCategoryList.findViewHolderForAdapterPosition(selectedItemPosition)?.itemView?.let { view ->
+                val cardView: CardView = view.findViewById(R.id.cardView)
+                val tvName: TextView = view.findViewById(R.id.tvName)
+                cardView.setCardBackgroundColor(activity.resources.getColor(R.color.primary))
+                tvName.setTextColor(activity.resources.getColor(R.color.white))
+                tvName.setTypeface(null, Typeface.BOLD)
+            }
+        }
+
         return binding.root
     }
 
@@ -86,8 +97,6 @@ class HomeFragment : Fragment() {
                                 val profile = g.fromJson(jsonObject1.toString(), HomeProfile::class.java)
                                 homeProfile.add(profile)
                             }
-
-
                         }
                         val homePtofilesAdapter = HomePtofilesAdapter(requireActivity(), homeProfile)
                         binding.rvProfileList.adapter = homePtofilesAdapter
@@ -99,7 +108,6 @@ class HomeFragment : Fragment() {
                     e.printStackTrace()
                 }
             }
-
             // Stop the refreshing animation once the network request is complete
             binding.swipeRefreshLayout.isRefreshing = false
         }, activity, Constant.TRIP_LIST, params, true, 1)
@@ -117,8 +125,6 @@ class HomeFragment : Fragment() {
 
         val homeCategoryAdapter = HomeCategorysAdapter(requireActivity(), homeCategory)
         binding.rvCategoryList.adapter = homeCategoryAdapter
-
-
     }
 
     inner class HomeCategorysAdapter(private val activity: Activity, private val homeCategory: ArrayList<HomeCategory>) : RecyclerView.Adapter<HomeCategorysAdapter.ItemHolder>() {
@@ -132,8 +138,6 @@ class HomeFragment : Fragment() {
         override fun onBindViewHolder(holder: ItemHolder, position: Int) {
             val itemHolder = holder
             val category = homeCategory[position]
-
-
 
             holder.tvName.text = if (position == 2 && selectedDated != null) {
                 selectedDated
@@ -151,31 +155,20 @@ class HomeFragment : Fragment() {
                 holder.tvName.setTypeface(null, Typeface.NORMAL)
             }
 
-
             holder.cardView.setOnClickListener {
                 val previousPosition = selectedItemPosition
                 selectedItemPosition = position
                 notifyItemChanged(previousPosition)
                 notifyItemChanged(position)
                 if (position == 0) {
-
                     ProfileList("nearby")
-
                 } else if (position == 1) {
-
-                        ProfileList("latest")
-
+                    ProfileList("latest")
                 } else if (position == 2) {
                     showDatePickerDialog(holder.tvName)
-
                 }
-
-
             }
-
-
         }
-
 
         override fun getItemCount(): Int {
             return homeCategory.size
@@ -185,12 +178,6 @@ class HomeFragment : Fragment() {
             val tvName: TextView = itemView.findViewById(R.id.tvName)
             val cardView: CardView = itemView.findViewById(R.id.cardView)
         }
-
-
-        fun isItemSelected(): Boolean {
-            return selectedItemPosition != RecyclerView.NO_POSITION
-        }
-
 
         private fun showDatePickerDialog(tvName: TextView) {
             val dialog = Dialog(activity, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen)
@@ -213,32 +200,16 @@ class HomeFragment : Fragment() {
                 formattedDate = dateFormat.format(selectedDate.time)
 
                 tvName.text = formattedDate
-
-                selectedDated = formattedDate  // Store the selected date
-
-
+                selectedDated = formattedDate // Store the selected date
 
                 // call notifyDataSetChanged()
                 notifyDataSetChanged()
                 ProfileList("date")
-
-
-
-
-
-
 
                 dialog.dismiss()
             }
 
             dialog.show()
         }
-
-
     }
 }
-
-
-
-
-
