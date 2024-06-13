@@ -92,6 +92,15 @@
 
 
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Note: This image is not showing any user; it is only for verification purposes."
+            android:fontFamily="@font/poppins_medium"
+            android:textColor="@color/primary"
+            android:layout_marginTop="@dimen/_4sdp"
+            />
+
 
 
     </LinearLayout>

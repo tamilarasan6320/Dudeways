@@ -85,4 +85,15 @@ class Stage1Activity : AppCompatActivity() {
         }
 
     }
+
+    // onbackpressed
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(activity, IdverficationActivity::class.java)
+        startActivity(intent)
+        finish()
+
+        // close the app
+    }
+
 }

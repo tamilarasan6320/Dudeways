@@ -218,9 +218,10 @@
                 />
 
             <TextView
+                android:id="@+id/tvIntroduction"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="I want to travel"
+                android:text=""
                 android:textSize="@dimen/_10sdp"
                 android:fontFamily="@font/poppins_regular"
                 android:textColor="@color/text_grey"
@@ -474,6 +475,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_24sdp"/>
         <RelativeLayout
+            android:id="@+id/rlTermscondition"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -501,6 +503,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_24sdp"/>
         <RelativeLayout
+            android:id="@+id/rlPrivacy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

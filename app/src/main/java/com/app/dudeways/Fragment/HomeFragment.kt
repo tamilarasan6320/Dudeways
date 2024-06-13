@@ -56,7 +56,16 @@ class HomeFragment : Fragment() {
         binding.rvCategoryList.layoutManager = GridLayoutManager(activity, 3)
 
         binding.swipeRefreshLayout.setOnRefreshListener {
-            ProfileList("nearby")
+
+            if (selectedItemPosition == 0) {
+                ProfileList("nearby")
+            } else if (selectedItemPosition == 1) {
+                ProfileList("latest")
+            } else if (selectedItemPosition == 2) {
+                ProfileList("date")
+            }
+
+
         }
 
         ProfileList("nearby")

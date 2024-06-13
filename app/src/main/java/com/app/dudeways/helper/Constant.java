@@ -13,6 +13,7 @@ public class Constant {
     public static final String UPDATE_USERS = BaseUrl + "update_users";
     public static final String CHECK_MOBILE = BaseUrl + "check_mobile";
     public static final String CHECK_EMAIL = BaseUrl + "check_email";
+    public static final String USERDETAILS = BaseUrl + "userdetails";
 
     public static final String UPDATE_IMAGE = BaseUrl + "update_image";
     public static final String UPDATE_COVER_IMG = BaseUrl + "update_cover_img";
@@ -73,7 +74,7 @@ public class Constant {
     public static final String USER_ID = "user_id";
     public static final String MESSAGE_NOTIFY = "message_notify";
     public static final String ADD_FRIEND_NOTIFY = "add_friend_notify";
-    public static final String VIEW_NOTIFY = "aview_notify";
+    public static final String VIEW_NOTIFY = "view_notify";
     public static final String TYPE = "type";
     public static final String CHAT_USER_ID = "chat_user_id";
     public static final String TRIP_ID = "trip_id";
@@ -106,6 +107,9 @@ public class Constant {
 
     public static final String PROFILE = "profile";
     public static final String COVER_IMG = "cover_img";
+    public static final String VERIFIED = "verified";
+    public static final String ONLINE_STATUS = "online_status";
+    public static final String PROFILE_VERIFIED = "profile_verified";
 
     public static final String FRONT_IMAGE = "front_image";
     public static final String BACK_IMAGE = "back_image";

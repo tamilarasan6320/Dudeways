@@ -15,6 +15,7 @@
         >
 
         <LinearLayout
+            android:id="@+id/llProfile"
             android:padding="@dimen/_8sdp"
             android:orientation="horizontal"
             android:layout_width="match_parent"

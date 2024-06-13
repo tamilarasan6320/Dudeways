@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.PrivacypolicyActivity">
+
+
+    <RelativeLayout
+        android:padding="@dimen/_10sdp"
+        android:id="@+id/rlToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/arrow_left"
+            android:padding="@dimen/_5sdp"/>
+
+
+        <TextView
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_toRightOf="@+id/ivBack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Privicy policy"
+            android:textSize="@dimen/_14sdp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/poppins_regular"
+            />
+
+
+
+
+
+    </RelativeLayout>
+
+
+    <ScrollView
+        android:layout_margin="@dimen/_10sdp"
+        android:background="@drawable/corners_bg"
+        android:backgroundTint="@color/primary_light"
+        android:padding="@dimen/_10sdp"
+        android:layout_below="@+id/rlToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/terms_and_condition"
+            android:fontFamily="@font/poppins_medium"
+            android:textColor="@color/black"
+            />
+
+    </ScrollView>
+
+</RelativeLayout>

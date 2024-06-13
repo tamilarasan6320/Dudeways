@@ -82,6 +82,16 @@ class ProfileViewActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.rlPrivacy.setOnClickListener {
+            val intent = Intent(activity, PrivacypolicyActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.rlTermscondition.setOnClickListener {
+            val intent = Intent(activity, TermsconditionActivity::class.java)
+            startActivity(intent)
+        }
+
 
         Glide.with(activity).load(session.getData(Constant.COVER_IMG)).placeholder(R.drawable.placeholder_bg).into(binding.ivCover)
         Glide.with(activity).load(session.getData(Constant.PROFILE)).placeholder(R.drawable.profile_placeholder).into(binding.civProfile)
@@ -93,6 +103,7 @@ class ProfileViewActivity : AppCompatActivity() {
         binding.tvName.text = session.getData(Constant.NAME)
         binding.tvUsername.text = "@"+session.getData(Constant.UNIQUE_NAME)
         binding.tvPlace.text = session.getData(Constant.CITY) + ", " + session.getData(Constant.STATE)
+        binding.tvIntroduction.text = session.getData(Constant.INTRODUCTION)
 
 
         val gender = session.getData(Constant.GENDER)
@@ -369,6 +380,8 @@ class ProfileViewActivity : AppCompatActivity() {
         }
 
     }
+
+
 
 
     }

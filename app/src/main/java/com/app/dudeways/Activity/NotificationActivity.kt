@@ -2,13 +2,17 @@ package com.app.dudeways.Activity
 
 import android.app.Activity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.app.dudeways.Adapter.HomePtofilesAdapter
+import com.app.dudeways.Model.HomeProfile
 import com.app.dudeways.R
 import com.app.dudeways.databinding.ActivityNotificationBinding
 import com.app.dudeways.helper.ApiConfig
 import com.app.dudeways.helper.Constant
 import com.app.dudeways.helper.Session
+import com.google.gson.Gson
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -59,19 +63,58 @@ class NotificationActivity : AppCompatActivity() {
         params[Constant.MESSAGE_NOTIFY] = messageNotify
         params[Constant.ADD_FRIEND_NOTIFY] = addFriendNotify
         params[Constant.VIEW_NOTIFY] = viewNotify
-
         ApiConfig.RequestToVolley({ result, response ->
             if (result) {
                 try {
                     val jsonObject = JSONObject(response)
-                    session.setData(Constant.MESSAGE_NOTIFY, messageNotify)
-                    session.setData(Constant.ADD_FRIEND_NOTIFY, addFriendNotify)
-                    session.setData(Constant.VIEW_NOTIFY, viewNotify)
-                    Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
+                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
+
+
+                        userdetails(session.getData(Constant.USER_ID))
+                        Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
+
+
+                    } else {
+
+                        Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
+                    }
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
             }
+            // Stop the refreshing animation once the network request is complete
+
         }, activity, Constant.UPDATE_NOTIFY, params, true, 1)
     }
+
+
+    private fun userdetails(user_id: String?) {
+        val params: MutableMap<String, String> = HashMap()
+        params[Constant.USER_ID] = user_id.toString()
+        ApiConfig.RequestToVolley({ result, response ->
+            if (result) {
+                try {
+                    val jsonObject: JSONObject = JSONObject(response)
+                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
+                        val `object` = JSONObject(response)
+                        val jsonobj = `object`.getJSONObject(Constant.DATA)
+
+
+                        session.setData(Constant.MESSAGE_NOTIFY, jsonobj.getString(Constant.MESSAGE_NOTIFY))
+                        session.setData(Constant.ADD_FRIEND_NOTIFY, jsonobj.getString(Constant.ADD_FRIEND_NOTIFY))
+                        session.setData(Constant.VIEW_NOTIFY, jsonobj.getString(Constant.VIEW_NOTIFY))
+
+
+
+                    } else {
+                        Toast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_SHORT).show()
+
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }
+        }, activity, Constant.USERDETAILS, params, true, 1)
+    }
+
 }

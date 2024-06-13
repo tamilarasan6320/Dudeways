@@ -48,6 +48,12 @@ class EditProfileActivity : AppCompatActivity() {
             finish()
         }
 
+        binding.ibBack.setOnClickListener {
+            val intent = Intent(activity, HomeActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
         binding.btnSave.setOnClickListener {
             if (binding.etName.text.toString().isEmpty()) {
                 binding.etName.error = "Please enter name"

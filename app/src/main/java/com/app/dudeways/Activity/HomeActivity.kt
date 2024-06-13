@@ -6,6 +6,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.ColorStateList
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
@@ -16,6 +17,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.app.dudeways.Adapter.HomePtofilesAdapter
@@ -258,6 +260,7 @@ class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
                 try {
                     val jsonObject = JSONObject(response)
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
+                        userdetails(session.getData(Constant.USER_ID))
                         // Location updated successfully
                     } else {
                         Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
@@ -268,4 +271,52 @@ class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
             }
         }, activity, Constant.UPDATE_LOCATION, params, true, 1)
     }
+
+
+    private fun userdetails(user_id: String?) {
+        val params: MutableMap<String, String> = HashMap()
+        params[Constant.USER_ID] = user_id.toString()
+        ApiConfig.RequestToVolley({ result, response ->
+            if (result) {
+                try {
+                    val jsonObject: JSONObject = JSONObject(response)
+                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
+                        val `object` = JSONObject(response)
+                        val jsonobj = `object`.getJSONObject(Constant.DATA)
+
+
+                        session.setData(Constant.NAME, jsonobj.getString(Constant.NAME))
+                        session.setData(Constant.UNIQUE_NAME, jsonobj.getString(Constant.UNIQUE_NAME))
+                        session.setData(Constant.EMAIL, jsonobj.getString(Constant.EMAIL))
+                        session.setData(Constant.AGE, jsonobj.getString(Constant.AGE))
+                        session.setData(Constant.GENDER, jsonobj.getString (Constant.GENDER))
+                        session.setData(Constant.PROFESSION, jsonobj.getString(Constant.PROFESSION))
+                        session.setData(Constant.STATE, jsonobj.getString(Constant.STATE))
+                        session.setData(Constant.CITY, jsonobj.getString(Constant.CITY))
+                        session.setData(Constant.PROFILE, jsonobj.getString(Constant.PROFILE))
+                        session.setData(Constant.MOBILE, jsonobj.getString(Constant.MOBILE))
+                        session.setData(Constant.REFER_CODE, jsonobj.getString(Constant.REFER_CODE))
+                        session.setData(Constant.COVER_IMG, jsonobj.getString(Constant.COVER_IMG))
+                        session.setData(Constant.POINTS, jsonobj.getString(Constant.POINTS))
+                        session.setData(Constant.VERIFIED, jsonobj.getString(Constant.VERIFIED))
+                        session.setData(Constant.ONLINE_STATUS, jsonobj.getString(Constant.ONLINE_STATUS))
+                        session.setData(Constant.INTRODUCTION, jsonobj.getString(Constant.INTRODUCTION))
+                        session.setData(Constant.MESSAGE_NOTIFY, jsonobj.getString(Constant.MESSAGE_NOTIFY))
+                        session.setData(Constant.ADD_FRIEND_NOTIFY, jsonobj.getString(Constant.ADD_FRIEND_NOTIFY))
+                        session.setData(Constant.VIEW_NOTIFY, jsonobj.getString(Constant.VIEW_NOTIFY))
+                        session.setData(Constant.PROFILE_VERIFIED, jsonobj.getString(Constant.PROFILE_VERIFIED))
+
+
+
+                    } else {
+                        Toast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_SHORT).show()
+
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }
+        }, activity, Constant.USERDETAILS, params, true, 1)
+    }
+
 }

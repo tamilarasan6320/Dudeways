@@ -54,7 +54,8 @@
 
 
         <TextView
-            android:id="@+id/TV_Date"
+            android:visibility="invisible"
+            android:id="@+id/tvDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/rlToolbar"
@@ -64,12 +65,12 @@
             android:textAlignment="center"
             android:background="@drawable/custom_button_background"
             android:padding="@dimen/_5sdp"
-            android:text="Calibrating" />
+            android:text="" />
 
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_above="@+id/llMessage"
-            android:layout_below="@+id/TV_Date"
+            android:layout_below="@+id/tvDate"
             android:id="@+id/RVChats"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

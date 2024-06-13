@@ -5,73 +5,78 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.app.dudeways.Model.ChatModel
+import com.app.dudeways.R
 import com.app.dudeways.databinding.ReceiverChatMessageBinding
 import com.app.dudeways.databinding.SenderChatMessageBinding
 import com.app.dudeways.helper.Constant
 import com.app.dudeways.helper.Session
 import com.bumptech.glide.Glide
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ChatAdapter(
     private val conversations: List<ChatModel?>,
     private val onClick: (ChatModel) -> Unit,
-    private var session : Session,
+    private var session: Session
 ) : RecyclerView.Adapter<ChatAdapter.ItemHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
-        val binding: ViewBinding? = when (viewType) {
-            0 -> SenderChatMessageBinding.inflate(LayoutInflater.from(parent.context))
-            1 -> ReceiverChatMessageBinding.inflate(LayoutInflater.from(parent.context))
-            else -> null
+        val binding: ViewBinding = when (viewType) {
+            0 -> ReceiverChatMessageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            1 -> SenderChatMessageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            else -> throw IllegalArgumentException("Invalid view type")
         }
-        return ItemHolder(
-            binding!!
-        )
+        return ItemHolder(binding)
     }
 
-    override fun onBindViewHolder(holderParent: ItemHolder, position: Int) {
-        val recentChats = conversations[position]
-        holderParent.bind(recentChats)
+    override fun onBindViewHolder(holder: ItemHolder, position: Int) {
+        val chatMessage = conversations[position]
+        holder.bind(chatMessage)
     }
 
+    override fun getItemCount(): Int = conversations.size
 
-    override fun getItemCount(): Int {
-        return conversations.size
-    }
-
-    fun getItemInfo(position: Int) : ChatModel? = conversations[position]
-
+    fun getItemInfo(position: Int): ChatModel? = conversations[position]
 
     override fun getItemViewType(position: Int): Int {
-        val conversations = conversations[position]
+        val chatMessage = conversations[position]
         val currentUser = session.getData(Constant.NAME)
-        return when (conversations?.sentBy) {
-            currentUser -> 1
-            else -> 0
-        }
+        return if (chatMessage?.sentBy == currentUser) 1 else 0
     }
 
     inner class ItemHolder(private val binding: ViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(chatMessage: ChatModel?) {
-            when (binding) {
-                is SenderChatMessageBinding -> {
-                    binding.TVMessage.text = chatMessage?.message
-                    chatMessage?.dateTime
-                    Glide
-                        .with(binding.root.context)
-                        .load(session.getData("reciver_profile"))
-                        .into(binding.IVUserProfile)
-                }
+            chatMessage?.let {
+                when (binding) {
+                    is SenderChatMessageBinding -> {
+                        binding.tvMessage.text = it.message
+                        binding.tvTime.text = it.dateTime?.let { date -> formatDateTime(date.toLong()) }
 
-                is ReceiverChatMessageBinding -> {
-                    binding.TVMessage.text = chatMessage?.message
-                    Glide
-                        .with(binding.root.context)
-                        .load(session.getData(Constant.PROFILE))
-                        .into(binding.IVUserProfile)
+                        val seenStatusIcon = if (it.msgSeen == true) R.drawable.simplification else R.drawable.tick_ic
+                        binding.ivSeenStatus.setImageResource(seenStatusIcon)
+
+                        Glide.with(binding.root.context)
+                            .load(session.getData("reciver_profile"))
+                            .into(binding.ivUserProfile)
+                    }
+                    is ReceiverChatMessageBinding -> {
+                        binding.tvMessage.text = it.message
+                        binding.tvTime.text = it.dateTime?.let { date -> formatDateTime(date.toLong()) }
+
+                        Glide.with(binding.root.context)
+                            .load(session.getData(Constant.PROFILE))
+                            .into(binding.ivUserProfile)
+                    }
+
+                    else -> {}
                 }
             }
         }
     }
 
+    private fun formatDateTime(timestamp: Long): String {
+        val sdf = SimpleDateFormat("hh:mm a", Locale.getDefault())
+        return sdf.format(Date(timestamp))
+    }
 }

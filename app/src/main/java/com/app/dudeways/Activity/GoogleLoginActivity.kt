@@ -133,6 +133,7 @@ class GoogleLoginActivity : AppCompatActivity() {
                             session.setData(Constant.COVER_IMG, jsonobj.getString(Constant.COVER_IMG))
                             session.setData(Constant.POINTS, jsonobj.getString(Constant.POINTS))
                             session.setData(Constant.REFER_CODE, jsonobj.getString(Constant.REFER_CODE))
+                            session.setData(Constant.INTRODUCTION, jsonobj.getString(Constant.INTRODUCTION))
                             session.setBoolean("is_logged_in", true)
                             val intent = Intent(activity, HomeActivity::class.java)
                             startActivity(intent)

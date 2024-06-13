@@ -201,6 +201,7 @@ class ProfileDetailsActivity : AppCompatActivity() {
                         session.setData(Constant.MOBILE, jsonobj.getString(Constant.MOBILE))
                         session.setData(Constant.REFER_CODE, jsonobj.getString(Constant.REFER_CODE))
                         session.setData(Constant.REFERRED_BY, jsonobj.getString(Constant.REFERRED_BY))
+                        session.setData(Constant.INTRODUCTION, jsonobj.getString(Constant.INTRODUCTION))
                         Toast.makeText(activity, "" + jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
                         val intent = Intent(activity, ProfileActivity::class.java)
                         startActivity(intent)

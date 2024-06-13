@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dudeways.Activity.ChatsActivity
+import com.app.dudeways.Activity.ProfileinfoActivity
 import com.bumptech.glide.Glide
 import com.app.dudeways.Model.HomeProfile
 import com.app.dudeways.R
@@ -113,6 +115,16 @@ class HomePtofilesAdapter(
 
         }
 
+        holder.llProfile.setOnClickListener {
+            val intent = Intent(activity, ProfileinfoActivity::class.java)
+            intent.putExtra("name", report.name)
+            intent.putExtra("chat_user_id", report.user_id)
+            intent.putExtra("id", report.id)
+            session.setData("reciver_profile", report.profile)
+            intent.putExtra("friend", report.friend)
+            activity.startActivity(intent)
+        }
+
         holder.rlChat.setOnClickListener {
             val intent = Intent(activity, ChatsActivity::class.java)
             intent.putExtra("id", report.id)
@@ -152,6 +164,7 @@ class HomePtofilesAdapter(
         val tvmore: TextView = itemView.findViewById(R.id.tvmore)
         val ivProfile:ImageView = itemView.findViewById(R.id.ivProfile)
         val rlChat:RelativeLayout = itemView.findViewById(R.id.rlChat)
+        val llProfile:LinearLayout = itemView.findViewById(R.id.llProfile)
 
 
     }

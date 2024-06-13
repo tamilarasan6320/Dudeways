@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
-            android:text="SKIP"
+            android:text="Skip"
             android:gravity="right"
             android:textColor="@color/primary"
             android:textSize="@dimen/_16sdp" />
@@ -51,7 +51,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Your updated profile picture"
+            android:text="Update your profile picture"
             android:textColor="@color/black"
             android:textSize="@dimen/_12sdp"
             android:fontFamily="@font/poppins_medium"
@@ -102,7 +102,7 @@
         android:layout_marginBottom="63dp"
         android:background="@drawable/gradient_button"
         android:fontFamily="@font/poppins_medium"
-        android:text="Update profile"
+        android:text="Update"
         android:textAllCaps="false"
         android:textSize="@dimen/_14sdp"
         app:backgroundTint="@null" />

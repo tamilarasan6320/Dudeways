@@ -48,10 +48,10 @@ class ConnectAdapter(
         }
 
 
-        holder.itemView.setOnClickListener{
-            val intent = Intent(activity, ProfileinfoActivity::class.java)
-            activity.startActivity(intent)
-        }
+//        holder.itemView.setOnClickListener{
+//            val intent = Intent(activity, ProfileinfoActivity::class.java)
+//            activity.startActivity(intent)
+//        }
 
 
         holder.rlChat.setOnClickListener {

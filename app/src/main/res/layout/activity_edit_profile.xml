@@ -6,8 +6,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:id="@+id/rlgr"
+        android:padding="@dimen/_20sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:layout_centerVertical="true"
+            android:id="@+id/ibBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/arrow_left"
+            />
+
+        <TextView
+            android:layout_centerVertical="true"
+            android:id="@+id/tvSkip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Skip"
+            android:gravity="right"
+            android:textColor="@color/primary"
+            android:textSize="@dimen/_16sdp" />
+
+    </RelativeLayout>
+
     <androidx.core.widget.NestedScrollView
-        android:layout_centerInParent="true"
+        android:layout_below="@+id/rlgr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -17,16 +44,7 @@
             android:orientation="vertical"
             android:padding="@dimen/_10sdp">
 
-            <TextView
-                android:visibility="gone"
-                android:id="@+id/tvSkip"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_semibold"
-                android:text="SKIP"
-                android:gravity="right"
-                android:textColor="@color/primary"
-                android:textSize="@dimen/_18sdp" />
+
 
             <TextView
                 android:id="@+id/tvSplashText"

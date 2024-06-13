@@ -299,7 +299,8 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
                             val todayDate = Date(Timestamp.now().toDate().time)
                             val formattedDate = SimpleDateFormat("MMM dd yyyy", Locale.getDefault())
                             dateTime?.let {
-                                binding.TVDate.text = formattedDate.format(actualDate) ?: formattedDate.format(todayDate)
+                                binding.tvDate.visibility = View.VISIBLE
+                                binding.tvDate.text = formattedDate.format(actualDate) ?: formattedDate.format(todayDate)
                             }
                         }
                     }
