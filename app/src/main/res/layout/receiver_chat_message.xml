@@ -13,12 +13,12 @@
     <LinearLayout
         android:orientation="vertical"
         android:id="@+id/rlchat"
-        android:layout_toStartOf="@+id/ivUserProfile"
+        android:layout_toEndOf="@+id/ivUserProfile"
         android:background="@drawable/chat_message_bg_from_sender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_15sdp"
-        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_5sdp"
         android:padding="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_10sdp"
         >
@@ -27,7 +27,6 @@
         android:id="@+id/tvMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/chat_message_bg_from_reciever"
         android:fontFamily="@font/poppins_regular"
         android:textColor="@color/black"
         android:textSize="@dimen/_12sdp" />
@@ -46,8 +45,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/ivUserProfile"
-        android:layout_width="@dimen/_30sdp"
-        android:layout_height="@dimen/_30sdp"
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_20sdp"
         android:layout_alignParentEnd="true"
         android:layout_alignBottom="@id/rlchat"
         android:src="@color/grey"

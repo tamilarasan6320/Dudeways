@@ -2,12 +2,15 @@ package com.app.dudeways.Adapter
 
 import android.app.Activity
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dudeways.Activity.ChatsActivity
 import com.app.dudeways.Activity.ProfileinfoActivity
@@ -47,6 +50,33 @@ class ConnectAdapter(
             holder.IV_online_status.visibility = View.GONE
         }
 
+        val online_status = report.online_status
+        var status = ""
+        if (online_status == "1") {
+             status = "Online"
+        } else {
+             status = ""
+        }
+
+        holder.tvAge.text = report.age
+        holder.tvDistance.text = report.distance + " km \u2022 " + status
+
+
+        val gender = report.gender
+
+        if(gender == "male") {
+            holder.ivGender.setBackgroundDrawable(activity.resources.getDrawable(R.drawable.male_ic))
+        }
+        else {
+            holder.ivGender.setBackgroundDrawable(activity.resources.getDrawable(R.drawable.female_ic))
+        }
+
+        if (gender == "male") {
+            holder.ivGenderColor.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(activity, R.color.blue_200))
+        } else {
+            holder.ivGenderColor.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(activity, R.color.primary))
+        }
+
 
 //        holder.itemView.setOnClickListener{
 //            val intent = Intent(activity, ProfileinfoActivity::class.java)
@@ -65,7 +95,7 @@ class ConnectAdapter(
 
 
        holder.tvName.text = report.name
-       holder.tvLatestseen.text = report.last_seen
+       holder.tvLatestseen.text = report.introduction
 
         Glide.with(activitys)
             .load(report.profile)
@@ -87,6 +117,10 @@ class ConnectAdapter(
         val ivProfile:ImageView = itemView.findViewById(R.id.ivProfile)
         val rlChat:RelativeLayout = itemView.findViewById(R.id.rlChat)
         val IV_online_status:ImageView = itemView.findViewById(R.id.IV_online_status)
+        val  ivGender:ImageView = itemView.findViewById(R.id.ivGender)
+        val ivGenderColor:LinearLayout = itemView.findViewById(R.id.ivGenderColor)
+        val  tvAge :TextView = itemView.findViewById(R.id.tvAge)
+        val tvDistance  :TextView = itemView.findViewById(R.id.tvDistance)
 
 
     }

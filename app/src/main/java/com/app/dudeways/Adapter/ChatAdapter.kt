@@ -53,11 +53,8 @@ class ChatAdapter(
                         binding.tvMessage.text = it.message
                         binding.tvTime.text = it.dateTime?.let { date -> formatDateTime(date.toLong()) }
 
-                        val seenStatusIcon = if (it.msgSeen == true) R.drawable.simplification else R.drawable.tick_ic
-                        binding.ivSeenStatus.setImageResource(seenStatusIcon)
-
                         Glide.with(binding.root.context)
-                            .load(session.getData("reciver_profile"))
+                            .load(session.getData(Constant.PROFILE))
                             .into(binding.ivUserProfile)
                     }
                     is ReceiverChatMessageBinding -> {
@@ -65,7 +62,7 @@ class ChatAdapter(
                         binding.tvTime.text = it.dateTime?.let { date -> formatDateTime(date.toLong()) }
 
                         Glide.with(binding.root.context)
-                            .load(session.getData(Constant.PROFILE))
+                            .load(session.getData("reciver_profile"))
                             .into(binding.ivUserProfile)
                     }
 

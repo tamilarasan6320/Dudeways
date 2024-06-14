@@ -198,7 +198,7 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
             chatID = chatID,
             dateTime = Timestamp.now().toDate().time.toString(),
             message = message,
-            msgSeen = false,
+            msgSeen = true,
             receiverID = receiverID,
             senderID = senderID,
             type = "TEXT",
@@ -343,6 +343,7 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
 
                 else -> {
 
+
                 }
             }
         }
@@ -397,6 +398,25 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
             }
         }, activity, Constant.ADD_CHAT, params, false, 1)
     }
+
+    private fun updateMessageSeenStatus(chatID: String) {
+        val reference = databaseReference.child("CHATS_V2")
+            .child(receiverName ?: "")
+            .child(senderName ?: "")
+            .child(chatID)
+            .child("msgSeen")
+        reference.setValue(true)
+            .addOnSuccessListener {
+                logInfo(CHATS_ACTIVITY, "Message seen status updated for chat ID: $chatID")
+            }
+            .addOnFailureListener { exception ->
+                logError(CHATS_ACTIVITY, "Error updating message seen status: ${exception.message}")
+            }
+    }
+
+
+
+
 }
 
 private const val CHATS_ACTIVITY = "ChatsActivity"
