@@ -90,7 +90,6 @@ class SplashscreenActivity : AppCompatActivity() {
                             session.setData(Constant.PROFESSION, jsonobj.getString(Constant.PROFESSION))
                             session.setData(Constant.STATE, jsonobj.getString(Constant.STATE))
                             session.setData(Constant.CITY, jsonobj.getString(Constant.CITY))
-                            session.setData(Constant.PROFILE, jsonobj.getString(Constant.PROFILE))
                             session.setData(Constant.MOBILE, jsonobj.getString(Constant.MOBILE))
                             session.setData(Constant.REFER_CODE, jsonobj.getString(Constant.REFER_CODE))
                             session.setData(Constant.COVER_IMG, jsonobj.getString(Constant.COVER_IMG))

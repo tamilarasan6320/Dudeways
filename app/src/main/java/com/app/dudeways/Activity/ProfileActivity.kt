@@ -94,7 +94,7 @@ class ProfileActivity : AppCompatActivity() {
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
                         val `object` = JSONObject(response)
                         val jsonobj = `object`.getJSONObject(Constant.DATA)
-                        session.setData(Constant.USER_ID, jsonobj.getString(Constant.ID))
+
                         session.setData(Constant.NAME, jsonobj.getString(Constant.NAME))
                         session.setData(Constant.UNIQUE_NAME, jsonobj.getString(Constant.UNIQUE_NAME))
                         session.setData(Constant.EMAIL, jsonobj.getString(Constant.EMAIL))

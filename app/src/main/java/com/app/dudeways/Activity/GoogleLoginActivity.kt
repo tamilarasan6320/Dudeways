@@ -55,6 +55,8 @@ class GoogleLoginActivity : AppCompatActivity() {
           //  Toast.makeText(this, "Logging In", Toast.LENGTH_SHORT).show()
             signInGoogle()
         }
+
+
     }
 
     private fun signInGoogle() {
@@ -128,7 +130,6 @@ class GoogleLoginActivity : AppCompatActivity() {
                             session.setData(Constant.PROFESSION, jsonobj.getString(Constant.PROFESSION))
                             session.setData(Constant.STATE, jsonobj.getString(Constant.STATE))
                             session.setData(Constant.CITY, jsonobj.getString(Constant.CITY))
-                            session.setData(Constant.PROFILE, jsonobj.getString(Constant.PROFILE))
                             session.setData(Constant.MOBILE, jsonobj.getString(Constant.MOBILE))
                             session.setData(Constant.COVER_IMG, jsonobj.getString(Constant.COVER_IMG))
                             session.setData(Constant.POINTS, jsonobj.getString(Constant.POINTS))
@@ -159,16 +160,12 @@ class GoogleLoginActivity : AppCompatActivity() {
 
 
     override fun onBackPressed() {
-        super.onBackPressed()
-        Toast.makeText(this, "Back Pressed", Toast.LENGTH_SHORT).show()
-        // close the app
-
-
 
     }
 
 
 
-    // on
+
+
 }
 

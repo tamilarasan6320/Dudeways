@@ -2,6 +2,7 @@ package com.app.dudeways.Activity
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.BitmapFactory
@@ -49,7 +50,7 @@ class ProfileViewActivity : AppCompatActivity() {
     private val REQUEST_IMAGE_CAMERA = 3
     private var isCameraRequest = false
 
-
+    private lateinit var googleSignInClient: GoogleSignInClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,9 +93,17 @@ class ProfileViewActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        // Configure Google Sign-In
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build()
 
+        googleSignInClient = GoogleSignIn.getClient(this, gso)
+
+        val profile = session.getData(Constant.PROFILE)
+        Glide.with(activity).load(profile).placeholder(R.drawable.profile_placeholder)
+            .into(binding.civProfile)
         Glide.with(activity).load(session.getData(Constant.COVER_IMG)).placeholder(R.drawable.placeholder_bg).into(binding.ivCover)
-        Glide.with(activity).load(session.getData(Constant.PROFILE)).placeholder(R.drawable.profile_placeholder).into(binding.civProfile)
 
         binding.tvProfessional.text = session.getData(Constant.PROFESSION)
         binding.tvCity.text = session.getData(Constant.CITY)
@@ -102,7 +111,7 @@ class ProfileViewActivity : AppCompatActivity() {
         binding.tvGender.text = session.getData(Constant.GENDER)
         binding.tvName.text = session.getData(Constant.NAME)
         binding.tvUsername.text = "@"+session.getData(Constant.UNIQUE_NAME)
-        binding.tvPlace.text = session.getData(Constant.CITY) + ", " + session.getData(Constant.STATE)
+     //   binding.tvPlace.text = session.getData(Constant.CITY) + ", " + session.getData(Constant.STATE)
         binding.tvIntroduction.text = session.getData(Constant.INTRODUCTION)
 
 
@@ -267,7 +276,7 @@ class ProfileViewActivity : AppCompatActivity() {
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
                         val `object` = JSONObject(response)
                         val jsonobj = `object`.getJSONObject(Constant.DATA)
-                        session.setData(Constant.USER_ID, jsonobj.getString(Constant.ID))
+
                         session.setData(Constant.NAME, jsonobj.getString(Constant.NAME))
                         session.setData(Constant.UNIQUE_NAME, jsonobj.getString(Constant.UNIQUE_NAME))
                         session.setData(Constant.EMAIL, jsonobj.getString(Constant.EMAIL))
@@ -280,7 +289,6 @@ class ProfileViewActivity : AppCompatActivity() {
                         session.setData(Constant.MOBILE, jsonobj.getString(Constant.MOBILE))
                         session.setData(Constant.REFER_CODE, jsonobj.getString(Constant.REFER_CODE))
                         session.setData(Constant.REFERRED_BY, jsonobj.getString(Constant.REFERRED_BY))
-                        session.setData(Constant.PROFILE, jsonobj.getString(Constant.PROFILE))
                         Glide.with(activity).load(session.getData(Constant.PROFILE)).placeholder(R.drawable.profile_placeholder).into(binding.civProfile)
 
                         // call resume() the HomeActivity
@@ -312,7 +320,7 @@ class ProfileViewActivity : AppCompatActivity() {
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
                         val `object` = JSONObject(response)
                         val jsonobj = `object`.getJSONObject(Constant.DATA)
-                        session.setData(Constant.USER_ID, jsonobj.getString(Constant.ID))
+
                         session.setData(Constant.COVER_IMG, jsonobj.getString(Constant.COVER_IMG))
                         Glide.with(activity).load(session.getData(Constant.COVER_IMG)).placeholder(R.drawable.placeholder_bg).into(binding.ivCover)
 
@@ -349,38 +357,36 @@ class ProfileViewActivity : AppCompatActivity() {
 
         btnLogout.setOnClickListener {
             // Perform logout action
-            logoutUser()
+            logout()
             dialogBuilder.dismiss()
         }
 
         dialogBuilder.show()
     }
 
-    private fun logoutUser() {
+    private fun logout() {
+        googleSignInClient.signOut().addOnCompleteListener(this) {
+            // Clear session data and redirect to login
+            clearSessionData(this)
+            redirectToLogin(this)
 
-        session.clearData()
-
-
-        // Sign out from Firebase
-        FirebaseAuth.getInstance().signOut()
-
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .build()
-
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
-
-
-        // Sign out from Google
-        mGoogleSignInClient.signOut().addOnCompleteListener { // Redirect to Login page
-            val intent: Intent = Intent(this, GoogleLoginActivity::class.java)
-            startActivity(intent)
-            finish()
         }
-
     }
 
+    private fun clearSessionData(context: Context) {
+        val sharedPreferences = context.getSharedPreferences("UserSession", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.clear()
+        editor.apply()
+    }
+
+    private fun redirectToLogin(context: Context) {
+        session.setBoolean("is_logged_in", false)
+        val intent = Intent(context, GoogleLoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        context.startActivity(intent)
+        finish()
+    }
 
 
 

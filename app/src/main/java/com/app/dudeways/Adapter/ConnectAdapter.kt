@@ -84,7 +84,7 @@ class ConnectAdapter(
 //        }
 
 
-        holder.rlChat.setOnClickListener {
+        holder.itemView.setOnClickListener {
             val intent = Intent(activity, ChatsActivity::class.java)
             intent.putExtra("id", report.id)
             intent.putExtra("name", report.name)
@@ -115,7 +115,6 @@ class ConnectAdapter(
        val tvName: TextView = itemView.findViewById(R.id.tvName)
        val tvLatestseen: TextView = itemView.findViewById(R.id.tvLatestseen)
         val ivProfile:ImageView = itemView.findViewById(R.id.ivProfile)
-        val rlChat:RelativeLayout = itemView.findViewById(R.id.rlChat)
         val IV_online_status:ImageView = itemView.findViewById(R.id.IV_online_status)
         val  ivGender:ImageView = itemView.findViewById(R.id.ivGender)
         val ivGenderColor:LinearLayout = itemView.findViewById(R.id.ivGenderColor)

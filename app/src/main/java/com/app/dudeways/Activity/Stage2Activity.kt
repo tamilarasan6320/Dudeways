@@ -57,8 +57,7 @@ class Stage2Activity : AppCompatActivity() {
             if (result.resultCode == Activity.RESULT_OK) {
                  imageBitmap = (result.data?.extras?.get("data") as? Bitmap)!!
                 // Handle the image here
-                Glide.with(activity).load(R.drawable.verify_ic).placeholder(R.drawable.profile_placeholder)
-                    .into(binding.ivProof1)
+                binding.ivProof1.setImageBitmap(imageBitmap)
                 binding.ivAddProof1.visibility = View.GONE
                 isImageUploaded = true
 

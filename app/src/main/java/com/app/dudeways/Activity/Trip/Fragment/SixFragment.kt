@@ -152,7 +152,6 @@ class SixFragment : Fragment() {
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
                         val `object` = JSONObject(response)
                         val jsonobj = `object`.getJSONObject(Constant.DATA)
-                        session.setData(Constant.USER_ID, jsonobj.getString(Constant.ID))
 
                         val id = jsonobj.getString(Constant.ID)
                         addtripImage(id)
