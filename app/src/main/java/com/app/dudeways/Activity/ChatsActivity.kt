@@ -350,6 +350,7 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
                 else -> {
 
 
+
                 }
             }
         }
