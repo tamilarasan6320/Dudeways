@@ -40,6 +40,7 @@ class EditProfileActivity : AppCompatActivity() {
         binding.etProfession.setText(session.getData(Constant.PROFESSION))
         binding.etState.setText(session.getData(Constant.STATE))
         binding.etcity.setText(session.getData(Constant.CITY))
+        binding.etIntroduction.setText(session.getData(Constant.INTRODUCTION))
 
         profession_list()
         binding.tvSkip.setOnClickListener {
@@ -76,7 +77,11 @@ class EditProfileActivity : AppCompatActivity() {
             } else if (binding.etcity.text.toString().isEmpty()) {
                 binding.etcity.error = "Please enter city"
                 return@setOnClickListener
-            } else {
+            } else if (binding.etIntroduction.text.toString().length < 10) {
+                binding.etIntroduction.error = "Introduction should be at least 10 characters"
+                return@setOnClickListener
+            }
+            else {
                 register()
             }
         }
@@ -136,6 +141,7 @@ class EditProfileActivity : AppCompatActivity() {
         params[Constant.PROFESSION] = binding.etProfession.text.toString()
         params[Constant.STATE] = binding.etState.text.toString()
         params[Constant.CITY] = binding.etcity.text.toString()
+        params[Constant.INTRODUCTION] = binding.etIntroduction.text.toString()
         ApiConfig.RequestToVolley({ result, response ->
             if (result) {
                 try {

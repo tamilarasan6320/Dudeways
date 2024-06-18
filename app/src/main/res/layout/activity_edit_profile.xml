@@ -21,6 +21,7 @@
             />
 
         <TextView
+            android:visibility="invisible"
             android:layout_centerVertical="true"
             android:id="@+id/tvSkip"
             android:layout_width="match_parent"
@@ -182,14 +183,14 @@
                 android:layout_marginTop="@dimen/_4sdp"
                 app:cardBackgroundColor="@color/primary_extra_light"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <androidx.core.widget.NestedScrollView
                     android:scrollbarThumbVertical="@drawable/custom_scrollbar"
                     android:scrollbars="vertical"
                     android:scrollbarSize="@dimen/_10sdp"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_180sdp">
+                    android:layout_height="wrap_content">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvProfession"
@@ -266,7 +267,40 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                 </androidx.core.widget.NestedScrollView>
+
+
             </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:hint="Describe Yourself"
+                app:hintTextColor="@color/primary"
+                app:boxStrokeColor="@color/primary"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etIntroduction"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:inputType="text | textMultiLine"
+                    android:gravity="start"
+                    android:maxLength="70"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ex: I am looking for good Travel partner"
+                android:fontFamily="@font/poppins_regular"
+                android:textColor="@color/primary"
+                android:layout_marginTop="@dimen/_4sdp"
+                />
 
    
 

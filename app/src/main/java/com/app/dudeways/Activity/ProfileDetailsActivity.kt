@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
@@ -107,8 +109,8 @@ class ProfileDetailsActivity : AppCompatActivity() {
             }else if (binding.etIntroduction.text.toString().isEmpty()) {
                 binding.etIntroduction.error = "Please enter introduction"
                 return@setOnClickListener
-            } else if (binding.etIntroduction.text.toString().length < 10) {
-                binding.etIntroduction.error = "Introduction should be at least 10 characters"
+            } else if (binding.etIntroduction.text.toString().length < 15) {
+                binding.etIntroduction.error = "Introduction should be at least 15 characters"
                 return@setOnClickListener
             }
             else {
@@ -129,6 +131,8 @@ class ProfileDetailsActivity : AppCompatActivity() {
             binding.nsProfileDetails.visibility = View.VISIBLE
             binding.llDescribtion.visibility = View.GONE
         }
+
+
 
     }
 

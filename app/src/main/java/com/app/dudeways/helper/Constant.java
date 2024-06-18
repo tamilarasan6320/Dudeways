@@ -26,6 +26,8 @@ public class Constant {
     public static final String ADD_CHAT = BaseUrl + "add_chat";
     public static final String POINTS_LIST = BaseUrl + "points_list";
     public static final String ADD_POINTS = BaseUrl + "add_points";
+    public static final String SPIN_POINTS = BaseUrl + "spin_points";
+    public static final String REWARD_POINTS = BaseUrl + "reward_points";
     public static final String TRIP_TYPE =  "trip_type";
     public static final String TRIP_LOCATION = "location";
     public static final String TRIP_DETAILS = BaseUrl + "trip_details";
@@ -35,6 +37,7 @@ public class Constant {
     public static final String TRIP_TO_DATE =  "to_date";
     public static final String TRIP_IMAGE = "trip_image";
     public static final String MY_TRIP_LIST = BaseUrl + "my_trip_list";
+    public static final String DELETE_TRIP = BaseUrl + "delete_trip";
     public static final String FREINDS_LIST = BaseUrl + "friends_list";
     public static final String CHAT_LIST = BaseUrl + "chat_list";
     public static final String NOTFICATION_LIST = BaseUrl + "notification_list";

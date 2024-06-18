@@ -43,16 +43,18 @@ class WelcomeActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun setUpIndicator(position: Int) {
-        dots = arrayOfNulls(3)
+        dots = arrayOfNulls(4) // Change to 4 to include the dummy page
         mDotLayout.removeAllViews()
-        for (i in dots.indices) {
+        for (i in 0 until dots.size - 1) { // Adjust to skip the dummy page in the indicator
             dots[i] = TextView(this)
             dots[i]?.text = Html.fromHtml("&#8226")
             dots[i]?.textSize = 55f
             dots[i]?.setTextColor(resources.getColor(R.color.inactive, theme))
             mDotLayout.addView(dots[i])
         }
-        dots[position]?.setTextColor(resources.getColor(R.color.active, theme))
+        if (position < dots.size - 1) {
+            dots[position]?.setTextColor(resources.getColor(R.color.active, theme))
+        }
     }
 
     private val viewListener = object : ViewPager.OnPageChangeListener {
@@ -61,7 +63,7 @@ class WelcomeActivity : AppCompatActivity() {
         @RequiresApi(Build.VERSION_CODES.M)
         override fun onPageSelected(position: Int) {
             setUpIndicator(position)
-            if (position == dots.size - 1) {
+            if (position == dots.size - 1) { // Check if the dummy page is reached
                 navigateToLogin()
             }
         }

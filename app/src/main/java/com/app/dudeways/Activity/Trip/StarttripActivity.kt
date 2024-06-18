@@ -188,6 +188,32 @@ class StarttripActivity : AppCompatActivity() {
 
 
 
+    // back press
+    override fun onBackPressed() {
+        val fragment = fm.findFragmentById(R.id.frameLayout)
+        when (fragment) {
+            is oneFragment -> {
+                super.onBackPressed()
+            }
+            is threeFragment -> {
+                fm.beginTransaction().replace(R.id.frameLayout, oneFragment()).commit()
+                onResume()
+            }
+            is FourFragment -> {
+                fm.beginTransaction().replace(R.id.frameLayout, threeFragment()).commit()
+                onResume()
+            }
+            is FiveFragment -> {
+                fm.beginTransaction().replace(R.id.frameLayout, FourFragment()).commit()
+                onResume()
+            }
+            is SixFragment -> {
+                fm.beginTransaction().replace(R.id.frameLayout, FiveFragment()).commit()
+                onResume()
+            }
+        }
+    }
+
 
 
 

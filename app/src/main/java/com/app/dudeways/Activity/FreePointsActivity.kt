@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.app.dudeways.R
 import com.app.dudeways.databinding.ActivityFreePointsBinding
+import com.app.dudeways.helper.ApiConfig
 import com.app.dudeways.helper.Constant
 import com.app.dudeways.helper.Session
 import com.google.android.gms.ads.AdRequest
@@ -18,6 +19,8 @@ import com.google.android.gms.ads.reward.RewardedVideoAd
 import com.google.android.gms.ads.reward.RewardedVideoAdListener
 import com.google.android.gms.ads.rewarded.RewardItem
 import com.google.android.gms.ads.rewarded.RewardedAd
+import org.json.JSONException
+import org.json.JSONObject
 
 
 class FreePointsActivity : AppCompatActivity() {
@@ -39,10 +42,10 @@ class FreePointsActivity : AppCompatActivity() {
 
         loadRewardedVideoAd()
 
-        binding.progressBar.indeterminateDrawable.setColorFilter(
-            ContextCompat.getColor(this, R.color.primary),
-            PorterDuff.Mode.SRC_IN
-        )
+//        binding.progressBar.indeterminateDrawable.setColorFilter(
+//            ContextCompat.getColor(this, R.color.primary),
+//            PorterDuff.Mode.SRC_IN
+//        )
 
 
         binding.ivBack.setOnClickListener {
@@ -86,7 +89,7 @@ class FreePointsActivity : AppCompatActivity() {
     private fun loadRewardedVideoAd() {
         adMobRewardedVideoAd.rewardedVideoAdListener = object : RewardedVideoAdListener {
             override fun onRewardedVideoAdLoaded() {
-                binding.progressBar.visibility = View.GONE
+              //  binding.progressBar.visibility = View.GONE
              //   Toast.makeText(this@FreePointsActivity, "Ad Loaded", Toast.LENGTH_SHORT).show()
             }
 
@@ -116,6 +119,7 @@ class FreePointsActivity : AppCompatActivity() {
             }
 
             override fun onRewardedVideoCompleted() {
+                addpurchase()
               //  Toast.makeText(this@FreePointsActivity, "Video Completed", Toast.LENGTH_SHORT).show()
             }
         }
@@ -130,4 +134,37 @@ class FreePointsActivity : AppCompatActivity() {
             adMobRewardedVideoAd.loadAd(adId, AdRequest.Builder().build())
         }
     }
+
+
+    private fun addpurchase() {
+
+        var points = "1"
+
+        val params: MutableMap<String, String> = HashMap()
+        params[Constant.USER_ID] = session.getData(Constant.USER_ID)
+        //  params["points_id"] = id
+        params["points"] = points
+        ApiConfig.RequestToVolley({ result, response ->
+            if (result) {
+                try {
+                    val jsonObject = JSONObject(response)
+                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
+                        val `object` = JSONObject(response)
+                        val jsonobj = `object`.getJSONObject(Constant.DATA)
+
+
+                        session.setData(Constant.POINTS, jsonobj.getString(Constant.POINTS))
+
+                        Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }
+        }, activity, Constant.REWARD_POINTS, params, true, 1)
+    }
+
+
 }

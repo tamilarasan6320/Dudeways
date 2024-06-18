@@ -13,11 +13,11 @@
 
 
         <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civProfile"
             android:layout_marginRight="@dimen/_14sdp"
             android:layout_gravity="center"
             android:layout_width="@dimen/_50sdp"
             android:layout_height="@dimen/_50sdp"
-            android:src="@drawable/solo_travel"
             app:civ_border_width="2dp"
             app:civ_border_color="@color/primary"
             />
@@ -32,9 +32,10 @@
 
 
         <TextView
+            android:id="@+id/tvName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Afrin"
+            android:text=""
             android:textSize="@dimen/_12sdp"
             android:fontFamily="@font/poppins_semibold"
             android:textColor="@color/black"
@@ -42,18 +43,20 @@
 
 
         <TextView
+            android:id="@+id/tvMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Afrin, Connected You"
+            android:text=""
             android:textSize="@dimen/_10sdp"
             android:fontFamily="@font/poppins_medium"
             android:textColor="@color/black"
             />
 
             <TextView
+                android:id="@+id/tvtime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="9 hours ago"
+            android:text=""
             android:textSize="@dimen/_10sdp"
             android:fontFamily="@font/poppins_regular"
             android:textColor="@color/black"

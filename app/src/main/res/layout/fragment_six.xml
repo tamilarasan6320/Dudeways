@@ -162,7 +162,7 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Choose image this image to attract users to join your trip."
+            android:text="Choose image which it will attract partners to join your trip"
             android:textSize="@dimen/_12sdp"
             android:fontFamily="@font/poppins_regular"
             android:textColor="@color/black"

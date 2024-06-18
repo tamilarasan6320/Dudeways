@@ -59,7 +59,7 @@ class ConnectAdapter(
         }
 
         holder.tvAge.text = report.age
-        holder.tvDistance.text = report.distance + " km \u2022 " + status
+        holder.tvDistance.text = report.distance + "\u2022 " + status
 
 
         val gender = report.gender
@@ -99,7 +99,7 @@ class ConnectAdapter(
 
         Glide.with(activitys)
             .load(report.profile)
-            .placeholder(R.drawable.placeholder_bg)
+            .placeholder(R.drawable.profile_placeholder)
             .into(holder.ivProfile)
 
 

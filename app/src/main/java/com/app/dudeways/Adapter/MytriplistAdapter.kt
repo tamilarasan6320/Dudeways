@@ -5,12 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.app.dudeways.Activity.MytripsActivity
 import com.app.dudeways.Model.Mytriplist
 import com.app.dudeways.R
+import com.app.dudeways.helper.ApiConfig
+import com.app.dudeways.helper.Constant
 import com.bumptech.glide.Glide
+import org.json.JSONException
+import org.json.JSONObject
 
 class MytriplistAdapter(
     val activity: Activity,
@@ -87,6 +94,10 @@ class MytriplistAdapter(
 
 
 
+        holder.llDelete.setOnClickListener {
+            // delete trip
+            deleteTrip(report.id)
+        }
 
 
 
@@ -100,11 +111,40 @@ class MytriplistAdapter(
 
     }
 
+    fun deleteTrip(id: String?) {
+        val params: MutableMap<String, String> = HashMap()
+        params["trip_id"] = id!!
+        ApiConfig.RequestToVolley({ result, response ->
+            if (result) {
+                try {
+                    val jsonObject = JSONObject(response)
+                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
+
+                       // call the fuction MytripsActivity.mytripList()
+                        (activity as MytripsActivity).mytripList()
+
+                        Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE),
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+
+                    } else {
+                        Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }
+
+            // Stop the refreshing animation once the network request is complete
+
+        }, activity, Constant.DELETE_TRIP, params, true, 1)
 
 
 
-
-
+    }
 
     override fun getItemCount(): Int {
         return mytriplist.size
@@ -122,6 +162,7 @@ class MytriplistAdapter(
         val ivProfile:ImageView = itemView.findViewById(R.id.ivProfile)
         val rlStatus:RelativeLayout = itemView.findViewById(R.id.rlStatus)
         val tvStatus:TextView = itemView.findViewById(R.id.tvStatus)
+        val llDelete:LinearLayout = itemView.findViewById(R.id.llDelete)
 
 
 

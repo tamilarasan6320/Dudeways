@@ -47,7 +47,8 @@ class MytripsActivity : AppCompatActivity() {
 
     }
 
-    private fun mytripList() {
+    fun mytripList() {
+        binding.swipeRefreshLayout.isRefreshing = true
         val params: MutableMap<String, String> = HashMap()
         params[Constant.USER_ID] = session.getData(Constant.USER_ID)
         ApiConfig.RequestToVolley({ result, response ->
@@ -85,4 +86,5 @@ class MytripsActivity : AppCompatActivity() {
            binding.swipeRefreshLayout.isRefreshing = false
         }, activity, Constant.MY_TRIP_LIST, params, true, 1)
     }
+
 }

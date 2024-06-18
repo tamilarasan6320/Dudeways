@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.app.dudeways.Activity.Trip.StarttripActivity
 import com.app.dudeways.databinding.FragmentThreeBinding
+import com.app.dudeways.helper.Constant
 import com.app.dudeways.helper.Session
 
 
@@ -34,6 +35,9 @@ class threeFragment : Fragment() {
         (activity as StarttripActivity).binding.btnNext.text = "Next"
 
 
+        if (session.getData(Constant.TRIP_LOCATION) != null) {
+            binding.etLocation.setText(session.getData(Constant.TRIP_LOCATION))
+        }
 
 
 

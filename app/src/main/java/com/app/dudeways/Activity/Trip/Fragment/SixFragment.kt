@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.app.dudeways.Activity.HomeActivity
 import com.app.dudeways.Activity.Trip.StarttripActivity
+import com.app.dudeways.Activity.Trip.TripCompletedActivity
 import com.app.dudeways.databinding.FragmentSixBinding
 import com.app.dudeways.helper.ApiConfig
 import com.app.dudeways.helper.Constant
@@ -51,6 +52,10 @@ class SixFragment : Fragment() {
             pickImageFromGallery()
         }
 
+
+        binding.ivProof1.setOnClickListener {
+            pickImageFromGallery()
+        }
 
         if (session.getData(Constant.TRIP_TYPE) == "0") {
             trip_type = "Road Trip"
@@ -116,7 +121,7 @@ class SixFragment : Fragment() {
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
 
 
-                        val intent = Intent(activity, HomeActivity::class.java)
+                        val intent = Intent(activity, TripCompletedActivity::class.java)
                         startActivity(intent)
                         activity.finish()
 

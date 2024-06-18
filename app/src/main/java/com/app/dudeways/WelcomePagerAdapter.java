@@ -34,7 +34,7 @@ public class WelcomePagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return headings.length;
+        return images.length + 1; // Add one more count for the dummy page
     }
 
     @Override
@@ -46,16 +46,24 @@ public class WelcomePagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View view = layoutInflater.inflate(R.layout.slider_layout, container, false);
 
-        ImageView slideTitleImage = view.findViewById(R.id.ivSplashImage);
-        TextView slideHeading = view.findViewById(R.id.tvSplashText);
+        if (position == images.length) {
+            // This is the dummy page
+            View view = layoutInflater.inflate(R.layout.slider_dummy_layout, container, false);
+            container.addView(view);
+            return view;
+        } else {
+            View view = layoutInflater.inflate(R.layout.slider_layout, container, false);
 
-        Glide.with(context).load(images[position]).placeholder(R.drawable.welcome1).into(slideTitleImage);
-        slideHeading.setText(headings[position]);
+            ImageView slideTitleImage = view.findViewById(R.id.ivSplashImage);
+            TextView slideHeading = view.findViewById(R.id.tvSplashText);
 
-        container.addView(view);
-        return view;
+            Glide.with(context).load(images[position]).placeholder(R.drawable.welcome1).into(slideTitleImage);
+            slideHeading.setText(headings[position]);
+
+            container.addView(view);
+            return view;
+        }
     }
 
     @Override

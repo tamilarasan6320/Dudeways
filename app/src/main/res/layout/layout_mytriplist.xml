@@ -71,7 +71,49 @@
                 android:textSize="@dimen/_14sdp" />
 
 
+
+
+            <LinearLayout
+                android:id="@+id/llDelete"
+                android:gravity="end"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+
+                <ImageButton
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:background="@drawable/delete_ic"
+                    android:layout_gravity="center"
+                    android:backgroundTint="@color/red"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Delete"
+                    android:textSize="@dimen/_10sdp"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textColor="@color/red"
+                    android:layout_marginLeft="@dimen/_2sdp"
+                    />
+
+
+
+            </LinearLayout>
+
+
+
+
+
         </LinearLayout>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
         <ImageView
             android:id="@+id/ivProfileImage"
@@ -81,6 +123,9 @@
             />
 
 
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
         <LinearLayout
             android:layout_marginTop="@dimen/_8sdp"
