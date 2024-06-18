@@ -1,27 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="horizontal"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="end|bottom"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:orientation="horizontal">
 
 
-
-
-
-    <LinearLayout
-        android:orientation="vertical"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/rlchat"
-        android:layout_toEndOf="@+id/ivUserProfile"
-        android:background="@drawable/chat_message_bg_from_reciever"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_15sdp"
-        android:padding="@dimen/_10sdp"
-        android:layout_marginRight="@dimen/_5sdp"
-        >
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:background="@drawable/chat_message_bg_from_reciever"
+        android:gravity="bottom|end"
+        android:orientation="horizontal"
+        android:padding="@dimen/_10sdp">
+
 
         <TextView
             android:id="@+id/tvMessage"
@@ -29,54 +26,47 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_regular"
             android:textColor="@color/black"
-            android:textSize="@dimen/_12sdp" />
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-
-
-        <LinearLayout
-            android:layout_gravity="end"
-            android:gravity="end"
-            android:orientation="horizontal"
+        <TextView
+            android:id="@+id/tvTime"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
+            android:textColor="@color/primary"
+            android:textSize="8sp"
+            android:layout_marginStart="@dimen/_5sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvMessage"
+            app:layout_constraintStart_toEndOf="@+id/tvMessage" />
 
-            <TextView
-                android:layout_gravity="center"
-                android:id="@+id/tvTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:textColor="@color/primary" />
+        <ImageView
+            android:id="@+id/ivSeenStatus"
+            android:layout_width="@dimen/_10sdp"
+            android:layout_height="@dimen/_10sdp"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:backgroundTint="@color/primary"
+            android:src="@drawable/tick_ic"
+            android:layout_marginBottom="@dimen/_2sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvTime"
+            app:layout_constraintStart_toEndOf="@+id/tvTime" />
 
-            <ImageView
-                android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/_4sdp"
-                android:backgroundTint="@color/primary"
-                android:id="@+id/ivSeenStatus"
-                android:layout_width="@dimen/_10sdp"
-                android:layout_height="@dimen/_10sdp"/>
-
-
-        </LinearLayout>
-
-
-
-
-
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/ivUserProfile"
         android:layout_width="@dimen/_20sdp"
         android:layout_height="@dimen/_20sdp"
+        android:layout_alignBottom="@id/rlchat"
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
-        android:layout_alignBottom="@id/rlchat"
         android:src="@color/grey"
         app:civ_border_color="@color/primary"
         app:civ_border_width="@dimen/_1sdp" />
-
-
 
 
 </LinearLayout>

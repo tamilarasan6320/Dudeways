@@ -4,13 +4,9 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.media.AudioAttributes
 import android.media.SoundPool
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
-import android.widget.Toast.makeText
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,9 +19,7 @@ import com.app.dudeways.extentions.logInfo
 import com.app.dudeways.extentions.makeToast
 import com.app.dudeways.helper.ApiConfig
 import com.app.dudeways.helper.Constant
-import com.app.dudeways.helper.ProgressDisplay
 import com.app.dudeways.helper.Session
-import com.app.dudeways.listeners.CustomScrollListener
 import com.app.dudeways.listeners.OnMessagesFetchedListener
 import com.bumptech.glide.Glide
 import com.google.firebase.Timestamp
@@ -39,7 +33,6 @@ import com.google.firebase.ktx.Firebase
 import org.json.JSONException
 import org.json.JSONObject
 import java.text.SimpleDateFormat
-import java.time.format.DateTimeFormatter
 import java.util.Date
 import java.util.Locale
 import kotlin.random.Random
@@ -65,7 +58,6 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
     private var receiveTone: Int = 0
 
     private var isConversationsFetching: Boolean = true
-    private val conversationDates = mutableSetOf<String?>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -198,7 +190,7 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
             chatID = chatID,
             dateTime = Timestamp.now().toDate().time.toString(),
             message = message,
-            msgSeen = true,
+            msgSeen = false,
             receiverID = receiverID,
             senderID = senderID,
             type = "TEXT",
@@ -239,7 +231,7 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
             chatID = chatID,
             dateTime = Timestamp.now().toDate().time.toString(),
             message = message,
-            msgSeen = false,
+            msgSeen = true,
             receiverID = senderID,
             senderID = receiverID,
             type = "TEXT",
@@ -300,7 +292,10 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
                             val formattedDate = SimpleDateFormat("MMM dd yyyy", Locale.getDefault())
                             dateTime?.let {
                                 binding.tvDate.visibility = View.VISIBLE
-                                binding.tvDate.text = formattedDate.format(actualDate) ?: formattedDate.format(todayDate)
+                                binding.tvDate.text =
+                                    formattedDate.format(actualDate) ?: formattedDate.format(
+                                        todayDate
+                                    )
                             }
                         }
                     }
@@ -335,6 +330,17 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
                         }
                     messages.sortBy { it?.dateTime }
                     initializeRecyclerView(messages)
+                    receiverName?.let { nonEmptyReceiverName ->
+                        senderName?.let { nonEmptySenderName ->
+                            nonEmptyChatModel.chatID?.let { nonEmptyChatID ->
+                                updateMessageSeenStatus(
+                                    receiverName = nonEmptyReceiverName,
+                                    senderName = nonEmptySenderName,
+                                    chatID = nonEmptyChatID
+                                )
+                            }
+                        }
+                    }
                     binding.RVChats.smoothScrollToPosition(
                         (chatAdapter?.itemCount?.minus(1) ?: 0)
                     )
@@ -365,13 +371,14 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
         logError("$CHATS_ACTIVITY onError", "Error: $errorMessage")
     }
 
-    private fun initializeRecyclerView(conversations : MutableList<ChatModel?>) {
+    private fun initializeRecyclerView(conversations: MutableList<ChatModel?>) {
         binding.RVChats.apply {
-            adapter = ChatAdapter(conversations, onClick = {},session)
+            adapter = ChatAdapter(conversations, onClick = {}, session)
             layoutManager = LinearLayoutManager(this@ChatsActivity)
             invalidate()
         }
     }
+
     private fun addChat(message: String) {
         val params: MutableMap<String, String> = HashMap()
         params[Constant.USER_ID] = session.getData(Constant.USER_ID)
@@ -399,13 +406,18 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
         }, activity, Constant.ADD_CHAT, params, false, 1)
     }
 
-    private fun updateMessageSeenStatus(chatID: String) {
-        val reference = databaseReference.child("CHATS_V2")
-            .child(receiverName ?: "")
-            .child(senderName ?: "")
+    private fun updateMessageSeenStatus(
+        receiverName: String,
+        senderName: String,
+        chatID: String
+    ) {
+        databaseReference.child("CHATS_V2")
+            .child(receiverName)
+            .child(senderName)
             .child(chatID)
-            .child("msgSeen")
-        reference.setValue(true)
+            .updateChildren(
+                mapOf("msgSeen" to true)
+            )
             .addOnSuccessListener {
                 logInfo(CHATS_ACTIVITY, "Message seen status updated for chat ID: $chatID")
             }
@@ -413,8 +425,6 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
                 logError(CHATS_ACTIVITY, "Error updating message seen status: ${exception.message}")
             }
     }
-
-
 
 
 }

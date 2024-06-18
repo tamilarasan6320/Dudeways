@@ -11,7 +11,10 @@ import com.app.dudeways.databinding.SenderChatMessageBinding
 import com.app.dudeways.helper.Constant
 import com.app.dudeways.helper.Session
 import com.bumptech.glide.Glide
+import com.google.firebase.Timestamp
+import java.lang.Exception
 import java.text.SimpleDateFormat
+import java.time.Instant
 import java.util.*
 
 class ChatAdapter(
@@ -22,8 +25,18 @@ class ChatAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
         val binding: ViewBinding = when (viewType) {
-            0 -> ReceiverChatMessageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-            1 -> SenderChatMessageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            0 -> ReceiverChatMessageBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+
+            1 -> SenderChatMessageBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+
             else -> throw IllegalArgumentException("Invalid view type")
         }
         return ItemHolder(binding)
@@ -51,15 +64,22 @@ class ChatAdapter(
                 when (binding) {
                     is SenderChatMessageBinding -> {
                         binding.tvMessage.text = it.message
-                        binding.tvTime.text = it.dateTime?.let { date -> formatDateTime(date.toLong()) }
-
+                        binding.tvTime.text =
+                            it.dateTime?.let { date -> formatDateTime(date.toLong()) }
+                        binding.ivSeenStatus.setImageResource(
+                            if (it.msgSeen == true) R.drawable.seen_tick_ic else R.drawable.tick_ic
+                        )
                         Glide.with(binding.root.context)
                             .load(session.getData(Constant.PROFILE))
                             .into(binding.ivUserProfile)
                     }
+
                     is ReceiverChatMessageBinding -> {
                         binding.tvMessage.text = it.message
-                        binding.tvTime.text = it.dateTime?.let { date -> formatDateTime(date.toLong()) }
+                        binding.tvTime.text =
+                            it.dateTime?.let { date ->
+                                formatDateTime(date.toLong())
+                            }
 
                         Glide.with(binding.root.context)
                             .load(session.getData("reciver_profile"))
@@ -72,6 +92,7 @@ class ChatAdapter(
         }
     }
 
+    @Throws(TypeCastException::class)
     private fun formatDateTime(timestamp: Long): String {
         val sdf = SimpleDateFormat("hh:mm a", Locale.getDefault())
         return sdf.format(Date(timestamp))
