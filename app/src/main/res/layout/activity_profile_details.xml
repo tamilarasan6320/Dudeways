@@ -283,6 +283,7 @@
                     android:drawableEnd="@drawable/down_arrow"
                     android:drawableTint="@color/primary"
                     android:editable="false"
+                    android:text="hi"
                     android:focusableInTouchMode="true"
                     android:cursorVisible="false"
                     android:focusable="false"

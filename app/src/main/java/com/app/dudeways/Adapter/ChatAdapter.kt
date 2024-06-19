@@ -64,13 +64,9 @@ class ChatAdapter(
                 when (binding) {
                     is SenderChatMessageBinding -> {
                         binding.tvMessage.text = it.message
-                        binding.tvTime.text =
-                            it.dateTime?.let { date -> formatDateTime(date.toLong()) }
-                        binding.ivSeenStatus.setImageResource(
-                            if (it.msgSeen == true) R.drawable.seen_tick_ic else R.drawable.tick_ic
-                        )
-                        Glide.with(binding.root.context)
-                            .load(session.getData(Constant.PROFILE))
+                        binding.tvTime.text = it.dateTime?.let { date -> formatDateTime(date.toLong()) }
+                        binding.ivSeenStatus.setImageResource(if (it.msgSeen == true) R.drawable.seen_tick_ic else R.drawable.tick_ic)
+                        Glide.with(binding.root.context).load(session.getData(Constant.PROFILE))
                             .into(binding.ivUserProfile)
                     }
 
