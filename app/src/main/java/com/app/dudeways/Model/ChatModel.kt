@@ -13,5 +13,6 @@ data class ChatModel(
     val receiverID: String? = null,
     val senderID: String? = null,
     val type: String? = null,
-    val sentBy: String? = null
+    val sentBy: String? = null,
+    val isTyping: Boolean = false
 )

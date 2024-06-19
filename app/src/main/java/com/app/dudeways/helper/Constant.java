@@ -1,6 +1,7 @@
 package com.app.dudeways.helper;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class Constant {
     public static final String MainBaseUrl = "https://dudeways.graymatterworks.com/";
@@ -120,4 +121,6 @@ public class Constant {
     public static final String BOOKID = "book_id";
     public static final String CART_ID = "cart_id";
     public static final String TYPE_TRIP_DATE = "trip_date";
+    @Nullable
+    public static final String RECEIVER_PROFILE = "receiver_profile";
 }

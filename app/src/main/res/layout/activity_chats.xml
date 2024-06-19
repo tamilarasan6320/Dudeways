@@ -63,7 +63,16 @@
                     android:textSize="@dimen/_12sdp"
                     android:fontFamily="@font/poppins_semibold"
                     android:textColor="@color/primary"
+                    />
 
+                <TextView
+                    android:id="@+id/tvLastSeen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="@dimen/_12sdp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:textColor="@color/primary"
                     />
 
             </LinearLayout>

@@ -7,6 +7,7 @@ import android.media.SoundPool
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.text.format.DateUtils
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -122,7 +123,11 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
         })
 
         observeTypingStatus()
+        setUserStatus(true)
+        observeUserStatus()
     }
+
+
 
     override fun onResume() {
         super.onResume()
@@ -133,12 +138,32 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
         } ?: logError(CHATS_ACTIVITY, "Unable to fetch messages.")
     }
 
+    private fun setUserStatus(isOnline: Boolean) {
+        val userStatusRef = firebaseDatabase.getReference("user_status/$senderId")
+
+        val status = if (isOnline) {
+            mapOf("status" to "online")
+        } else {
+            mapOf("status" to "offline", "last_seen" to System.currentTimeMillis())
+        }
+
+        userStatusRef.setValue(status).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                logInfo(CHATS_ACTIVITY, "User status updated: $status")
+            } else {
+                logError(CHATS_ACTIVITY, "Failed to update user status: ${task.exception?.message}")
+            }
+        }
+    }
+
+
     private fun observeTypingStatus() {
         firebaseDatabase.getReference("typing_status/$receiverId")
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val isTyping = snapshot.getValue(Boolean::class.java) ?: false
                     binding.typingStatus.visibility = if (isTyping) View.VISIBLE else View.GONE
+                    binding.tvLastSeen.visibility = if (isTyping) View.GONE else View.VISIBLE
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -146,6 +171,48 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
                 }
             })
     }
+
+    private fun observeUserStatus() {
+        val userStatusRef = firebaseDatabase.getReference("user_status/$receiverId")
+
+        userStatusRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val status = snapshot.child("status").getValue(String::class.java)
+                val lastSeen = snapshot.child("last_seen").getValue(Long::class.java) ?: 0L
+
+                if (status == "online") {
+                    binding.tvLastSeen.text = "In chat"
+                } else {
+                    val currentTimeMillis = System.currentTimeMillis()
+                    val timeAgoMillis = currentTimeMillis - lastSeen
+
+                    val timeAgo: CharSequence = if (timeAgoMillis < DateUtils.DAY_IN_MILLIS) {
+                        DateUtils.getRelativeTimeSpanString(
+                            lastSeen,
+                            currentTimeMillis,
+                            DateUtils.MINUTE_IN_MILLIS,
+                            DateUtils.FORMAT_ABBREV_RELATIVE
+                        )
+                    } else {
+                        val daysAgo = (timeAgoMillis / DateUtils.DAY_IN_MILLIS).toInt()
+                        when (daysAgo) {
+                            1 -> "1 day ago"
+                            else -> "$daysAgo days ago"
+                        }
+                    }
+
+                    binding.tvLastSeen.text = timeAgo
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                logError(CHATS_ACTIVITY, "Failed to fetch user status: ${error.message}")
+            }
+        })
+    }
+
+
+
 
     private fun fetchMessages(
         senderName: String,
@@ -423,6 +490,14 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
                 logError(CHATS_ACTIVITY, "Error updating message seen status: ${exception.message}")
             }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        // Set user offline status with last seen time
+        setUserStatus(false)
+    }
+
 
 }
 
