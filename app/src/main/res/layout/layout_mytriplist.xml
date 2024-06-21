@@ -50,6 +50,7 @@
 
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/tvUsername"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_gravity="center"

@@ -2,6 +2,7 @@ package com.app.dudeways.Activity
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.graphics.Rect
 import android.media.AudioAttributes
 import android.media.SoundPool
 import android.os.Bundle
@@ -78,7 +79,7 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
 
         Glide.with(this)
             .load(session.getData("reciver_profile"))
-            .placeholder(R.drawable.placeholder_bg)
+            .placeholder(R.drawable.profile_placeholder)
             .into(binding.ivProfile)
 
         binding.ivBack.setOnClickListener {
@@ -95,8 +96,8 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
             .setAudioAttributes(audioAttributes)
             .build()
 
-        sentTone = soundPool.load(this, R.raw.recive_tone, 1)
-        receiveTone = soundPool.load(this, R.raw.recive_tone, 1)
+        sentTone = soundPool.load(this, R.raw.receive_tone, 1)
+        receiveTone = soundPool.load(this, R.raw.sent_tone, 1)
 
         binding.sendButton.setOnClickListener {
             val message = binding.messageEdittext.text.toString()
@@ -109,6 +110,17 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
                 } ?: logError(CHATS_ACTIVITY, "Unable to send your message.")
             } else {
                 makeToast("Enter text to send")
+            }
+        }
+
+        // Inside your onCreate method
+        binding.root.viewTreeObserver.addOnGlobalLayoutListener {
+            val rect = Rect()
+            binding.root.getWindowVisibleDisplayFrame(rect)
+            val screenHeight = binding.root.rootView.height
+            val keypadHeight = screenHeight - rect.bottom
+            if (keypadHeight > screenHeight * 0.15) { // keyboard is opened
+                binding.RVChats.smoothScrollToPosition(chatAdapter?.itemCount?.minus(1) ?: 0)
             }
         }
 
@@ -182,7 +194,9 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
 
                 if (status == "online") {
                     binding.tvLastSeen.text = "In chat"
+                    binding.IVOnlineStatus.visibility = View.VISIBLE
                 } else {
+                    binding.IVOnlineStatus.visibility = View.GONE
                     val currentTimeMillis = System.currentTimeMillis()
                     val timeAgoMillis = currentTimeMillis - lastSeen
 
@@ -360,28 +374,33 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
         if (messages.isNotEmpty()) {
             messages.sortBy { it?.dateTime }
             initializeRecyclerView(messages)
-            binding.RVChats.setOnScrollChangeListener { _, _, _, _, _ ->
-                val layoutManager = binding.RVChats.layoutManager as LinearLayoutManager
-                val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+            binding.RVChats.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                    val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
-                if (firstVisibleItemPosition != RecyclerView.NO_POSITION) {
-                    val chatModel = chatAdapter?.getItemInfo(firstVisibleItemPosition)
-                    val dateTime = chatModel?.dateTime
+                    if (firstVisibleItemPosition != RecyclerView.NO_POSITION) {
+                        val chatModel = chatAdapter?.getItemInfo(firstVisibleItemPosition)
+                        val dateTime = chatModel?.dateTime
 
-                    if (dateTime != lastDisplayedDateTime) {
-                        lastDisplayedDateTime = dateTime
-                        val actualDate = Date(dateTime?.toLong() ?: 0)
-                        val todayDate = Date(Timestamp.now().toDate().time)
-                        val formattedDate = SimpleDateFormat("MMM dd yyyy", Locale.getDefault())
-                        binding.tvDate.visibility = View.VISIBLE
-                        binding.tvDate.text = formattedDate.format(actualDate)
+                        if (dateTime != lastDisplayedDateTime) {
+                            lastDisplayedDateTime = dateTime
+                            val actualDate = Date(dateTime?.toLong() ?: 0)
+                            val todayDate = Date(Timestamp.now().toDate().time)
+                            val formattedDate = SimpleDateFormat("MMM dd yyyy", Locale.getDefault())
+                            binding.tvDate.visibility = View.VISIBLE
+                            binding.tvDate.text = formattedDate.format(actualDate)
+                        }
                     }
                 }
-            }
+            })
+            binding.RVChats.scrollToPosition(chatAdapter?.itemCount?.minus(1) ?: 0)
         } else {
             logInfo("conversations", "Conversations are empty.")
         }
     }
+
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onMessageAdded(chatModel: ChatModel?) {
@@ -427,6 +446,7 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
         }
     }
 
+
     override fun onMessageChanged(chatModel: ChatModel?) {
         logInfo(" $CHATS_ACTIVITY onMessageChanged", "Message changed: $chatModel")
     }
@@ -448,9 +468,11 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
         binding.RVChats.apply {
             layoutManager = LinearLayoutManager(this@ChatsActivity)
             adapter = chatAdapter
+            scrollToPosition(chatAdapter?.itemCount?.minus(1) ?: 0) // Ensure scrolling to the last message
             invalidate()
         }
     }
+
 
     private fun addChat(message: String) {
         val params: MutableMap<String, String> = HashMap()

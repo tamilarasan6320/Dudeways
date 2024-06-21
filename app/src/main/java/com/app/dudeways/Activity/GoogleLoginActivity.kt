@@ -91,8 +91,6 @@ class GoogleLoginActivity : AppCompatActivity() {
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 session.setData(Constant.EMAIL, account.email.toString())
-                session.setData(Constant.NAME, account.displayName.toString())
-                session.setData(Constant.PROFILE, account.photoUrl.toString())
                 session.setData("login", "true")
 
                 login()

@@ -33,9 +33,28 @@
             android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Trip uploaded success within  24 hrs ur trip will review"
+            android:text="Trip uploaded successfully. Please wait for the review, which will be completed within 24 hours."
             android:textColor="@color/black"
-            android:textSize="@dimen/_16sdp"
+            android:textSize="@dimen/_14sdp"
+            />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/btnMytrip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:paddingVertical="@dimen/_8sdp"
+            app:backgroundTint="@null"
+            android:backgroundTint="@color/primary_extra_light"
+            android:text="View My Trip"
+            app:strokeColor="@color/primary"
+            app:strokeWidth="2dp"
+            android:textAllCaps="false"
+            android:textSize="@dimen/_14sdp"
+            android:textColor="@color/black"
             />
 
     </LinearLayout>

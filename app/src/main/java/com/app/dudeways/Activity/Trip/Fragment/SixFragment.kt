@@ -34,7 +34,7 @@ class SixFragment : Fragment() {
     var imageUri: Uri? = null
 
     private val REQUEST_IMAGE_GALLERY = 2
-     var trip_type: String? = ""
+    var trip_type: String? = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,21 +52,16 @@ class SixFragment : Fragment() {
             pickImageFromGallery()
         }
 
-
         binding.ivProof1.setOnClickListener {
             pickImageFromGallery()
         }
 
-        if (session.getData(Constant.TRIP_TYPE) == "0") {
-            trip_type = "Road Trip"
-        } else if (session.getData(Constant.TRIP_TYPE) == "1") {
-            trip_type = "Adventure Trip"
-        } else if (session.getData(Constant.TRIP_TYPE) == "2") {
-            trip_type = "Explore Cities"
-        } else if (session.getData(Constant.TRIP_TYPE) == "3") {
-            trip_type = "Airport Flyover"
+        when (session.getData(Constant.TRIP_TYPE)) {
+            "0" -> trip_type = "Road Trip"
+            "1" -> trip_type = "Adventure Trip"
+            "2" -> trip_type = "Explore Cities"
+            "3" -> trip_type = "Airport Flyover"
         }
-
 
         return binding.root
     }
@@ -86,10 +81,8 @@ class SixFragment : Fragment() {
             if (requestCode == REQUEST_IMAGE_GALLERY) {
                 imageUri = data?.data
                 CropImage.activity(imageUri)
-                    // calculate the aspect ratio x of the image
-                    // calculate the aspect ratio y of the image
-                    .setAspectRatio(5, 3) // Set aspect ratio to 4:3 for full width and height
-                    .setCropShape(CropImageView.CropShape.RECTANGLE) // Set crop shape to rectangle
+                    .setAspectRatio(5, 3)
+                    .setCropShape(CropImageView.CropShape.RECTANGLE)
                     .start(requireContext(), this)
             } else if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
                 val result: CropImage.ActivityResult? = CropImage.getActivityResult(data)
@@ -100,31 +93,31 @@ class SixFragment : Fragment() {
                         val myBitmap = BitmapFactory.decodeFile(imgFile.absolutePath)
                         binding.ivProof1.setImageBitmap(myBitmap)
                         binding.ivAddProof1.visibility = View.GONE
-
+                        binding.rlProfile.visibility = View.GONE
                     }
                 }
             }
         }
     }
 
-
-
     fun addtripImage(id: String) {
+        if (filePath1.isNullOrEmpty()) {
+            Toast.makeText(activity, "Please select an image to upload.", Toast.LENGTH_SHORT).show()
+            return
+        }
         val params: MutableMap<String, String> = HashMap()
-        params[Constant.TRIP_ID] = id.toString()
-        val FileParams: MutableMap<String, String> = HashMap()
-        FileParams[Constant.TRIP_IMAGE] = filePath1!!
+        params[Constant.TRIP_ID] = id
+        val fileParams: MutableMap<String, String> = HashMap()
+        fileParams[Constant.TRIP_IMAGE] = filePath1!!
+
         ApiConfig.RequestToVolleyMulti({ result, response ->
             if (result) {
                 try {
                     val jsonObject = JSONObject(response)
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
-
-
                         val intent = Intent(activity, TripCompletedActivity::class.java)
                         startActivity(intent)
                         activity.finish()
-
                         Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
                     } else {
                         Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
@@ -134,14 +127,12 @@ class SixFragment : Fragment() {
                     Toast.makeText(activity, "JSON Parsing Error: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
             } else {
-                Toast.makeText(activity," $result" , Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "$result", Toast.LENGTH_SHORT).show()
             }
-        }, activity, Constant.UPDATE_TRIP_IMAGE, params, FileParams)
+        }, activity, Constant.UPDATE_TRIP_IMAGE, params, fileParams)
     }
+
     fun addtrip() {
-
-
-
         val params: MutableMap<String, String> = HashMap()
         params[Constant.USER_ID] = session.getData(Constant.USER_ID)
         params[Constant.TRIP_TYPE] = trip_type.toString()
@@ -150,17 +141,14 @@ class SixFragment : Fragment() {
         params[Constant.TRIP_TITLE] = session.getData(Constant.TRIP_TITLE)
         params[Constant.TRIP_DESCRIPTION] = session.getData(Constant.TRIP_DESCRIPTION)
         params[Constant.TRIP_LOCATION] = session.getData(Constant.TRIP_LOCATION)
+
         ApiConfig.RequestToVolley({ result, response ->
             if (result) {
                 try {
                     val jsonObject = JSONObject(response)
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
-                        val `object` = JSONObject(response)
-                        val jsonobj = `object`.getJSONObject(Constant.DATA)
-
-                        val id = jsonobj.getString(Constant.ID)
+                        val id = jsonObject.getJSONObject(Constant.DATA).getString(Constant.ID)
                         addtripImage(id)
-
                     } else {
                         Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
                     }
@@ -169,9 +157,8 @@ class SixFragment : Fragment() {
                     Toast.makeText(activity, "JSON Parsing Error: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
             } else {
-                Toast.makeText(activity," $result" , Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "$result", Toast.LENGTH_SHORT).show()
             }
-        }, activity, Constant.ADD_TRIP, params, true,1)
+        }, activity, Constant.ADD_TRIP, params, true, 1)
     }
-
 }

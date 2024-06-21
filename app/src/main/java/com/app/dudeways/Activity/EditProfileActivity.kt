@@ -3,6 +3,8 @@ package com.app.dudeways.Activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Patterns
 import android.view.View
 import android.widget.EditText
@@ -16,6 +18,7 @@ import com.app.dudeways.helper.Constant
 import com.app.dudeways.helper.Session
 import org.json.JSONException
 import org.json.JSONObject
+
 
 class EditProfileActivity : AppCompatActivity() {
 
@@ -41,6 +44,23 @@ class EditProfileActivity : AppCompatActivity() {
         binding.etState.setText(session.getData(Constant.STATE))
         binding.etcity.setText(session.getData(Constant.CITY))
         binding.etIntroduction.setText(session.getData(Constant.INTRODUCTION))
+
+
+        binding.etIntroduction.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                if (binding.etIntroduction.lineCount > 3) {
+                    val text = s.toString().substring(0, binding.etIntroduction.selectionEnd - 1)
+                    binding.etIntroduction.setText(text)
+                    binding.etIntroduction.setSelection(binding.etIntroduction.text!!.length)
+                }
+            }
+        })
 
         profession_list()
         binding.tvSkip.setOnClickListener {
@@ -77,8 +97,8 @@ class EditProfileActivity : AppCompatActivity() {
             } else if (binding.etcity.text.toString().isEmpty()) {
                 binding.etcity.error = "Please enter city"
                 return@setOnClickListener
-            } else if (binding.etIntroduction.text.toString().length < 10) {
-                binding.etIntroduction.error = "Introduction should be at least 10 characters"
+            }else if (binding.etIntroduction.text.toString().length < 15) {
+                binding.etIntroduction.error = "Introduction should be at least 15 characters"
                 return@setOnClickListener
             }
             else {

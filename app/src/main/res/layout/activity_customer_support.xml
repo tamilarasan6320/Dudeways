@@ -73,7 +73,7 @@
                             <ImageView
                                 android:layout_marginRight="@dimen/_5sdp"
                                 android:layout_gravity="center"
-                                android:src="@drawable/whatsapp_logo_ic"
+                                android:src="@drawable/instagram_logo"
                                 android:layout_width="@dimen/_30sdp"
                                 android:layout_height="@dimen/_30sdp"/>
 
@@ -82,7 +82,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_semibold"
-                                android:text="Whatsapp"
+                                android:text="Instagram"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12sdp" />
 
@@ -95,7 +95,7 @@
                             android:layout_toLeftOf="@+id/ivShare"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Join our whatsapp group to get instant offers and updates"
+                            android:text="Join our Instagram group to get instant offers and updates"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_10sdp"
                             android:fontFamily="@font/poppins_regular"
@@ -109,7 +109,7 @@
                             android:layout_height="wrap_content">
 
                             <RelativeLayout
-                                android:id="@+id/rlWhatsappLinkShare"
+                                android:id="@+id/rlInstagramLinkShare"
                                 android:background="@drawable/bg_coner"
                                 android:layout_weight="1"
                                 android:padding="@dimen/_10sdp"
@@ -140,7 +140,7 @@
 
                             </RelativeLayout>
                             <RelativeLayout
-                                android:id="@+id/rlWhatsappLinkJoin"
+                                android:id="@+id/rlInstagramLinkJoin"
                                 android:background="@color/green"
                                 android:layout_weight="1"
                                 android:padding="@dimen/_10sdp"

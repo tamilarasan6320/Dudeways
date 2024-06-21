@@ -51,6 +51,22 @@ class ProfileDetailsActivity : AppCompatActivity() {
 
         profession_list()
 
+        binding.etIntroduction.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                if (binding.etIntroduction.lineCount > 3) {
+                    val text = s.toString().substring(0, binding.etIntroduction.selectionEnd - 1)
+                    binding.etIntroduction.setText(text)
+                    binding.etIntroduction.setSelection(binding.etIntroduction.text!!.length)
+                }
+            }
+        })
+
         binding.llMale.setOnClickListener {
             binding.llMale.backgroundTintList = resources.getColorStateList(R.color.primary)
             binding.llFemale.backgroundTintList =

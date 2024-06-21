@@ -1,6 +1,7 @@
 package com.app.dudeways.Adapter
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -95,9 +96,16 @@ class MytriplistAdapter(
 
 
         holder.llDelete.setOnClickListener {
-            // delete trip
-            deleteTrip(report.id)
+            AlertDialog.Builder(activity)
+                .setTitle("Delete Trip")
+                .setMessage("Are you sure you want to delete this trip?")
+                .setPositiveButton("Yes") { dialog, which ->
+                    deleteTrip(report.id)
+                }
+                .setNegativeButton("No", null)
+                .show()
         }
+
 
 
 
@@ -105,7 +113,7 @@ class MytriplistAdapter(
         Glide.with(activitys).load(report.trip_image).placeholder(R.drawable.placeholder_bg)
             .into(holder.ivProfileImage)
 
-        Glide.with(activitys).load(report.profile).placeholder(R.drawable.placeholder_bg)
+        Glide.with(activitys).load(report.profile).placeholder(R.drawable.profile_placeholder)
             .into(holder.ivProfile)
 
 
@@ -120,6 +128,9 @@ class MytriplistAdapter(
                     val jsonObject = JSONObject(response)
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
 
+
+
+                        (activity as MytripsActivity).binding.swipeRefreshLayout.isRefreshing = true
                        // call the fuction MytripsActivity.mytripList()
                         (activity as MytripsActivity).mytripList()
 

@@ -2,9 +2,11 @@ package com.app.dudeways.Activity
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.widget.Toast
+import android.widget.VideoView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -36,6 +38,8 @@ class SplashscreenActivity : AppCompatActivity() {
 
 
 
+
+
         activity = this
         session = Session(activity)
         handler = Handler()
@@ -43,7 +47,16 @@ class SplashscreenActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        GotoActivity()
+        val videoView = findViewById<VideoView>(R.id.videoView)
+        val videoUri = Uri.parse("android.resource://" + packageName + "/" + R.raw.logo_animation)
+
+        videoView.setVideoURI(videoUri)
+        videoView.start()
+
+        videoView.setOnCompletionListener {
+            GotoActivity()
+            // Do something when the video ends
+        }
     }
 
 

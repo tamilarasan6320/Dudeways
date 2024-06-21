@@ -178,10 +178,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
+            <RelativeLayout
+                android:id="@+id/rlProfile"
+                android:layout_width="350dp"
+                android:layout_height="@dimen/_120sdp"/>
+
             <ImageView
                 android:id="@+id/ivProof1"
-                android:layout_width="@dimen/_120sdp"
-                android:layout_height="@dimen/_120sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:scaleType="fitXY"
                 />
 

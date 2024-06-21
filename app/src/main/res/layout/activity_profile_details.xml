@@ -283,7 +283,7 @@
                     android:drawableEnd="@drawable/down_arrow"
                     android:drawableTint="@color/primary"
                     android:editable="false"
-                    android:text="hi"
+                    android:text=""
                     android:focusableInTouchMode="true"
                     android:cursorVisible="false"
                     android:focusable="false"
@@ -388,7 +388,7 @@
             <!-- Refer Code Field -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:hint="Describe Yourself"
                 app:hintTextColor="@color/primary"
@@ -401,10 +401,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_medium"
-                    android:inputType="text | textMultiLine"
+                    android:inputType="textMultiLine"
                     android:gravity="start"
                     android:maxLength="70"
-                    />
+                    android:maxLines="3"
+                    android:scrollHorizontally="false" />
             </com.google.android.material.textfield.TextInputLayout>
 
 

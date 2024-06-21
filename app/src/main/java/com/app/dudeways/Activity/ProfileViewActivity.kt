@@ -231,7 +231,7 @@ class ProfileViewActivity : AppCompatActivity() {
                 if (isCameraRequest) {
                     // Configure CropImage for rectangular crop
                     CropImage.activity(imageUri)
-                        .setAspectRatio(4, 1) // Set aspect ratio for a rectangle
+                        .setAspectRatio(4, 2) // Set aspect ratio for a rectangle
                         .setCropShape(CropImageView.CropShape.RECTANGLE) // Set crop shape to rectangle
                         .start(this)
                 } else {

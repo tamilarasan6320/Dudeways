@@ -24,5 +24,10 @@ class IdverficationActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+
+        binding.ivBack.setOnClickListener {
+            onBackPressed()
+        }
+
     }
 }

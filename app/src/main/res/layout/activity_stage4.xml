@@ -50,7 +50,7 @@
             android:id="@+id/tvDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="You have requested for verification under process."
+            android:text="You have requested for verfication badge.."
             android:textSize="@dimen/_12sdp"
             android:textColor="@color/black"
             android:fontFamily="@font/poppins_semibold"

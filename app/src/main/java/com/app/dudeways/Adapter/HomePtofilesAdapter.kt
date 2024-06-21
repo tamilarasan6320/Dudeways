@@ -1,6 +1,7 @@
 package com.app.dudeways.Adapter
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +13,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dudeways.Activity.ChatsActivity
+import com.app.dudeways.Activity.FreePointsActivity
 import com.app.dudeways.Activity.ProfileinfoActivity
+import com.app.dudeways.Activity.PurchasepointActivity
 import com.bumptech.glide.Glide
 import com.app.dudeways.Model.HomeProfile
 import com.app.dudeways.R
@@ -123,21 +126,71 @@ class HomePtofilesAdapter(
             session.setData("reciver_profile", report.profile)
             intent.putExtra("friend", report.friend)
             activity.startActivity(intent)
+
         }
 
+
+        val point = session.getData(Constant.POINTS)
+
+
+
         holder.rlChat.setOnClickListener {
-            val intent = Intent(activity, ChatsActivity::class.java)
-            intent.putExtra("id", report.id)
-            intent.putExtra("name", report.name)
-            session.setData("reciver_profile", report.profile)
-            intent.putExtra("chat_user_id", report.user_id)
-            activity.startActivity(intent)
+
+
+            if (point.toInt() < 10) {
+
+                Toast.makeText(activity, "You don't have enough points to chat", Toast.LENGTH_SHORT).show()
+                val dialogView = activity.layoutInflater.inflate(R.layout.dialog_custom, null)
+
+                val dialogBuilder = AlertDialog.Builder(activity)
+                    .setView(dialogView)
+                    .create()
+                val title = dialogView.findViewById<TextView>(R.id.dialog_title)
+                val btnPurchase = dialogView.findViewById<LinearLayout>(R.id.btnPurchase)
+                val btnFreePoints = dialogView.findViewById<LinearLayout>(R.id.btnFreePoints)
+
+
+                title.text = "You have ${session.getData(Constant.POINTS)} Points"
+
+                btnPurchase.setOnClickListener {
+                    val intent = Intent(activity, PurchasepointActivity::class.java)
+                    activity.startActivity(intent)
+                    dialogBuilder.dismiss()
+                }
+
+                btnFreePoints.setOnClickListener {
+                    val intent = Intent(activity, FreePointsActivity::class.java)
+                    activity.startActivity(intent)
+                    dialogBuilder.dismiss()
+                }
+
+
+
+
+                dialogBuilder.show()
+
+
+                return@setOnClickListener
+            }
+            else if (report.user_id == session.getData(Constant.USER_ID)) {
+                Toast.makeText(activity, "You can't chat with yourself", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                val intent = Intent(activity, ChatsActivity::class.java)
+                intent.putExtra("id", report.id)
+                intent.putExtra("name", report.name)
+                session.setData("reciver_profile", report.profile)
+                intent.putExtra("chat_user_id", report.user_id)
+                activity.startActivity(intent)
+            }
+
+
         }
 
         Glide.with(activitys).load(report.trip_image).placeholder(R.drawable.placeholder_bg)
             .into(holder.ivProfileImage)
 
-        Glide.with(activitys).load(report.profile).placeholder(R.drawable.placeholder_bg)
+        Glide.with(activitys).load(report.profile).placeholder(R.drawable.profile_placeholder)
             .into(holder.ivProfile)
 
 

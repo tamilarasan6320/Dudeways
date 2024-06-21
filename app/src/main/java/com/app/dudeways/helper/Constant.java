@@ -15,6 +15,7 @@ public class Constant {
     public static final String CHECK_MOBILE = BaseUrl + "check_mobile";
     public static final String CHECK_EMAIL = BaseUrl + "check_email";
     public static final String USERDETAILS = BaseUrl + "userdetails";
+    public static final String SETTINGS_LIST = BaseUrl + "settings_list";
 
     public static final String UPDATE_IMAGE = BaseUrl + "update_image";
     public static final String UPDATE_COVER_IMG = BaseUrl + "update_cover_img";
@@ -87,6 +88,8 @@ public class Constant {
 
     public static final String NAME = "name";
     public static final String UNIQUE_NAME = "unique_name";
+    public static final String INSTAGRAM_LINK = "instagram_link";
+    public static final String TELEGRAM_LINK = "telegram_link";
     public static final String SEARCH = "search";
     public static final String EMAIL = "email";
     public static final String AGE = "age";

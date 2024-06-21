@@ -147,6 +147,7 @@
                     android:gravity="center"
                     android:layout_width="@dimen/_8sdp"
                     android:layout_height="@dimen/_8sdp"
+                    android:scaleType="fitXY"
                     android:backgroundTint="@color/white"
                     />
 

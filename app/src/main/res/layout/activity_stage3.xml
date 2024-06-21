@@ -109,6 +109,7 @@
                 android:layout_width="@dimen/_14sdp"
                 android:layout_height="@dimen/_14sdp"
                 android:background="@drawable/add_icon"
+                android:scaleType="fitXY"
                 />
 
 

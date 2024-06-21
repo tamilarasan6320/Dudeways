@@ -36,6 +36,7 @@ class MytripsActivity : AppCompatActivity() {
             onBackPressed()
         }
 
+
         mytripList()
 
         binding.swipeRefreshLayout.setOnRefreshListener {
@@ -48,7 +49,6 @@ class MytripsActivity : AppCompatActivity() {
     }
 
     fun mytripList() {
-        binding.swipeRefreshLayout.isRefreshing = true
         val params: MutableMap<String, String> = HashMap()
         params[Constant.USER_ID] = session.getData(Constant.USER_ID)
         ApiConfig.RequestToVolley({ result, response ->

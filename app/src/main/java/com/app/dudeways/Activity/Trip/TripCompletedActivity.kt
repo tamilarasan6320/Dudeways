@@ -7,6 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.app.dudeways.Activity.HomeActivity
+import com.app.dudeways.Activity.MytripsActivity
 import com.app.dudeways.R
 import com.app.dudeways.databinding.ActivityTripCompletedBinding
 import com.app.dudeways.helper.Constant
@@ -28,23 +29,20 @@ class TripCompletedActivity : AppCompatActivity() {
         activity = this
         session = Session(activity)
 
+        session.setData(Constant.TRIP_LOCATION, "")
+        session.setData(Constant.TRIP_TITLE, "")
+        session.setData(Constant.TRIP_DESCRIPTION, "")
+        session.setData(Constant.TRIP_FROM_DATE,"")
+        session.setData(Constant.TRIP_TO_DATE,"")
 
-
-
-        // Handler to move to the next activity after 3 seconds
-        Handler(Looper.getMainLooper()).postDelayed({
-            // Start the next activity
-
-
-            session.setData(Constant.TRIP_LOCATION, "")
-            session.setData(Constant.TRIP_TITLE, "")
-            session.setData(Constant.TRIP_DESCRIPTION, "")
-            session.setData(Constant.TRIP_FROM_DATE,"")
-            session.setData(Constant.TRIP_TO_DATE,"")
-
-            val intent = Intent(this@TripCompletedActivity, HomeActivity::class.java)
+        binding.btnMytrip.setOnClickListener {
+            val intent = Intent(activity, MytripsActivity::class.java)
             startActivity(intent)
             finish()
-        }, 3000) // 3000 milliseconds = 3 seconds
+        }
+
+
     }
+        // Handler to move to the next activity after 3 seconds
+
 }
