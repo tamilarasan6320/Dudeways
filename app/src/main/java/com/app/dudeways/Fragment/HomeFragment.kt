@@ -205,7 +205,7 @@ class HomeFragment : Fragment() {
                 val selectedDate = Calendar.getInstance()
                 selectedDate.set(year, month, dayOfMonth)
 
-                val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+                val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                 formattedDate = dateFormat.format(selectedDate.time)
 
                 tvName.text = formattedDate

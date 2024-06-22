@@ -84,6 +84,8 @@ class CustomerSupportActivity : AppCompatActivity() {
                 try {
                     val jsonObject: JSONObject = JSONObject(response)
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
+
+
                       val array = jsonObject.getJSONArray("data")
 
                         session.setData(Constant.INSTAGRAM_LINK, array.getJSONObject(0).getString(Constant.INSTAGRAM_LINK))
@@ -92,11 +94,7 @@ class CustomerSupportActivity : AppCompatActivity() {
 
 
 
-                        Toast.makeText(
-                            activity,
-                            jsonObject.getString("message"),
-                            Toast.LENGTH_SHORT
-                        ).show()
+
 
 
                     } else {

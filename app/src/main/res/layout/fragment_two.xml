@@ -182,6 +182,7 @@
             android:hint="Location"
             android:fontFamily="@font/poppins_medium"
             android:padding="@dimen/_10sdp"
+            android:maxLength="20"
             android:textCursorDrawable="@drawable/color_cursor"
             />
 

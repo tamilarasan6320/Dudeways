@@ -77,9 +77,9 @@ class ChatAdapter(
                                 formatDateTime(date.toLong())
                             }
 
-                        Glide.with(binding.root.context)
-                            .load(session.getData("reciver_profile"))
+                        Glide.with(binding.root.context).load(session.getData("reciver_profile")).placeholder(R.drawable.profile_placeholder)
                             .into(binding.ivUserProfile)
+
                     }
 
                     else -> {}

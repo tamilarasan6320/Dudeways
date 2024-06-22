@@ -93,7 +93,7 @@ class SixFragment : Fragment() {
                         val myBitmap = BitmapFactory.decodeFile(imgFile.absolutePath)
                         binding.ivProof1.setImageBitmap(myBitmap)
                         binding.ivAddProof1.visibility = View.GONE
-                        binding.rlProfile.visibility = View.GONE
+                    //    binding.rlProfile.visibility = View.GONE
                     }
                 }
             }

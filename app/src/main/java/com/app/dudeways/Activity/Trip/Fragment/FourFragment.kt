@@ -87,6 +87,7 @@ class FourFragment : Fragment() {
                 val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
                 val formattedDate = dateFormat.format(selectedDate.time)
 
+
                 // Set the formatted date to the EditText
                 binding.edEndDate.setText(formattedDate)
 

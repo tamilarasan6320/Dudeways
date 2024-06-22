@@ -74,43 +74,9 @@ class ChatlistAdapter(
         holder.itemView.setOnClickListener{
 
 
-            if (point.toInt() < 10) {
-
-                Toast.makeText(activity, "You don't have enough points to chat", Toast.LENGTH_SHORT).show()
-                val dialogView = activity.layoutInflater.inflate(R.layout.dialog_custom, null)
-
-                val dialogBuilder = AlertDialog.Builder(activity)
-                    .setView(dialogView)
-                    .create()
-                val title = dialogView.findViewById<TextView>(R.id.dialog_title)
-                val btnPurchase = dialogView.findViewById<LinearLayout>(R.id.btnPurchase)
-                val btnFreePoints = dialogView.findViewById<LinearLayout>(R.id.btnFreePoints)
 
 
-                title.text = "You have ${session.getData(Constant.POINTS)} Points"
-
-                btnPurchase.setOnClickListener {
-                    val intent = Intent(activity, PurchasepointActivity::class.java)
-                    activity.startActivity(intent)
-                    dialogBuilder.dismiss()
-                }
-
-                btnFreePoints.setOnClickListener {
-                    val intent = Intent(activity, FreePointsActivity::class.java)
-                    activity.startActivity(intent)
-                    dialogBuilder.dismiss()
-                }
-
-
-
-
-                dialogBuilder.show()
-
-
-                return@setOnClickListener
-            }
-
-            else if (report.chat_user_id == session.getData(Constant.USER_ID)) {
+         if (report.chat_user_id == session.getData(Constant.USER_ID)) {
                 Toast.makeText(activity, "You can't chat with yourself", Toast.LENGTH_SHORT).show()
             }
             else {

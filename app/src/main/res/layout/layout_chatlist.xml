@@ -78,6 +78,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textSize="@dimen/_10sdp"
             android:gravity="right"
             android:textColor="@color/primary"
             android:fontFamily="@font/poppins_medium"

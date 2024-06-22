@@ -87,6 +87,7 @@ public class Constant {
     public static final String FRIEND = "friend";
 
     public static final String NAME = "name";
+    public static final String CHAT_STATUS = "chat_status";
     public static final String UNIQUE_NAME = "unique_name";
     public static final String INSTAGRAM_LINK = "instagram_link";
     public static final String TELEGRAM_LINK = "telegram_link";

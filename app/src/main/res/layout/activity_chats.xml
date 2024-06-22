@@ -22,10 +22,10 @@
             <ImageView
                 android:layout_centerVertical="true"
                 android:id="@+id/ivBack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/arrow_left"
-                android:padding="@dimen/_5sdp"/>
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_18sdp"
+                android:background="@drawable/arrow_left"
+                />
 
 
 
@@ -62,7 +62,7 @@
             <LinearLayout
                 android:layout_toRightOf="@+id/rlProfile"
                 android:orientation="vertical"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
                 <TextView
@@ -97,6 +97,17 @@
                     />
 
             </LinearLayout>
+
+
+            <ImageButton
+                android:id="@+id/ivMore"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:background="@drawable/more_ic"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:onClick="onMoreOptionsClicked" />
+
 
 
 

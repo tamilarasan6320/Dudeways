@@ -11,6 +11,8 @@ import android.text.TextWatcher
 import android.text.format.DateUtils
 import android.util.Log
 import android.view.View
+import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -91,10 +93,19 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
             .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
             .build()
 
+// In your onCreate method
         soundPool = SoundPool.Builder()
             .setMaxStreams(1)
             .setAudioAttributes(audioAttributes)
             .build()
+
+        soundPool.setOnLoadCompleteListener { soundPool, sampleId, status ->
+            if (status == 0) {
+                logInfo(CHATS_ACTIVITY, "Sound loaded successfully: $sampleId")
+            } else {
+                logError(CHATS_ACTIVITY, "Failed to load sound: $sampleId")
+            }
+        }
 
         sentTone = soundPool.load(this, R.raw.receive_tone, 1)
         receiveTone = soundPool.load(this, R.raw.sent_tone, 1)
@@ -133,10 +144,132 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
 
             override fun afterTextChanged(s: Editable?) {}
         })
+        binding.ivMore.setOnClickListener {
+            showPopupMenu()
+        }
+
 
         observeTypingStatus()
         setUserStatus(true)
         observeUserStatus()
+    }
+
+    private fun showPopupMenu() {
+        val popupMenu = PopupMenu(this, binding.ivMore)
+        popupMenu.inflate(R.menu.chat_options_menu)
+
+        // Check current block status
+        isBlocked(senderId, receiverId) { blocked ->
+            val blockMenuItem = popupMenu.menu.findItem(R.id.menu_block_chat)
+            blockMenuItem.title = if (blocked) "Unblock User" else "Block User"
+
+            popupMenu.setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.menu_block_chat -> {
+                        if (blocked) {
+                            // Unblock user
+                            updateBlockStatus(senderId, receiverId, false)
+                        } else {
+                            // Block user
+                            updateBlockStatus(senderId, receiverId, true)
+                        }
+                        true
+                    }
+                    R.id.menu_clear_chat -> {
+                        // Implement clear chat functionality if needed
+                        true
+                    }
+                    R.id.menu_report -> {
+                        report()
+                        true
+                    }
+                    else -> false
+                }
+            }
+
+            popupMenu.show()
+        }
+    }
+
+
+
+    // Function to update block status
+    private fun updateBlockStatus(senderId: String, receiverId: String, blocked: Boolean) {
+        val blockStatusRef = firebaseDatabase.getReference("block_status")
+
+        // Update block status for sender -> receiver
+        blockStatusRef.child(senderId).child(receiverId).setValue(blocked)
+            .addOnSuccessListener {
+                if (blocked) {
+                    logInfo(CHATS_ACTIVITY, "User blocked successfully")
+                } else {
+                    logInfo(CHATS_ACTIVITY, "User unblocked successfully")
+                }
+            }
+            .addOnFailureListener { exception ->
+                logError(CHATS_ACTIVITY, "Failed to update block status: ${exception.message}")
+            }
+
+        // Update block status for receiver -> sender (optional)
+        blockStatusRef.child(receiverId).child(senderId).setValue(blocked)
+            .addOnSuccessListener {
+                if (blocked) {
+                    logInfo(CHATS_ACTIVITY, "User blocked successfully (reverse)")
+                } else {
+                    logInfo(CHATS_ACTIVITY, "User unblocked successfully (reverse)")
+                }
+            }
+            .addOnFailureListener { exception ->
+                logError(CHATS_ACTIVITY, "Failed to update block status (reverse): ${exception.message}")
+            }
+    }
+
+    // Function to check if user is blocked
+    private fun isBlocked(senderId: String, receiverId: String, callback: (Boolean) -> Unit) {
+        val blockStatusRef = firebaseDatabase.getReference("block_status")
+
+        blockStatusRef.child(senderId).child(receiverId).get()
+            .addOnSuccessListener { snapshot ->
+                val isBlocked = snapshot.getValue(Boolean::class.java) ?: false
+                callback(isBlocked)
+            }
+            .addOnFailureListener { exception ->
+                logError(CHATS_ACTIVITY, "Error checking block status: ${exception.message}")
+                callback(false) // Default to not blocked in case of error
+            }
+    }
+
+
+    private fun report() {
+        // Implement report functionality
+    }
+
+    private fun clearLocalMessages() {
+        messages.clear()
+        chatAdapter?.notifyDataSetChanged()
+    }
+
+
+    private fun clearChatInFirebase(senderName: String, receiverName: String) {
+        // Reference to sender's chat with receiver
+        val senderChatRef = databaseReference.child("CHATS_V2").child(senderName).child(receiverName)
+        senderChatRef.removeValue()
+            .addOnSuccessListener {
+                logInfo(CHATS_ACTIVITY, "Chat cleared successfully for sender")
+            }
+            .addOnFailureListener { exception ->
+                logError(CHATS_ACTIVITY, "Failed to clear chat for sender: ${exception.message}")
+            }
+
+        // Reference to receiver's chat with sender
+        val receiverChatRef = databaseReference.child("CHATS_V2").child(receiverName).child(senderName)
+        receiverChatRef.removeValue()
+            .addOnSuccessListener {
+                logInfo(CHATS_ACTIVITY, "Chat cleared successfully for receiver")
+            }
+            .addOnFailureListener { exception ->
+                logError(CHATS_ACTIVITY, "Failed to clear chat for receiver: ${exception.message}")
+            }
     }
 
 
@@ -167,6 +300,8 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
             }
         }
     }
+
+
 
 
     private fun observeTypingStatus() {
@@ -357,14 +492,30 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
     }
 
     private fun playSentTone() {
-        soundPool.setOnLoadCompleteListener { _, _, _ -> }
-        soundPool.play(sentTone, 1f, 1f, 0, 0, 1f)
+        logInfo(CHATS_ACTIVITY, "Attempting to play sent tone")
+        val result = soundPool.play(sentTone, 1f, 1f, 0, 0, 1f)
+        if (result == 0) {
+            Toast.makeText(this, "Failed to play sent tone", Toast.LENGTH_SHORT).show()
+            logError(CHATS_ACTIVITY, "Failed to play sent tone")
+        } else {
+            Toast.makeText(this, "Sent tone played successfully", Toast.LENGTH_SHORT).show()
+            logInfo(CHATS_ACTIVITY, "Sent tone played successfully")
+        }
     }
 
     private fun playReceiveTone() {
-        soundPool.setOnLoadCompleteListener { _, _, _ -> }
-        soundPool.play(receiveTone, 1f, 1f, 0, 0, 1f)
+        logInfo(CHATS_ACTIVITY, "Attempting to play receive tone")
+        val result = soundPool.play(receiveTone, 1f, 1f, 0, 0, 1f)
+        if (result == 0) {
+            logError(CHATS_ACTIVITY, "Failed to play receive tone")
+        } else {
+            logInfo(CHATS_ACTIVITY, "Receive tone played successfully")
+        }
     }
+
+
+
+
 
     private var lastDisplayedDateTime: String? = null
 

@@ -2,6 +2,8 @@ package com.app.dudeways.Activity.Trip.Fragment
 
 import android.app.Activity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -34,6 +36,22 @@ class FiveFragment : Fragment() {
         (activity as StarttripActivity).binding.btnNext.visibility = View.VISIBLE
         (activity as StarttripActivity).binding.btnNext.text = "Next"
 
+
+        binding.etDescription.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                if (binding.etDescription.lineCount > 5) {
+                    val text = s.toString().substring(0, binding.etDescription.selectionEnd - 1)
+                    binding.etDescription.setText(text)
+                    binding.etDescription.setSelection(binding.etDescription.text!!.length)
+                }
+            }
+        })
 
         if (session.getData(Constant.TRIP_TITLE) != null) {
             binding.etTripName.setText(session.getData(Constant.TRIP_TITLE))

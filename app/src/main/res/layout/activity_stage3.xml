@@ -97,6 +97,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
+                android:scaleType="fitXY"
                 android:id="@+id/ivBackproof"
                 android:layout_width="@dimen/_120sdp"
                 android:layout_height="@dimen/_120sdp"/>
@@ -109,7 +110,6 @@
                 android:layout_width="@dimen/_14sdp"
                 android:layout_height="@dimen/_14sdp"
                 android:background="@drawable/add_icon"
-                android:scaleType="fitXY"
                 />
 
 

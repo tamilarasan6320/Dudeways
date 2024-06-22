@@ -13,6 +13,7 @@ import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -51,6 +52,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.json.JSONException
 import org.json.JSONObject
+import java.io.IOException
 import java.util.Locale
 
 class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListener {
@@ -184,13 +186,30 @@ class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
                     val location: Location? = task.result
                     if (location != null) {
                         val geocoder = Geocoder(this, Locale.getDefault())
-                        val list: MutableList<Address>? =
-                            geocoder.getFromLocation(location.latitude, location.longitude, 1)
+                        var addresses: List<Address>? = null
+                        var retryCount = 3
+                        while (retryCount > 0) {
+                            try {
+                                addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1)
+                                if (addresses != null && addresses.isNotEmpty()) {
+                                    break
+                                }
+                            } catch (e: IOException) {
+                                Log.e("GeocoderError", "Service not Available. Retries left: $retryCount", e)
+                                retryCount--
+                                if (retryCount == 0) {
+                                    Log.e("GeocoderError", "Failed to get location after retries", e)
+                                    Toast.makeText(this, "Failed to get location. Please try again later.", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        }
 
-                        val latitude = list?.get(0)?.latitude
-                        val longitude = list?.get(0)?.longitude
-
-                        location(latitude, longitude)
+                        if (addresses != null && addresses.isNotEmpty()) {
+                            val address = addresses[0]
+                            val latitude = address.latitude
+                            val longitude = address.longitude
+                            location(latitude, longitude)
+                        }
                     }
                 }
             } else {
@@ -202,6 +221,7 @@ class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
             requestPermissions()
         }
     }
+
 
     private fun isLocationEnabled(): Boolean {
         val locationManager: LocationManager =

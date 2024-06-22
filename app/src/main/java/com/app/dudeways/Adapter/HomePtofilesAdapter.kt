@@ -56,6 +56,10 @@ class HomePtofilesAdapter(
         holder.tvUsername.text = "@"+report.unique_name
         holder.tvDate.text = "From "+report.from_date+" to "+report.to_date
         holder.tvTitle.text = report.trip_title
+        holder.tvKm.text = ""+report.distance+" away"
+
+        // \u00B7 + time
+        holder.tvtime.text = "\u00B7 "+report.time
 
 
         // check report.user_name is more than 10 latters
@@ -106,11 +110,11 @@ class HomePtofilesAdapter(
             if (friend_data == "0") {
                 val friend = "1"
                 friend_data = "1"
-                add_freind(holder.ivaddFriend, holder.tvAddFriend, report.id,friend)
+                add_freind(holder.ivaddFriend, holder.tvAddFriend, report.user_id,friend)
             } else if (friend_data == "1"   ) {
                 val friend = "2"
                  friend_data = "0"
-                add_freind(holder.ivaddFriend, holder.tvAddFriend, report.id,friend)
+                add_freind(holder.ivaddFriend, holder.tvAddFriend, report.user_id,friend)
             }
 
 
@@ -137,42 +141,8 @@ class HomePtofilesAdapter(
         holder.rlChat.setOnClickListener {
 
 
-            if (point.toInt() < 10) {
-
-                Toast.makeText(activity, "You don't have enough points to chat", Toast.LENGTH_SHORT).show()
-                val dialogView = activity.layoutInflater.inflate(R.layout.dialog_custom, null)
-
-                val dialogBuilder = AlertDialog.Builder(activity)
-                    .setView(dialogView)
-                    .create()
-                val title = dialogView.findViewById<TextView>(R.id.dialog_title)
-                val btnPurchase = dialogView.findViewById<LinearLayout>(R.id.btnPurchase)
-                val btnFreePoints = dialogView.findViewById<LinearLayout>(R.id.btnFreePoints)
-
-
-                title.text = "You have ${session.getData(Constant.POINTS)} Points"
-
-                btnPurchase.setOnClickListener {
-                    val intent = Intent(activity, PurchasepointActivity::class.java)
-                    activity.startActivity(intent)
-                    dialogBuilder.dismiss()
-                }
-
-                btnFreePoints.setOnClickListener {
-                    val intent = Intent(activity, FreePointsActivity::class.java)
-                    activity.startActivity(intent)
-                    dialogBuilder.dismiss()
-                }
-
-
-
-
-                dialogBuilder.show()
-
-
-                return@setOnClickListener
-            }
-            else if (report.user_id == session.getData(Constant.USER_ID)) {
+            // point is less the 10
+            if (report.user_id == session.getData(Constant.USER_ID)) {
                 Toast.makeText(activity, "You can't chat with yourself", Toast.LENGTH_SHORT).show()
             }
             else {
@@ -218,6 +188,9 @@ class HomePtofilesAdapter(
         val ivProfile:ImageView = itemView.findViewById(R.id.ivProfile)
         val rlChat:RelativeLayout = itemView.findViewById(R.id.rlChat)
         val llProfile:LinearLayout = itemView.findViewById(R.id.llProfile)
+        val tvKm:TextView = itemView.findViewById(R.id.tvKm)
+        val tvtime:TextView = itemView.findViewById(R.id.tvtime)
+
 
 
     }
@@ -226,13 +199,13 @@ class HomePtofilesAdapter(
     private fun add_freind(
         ivaddFriend: ImageView,
         tvAddFriend: TextView,
-        id: String?,
+        user_id: String?,
         friend: String
     ) {
         val session = Session(activity)
         val params: MutableMap<String, String> = HashMap()
         params[Constant.USER_ID] = session.getData(Constant.USER_ID)
-        params[Constant.FRIEND_USER_ID] = id!!
+        params[Constant.FRIEND_USER_ID] = user_id!!
         params[Constant.FRIEND] = friend
 
         ApiConfig.RequestToVolley({ result, response ->

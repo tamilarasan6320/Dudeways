@@ -29,6 +29,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_regular"
         android:textColor="@color/black"
+        android:text="iufhiufdhkbbuhkuhiuhuhjvkjfnnkjvdfhidfhdiufin"
         android:textSize="@dimen/_12sdp" />
 
         <TextView

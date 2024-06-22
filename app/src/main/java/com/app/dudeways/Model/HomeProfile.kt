@@ -23,6 +23,8 @@ class HomeProfile {
     var friend: String? = null
     var verified: String? = null
     var trip_image: String? = null
+    var distance: String? = null
+    var time: String? = null
 
 
     constructor(
@@ -44,7 +46,9 @@ class HomeProfile {
         friend: String?,
         verified: String?,
         trip_image: String?,
-        user_id: String?
+        user_id: String?,
+        distance: String?,
+        time: String?
 
     ) {
         this.user_id = user_id
@@ -66,6 +70,8 @@ class HomeProfile {
         this.friend = friend
         this.verified = verified
         this.trip_image = trip_image
+        this.distance = distance
+        this.time = time
     }
 
 

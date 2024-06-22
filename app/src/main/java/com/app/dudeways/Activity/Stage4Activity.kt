@@ -25,9 +25,7 @@ class Stage4Activity : AppCompatActivity() {
         session = Session(activity)
 
         binding.btnVerify.setOnClickListener {
-            val intent = Intent(activity, HomeActivity::class.java)
-            startActivity(intent)
-            finish()
+           onBackPressed()
         }
 
         Glide.with(activity).load(session.getData(Constant.PROFILE)).placeholder(R.drawable.profile_placeholder).into(binding.civProfile)
