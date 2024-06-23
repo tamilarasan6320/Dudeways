@@ -47,6 +47,7 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
     private val firebaseDatabase: FirebaseDatabase =
         Firebase.database("https://dudeways-c8f31-default-rtdb.asia-southeast1.firebasedatabase.app")
     private val databaseReference: DatabaseReference = firebaseDatabase.reference
+    private var chatReference: DatabaseReference? = null
     private var chatAdapter: ChatAdapter? = null
     private var messages = mutableListOf<ChatModel?>()
 
@@ -76,7 +77,8 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
         senderName = session.getData(Constant.NAME)
         receiverName = intent.getStringExtra("name")
         binding.tvName.text = receiverName
-
+        chatReference =
+            databaseReference.child("CHATS_V2").child(senderName!!).child(receiverName!!)
         typingStatusReference = firebaseDatabase.getReference("typing_status/$senderId")
 
         Glide.with(this)
@@ -93,19 +95,10 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
             .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
             .build()
 
-// In your onCreate method
         soundPool = SoundPool.Builder()
             .setMaxStreams(1)
             .setAudioAttributes(audioAttributes)
             .build()
-
-        soundPool.setOnLoadCompleteListener { soundPool, sampleId, status ->
-            if (status == 0) {
-                logInfo(CHATS_ACTIVITY, "Sound loaded successfully: $sampleId")
-            } else {
-                logError(CHATS_ACTIVITY, "Failed to load sound: $sampleId")
-            }
-        }
 
         sentTone = soundPool.load(this, R.raw.receive_tone, 1)
         receiveTone = soundPool.load(this, R.raw.sent_tone, 1)
@@ -148,6 +141,36 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
             showPopupMenu()
         }
 
+        fetchMessages(chatReference, this@ChatsActivity)
+        chatReference?.addChildEventListener(
+            object : ChildEventListener {
+                override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                    val chatModel = snapshot.getValue(ChatModel::class.java)
+                    logInfo(CHATS_ACTIVITY,"chat model from initial - $chatModel")
+                    onMessageAdded(chatModel)
+                }
+
+                override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                    val chatModel = snapshot.getValue(ChatModel::class.java)
+                    logInfo(CHATS_ACTIVITY,"Child changed - $chatModel")
+                    onMessageChanged(chatModel)
+                }
+
+                override fun onChildRemoved(snapshot: DataSnapshot) {
+                    val chatModel = snapshot.getValue(ChatModel::class.java)
+                    onMessageRemoved(chatModel)
+                }
+
+                override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+            }
+        )
+
 
         observeTypingStatus()
         setUserStatus(true)
@@ -175,14 +198,17 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
                         }
                         true
                     }
+
                     R.id.menu_clear_chat -> {
                         // Implement clear chat functionality if needed
                         true
                     }
+
                     R.id.menu_report -> {
                         report()
                         true
                     }
+
                     else -> false
                 }
             }
@@ -190,8 +216,6 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
             popupMenu.show()
         }
     }
-
-
 
     // Function to update block status
     private fun updateBlockStatus(senderId: String, receiverId: String, blocked: Boolean) {
@@ -220,7 +244,10 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
                 }
             }
             .addOnFailureListener { exception ->
-                logError(CHATS_ACTIVITY, "Failed to update block status (reverse): ${exception.message}")
+                logError(
+                    CHATS_ACTIVITY,
+                    "Failed to update block status (reverse): ${exception.message}"
+                )
             }
     }
 
@@ -252,7 +279,8 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
 
     private fun clearChatInFirebase(senderName: String, receiverName: String) {
         // Reference to sender's chat with receiver
-        val senderChatRef = databaseReference.child("CHATS_V2").child(senderName).child(receiverName)
+        val senderChatRef =
+            databaseReference.child("CHATS_V2").child(senderName).child(receiverName)
         senderChatRef.removeValue()
             .addOnSuccessListener {
                 logInfo(CHATS_ACTIVITY, "Chat cleared successfully for sender")
@@ -262,7 +290,8 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
             }
 
         // Reference to receiver's chat with sender
-        val receiverChatRef = databaseReference.child("CHATS_V2").child(receiverName).child(senderName)
+        val receiverChatRef =
+            databaseReference.child("CHATS_V2").child(receiverName).child(senderName)
         receiverChatRef.removeValue()
             .addOnSuccessListener {
                 logInfo(CHATS_ACTIVITY, "Chat cleared successfully for receiver")
@@ -272,16 +301,6 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
             }
     }
 
-
-
-    override fun onResume() {
-        super.onResume()
-        senderName?.let { sName ->
-            receiverName?.let { rName ->
-                fetchMessages(sName, rName, this)
-            } ?: logError(CHATS_ACTIVITY, "Unable to fetch messages.")
-        } ?: logError(CHATS_ACTIVITY, "Unable to fetch messages.")
-    }
 
     private fun setUserStatus(isOnline: Boolean) {
         val userStatusRef = firebaseDatabase.getReference("user_status/$senderId")
@@ -300,8 +319,6 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
             }
         }
     }
-
-
 
 
     private fun observeTypingStatus() {
@@ -361,17 +378,14 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
     }
 
 
-
+    ////////
 
     private fun fetchMessages(
-        senderName: String,
-        receiverName: String,
+        chatReference: DatabaseReference?,
         onMessagesFetchedListener: OnMessagesFetchedListener
     ) {
         val conversations: MutableList<ChatModel?> = mutableListOf()
-        val reference = databaseReference.child("CHATS_V2").child(senderName).child(receiverName)
-
-        reference.get().addOnSuccessListener { dataSnapshot ->
+        chatReference?.get()?.addOnSuccessListener { dataSnapshot ->
             if (dataSnapshot.exists()) {
                 for (child in dataSnapshot.children) {
                     val chatModel = child.getValue(ChatModel::class.java)
@@ -386,40 +400,11 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
                 isConversationsFetching = false
             } else {
                 logInfo(CHATS_ACTIVITY, "No messages found.")
-                onMessagesFetchedListener.onMessagesFetched(conversations)
             }
-        }.addOnFailureListener { exception ->
+        }?.addOnFailureListener { exception ->
             logError(CHATS_ACTIVITY, "Error fetching messages: ${exception.message}")
             onMessagesFetchedListener.onError(exception.message.toString())
         }
-
-        reference.addChildEventListener(object : ChildEventListener {
-            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                val chatModel = snapshot.getValue(ChatModel::class.java)
-                logInfo(CHATS_ACTIVITY, "onChildAdded - ChatModel: $chatModel")
-                onMessagesFetchedListener.onMessageAdded(chatModel)
-            }
-
-            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                val chatModel = snapshot.getValue(ChatModel::class.java)
-                logInfo(CHATS_ACTIVITY, "onChildChanged - ChatModel: $chatModel")
-                onMessagesFetchedListener.onMessageChanged(chatModel)
-            }
-
-            override fun onChildRemoved(snapshot: DataSnapshot) {
-                val chatModel = snapshot.getValue(ChatModel::class.java)
-                logInfo(CHATS_ACTIVITY, "onChildRemoved - ChatModel: $chatModel")
-                onMessagesFetchedListener.onMessageRemoved(chatModel)
-            }
-
-            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-                // No implementation needed
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                logError(CHATS_ACTIVITY, "onCancelled - DatabaseError: ${error.message}")
-            }
-        })
     }
 
     private fun updateMessagesForSender(
@@ -449,7 +434,14 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     addChat(message)
-                    updateMessagesForReceiver(senderID, receiverID, chatID, senderName, receiverName, message)
+                    updateMessagesForReceiver(
+                        senderID,
+                        receiverID,
+                        chatID,
+                        senderName,
+                        receiverName,
+                        message
+                    )
                     playSentTone()
                     logInfo(CHATS_ACTIVITY, "Message sent")
                 } else {
@@ -471,7 +463,7 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
             chatID = chatID,
             dateTime = Timestamp.now().toDate().time.toString(),
             message = message,
-            msgSeen = true,
+            msgSeen = false,
             receiverID = senderID,
             senderID = receiverID,
             type = "TEXT",
@@ -513,14 +505,9 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
         }
     }
 
-
-
-
-
-    private var lastDisplayedDateTime: String? = null
-
     @SuppressLint("NotifyDataSetChanged")
     override fun onMessagesFetched(conversations: MutableList<ChatModel?>) {
+        var lastDisplayedDateTime: String? = null
         messages = conversations
         if (messages.isNotEmpty()) {
             messages.sortBy { it?.dateTime }
@@ -569,6 +556,8 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
                 }
 
                 messages.none { existingChatModel -> existingChatModel?.chatID == chatModel.chatID } -> {
+                    Log
+                        .e("ADDED_NON_EMPTY_CHAT_MODEL", nonEmptyChatModel.toString())
                     messages.add(nonEmptyChatModel)
                     if (messages.any { it?.sentBy != session.getData(Constant.NAME) }) {
                         playReceiveTone()
@@ -598,8 +587,10 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
     }
 
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onMessageChanged(chatModel: ChatModel?) {
-        logInfo(" $CHATS_ACTIVITY onMessageChanged", "Message changed: $chatModel")
+        logInfo(CHATS_ACTIVITY, "Message changed - $chatModel")
+        chatAdapter?.notifyDataSetChanged()
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -614,12 +605,16 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
         logError("$CHATS_ACTIVITY onError", "Error: $errorMessage")
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun initializeRecyclerView(conversations: MutableList<ChatModel?>) {
         chatAdapter = ChatAdapter(conversations, onClick = {}, session)
+        chatAdapter?.notifyDataSetChanged()
         binding.RVChats.apply {
             layoutManager = LinearLayoutManager(this@ChatsActivity)
             adapter = chatAdapter
-            scrollToPosition(chatAdapter?.itemCount?.minus(1) ?: 0) // Ensure scrolling to the last message
+            scrollToPosition(
+                chatAdapter?.itemCount?.minus(1) ?: 0
+            ) // Ensure scrolling to the last message
             invalidate()
         }
     }
