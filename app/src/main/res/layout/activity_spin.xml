@@ -9,6 +9,35 @@
 
 
 
+    <RelativeLayout
+        android:id="@+id/rlToolbar"
+        android:padding="@dimen/_20sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:layout_centerVertical="true"
+            android:id="@+id/ivBack"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_18sdp"
+            android:background="@drawable/arrow_left"
+            />
+
+        <TextView
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/_14sdp"
+            android:layout_toRightOf="@+id/ivBack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Spin Wheel"
+            android:textSize="@dimen/_14sdp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/poppins_medium"
+            />
+
+
+    </RelativeLayout>
+
 
 
 

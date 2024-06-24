@@ -43,6 +43,10 @@ class spinActivity : AppCompatActivity() {
 
         degreeForSectors
 
+        binding.ivBack.setOnClickListener {
+            onBackPressed()
+        }
+
         spinBtn.setOnClickListener {
             if (!isSpinning) {
                 spin()
