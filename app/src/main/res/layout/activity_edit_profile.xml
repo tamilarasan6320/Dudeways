@@ -20,6 +20,19 @@
             android:background="@drawable/arrow_left" />
 
         <TextView
+            android:id="@+id/tvSplashText"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/_14sdp"
+            android:layout_toRightOf="@+id/ibBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit Profile"
+            android:textSize="@dimen/_14sdp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/poppins_medium"
+            />
+
+        <TextView
             android:visibility="invisible"
             android:layout_centerVertical="true"
             android:id="@+id/tvSkip"
@@ -42,22 +55,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="@dimen/_10sdp">
+            android:paddingBottom="@dimen/_10sdp"
+            android:paddingLeft="@dimen/_10sdp"
+            android:paddingRight="@dimen/_10sdp">
 
-            <TextView
-                android:id="@+id/tvSplashText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_semibold"
-                android:text="Edit Profile"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_24sdp" />
+<!--            <TextView-->
+<!--                android:id="@+id/tvSplashText"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:fontFamily="@font/poppins_semibold"-->
+<!--                android:text="Edit Profile"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textSize="@dimen/_24sdp" />-->
 
             <!-- Name Field -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_20sdp"
                 android:hint="Name"
                 app:hintTextColor="@color/primary"
                 app:boxStrokeColor="@color/primary"

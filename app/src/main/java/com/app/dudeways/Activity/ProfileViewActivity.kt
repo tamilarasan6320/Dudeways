@@ -93,6 +93,11 @@ class ProfileViewActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.rlInviteFriends.setOnClickListener {
+            val intent = Intent(activity, InviteFriendsActivity::class.java)
+            startActivity(intent)
+        }
+
         // Configure Google Sign-In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()

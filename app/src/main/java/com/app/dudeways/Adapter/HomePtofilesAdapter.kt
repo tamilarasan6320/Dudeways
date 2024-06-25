@@ -56,7 +56,7 @@ class HomePtofilesAdapter(
         holder.tvUsername.text = "@"+report.unique_name
         holder.tvDate.text = "From "+report.from_date+" to "+report.to_date
         holder.tvTitle.text = report.trip_title
-        holder.tvKm.text = ""+report.distance+" away"
+        holder.tvKm.text = ""+report.distance
 
         // \u00B7 + time
         holder.tvtime.text = "\u00B7 "+report.time

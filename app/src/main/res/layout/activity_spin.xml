@@ -23,17 +23,17 @@
             android:background="@drawable/arrow_left"
             />
 
-        <TextView
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/_14sdp"
-            android:layout_toRightOf="@+id/ivBack"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Spin Wheel"
-            android:textSize="@dimen/_14sdp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/poppins_medium"
-            />
+<!--        <TextView-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:layout_marginLeft="@dimen/_14sdp"-->
+<!--            android:layout_toRightOf="@+id/ivBack"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Spin Wheel"-->
+<!--            android:textSize="@dimen/_14sdp"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:fontFamily="@font/poppins_medium"-->
+<!--            />-->
 
 
     </RelativeLayout>
@@ -44,6 +44,7 @@
     <RelativeLayout
         android:layout_centerInParent="true"
         android:layout_width="match_parent"
+        android:padding="@dimen/_10sdp"
         android:layout_height="wrap_content">
 
 
@@ -74,6 +75,9 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="spin"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
         android:background="@null"
         android:backgroundTint="@color/primary"
         android:layout_centerInParent="true"/>

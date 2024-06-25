@@ -183,8 +183,12 @@
             android:fontFamily="@font/poppins_medium"
             android:padding="@dimen/_10sdp"
             android:maxLength="20"
+            android:maxLines="1"
             android:textCursorDrawable="@drawable/color_cursor"
+            android:singleLine="true"
+            android:inputType="text"
             />
+
 
 
     </LinearLayout>

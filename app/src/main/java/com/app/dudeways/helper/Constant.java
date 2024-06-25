@@ -15,6 +15,7 @@ public class Constant {
     public static final String CHECK_MOBILE = BaseUrl + "check_mobile";
     public static final String CHECK_EMAIL = BaseUrl + "check_email";
     public static final String USERDETAILS = BaseUrl + "userdetails";
+    public static final String OTHER_USER_DETAILS = BaseUrl + "other_userdetails";
     public static final String SETTINGS_LIST = BaseUrl + "settings_list";
 
     public static final String UPDATE_IMAGE = BaseUrl + "update_image";
