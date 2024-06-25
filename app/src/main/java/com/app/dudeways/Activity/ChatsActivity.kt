@@ -146,14 +146,14 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
             object : ChildEventListener {
                 override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                     val chatModel = snapshot.getValue(ChatModel::class.java)
-                    logInfo(CHATS_ACTIVITY,"chat model from initial - $chatModel")
+                    logInfo(CHATS_ACTIVITY, "from firebase child added - $chatModel")
                     onMessageAdded(chatModel)
                 }
 
                 override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                    val chatModel = snapshot.getValue(ChatModel::class.java)
-                    logInfo(CHATS_ACTIVITY,"Child changed - $chatModel")
-                    onMessageChanged(chatModel)
+//                    val chatModel = snapshot.getValue(ChatModel::class.java)
+//                    logInfo(CHATS_ACTIVITY, "Child changed - $chatModel")
+//                    onMessageChanged(chatModel)
                 }
 
                 override fun onChildRemoved(snapshot: DataSnapshot) {
@@ -276,7 +276,6 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
         chatAdapter?.notifyDataSetChanged()
     }
 
-
     private fun clearChatInFirebase(senderName: String, receiverName: String) {
         // Reference to sender's chat with receiver
         val senderChatRef =
@@ -302,6 +301,9 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
     }
 
 
+    /**
+     *  Set user status and updates to firebase
+     */
     private fun setUserStatus(isOnline: Boolean) {
         val userStatusRef = firebaseDatabase.getReference("user_status/$senderId")
 
@@ -321,6 +323,9 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
     }
 
 
+    /**
+     *  Observes typing status and updates the UI accordingly.
+     */
     private fun observeTypingStatus() {
         firebaseDatabase.getReference("typing_status/$receiverId")
             .addValueEventListener(object : ValueEventListener {
@@ -336,6 +341,9 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
             })
     }
 
+    /**
+     *  Observes user status and updates the UI accordingly.
+     */
     private fun observeUserStatus() {
         val userStatusRef = firebaseDatabase.getReference("user_status/$receiverId")
 
@@ -377,9 +385,9 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
         })
     }
 
-
-    ////////
-
+    /**
+     *  Fetch messages from Firebase
+     */
     private fun fetchMessages(
         chatReference: DatabaseReference?,
         onMessagesFetchedListener: OnMessagesFetchedListener
@@ -407,6 +415,9 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
         }
     }
 
+    /**
+     *  Update the message for sender in firebase.
+     */
     private fun updateMessagesForSender(
         senderID: String,
         receiverID: String,
@@ -418,7 +429,7 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
         val chatModel = ChatModel(
             attachmentType = "TEXT",
             chatID = chatID,
-            dateTime = Timestamp.now().toDate().time.toString(),
+            dateTime = Timestamp.now().toDate().time,
             message = message,
             msgSeen = false,
             receiverID = receiverID,
@@ -450,6 +461,9 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
             }
     }
 
+    /**
+     *  Update the message for receiver in firebase.
+     */
     private fun updateMessagesForReceiver(
         senderID: String,
         receiverID: String,
@@ -461,7 +475,7 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
         val chatModel = ChatModel(
             attachmentType = "TEXT",
             chatID = chatID,
-            dateTime = Timestamp.now().toDate().time.toString(),
+            dateTime = Timestamp.now().toDate().time,
             message = message,
             msgSeen = false,
             receiverID = senderID,
@@ -483,6 +497,9 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
             }
     }
 
+    /**
+     *  Play sent tone
+     */
     private fun playSentTone() {
         logInfo(CHATS_ACTIVITY, "Attempting to play sent tone")
         val result = soundPool.play(sentTone, 1f, 1f, 0, 0, 1f)
@@ -495,6 +512,9 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
         }
     }
 
+    /**
+     *  Play receive tone
+     */
     private fun playReceiveTone() {
         logInfo(CHATS_ACTIVITY, "Attempting to play receive tone")
         val result = soundPool.play(receiveTone, 1f, 1f, 0, 0, 1f)
@@ -505,9 +525,10 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
         }
     }
 
+
     @SuppressLint("NotifyDataSetChanged")
     override fun onMessagesFetched(conversations: MutableList<ChatModel?>) {
-        var lastDisplayedDateTime: String? = null
+        var lastDisplayedDateTime: Long? = null
         messages = conversations
         if (messages.isNotEmpty()) {
             messages.sortBy { it?.dateTime }
@@ -524,17 +545,17 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
 
                         if (dateTime != lastDisplayedDateTime) {
                             lastDisplayedDateTime = dateTime
-                            val actualDate = Date(dateTime?.toLong() ?: 0)
-                            val todayDate = Date(Timestamp.now().toDate().time)
+                            val actualDate = dateTime?.let { Date(it) }
                             val formattedDate = SimpleDateFormat("MMM dd yyyy", Locale.getDefault())
                             binding.tvDate.visibility = View.VISIBLE
-                            binding.tvDate.text = formattedDate.format(actualDate)
+                            binding.tvDate.text = actualDate?.let { formattedDate.format(it) }
                         }
                     }
                 }
             })
             binding.RVChats.scrollToPosition(chatAdapter?.itemCount?.minus(1) ?: 0)
         } else {
+            //Display empty conversation placeholder.
             logInfo("conversations", "Conversations are empty.")
         }
     }
@@ -567,11 +588,12 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
                     receiverName?.let { nonEmptyReceiverName ->
                         senderName?.let { nonEmptySenderName ->
                             nonEmptyChatModel.chatID?.let { nonEmptyChatID ->
-                                updateMessageSeenStatus(
-                                    receiverName = nonEmptyReceiverName,
-                                    senderName = nonEmptySenderName,
-                                    chatID = nonEmptyChatID
-                                )
+                                //Todo : This causing the bug in the app. Fix this to enable tick functionality
+//                                updateMessageSeenStatus(
+//                                    receiverName = nonEmptyReceiverName,
+//                                    senderName = nonEmptySenderName,
+//                                    chatID = nonEmptyChatID
+//                                )
                             }
                         }
                     }
@@ -640,6 +662,7 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
             }
         }, activity, Constant.ADD_CHAT, params, false, 1)
     }
+
 
     private fun updateMessageSeenStatus(
         receiverName: String,

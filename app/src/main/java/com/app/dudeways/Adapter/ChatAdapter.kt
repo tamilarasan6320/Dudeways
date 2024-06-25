@@ -64,7 +64,9 @@ class ChatAdapter(
                 when (binding) {
                     is SenderChatMessageBinding -> {
                         binding.tvMessage.text = it.message
-                        binding.tvTime.text = it.dateTime?.let { date -> formatDateTime(date.toLong()) }
+                        binding.tvTime.text = it.dateTime?.run {
+                            formatDateTime(toLong())
+                        } ?: ""
                         binding.ivSeenStatus.setImageResource(if (it.msgSeen == true) R.drawable.seen_tick_ic else R.drawable.tick_ic)
                         Glide.with(binding.root.context).load(session.getData(Constant.PROFILE))
                             .into(binding.ivUserProfile)
@@ -73,11 +75,12 @@ class ChatAdapter(
                     is ReceiverChatMessageBinding -> {
                         binding.tvMessage.text = it.message
                         binding.tvTime.text =
-                            it.dateTime?.let { date ->
-                                formatDateTime(date.toLong())
-                            }
+                            it.dateTime?.run {
+                                formatDateTime(toLong())
+                            } ?: ""
 
-                        Glide.with(binding.root.context).load(session.getData("reciver_profile")).placeholder(R.drawable.profile_placeholder)
+                        Glide.with(binding.root.context).load(session.getData("reciver_profile"))
+                            .placeholder(R.drawable.profile_placeholder)
                             .into(binding.ivUserProfile)
 
                     }
@@ -91,6 +94,6 @@ class ChatAdapter(
     @Throws(TypeCastException::class)
     private fun formatDateTime(timestamp: Long): String {
         val sdf = SimpleDateFormat("hh:mm a", Locale.getDefault())
-        return sdf.format(Date(timestamp))
+        return sdf.format(timestamp)
     }
 }
