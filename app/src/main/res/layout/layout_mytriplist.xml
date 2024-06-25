@@ -61,15 +61,15 @@
                 android:textColor="@color/text_grey"
                 android:textSize="@dimen/_14sdp" />
 
-            <TextView
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_regular"
-                android:text="\u00B7 4h"
-                android:textColor="@color/text_grey"
-                android:textSize="@dimen/_14sdp" />
+<!--            <TextView-->
+<!--                android:layout_marginLeft="@dimen/_10sdp"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:fontFamily="@font/poppins_regular"-->
+<!--                android:text="\u00B7 4h"-->
+<!--                android:textColor="@color/text_grey"-->
+<!--                android:textSize="@dimen/_14sdp" />-->
 
 
 

@@ -30,6 +30,10 @@ class ProfileinfoActivity : AppCompatActivity() {
         binding = ActivityProfileinfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.ivBack.setOnClickListener{
+            onBackPressed()
+        }
+
 
 
         activity = this
@@ -145,7 +149,7 @@ class ProfileinfoActivity : AppCompatActivity() {
                     e.printStackTrace()
                 }
             }
-        }, activity, Constant.USERDETAILS, params, true, 1)
+        }, activity, Constant.OTHER_USER_DETAILS, params, true, 1)
     }
 
 
