@@ -129,7 +129,7 @@
             android:exported="true" />
         <activity
             android:name=".Activity.InviteFriendsActivity"
-            android:exported="true" />
+            android:exported="true"/>
         <activity
             android:name=".Activity.SplashscreenActivity"
             android:exported="true"
@@ -137,6 +137,13 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="https"
+                    android:host="play.google.com"
+                    android:path="/store/apps/details" />
             </intent-filter>
         </activity> <!-- Theme is optional and only needed if default theme has no action bar. -->
         <activity

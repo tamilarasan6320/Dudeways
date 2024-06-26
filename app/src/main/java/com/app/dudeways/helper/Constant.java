@@ -4,6 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class Constant {
+    public static final String AppPlayStoreUrl = "https://play.google.com/store/apps/details?id=com.app.dudeways";
     public static final String MainBaseUrl = "https://dudeways.graymatterworks.com/";
 
     public static final String BaseUrl = MainBaseUrl + "api/";

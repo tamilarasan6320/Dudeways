@@ -37,4 +37,77 @@
 
     </RelativeLayout>
 
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_below="@+id/rlToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:paddingLeft="@dimen/_10sdp"
+            android:paddingRight="@dimen/_10sdp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_140sdp"
+                android:src="@drawable/invite_friend_banner" />
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnReferText"
+                    android:layout_width="0dp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/poppins_medium"
+                    android:paddingVertical="@dimen/_8sdp"
+                    app:backgroundTint="@null"
+                    android:backgroundTint="@color/primary_extra_light"
+                    android:text=""
+                    app:strokeColor="@color/primary"
+                    app:strokeWidth="2dp"
+                    android:textAllCaps="false"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/black"
+                    app:icon="@drawable/copy_ic"
+                    app:iconTint="@color/black"
+                    app:iconSize="@dimen/_12sdp"
+                    app:iconGravity="textStart"
+                    app:iconPadding="@dimen/_4sdp"
+                    >
+
+
+                </com.google.android.material.button.MaterialButton>
+
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnRefer"
+                    android:layout_width="0dp"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/poppins_medium"
+                    app:backgroundTint="@null"
+                    android:background="@drawable/gradient_button"
+                    android:text="Refer Friends"
+                    android:textAllCaps="false"
+                    android:textSize="@dimen/_12sdp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
 </RelativeLayout>
