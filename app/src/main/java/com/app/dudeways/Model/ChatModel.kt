@@ -2,12 +2,13 @@ package com.app.dudeways.Model
 
 import androidx.annotation.Keep
 import com.google.firebase.Timestamp
+import java.util.Date
 
 @Keep
 data class ChatModel(
     val attachmentType: String? = null,
     val chatID: String? = null,
-    val dateTime: String? = Timestamp.now().toDate().time.toString(),
+    val dateTime: Long? = Timestamp.now().toDate().time,
     val message: String? = null,
     val msgSeen: Boolean? = false,
     val receiverID: String? = null,
