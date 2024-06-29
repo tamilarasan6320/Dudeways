@@ -17,6 +17,7 @@ class Chatlist {
     var datetime: String? = null
     var updated_at: String? = null
     var created_at: String? = null
+    var friend: String? = null
 
     constructor(
         id: String?,
@@ -30,7 +31,8 @@ class Chatlist {
         msg_seen: String?,
         datetime: String?,
         updated_at: String?,
-        created_at: String?
+        created_at: String?,
+        friend: String?,
     ) {
         this.id = id
         this.user_id = user_id
@@ -44,6 +46,8 @@ class Chatlist {
         this.updated_at = updated_at
         this.created_at = created_at
         this.online_status = online_status
+        this.friend = friend
+
     }
 
 

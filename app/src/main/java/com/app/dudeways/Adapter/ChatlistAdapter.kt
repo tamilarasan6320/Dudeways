@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dudeways.Activity.ChatsActivity
 import com.app.dudeways.Activity.FreePointsActivity
+import com.app.dudeways.Activity.ProfileinfoActivity
 import com.app.dudeways.Activity.PurchasepointActivity
 import com.app.dudeways.Model.Chatlist
 import com.app.dudeways.R
@@ -61,6 +62,17 @@ class ChatlistAdapter(
         }
 
         holder.TV_sent_time.text = report.latest_msg_time
+
+        holder.IV_user_profile.setOnClickListener {
+            val intent = Intent(activity, ProfileinfoActivity::class.java)
+            intent.putExtra("name", report.name)
+            intent.putExtra("chat_user_id", report.chat_user_id)
+            intent.putExtra("id", report.id)
+            session.setData("reciver_profile", report.profile)
+            intent.putExtra("friend", report.friend)
+            activity.startActivity(intent)
+
+        }
 
         Glide.with(activitys)
             .load(report.profile)

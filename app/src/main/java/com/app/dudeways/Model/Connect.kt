@@ -16,6 +16,7 @@ class Connect {
     var datetime: String? = null
     var updated_at: String? = null
     var created_at: String? = null
+    var friend: String? = null
 
  constructor(
         id: String?,
@@ -32,7 +33,8 @@ class Connect {
         status: String?,
         datetime: String?,
         updated_at: String?,
-        created_at: String?
+        created_at: String?,
+        friend: String?,
     ) {
         this.id = id
         this.user_id = user_id
@@ -49,6 +51,7 @@ class Connect {
         this.datetime = datetime
         this.updated_at = updated_at
         this.created_at = created_at
+        this.friend = friend
 
  }
 

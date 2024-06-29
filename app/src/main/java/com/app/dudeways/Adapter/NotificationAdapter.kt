@@ -1,14 +1,18 @@
 package com.app.dudeways.Adapter
 
 import android.app.Activity
+import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.app.dudeways.Activity.ProfileinfoActivity
 import com.app.dudeways.Model.Notification
 import com.app.dudeways.R
+import com.app.dudeways.helper.Session
 import com.bumptech.glide.Glide
 
 class NotificationAdapter(
@@ -33,6 +37,7 @@ class NotificationAdapter(
     override fun onBindViewHolder(holderParent: RecyclerView.ViewHolder, position: Int) {
         val holder: ItemHolder = holderParent as ItemHolder
         val report: Notification = notification[position]
+        val session = Session(activity)
 
 
        holder.tvName.text = report.name
@@ -40,6 +45,16 @@ class NotificationAdapter(
        holder.tvtime.text = report.time
         Glide.with(activitys).load(report.profile).placeholder(R.drawable.profile_placeholder)
             .into(holder.civProfile)
+
+        holder.civProfile.setOnClickListener {
+            val intent = Intent(activity, ProfileinfoActivity::class.java)
+            intent.putExtra("name", report.name)
+            intent.putExtra("chat_user_id", report.notify_user_id.toString())
+            intent.putExtra("id", report.id.toString())
+            session.setData("reciver_profile", report.profile)
+            activity.startActivity(intent)
+
+        }
 
     }
 

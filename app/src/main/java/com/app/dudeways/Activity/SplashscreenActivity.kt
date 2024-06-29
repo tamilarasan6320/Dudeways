@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.widget.Toast
 import android.widget.VideoView
 import androidx.activity.enableEdgeToEdge
@@ -56,6 +57,28 @@ class SplashscreenActivity : BaseActivity() {
         videoView.setOnCompletionListener {
             GotoActivity()
             // Do something when the video ends
+        }
+
+        handleIncomingIntent(intent)
+
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        handleIncomingIntent(intent)
+    }
+
+    private fun handleIncomingIntent(intent: Intent) {
+        val data: Uri? = intent.data
+        data?.let {
+            if (it.isHierarchical) {
+                val referralCode = it.getQueryParameter("referralCode")
+                referralCode?.let {
+                    Log.d("Referral Code", "referralCode = $referralCode")
+//                    Toast.makeText(this, "Referral Code: $referralCode", Toast.LENGTH_LONG).show()
+                    // Handle the referral code (e.g., store it in shared preferences, use it to fetch referral-specific data, etc.)
+                }
+            }
         }
     }
 

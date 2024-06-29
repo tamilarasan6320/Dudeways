@@ -112,6 +112,17 @@ class ConnectAdapter(
 
         }
 
+        holder.ivProfile.setOnClickListener {
+            val intent = Intent(activity, ProfileinfoActivity::class.java)
+            intent.putExtra("name", report.name)
+            intent.putExtra("chat_user_id", report.friend_user_id)
+            intent.putExtra("id", report.id)
+            session.setData("reciver_profile", report.profile)
+            intent.putExtra("friend", report.friend)
+            activity.startActivity(intent)
+
+        }
+
 
        holder.tvName.text = report.name
 
