@@ -64,6 +64,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
+                android:backgroundTint="?attr/iconColor"
                 android:id="@+id/iv_capture"
                 android:layout_width="@dimen/_60sdp"
                 android:layout_height="@dimen/_60sdp"

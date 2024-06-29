@@ -165,7 +165,7 @@
             android:text="Choose image which it will attract partners to join your trip"
             android:textSize="@dimen/_12sdp"
             android:fontFamily="@font/poppins_regular"
-            android:textColor="@color/black"
+            android:textColor="?attr/myTextColor"
             />
 
 

@@ -15,6 +15,7 @@
         android:layout_height="wrap_content">
 
         <ImageButton
+            android:backgroundTint="?attr/iconColor"
             android:layout_centerVertical="true"
             android:id="@+id/ivBack"
             android:layout_width="@dimen/_24sdp"
@@ -28,9 +29,9 @@
             android:layout_toRightOf="@+id/ivBack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Customer Suppoet"
+            android:text="Customer Support"
             android:textSize="@dimen/_14sdp"
-            android:textColor="@color/black"
+            android:textColor="?attr/myTextColor"
             android:fontFamily="@font/poppins_medium"
             />
 
@@ -83,7 +84,7 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_semibold"
                                 android:text="Instagram"
-                                android:textColor="@color/black"
+                                android:textColor="?attr/myTextColor"
                                 android:textSize="@dimen/_12sdp" />
 
 
@@ -96,7 +97,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Join our Instagram group to get instant offers and updates"
-                            android:textColor="@color/black"
+                            android:textColor="?attr/myTextColor"
                             android:textSize="@dimen/_10sdp"
                             android:fontFamily="@font/poppins_regular"
                             />
@@ -118,12 +119,12 @@
 
 
                                 <ImageView
+                android:backgroundTint="?attr/iconColor"
                                     android:id="@+id/ivWhatsappLinkShare"
                                     android:layout_centerVertical="true"
                                     android:layout_width="@dimen/_20sdp"
                                     android:layout_height="@dimen/_20sdp"
                                     android:background="@drawable/share_ic"
-                                    android:backgroundTint="@color/black"
                                     />
 
                                 <TextView
@@ -133,7 +134,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="Share"
-                                    android:textColor="@color/black"
+                                    android:textColor="?attr/myTextColor"
                                     android:textSize="@dimen/_10sdp"
                                     android:fontFamily="@font/poppins_medium"
                                     />
@@ -214,7 +215,7 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_semibold"
                                 android:text="Telegram"
-                                android:textColor="@color/black"
+                                android:textColor="?attr/myTextColor"
                                 android:textSize="@dimen/_12sdp" />
 
 
@@ -226,7 +227,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Join our telegram channel to get instant offers and updates"
-                            android:textColor="@color/black"
+                            android:textColor="?attr/myTextColor"
                             android:textSize="@dimen/_10sdp"
                             android:fontFamily="@font/poppins_regular"
                             />
@@ -248,12 +249,12 @@
 
 
                                 <ImageView
+                                    android:backgroundTint="?attr/iconColor"
                                     android:id="@+id/ivTelegramLinkShare"
                                     android:layout_centerVertical="true"
                                     android:layout_width="@dimen/_20sdp"
                                     android:layout_height="@dimen/_20sdp"
                                     android:background="@drawable/share_ic"
-                                    android:backgroundTint="@color/black"
                                     />
 
                                 <TextView
@@ -263,7 +264,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="Share"
-                                    android:textColor="@color/black"
+                                    android:textColor="?attr/myTextColor"
                                     android:textSize="@dimen/_10sdp"
                                     android:fontFamily="@font/poppins_medium"
                                     />

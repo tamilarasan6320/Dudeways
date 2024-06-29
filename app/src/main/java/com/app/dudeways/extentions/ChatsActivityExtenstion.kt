@@ -1,13 +1,19 @@
 package com.app.dudeways.extentions
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.content.Intent
 import android.media.SoundPool
 import android.text.format.DateUtils
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.PopupMenu
+import android.widget.TextView
 import android.widget.Toast
 import com.app.dudeways.Activity.CHATS_ACTIVITY
 import com.app.dudeways.Activity.ChatsActivity
+import com.app.dudeways.Activity.FreePointsActivity
+import com.app.dudeways.Activity.PurchasepointActivity
 import com.app.dudeways.Adapter.ChatAdapter
 import com.app.dudeways.Model.ChatModel
 import com.app.dudeways.R
@@ -25,6 +31,7 @@ import org.json.JSONObject
 import kotlin.random.Random
 
 
+ var chat_status = ""
 fun ChatsActivity.popUpMenu(
     senderID: String,
     receiverID: String,
@@ -54,6 +61,7 @@ fun ChatsActivity.popUpMenu(
                 }
 
                 R.id.menu_clear_chat -> {
+                    clearChatInFirebase(senderID, receiverID, firebaseDatabase.reference)
                     // Implement clear chat functionality if needed
                     true
                 }
@@ -148,28 +156,27 @@ fun ChatsActivity.clearChatInFirebase(
     receiverName: String,
     databaseReference: DatabaseReference
 ) {
-    // Reference to sender's chat with receiver
-    val senderChatRef =
-        databaseReference.child("CHATS_V2").child(senderName).child(receiverName)
+    logInfo(CHATS_ACTIVITY, "Attempting to clear chat for $senderName -> $receiverName")
+
+    val senderChatRef = databaseReference.child("CHATS_V2").child(senderName).child(receiverName)
     senderChatRef.removeValue()
         .addOnSuccessListener {
-            logInfo(CHATS_ACTIVITY, "Chat cleared successfully for sender")
+            logInfo(CHATS_ACTIVITY, "Chat cleared successfully for sender: $senderName")
         }
         .addOnFailureListener { exception ->
-            logError(CHATS_ACTIVITY, "Failed to clear chat for sender: ${exception.message}")
+            logError(CHATS_ACTIVITY, "Failed to clear chat for sender ($senderName -> $receiverName): ${exception.message}")
         }
 
-    // Reference to receiver's chat with sender
-    val receiverChatRef =
-        databaseReference.child("CHATS_V2").child(receiverName).child(senderName)
+    val receiverChatRef = databaseReference.child("CHATS_V2").child(receiverName).child(senderName)
     receiverChatRef.removeValue()
         .addOnSuccessListener {
-            logInfo(CHATS_ACTIVITY, "Chat cleared successfully for receiver")
+            logInfo(CHATS_ACTIVITY, "Chat cleared successfully for receiver: $receiverName")
         }
         .addOnFailureListener { exception ->
-            logError(CHATS_ACTIVITY, "Failed to clear chat for receiver: ${exception.message}")
+            logError(CHATS_ACTIVITY, "Failed to clear chat for receiver ($receiverName -> $senderName): ${exception.message}")
         }
 }
+
 
 /**
  *  Set user status and updates to firebase
@@ -320,14 +327,46 @@ fun ChatsActivity.updateMessagesForSender(
         type = "TEXT",
         sentBy = session.getData(Constant.NAME)
     )
-    databaseReference.child("CHATS_V2")
+    addChat(message,receiverID)
+
+    if (chat_status == "0") {
+
+        val dialogView = activity.layoutInflater.inflate(R.layout.dialog_custom, null)
+
+        val dialogBuilder = AlertDialog.Builder(activity)
+            .setView(dialogView)
+            .create()
+        val title = dialogView.findViewById<TextView>(R.id.dialog_title)
+        val btnPurchase = dialogView.findViewById<LinearLayout>(R.id.btnPurchase)
+        val btnFreePoints = dialogView.findViewById<LinearLayout>(R.id.btnFreePoints)
+
+
+        title.text = "You have ${session.getData(Constant.POINTS)} Points"
+
+        btnPurchase.setOnClickListener {
+            val intent = Intent(activity, PurchasepointActivity::class.java)
+            activity.startActivity(intent)
+            dialogBuilder.dismiss()
+        }
+
+        btnFreePoints.setOnClickListener {
+            val intent = Intent(activity, FreePointsActivity::class.java)
+            activity.startActivity(intent)
+            dialogBuilder.dismiss()
+        }
+
+
+        dialogBuilder.show()
+
+    }
+    else {
+        databaseReference.child("CHATS_V2")
         .child(senderName)
         .child(receiverName)
         .child(chatID)
         .setValue(chatModel)
         .addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                addChat(message,receiverID)
                 updateMessagesForReceiver(
                     senderID,
                     receiverID,
@@ -342,6 +381,8 @@ fun ChatsActivity.updateMessagesForSender(
             } else {
                 logError(CHATS_ACTIVITY, "Failed to send message")
             }
+
+        }
         }
 }
 
@@ -393,10 +434,10 @@ private fun ChatsActivity.playSentTone(
     logInfo(CHATS_ACTIVITY, "Attempting to play sent tone")
     val result = soundPool.play(sentTone, 1f, 1f, 0, 0, 1f)
     if (result == 0) {
-        Toast.makeText(this, "Failed to play sent tone", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(this, "Failed to play sent tone", Toast.LENGTH_SHORT).show()
         logError(CHATS_ACTIVITY, "Failed to play sent tone")
     } else {
-        Toast.makeText(this, "Sent tone played successfully", Toast.LENGTH_SHORT).show()
+       // Toast.makeText(this, "Sent tone played successfully", Toast.LENGTH_SHORT).show()
         logInfo(CHATS_ACTIVITY, "Sent tone played successfully")
     }
 }
@@ -432,6 +473,9 @@ fun ChatsActivity.addChat(
                 val jsonObject = JSONObject(response)
                 if (jsonObject.getBoolean(Constant.SUCCESS)) {
                     logInfo(CHATS_ACTIVITY, "Message update to the API.")
+                    chat_status = jsonObject.getString("chat_status")
+                  //  Toast.makeText(this, chat_status, Toast.LENGTH_SHORT).show()
+
                 } else {
                     logError(CHATS_ACTIVITY, "Message failed to update to the API.")
                 }

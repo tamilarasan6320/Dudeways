@@ -16,7 +16,7 @@ import com.google.gson.Gson
 import org.json.JSONException
 import org.json.JSONObject
 
-class NotificationActivity : AppCompatActivity() {
+class NotificationActivity : BaseActivity() {
 
     lateinit var binding: ActivityNotificationBinding
     lateinit var activity: Activity

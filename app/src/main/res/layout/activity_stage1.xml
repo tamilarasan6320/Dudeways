@@ -15,11 +15,13 @@
         android:layout_height="wrap_content">
 
         <ImageButton
+            android:backgroundTint="?attr/iconColor"
             android:layout_centerVertical="true"
             android:id="@+id/ivBack"
             android:layout_width="@dimen/_24sdp"
             android:layout_height="@dimen/_18sdp"
             android:background="@drawable/arrow_left"
+
             />
 
         <TextView
@@ -30,7 +32,7 @@
             android:layout_height="wrap_content"
             android:text="Verification Badge"
             android:textSize="@dimen/_14sdp"
-            android:textColor="@color/black"
+            android:textColor="?attr/myTextColor"
             android:fontFamily="@font/poppins_medium"
             />
 
@@ -52,7 +54,7 @@
             android:layout_height="wrap_content"
             android:text="Complete the verification process and activate your verification badge."
             android:textSize="@dimen/_12sdp"
-            android:textColor="@color/black"
+            android:textColor="?attr/myTextColor"
             android:fontFamily="@font/poppins_regular"
             />
 
@@ -132,7 +134,7 @@
                     android:layout_height="wrap_content"
                     android:text="Take a selfie! Make sure your face is clearly visible."
                     android:textSize="@dimen/_10sdp"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/myTextColor"
                     android:fontFamily="@font/poppins_regular"
                     />
 
@@ -197,7 +199,7 @@
                     android:layout_height="wrap_content"
                     android:text="Take a picture of any of your government issued ID such as Aadhar,Pancard,Driving license, passport."
                     android:textSize="@dimen/_10sdp"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/myTextColor"
                     android:fontFamily="@font/poppins_regular"
                     />
 

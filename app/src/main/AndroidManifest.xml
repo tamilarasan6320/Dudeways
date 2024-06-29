@@ -20,22 +20,26 @@
 
     <application
         android:name=".helper.ApiConfig"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
+        android:launchMode="singleTop"
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.Paring"
         android:usesCleartextTraffic="true"
-        tools:replace="android:allowBackup"
         tools:ignore="GoogleAppIndexingWarning"
-        android:launchMode="singleTop"
+        tools:replace="android:allowBackup"
         tools:targetApi="31">
+
         <activity
             android:name=".Activity.SelfiActivity"
             android:exported="false" />
+
+
+
         <activity
             android:name=".Activity.Trip.TripCompletedActivity"
             android:exported="false" />
@@ -107,8 +111,7 @@
             android:exported="false" />
         <activity
             android:name=".Activity.HomeActivity"
-            android:exported="false"
-            />
+            android:exported="false" />
         <activity
             android:name=".Activity.ChatsActivity"
             android:exported="false" />
@@ -136,6 +139,7 @@
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity> <!-- Theme is optional and only needed if default theme has no action bar. -->

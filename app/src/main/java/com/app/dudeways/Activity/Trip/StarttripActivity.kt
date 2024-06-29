@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
+import com.app.dudeways.Activity.BaseActivity
 import com.app.dudeways.Activity.Trip.Fragment.FiveFragment
 import com.app.dudeways.Activity.Trip.Fragment.FourFragment
 import com.app.dudeways.Activity.Trip.Fragment.SixFragment
@@ -17,14 +18,12 @@ import com.app.dudeways.helper.Constant
 import com.app.dudeways.helper.Session
 
 
-class StarttripActivity : AppCompatActivity() {
+class StarttripActivity : BaseActivity() {
 
     lateinit var binding:ActivityStarttripBinding
     lateinit var activity: Activity
     lateinit var fm: FragmentManager
     lateinit var session: Session
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_starttrip)

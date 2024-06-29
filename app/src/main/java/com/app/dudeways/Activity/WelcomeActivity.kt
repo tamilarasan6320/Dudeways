@@ -12,7 +12,7 @@ import androidx.viewpager.widget.ViewPager
 import com.app.dudeways.R
 import com.app.dudeways.WelcomePagerAdapter
 
-class WelcomeActivity : AppCompatActivity() {
+class WelcomeActivity : BaseActivity() {
 
     private lateinit var mSlideViewPager: ViewPager
     private lateinit var mDotLayout: LinearLayout

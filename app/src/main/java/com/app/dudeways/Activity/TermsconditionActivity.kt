@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.app.dudeways.R
 import com.app.dudeways.databinding.ActivityTermsconditionBinding
 
-class TermsconditionActivity : AppCompatActivity() {
+class TermsconditionActivity : BaseActivity() {
 
     lateinit var binding: ActivityTermsconditionBinding
     override fun onCreate(savedInstanceState: Bundle?) {

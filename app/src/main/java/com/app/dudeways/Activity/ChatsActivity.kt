@@ -2,6 +2,7 @@ package com.app.dudeways.Activity
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Intent
 import android.graphics.Rect
 import android.media.AudioAttributes
 import android.media.SoundPool
@@ -11,7 +12,9 @@ import android.text.TextWatcher
 import android.text.format.DateUtils
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import android.widget.PopupMenu
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -46,7 +49,7 @@ import java.util.*
 import kotlin.collections.HashMap
 import kotlin.random.Random
 
-class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
+class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
 
     lateinit var binding: ActivityChatsBinding
     lateinit var activity: Activity
@@ -88,6 +91,7 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
             databaseReference.child("CHATS_V2").child(senderName!!).child(receiverName!!)
         typingStatusReference = firebaseDatabase.getReference("typing_status/$senderId")
 
+
         Glide.with(this)
             .load(session.getData("reciver_profile"))
             .placeholder(R.drawable.profile_placeholder)
@@ -113,25 +117,32 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
         binding.sendButton.setOnClickListener {
             val message = binding.messageEdittext.text.toString()
             if (message.isNotEmpty()) {
-                senderName?.let { sName ->
-                    receiverName?.let { rName ->
-                        updateMessagesForSender(
-                            databaseReference = databaseReference,
-                            senderID = senderId,
-                            receiverID = receiverId,
-                            senderName = senderName!!,
-                            receiverName = receiverName!!,
-                            message = message,
-                            soundPool = soundPool,
-                            sentTone = sentTone
-                        )
-                        binding.messageEdittext.text.clear()
-                    } ?: logError(CHATS_ACTIVITY, "Unable to send your message.")
-                } ?: logError(CHATS_ACTIVITY, "Unable to send your message.")
+                isBlocked(senderId, receiverId) { isBlocked ->
+                    if (isBlocked) {
+                        makeToast("You cannot send messages to this user blocked.")
+                    } else {
+                        senderName?.let { sName ->
+                            receiverName?.let { rName ->
+                                updateMessagesForSender(
+                                    databaseReference = databaseReference,
+                                    senderID = senderId,
+                                    receiverID = receiverId,
+                                    senderName = senderName!!,
+                                    receiverName = receiverName!!,
+                                    message = message,
+                                    soundPool = soundPool,
+                                    sentTone = sentTone
+                                )
+                                binding.messageEdittext.text.clear()
+                            } ?: logError(CHATS_ACTIVITY, "Unable to send your message.")
+                        } ?: logError(CHATS_ACTIVITY, "Unable to send your message.")
+                    }
+                }
             } else {
                 makeToast("Enter text to send")
             }
         }
+
 
         // Inside your onCreate method
         binding.root.viewTreeObserver.addOnGlobalLayoutListener {
@@ -155,11 +166,7 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
         })
 
         binding.ivMore.setOnClickListener {
-            this.popUpMenu(
-                senderId,
-                receiverId,
-                firebaseDatabase
-            )
+            showPopupMenu()
         }
 
         fetchMessages(chatReference, this@ChatsActivity) {
@@ -199,6 +206,126 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListener {
         setUserStatus(firebaseDatabase, senderId, true)
         observeUserStatus(firebaseDatabase, receiverId)
     }
+
+
+    private fun showPopupMenu() {
+        val popupMenu = PopupMenu(this, binding.ivMore)
+        popupMenu.inflate(R.menu.chat_options_menu)
+
+        // Check current block status
+        isBlocked(senderId, receiverId) { blocked ->
+            val blockMenuItem = popupMenu.menu.findItem(R.id.menu_block_chat)
+            blockMenuItem.title = if (blocked) "Unblock User" else "Block User"
+
+            popupMenu.setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.menu_block_chat -> {
+                        updateBlockStatus(senderId, receiverId, !blocked)
+                        true
+                    }
+                    R.id.menu_clear_chat -> {
+                        clearChatInFirebase(senderName ?: "", receiverName ?: "")
+                        true
+                    }
+                    R.id.menu_report -> {
+                        add_freind()
+                        true
+                    }
+                    else -> false
+                }
+            }
+
+            popupMenu.show()
+        }
+    }
+
+
+    private fun add_freind() {
+        val session = Session(activity)
+        val params: MutableMap<String, String> = HashMap()
+        params[Constant.USER_ID] = session.getData(Constant.USER_ID)
+        params[Constant.FRIEND_USER_ID] = receiverId!!
+        params[Constant.FRIEND] = "2"
+
+        ApiConfig.RequestToVolley({ result, response ->
+            if (result) {
+                try {
+                    val jsonObject = JSONObject(response)
+                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
+
+                        val intent = Intent(activity, HomeActivity::class.java)
+                        startActivity(intent)
+                        finish()
+
+                        Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
+                    }
+                    else {
+                        Toast.makeText(
+                            activity,
+                            jsonObject.getString(Constant.MESSAGE),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }
+
+            // Stop the refreshing animation once the network request is complete
+
+        }, activity, Constant.ADD_FRIENDS, params, true, 1)
+    }
+
+
+
+    private fun updateBlockStatus(senderId: String, receiverId: String, isBlocked: Boolean) {
+        val blockReference = databaseReference.child("blocked_users").child(senderId).child(receiverId)
+        blockReference.setValue(isBlocked).addOnSuccessListener {
+            val message = if (isBlocked) {
+                "User has been blocked"
+            } else {
+                "User has been unblocked"
+            }
+            makeToast(message)
+        }.addOnFailureListener {
+            makeToast("Failed to update block status")
+        }
+    }
+
+
+
+    private fun isBlocked(senderId: String, receiverId: String, callback: (Boolean) -> Unit) {
+        val blockReference = databaseReference.child("blocked_users").child(senderId).child(receiverId)
+        blockReference.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val isBlocked = snapshot.getValue(Boolean::class.java) ?: false
+                callback(isBlocked)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                callback(false)
+            }
+        })
+    }
+
+
+    private fun clearChatInFirebase(senderName: String, receiverName: String) {
+        val senderChatReference = databaseReference.child("CHATS_V2").child(senderName).child(receiverName)
+        val receiverChatReference = databaseReference.child("CHATS_V2").child(receiverName).child(senderName)
+
+        senderChatReference.removeValue().addOnSuccessListener {
+            makeToast("Chat cleared successfully")
+            messages.clear()
+            chatAdapter?.notifyDataSetChanged()
+        }.addOnFailureListener {
+            makeToast("Failed to clear chat")
+        }
+
+        receiverChatReference.removeValue().addOnFailureListener {
+            makeToast("Failed to clear chat for receiver")
+        }
+    }
+
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onMessagesFetched(conversations: MutableList<ChatModel?>) {

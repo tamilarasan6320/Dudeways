@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.app.dudeways.R
 import com.app.dudeways.databinding.ActivityPrivacypolicyBinding
 
-class PrivacypolicyActivity : AppCompatActivity() {
+class PrivacypolicyActivity : BaseActivity() {
 
     lateinit var binding: ActivityPrivacypolicyBinding
     override fun onCreate(savedInstanceState: Bundle?) {

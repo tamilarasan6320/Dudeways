@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Trip uploaded successfully. Please wait for the review, which will be completed within 24 hours."
-            android:textColor="@color/black"
+            android:textColor="?attr/myTextColor"
             android:textSize="@dimen/_14sdp"
             />
 

@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.app.dudeways.R
 import com.app.dudeways.databinding.ActivityIdverficationBinding
 
-class IdverficationActivity : AppCompatActivity() {
+class IdverficationActivity : BaseActivity() {
 
     lateinit var binding: ActivityIdverficationBinding
     lateinit var activity: Activity

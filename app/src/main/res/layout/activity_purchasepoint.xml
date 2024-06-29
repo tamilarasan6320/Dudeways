@@ -15,6 +15,7 @@
         android:layout_height="wrap_content">
 
         <ImageButton
+            android:backgroundTint="?attr/iconColor"
             android:layout_centerVertical="true"
             android:id="@+id/ivBack"
             android:layout_width="@dimen/_24sdp"
@@ -31,7 +32,7 @@
             android:layout_height="wrap_content"
             android:text="Purchase Points"
             android:textSize="@dimen/_14sdp"
-            android:textColor="@color/black"
+            android:textColor="?attr/myTextColor"
             android:fontFamily="@font/poppins_medium"
             />
 

@@ -15,6 +15,7 @@
         android:layout_height="wrap_content">
 
         <ImageButton
+            android:backgroundTint="?attr/iconColor"
             android:layout_centerVertical="true"
             android:id="@+id/ivBack"
             android:layout_width="@dimen/_24sdp"
@@ -31,7 +32,7 @@
             android:layout_height="wrap_content"
             android:text="ID Verification"
             android:textSize="@dimen/_14sdp"
-            android:textColor="@color/black"
+            android:textColor="?attr/myTextColor"
             android:fontFamily="@font/poppins_medium"
             />
 
@@ -61,7 +62,7 @@
             android:layout_height="wrap_content"
             android:text="@string/id_verification_description"
             android:textSize="@dimen/_12sdp"
-            android:textColor="@color/black"
+            android:textColor="?attr/myTextColor"
             android:fontFamily="@font/poppins_regular"
             />
 
@@ -74,7 +75,7 @@
             android:textSize="@dimen/_12sdp"
             android:drawablePadding="@dimen/_5sdp"
             android:gravity="center_vertical"
-            android:textColor="@color/black"
+            android:textColor="?attr/myTextColor"
             android:fontFamily="@font/poppins_regular"
             android:drawableStart="@drawable/lock_ic"
             />

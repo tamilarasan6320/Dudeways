@@ -20,7 +20,7 @@ import org.json.JSONException
 import org.json.JSONObject
 
 
-class EditProfileActivity : AppCompatActivity() {
+class EditProfileActivity : BaseActivity() {
 
     lateinit var binding: ActivityEditProfileBinding
     lateinit var activity: Activity

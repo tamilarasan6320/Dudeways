@@ -12,7 +12,7 @@ import com.zoho.salesiqembed.ZohoSalesIQ
 import org.json.JSONException
 import org.json.JSONObject
 
-class CustomerSupportActivity : AppCompatActivity() {
+class CustomerSupportActivity : BaseActivity() {
 
     lateinit var binding: ActivityCustomerSupportBinding
     lateinit var activity: Activity

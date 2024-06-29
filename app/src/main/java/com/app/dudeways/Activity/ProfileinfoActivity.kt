@@ -19,7 +19,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import org.json.JSONException
 import org.json.JSONObject
 
-class ProfileinfoActivity : AppCompatActivity() {
+class ProfileinfoActivity : BaseActivity() {
 
     lateinit var binding: ActivityProfileinfoBinding
     lateinit var activity: Activity

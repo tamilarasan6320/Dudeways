@@ -24,6 +24,7 @@
 
 
             <ImageView
+                android:backgroundTint="?attr/iconColor"
                 android:visibility="invisible"
                 android:layout_centerVertical="true"
                 android:id="@+id/ivBack"

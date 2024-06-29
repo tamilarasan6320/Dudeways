@@ -21,7 +21,7 @@ import org.json.JSONException
 import org.json.JSONObject
 import java.lang.reflect.Field
 
-class ProfileDetailsActivity : AppCompatActivity() {
+class ProfileDetailsActivity : BaseActivity() {
 
     lateinit var binding: ActivityProfileDetailsBinding
     lateinit var activity: Activity

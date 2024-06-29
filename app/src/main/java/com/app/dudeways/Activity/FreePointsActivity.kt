@@ -23,7 +23,7 @@ import org.json.JSONException
 import org.json.JSONObject
 
 
-class FreePointsActivity : AppCompatActivity() {
+class FreePointsActivity : BaseActivity() {
 
     lateinit var binding: ActivityFreePointsBinding
     lateinit var activity: Activity

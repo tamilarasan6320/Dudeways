@@ -12,7 +12,7 @@ import com.app.dudeways.helper.Constant
 import com.app.dudeways.helper.Session
 import com.bumptech.glide.Glide
 
-class Stage1Activity : AppCompatActivity() {
+class Stage1Activity : BaseActivity() {
 
     lateinit var activity: Activity
     lateinit var binding: ActivityStage1Binding

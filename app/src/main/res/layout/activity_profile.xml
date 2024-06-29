@@ -15,6 +15,7 @@
         android:layout_height="wrap_content">
 
         <ImageButton
+            android:backgroundTint="?attr/iconColor"
             android:visibility="gone"
             android:layout_centerVertical="true"
             android:id="@+id/ibBack"
@@ -53,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Update your profile picture"
-            android:textColor="@color/black"
+            android:textColor="?attr/myTextColor"
             android:textSize="@dimen/_12sdp"
             android:fontFamily="@font/poppins_medium"
             />

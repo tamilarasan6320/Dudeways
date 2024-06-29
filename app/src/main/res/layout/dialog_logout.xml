@@ -63,7 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Are you sure you want to logout?"
-            android:textColor="@color/black"
+            android:textColor="?attr/myTextColor"
             android:fontFamily="@font/poppins_medium"
             android:textSize="@dimen/_14sdp"
             />

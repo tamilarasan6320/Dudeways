@@ -23,7 +23,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 import org.json.JSONException
 import org.json.JSONObject
 
-class GoogleLoginActivity : AppCompatActivity() {
+class GoogleLoginActivity : BaseActivity() {
 
     lateinit var binding: ActivityGoogleLoginBinding
     lateinit var activity: Activity

@@ -16,7 +16,7 @@ import com.google.gson.Gson
 import org.json.JSONException
 import org.json.JSONObject
 
-class DeactivateActivity : AppCompatActivity() {
+class DeactivateActivity : BaseActivity() {
 
 
     lateinit var binding: ActivityDeactivateBinding

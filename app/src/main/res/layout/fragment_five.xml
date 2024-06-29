@@ -159,7 +159,7 @@
             android:text="Name your trip"
             android:textSize="@dimen/_14sdp"
             android:fontFamily="@font/poppins_semibold"
-            android:textColor="@color/black"
+            android:textColor="?attr/myTextColor"
             />
 
 
@@ -186,7 +186,7 @@
             android:text="Description"
             android:textSize="@dimen/_14sdp"
             android:fontFamily="@font/poppins_semibold"
-            android:textColor="@color/black"
+            android:textColor="?attr/myTextColor"
             />
 
         <EditText

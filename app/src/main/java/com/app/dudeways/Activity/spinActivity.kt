@@ -18,7 +18,7 @@ import org.json.JSONException
 import org.json.JSONObject
 import java.util.Random
 
-class spinActivity : AppCompatActivity() {
+class spinActivity : BaseActivity() {
     private var degree = 0
     private var isSpinning = false
 

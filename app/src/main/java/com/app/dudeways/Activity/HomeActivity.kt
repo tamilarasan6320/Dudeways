@@ -55,7 +55,7 @@ import org.json.JSONObject
 import java.io.IOException
 import java.util.Locale
 
-class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListener {
+class HomeActivity : BaseActivity() , NavigationBarView.OnItemSelectedListener {
 
     lateinit var binding: ActivityHomeBinding
     lateinit var activity: Activity
@@ -120,6 +120,7 @@ class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
         CoroutineScope(Dispatchers.IO).launch {
             OneSignal.Notifications.requestPermission(false)
         }
+        OneSignal.login("${session.getData(Constant.USER_ID)}")
     }
 
     private fun initializeZohoSalesIQ() {

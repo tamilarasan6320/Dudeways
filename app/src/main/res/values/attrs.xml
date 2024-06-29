@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Define a custom attribute for text color -->
+    <attr name="myTextColor" format="reference|color" />
+    <attr name="iconColor" format="reference|color" />
+    <attr name="textgrey" format="reference|color" />
+
+    <!-- Add more custom attributes as needed -->
+</resources>

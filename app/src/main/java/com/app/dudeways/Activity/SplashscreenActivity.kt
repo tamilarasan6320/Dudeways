@@ -20,7 +20,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import org.json.JSONException
 import org.json.JSONObject
 
-class SplashscreenActivity : AppCompatActivity() {
+class SplashscreenActivity : BaseActivity() {
     lateinit var binding: ActivitySplashscreenBinding
     private var handler: Handler? = null
     private var activity: Activity? = null

@@ -19,7 +19,7 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 
-class SelfiActivity : AppCompatActivity(), FaceContourDetectorProcessor.FaceContourDetectorListener {
+class SelfiActivity : BaseActivity(), FaceContourDetectorProcessor.FaceContourDetectorListener {
 
     companion object {
         const val KEY_IMAGE_PATH = "image_path"

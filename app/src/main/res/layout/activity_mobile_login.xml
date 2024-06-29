@@ -20,7 +20,7 @@
             android:layout_below="@+id/rlSplashImage"
             android:fontFamily="@font/poppins_semibold"
             android:text="What’s your Mobile Phone Number?"
-            android:textColor="@color/black"
+            android:textColor="?attr/myTextColor"
             android:textSize="@dimen/_24sdp" />
 
         <LinearLayout
@@ -81,7 +81,7 @@
         android:gravity="center"
         android:textSize="@dimen/_10sdp"
         android:fontFamily="@font/poppins_medium"
-        android:textColor="@color/black"
+        android:textColor="?attr/myTextColor"
         android:layout_marginBottom="@dimen/_10sdp" />
 
 </RelativeLayout>

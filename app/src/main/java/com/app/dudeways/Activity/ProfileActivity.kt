@@ -18,7 +18,7 @@ import org.json.JSONException
 import org.json.JSONObject
 import java.io.File
 
-class ProfileActivity : AppCompatActivity() {
+class ProfileActivity : BaseActivity() {
 
     lateinit var binding: ActivityProfileBinding
     lateinit var activity: Activity

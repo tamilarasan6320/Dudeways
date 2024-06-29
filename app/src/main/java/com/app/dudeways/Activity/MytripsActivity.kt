@@ -16,7 +16,7 @@ import com.google.gson.Gson
 import org.json.JSONException
 import org.json.JSONObject
 
-class MytripsActivity : AppCompatActivity() {
+class MytripsActivity : BaseActivity() {
 
     lateinit var binding: ActivityMytripsBinding
     lateinit var activity: Activity

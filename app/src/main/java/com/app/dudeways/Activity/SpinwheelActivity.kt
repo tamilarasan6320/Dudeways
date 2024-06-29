@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.app.dudeways.databinding.ActivitySpinwheelBinding
 import java.util.Random
 
-class SpinwheelActivity : AppCompatActivity() {
+class SpinwheelActivity : BaseActivity() {
 
     lateinit var binding: ActivitySpinwheelBinding
     lateinit var activity: Activity

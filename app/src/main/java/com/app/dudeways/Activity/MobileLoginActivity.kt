@@ -12,7 +12,7 @@ import com.app.dudeways.helper.Session
 import org.json.JSONException
 import org.json.JSONObject
 
-class MobileLoginActivity : AppCompatActivity() {
+class MobileLoginActivity : BaseActivity() {
 
     lateinit var binding: ActivityMobileLoginBinding
     lateinit var activity: Activity

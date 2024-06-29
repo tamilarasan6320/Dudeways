@@ -28,6 +28,7 @@
 
 
             <ImageButton
+            android:backgroundTint="?attr/iconColor"
                 android:id="@+id/ivBack"
                 android:layout_margin="@dimen/_10sdp"
                 android:layout_width="@dimen/_24sdp"
@@ -84,6 +85,7 @@
 
 
         <ImageView
+                android:backgroundTint="?attr/iconColor"
             android:id="@+id/ivEdit"
             android:layout_marginRight="@dimen/_5sdp"
             android:layout_alignParentBottom="true"
@@ -125,7 +127,7 @@
                 android:text=""
                 android:textSize="@dimen/_14sdp"
                 android:fontFamily="@font/poppins_semibold"
-                android:textColor="@color/black"
+                android:textColor="?attr/myTextColor"
                 />
 
 
@@ -182,7 +184,7 @@
             android:text=""
             android:textSize="@dimen/_12sdp"
             android:fontFamily="@font/poppins_medium"
-            android:textColor="@color/text_grey"
+            android:textColor="?attr/textgrey"
             />
 
 
@@ -206,7 +208,7 @@
                 android:text="Introduction"
                 android:textSize="@dimen/_12sdp"
                 android:fontFamily="@font/poppins_semibold"
-                android:textColor="@color/black"
+                android:textColor="?attr/myTextColor"
                 />
 
             <TextView
@@ -216,7 +218,7 @@
                 android:text=""
                 android:textSize="@dimen/_10sdp"
                 android:fontFamily="@font/poppins_regular"
-                android:textColor="@color/text_grey"
+                android:textColor="?attr/textgrey"
                 />
 
 
@@ -244,7 +246,7 @@
                     android:text="Profession"
                     android:textSize="@dimen/_12sdp"
                     android:fontFamily="@font/poppins_semibold"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/myTextColor"
                     />
 
                 <TextView
@@ -254,7 +256,7 @@
                     android:text=""
                     android:textSize="@dimen/_10sdp"
                     android:fontFamily="@font/poppins_regular"
-                    android:textColor="@color/text_grey"
+                    android:textColor="?attr/textgrey"
                     />
 
 
@@ -271,7 +273,7 @@
                     android:text="Gender"
                     android:textSize="@dimen/_12sdp"
                     android:fontFamily="@font/poppins_semibold"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/myTextColor"
                     />
 
                 <TextView
@@ -281,7 +283,7 @@
                     android:text=""
                     android:textSize="@dimen/_10sdp"
                     android:fontFamily="@font/poppins_regular"
-                    android:textColor="@color/text_grey"
+                    android:textColor="?attr/textgrey"
                     />
 
 
@@ -310,7 +312,7 @@
                     android:text="City"
                     android:textSize="@dimen/_12sdp"
                     android:fontFamily="@font/poppins_semibold"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/myTextColor"
                     />
 
                 <TextView
@@ -320,7 +322,7 @@
                     android:text=""
                     android:textSize="@dimen/_10sdp"
                     android:fontFamily="@font/poppins_regular"
-                    android:textColor="@color/text_grey"
+                    android:textColor="?attr/textgrey"
                     />
 
 
@@ -337,7 +339,7 @@
                     android:text="State"
                     android:textSize="@dimen/_12sdp"
                     android:fontFamily="@font/poppins_semibold"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/myTextColor"
                     />
 
                 <TextView
@@ -347,7 +349,7 @@
                     android:text=""
                     android:textSize="@dimen/_10sdp"
                     android:fontFamily="@font/poppins_regular"
-                    android:textColor="@color/text_grey"
+                    android:textColor="?attr/textgrey"
                     />
 
 
@@ -390,6 +392,7 @@
 
 
             <ImageView
+                android:backgroundTint="?attr/iconColor"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:background="@drawable/my_trip_ic" />
@@ -401,7 +404,35 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="My Trips"
-                android:textColor="@color/black"
+                android:textColor="?attr/myTextColor"
+                android:textSize="@dimen/_12sdp"
+                android:fontFamily="@font/poppins_medium"
+                />
+
+        </RelativeLayout>
+          <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_24sdp"/>
+        <RelativeLayout
+            android:id="@+id/rlSetting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:backgroundTint="?attr/iconColor"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:background="@drawable/my_trip_ic" />
+
+
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/_50sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Dark Mode"
+                android:textColor="?attr/myTextColor"
                 android:textSize="@dimen/_12sdp"
                 android:fontFamily="@font/poppins_medium"
                 />
@@ -417,6 +448,7 @@
 
 
             <ImageView
+                android:backgroundTint="?attr/iconColor"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:background="@drawable/notication_ic"
@@ -429,7 +461,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Manage Notifications"
-                android:textColor="@color/black"
+                android:textColor="?attr/myTextColor"
                 android:textSize="@dimen/_12sdp"
                 android:fontFamily="@font/poppins_medium"
                 />
@@ -445,6 +477,7 @@
 
 
             <ImageView
+                android:backgroundTint="?attr/iconColor"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:background="@drawable/card_ic"
@@ -457,7 +490,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Store Points"
-                android:textColor="@color/black"
+                android:textColor="?attr/myTextColor"
                 android:textSize="@dimen/_12sdp"
                 android:fontFamily="@font/poppins_medium"
                 />
@@ -473,6 +506,7 @@
 
 
             <ImageView
+                android:backgroundTint="?attr/iconColor"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:background="@drawable/terms_ic"
@@ -485,7 +519,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Terms and conditions"
-                android:textColor="@color/black"
+                android:textColor="?attr/myTextColor"
                 android:textSize="@dimen/_12sdp"
                 android:fontFamily="@font/poppins_medium"
                 />
@@ -501,6 +535,7 @@
 
 
             <ImageView
+                android:backgroundTint="?attr/iconColor"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:background="@drawable/invite_friend_ic"
@@ -513,7 +548,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Invite Friends"
-                android:textColor="@color/black"
+                android:textColor="?attr/myTextColor"
                 android:textSize="@dimen/_12sdp"
                 android:fontFamily="@font/poppins_medium"
                 />
@@ -529,6 +564,7 @@
 
 
             <ImageView
+                android:backgroundTint="?attr/iconColor"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:background="@drawable/lock_ic"
@@ -541,7 +577,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Privacy policy"
-                android:textColor="@color/black"
+                android:textColor="?attr/myTextColor"
                 android:textSize="@dimen/_12sdp"
                 android:fontFamily="@font/poppins_medium"
                 />
@@ -557,6 +593,7 @@
 
 
             <ImageView
+                android:backgroundTint="?attr/iconColor"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:background="@drawable/verfy_ic"
@@ -569,7 +606,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Verification Badge"
-                android:textColor="@color/black"
+                android:textColor="?attr/myTextColor"
                 android:textSize="@dimen/_12sdp"
                 android:fontFamily="@font/poppins_medium"
                 />
@@ -585,6 +622,7 @@
 
 
             <ImageView
+                android:backgroundTint="?attr/iconColor"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:background="@drawable/feedback_ic"
@@ -597,7 +635,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Give Feedback"
-                android:textColor="@color/black"
+                android:textColor="?attr/myTextColor"
                 android:textSize="@dimen/_12sdp"
                 android:fontFamily="@font/poppins_medium"
                 />
@@ -616,7 +654,7 @@
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:background="@drawable/customer_suppor_ic"
-                />
+                android:backgroundTint="?attr/iconColor" />
 
 
             <TextView
@@ -625,7 +663,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Customer Support"
-                android:textColor="@color/black"
+                android:textColor="?attr/myTextColor"
                 android:textSize="@dimen/_12sdp"
                 android:fontFamily="@font/poppins_medium"
                 />
@@ -641,6 +679,7 @@
 
 
             <ImageView
+                android:backgroundTint="?attr/iconColor"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:background="@drawable/sign_out_ic"
@@ -653,7 +692,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Logout"
-                android:textColor="@color/black"
+                android:textColor="?attr/myTextColor"
                 android:textSize="@dimen/_12sdp"
                 android:fontFamily="@font/poppins_medium"
                 />

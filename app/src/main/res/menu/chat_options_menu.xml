@@ -8,5 +8,5 @@
         android:title="Clear Chat" />
     <item
         android:id="@+id/menu_report"
-        android:title="Report" />
+        android:title="Remove Friend" />
 </menu>

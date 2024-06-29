@@ -30,7 +30,7 @@ import org.json.JSONException
 import org.json.JSONObject
 import java.io.File
 
-class ProfileViewActivity : AppCompatActivity() {
+class ProfileViewActivity : BaseActivity() {
 
     lateinit var binding:ActivityProfileViewBinding
     lateinit var activity: Activity
@@ -87,6 +87,8 @@ class ProfileViewActivity : AppCompatActivity() {
             val intent = Intent(activity, PrivacypolicyActivity::class.java)
             startActivity(intent)
         }
+
+
 
         binding.rlTermscondition.setOnClickListener {
             val intent = Intent(activity, TermsconditionActivity::class.java)

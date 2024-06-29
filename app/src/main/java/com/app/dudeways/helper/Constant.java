@@ -56,12 +56,18 @@ public class Constant {
 
 
 
+    // const val LOAD_ITEM_LIMIT = 10
+    public static final int LOAD_ITEM_LIMIT = 10;
+
+
     public static final String REMOVE_FROM_CART = BaseUrl + "booklist/delete-cart";
     public static final String ORDER = BaseUrl + "order";
 
 
     public static final String AUTHORIZATION = "Authorization";
     public static final String TOKEN = "token";
+    public static final String LIMIT = "limit";
+    public static final String OFFSET = "offset";
     public static final String PROOF1 = "proof1";
     public static final String PROOF2 = "proof2";
     public static final String VERDICATION_STATUS = "0";

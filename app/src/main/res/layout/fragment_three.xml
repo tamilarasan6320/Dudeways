@@ -163,7 +163,7 @@
             android:text="Where are you going?"
             android:textSize="@dimen/_14sdp"
             android:fontFamily="@font/poppins_semibold"
-            android:textColor="@color/black"
+            android:textColor="?attr/myTextColor"
             />
 
         <TextView
@@ -173,7 +173,7 @@
             android:text="[Kodaikanal,Ooty,Manali,Munnar, Bangalore etc..]"
             android:textSize="@dimen/_12sdp"
             android:fontFamily="@font/poppins_regular"
-            android:textColor="@color/black"
+            android:textColor="?attr/myTextColor"
             />
 
 

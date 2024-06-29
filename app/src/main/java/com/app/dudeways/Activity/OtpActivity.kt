@@ -10,7 +10,7 @@ import com.app.dudeways.R
 import com.app.dudeways.databinding.ActivityOtpBinding
 import com.app.dudeways.helper.Session
 
-class OtpActivity : AppCompatActivity() {
+class OtpActivity : BaseActivity() {
 
     lateinit var binding: ActivityOtpBinding
     lateinit var activity: Activity

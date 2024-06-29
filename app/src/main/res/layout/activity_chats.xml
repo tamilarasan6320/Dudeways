@@ -20,6 +20,7 @@
             android:padding="@dimen/_14sdp">
 
             <ImageView
+                android:backgroundTint="?attr/iconColor"
                 android:layout_centerVertical="true"
                 android:id="@+id/ivBack"
                 android:layout_width="@dimen/_24sdp"
@@ -71,7 +72,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
-                    android:textColor="@color/black"
+                    android:textColor="?attr/myTextColor"
                     android:textSize="@dimen/_16sdp"
                     android:fontFamily="@font/poppins_medium"/>
 
@@ -80,7 +81,7 @@
                     android:id="@+id/typingStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="typing..."
+                    android:text=""
                     android:textSize="@dimen/_12sdp"
                     android:fontFamily="@font/poppins_semibold"
                     android:textColor="@color/primary"
@@ -100,6 +101,7 @@
 
 
             <ImageButton
+            android:backgroundTint="?attr/iconColor"
                 android:id="@+id/ivMore"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
@@ -161,6 +163,8 @@
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/edit_text_messages_background"
                 android:hint="Message"
+                android:textColorHint="@color/black"
+                android:textColor="@color/black"
                 android:inputType="textMultiLine"
                 android:maxLines="5"
                 android:padding="12dp"

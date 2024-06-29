@@ -18,7 +18,8 @@
         android:background="@drawable/chat_message_bg_from_reciever"
         android:gravity="bottom|end"
         android:orientation="horizontal"
-        android:padding="@dimen/_10sdp">
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:paddingVertical="@dimen/_2sdp">
 
 
         <TextView
@@ -27,7 +28,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_regular"
             android:text="jhhbohibdsfkvjnbdfkjnkjvndvfjnnjnkjvnkjdfvniurebijlefbgbgfgffgv"
-            android:textColor="@color/black"
+            android:textColor="?attr/myTextColor"
             android:textSize="@dimen/_12sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,26 +39,16 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="bottom"
-            android:layout_marginEnd="8dp"
             android:gravity="bottom"
             android:text="gg"
             android:textColor="@color/primary"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/ivSeenStatus"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvMessage"
             app:layout_constraintVertical_bias="0.0" />
 
-        <ImageView
-            android:id="@+id/ivSeenStatus"
-            android:layout_width="@dimen/_10sdp"
-            android:layout_height="@dimen/_10sdp"
-            android:layout_gravity="bottom"
-            android:backgroundTint="@color/primary"
-            android:src="@drawable/tick_ic"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvMessage" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

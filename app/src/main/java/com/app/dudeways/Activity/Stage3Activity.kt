@@ -18,7 +18,7 @@ import org.json.JSONException
 import org.json.JSONObject
 import java.io.File
 
-class Stage3Activity : AppCompatActivity() {
+class Stage3Activity : BaseActivity() {
 
     private lateinit var binding: ActivityStage3Binding
     private lateinit var activity: Activity

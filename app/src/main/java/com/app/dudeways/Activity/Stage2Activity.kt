@@ -20,7 +20,7 @@ import org.json.JSONException
 import org.json.JSONObject
 import java.io.File
 
-class Stage2Activity : AppCompatActivity() {
+class Stage2Activity : BaseActivity() {
 
     lateinit var binding: ActivityStage2Binding
     lateinit var activity: Activity

@@ -13,6 +13,7 @@
         android:layout_height="wrap_content">
 
         <ImageButton
+            android:backgroundTint="?attr/iconColor"
             android:layout_centerVertical="true"
             android:id="@+id/ibBack"
             android:layout_width="@dimen/_24sdp"
@@ -28,7 +29,7 @@
             android:layout_height="wrap_content"
             android:text="Edit Profile"
             android:textSize="@dimen/_14sdp"
-            android:textColor="@color/black"
+            android:textColor="?attr/myTextColor"
             android:fontFamily="@font/poppins_medium"
             />
 
@@ -65,7 +66,7 @@
 <!--                android:layout_height="wrap_content"-->
 <!--                android:fontFamily="@font/poppins_semibold"-->
 <!--                android:text="Edit Profile"-->
-<!--                android:textColor="@color/black"-->
+<!--                android:textColor="?attr/myTextColor"-->
 <!--                android:textSize="@dimen/_24sdp" />-->
 
             <!-- Name Field -->

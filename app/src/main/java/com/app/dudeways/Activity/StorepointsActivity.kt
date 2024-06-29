@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.app.dudeways.R
 import com.app.dudeways.databinding.ActivityStorepointsBinding
 
-class StorepointsActivity : AppCompatActivity() {
+class StorepointsActivity : BaseActivity() {
 
 
     lateinit var binding: ActivityStorepointsBinding

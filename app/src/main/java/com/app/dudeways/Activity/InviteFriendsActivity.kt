@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.app.dudeways.databinding.ActivityInviteFriendsBinding
 import com.app.dudeways.helper.Session
 
-class InviteFriendsActivity : AppCompatActivity() {
+class InviteFriendsActivity : BaseActivity() {
 
     lateinit var binding: ActivityInviteFriendsBinding
     lateinit var activity: Activity

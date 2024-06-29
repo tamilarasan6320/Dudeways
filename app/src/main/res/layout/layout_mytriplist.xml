@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_semibold"
                 android:text="Shafeeka"
-                android:textColor="@color/black"
+                android:textColor="?attr/myTextColor"
                 android:textSize="@dimen/_14sdp" />
 
             <ImageView
@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_regular"
                 android:text=""
-                android:textColor="@color/text_grey"
+                android:textColor="?attr/textgrey"
                 android:textSize="@dimen/_14sdp" />
 
 <!--            <TextView-->
@@ -68,7 +68,7 @@
 <!--                android:layout_height="wrap_content"-->
 <!--                android:fontFamily="@font/poppins_regular"-->
 <!--                android:text="\u00B7 4h"-->
-<!--                android:textColor="@color/text_grey"-->
+<!--                android:textColor="?attr/textgrey"-->
 <!--                android:textSize="@dimen/_14sdp" />-->
 
 
@@ -138,6 +138,7 @@
 
 
             <ImageView
+                android:backgroundTint="?attr/iconColor"
                 android:layout_width="@dimen/_24sdp"
                 android:layout_height="@dimen/_24sdp"
                 android:background="@drawable/location_ic"
@@ -150,7 +151,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Munnar Kerala"
-                android:textColor="@color/black"
+                android:textColor="?attr/myTextColor"
                 android:textSize="@dimen/_12sdp"
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:fontFamily="@font/poppins_medium"
@@ -176,13 +177,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Trip to Kerala, looking for travel partner"
-                android:textColor="@color/black"
+                android:textColor="?attr/myTextColor"
                 android:textSize="@dimen/_12sdp"
                 android:fontFamily="@font/poppins_semibold"
                 />
 
 
             <ImageView
+                android:backgroundTint="?attr/iconColor"
                 android:visibility="gone"
                 android:layout_centerVertical="true"
                 android:id="@+id/ivShare"
@@ -207,6 +209,7 @@
 
 
             <ImageView
+                android:backgroundTint="?attr/iconColor"
                 android:layout_gravity="center"
                 android:layout_width="@dimen/_14sdp"
                 android:layout_height="@dimen/_14sdp"
@@ -220,7 +223,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textColor="@color/black"
+                android:textColor="?attr/myTextColor"
                 android:textSize="@dimen/_10sdp"
                 android:gravity="center"
                 android:layout_gravity="center"
@@ -253,7 +256,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Trip to Kerala, looking for travel partner"
-            android:textColor="@color/black"
+            android:textColor="?attr/myTextColor"
             android:textSize="@dimen/_12sdp"
             android:fontFamily="@font/poppins_semibold"
             />

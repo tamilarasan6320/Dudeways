@@ -18,7 +18,7 @@ import com.app.dudeways.helper.Session
 import org.json.JSONException
 import org.json.JSONObject
 
-class PurchasepointActivity : AppCompatActivity() {
+class PurchasepointActivity : BaseActivity() {
 
     lateinit var binding: ActivityPurchasepointBinding
     lateinit var activity: Activity

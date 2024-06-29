@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
+import com.app.dudeways.Activity.BaseActivity
 import com.app.dudeways.Activity.HomeActivity
 import com.app.dudeways.Activity.MytripsActivity
 import com.app.dudeways.R
@@ -13,7 +14,7 @@ import com.app.dudeways.databinding.ActivityTripCompletedBinding
 import com.app.dudeways.helper.Constant
 import com.app.dudeways.helper.Session
 
-class TripCompletedActivity : AppCompatActivity() {
+class TripCompletedActivity : BaseActivity() {
 
 
     lateinit var binding: ActivityTripCompletedBinding

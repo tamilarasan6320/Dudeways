@@ -14,6 +14,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
+                android:backgroundTint="?attr/iconColor"
             android:id="@+id/ivBack"
             android:layout_width="@dimen/_24sdp"
             android:layout_height="@dimen/_18sdp"
@@ -28,7 +29,7 @@
             android:layout_height="wrap_content"
             android:text="Manage Notification"
             android:textSize="@dimen/_14sdp"
-            android:textColor="@color/black"
+            android:textColor="?attr/myTextColor"
             android:fontFamily="@font/poppins_medium"
             />
 
@@ -67,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:text="Notify me when new message arrived"
                 android:fontFamily="@font/poppins_medium"
-                android:textColor="@color/black"
+                android:textColor="?attr/myTextColor"
                 />
 
 
@@ -94,7 +95,7 @@
                 android:layout_height="wrap_content"
                 android:text="Notify me when someone add me as friend"
                 android:fontFamily="@font/poppins_medium"
-                android:textColor="@color/black"
+                android:textColor="?attr/myTextColor"
                 />
 
 
@@ -121,7 +122,7 @@
                 android:layout_height="wrap_content"
                 android:text="Notify me when some one view my profile"
                 android:fontFamily="@font/poppins_medium"
-                android:textColor="@color/black"
+                android:textColor="?attr/myTextColor"
                 />
 
 
