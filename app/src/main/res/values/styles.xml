@@ -1,30 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Base theme for light mode -->
-    <style name="Theme.Paring" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimaryVariant">@color/primary</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Define text color for light mode -->
-        <item name="android:textColor">@color/black</item>
-        <item name="myTextColor">@color/black</item> <!-- Default text color -->
-        <item name="iconColor">@color/black</item> <!-- Default text color -->
-        <item name="textgrey">@color/text_grey</item>
-
-    </style>
-
-    <!-- Theme for dark mode -->
-    <style name="Theme.Paring.Dark" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimaryVariant">@color/primary</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Define text color for dark mode -->
-        <item name="android:textColor">@color/white</item>
-        <item name="myTextColor">@color/white</item> <!-- Text color for dark mode -->
-        <item name="iconColor">@color/text_grey_dark</item> <!-- Text color for dark mode -->
-        <item name="textgrey">@color/text_grey_dark</item> <!-- Text color for dark mode -->
-    </style>
 
     <!-- Custom style for a button -->
     <style name="CustomButtonStyle" parent="Widget.AppCompat.Button">

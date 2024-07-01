@@ -19,6 +19,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
+        android:installLocation="internalOnly"
         android:name=".helper.ApiConfig"
         android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -142,12 +143,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
 
-                <data
-                    android:scheme="https"
-                    android:host="play.google.com"
-                    android:path="/store/apps/details" />
             </intent-filter>
         </activity> <!-- Theme is optional and only needed if default theme has no action bar. -->
         <activity
