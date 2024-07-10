@@ -282,7 +282,7 @@ class HomeActivity : BaseActivity() , NavigationBarView.OnItemSelectedListener {
                 try {
                     val jsonObject = JSONObject(response)
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
-                        userdetails(session.getData(Constant.USER_ID))
+                        userdetails(session.getData(Constant.USER_ID),"1")
                         // Location updated successfully
                     } else {
                         Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
@@ -295,10 +295,10 @@ class HomeActivity : BaseActivity() , NavigationBarView.OnItemSelectedListener {
     }
 
 
-    private fun userdetails(user_id: String?) {
+    private fun userdetails(user_id: String?, status: String?) {
         val params: MutableMap<String, String> = HashMap()
         params[Constant.USER_ID] = user_id.toString()
-        params[Constant.ONLINE_STATUS] = "1"
+        params[Constant.ONLINE_STATUS] = status.toString()
         ApiConfig.RequestToVolley({ result, response ->
             if (result) {
                 try {
@@ -340,6 +340,18 @@ class HomeActivity : BaseActivity() , NavigationBarView.OnItemSelectedListener {
                 }
             }
         }, activity, Constant.USERDETAILS, params, true, 1)
+    }
+
+    // onstart
+    override fun onStart() {
+        super.onStart()
+        userdetails(session.getData(Constant.USER_ID),"1")
+    }
+
+    // onstop
+    override fun onStop() {
+        super.onStop()
+        userdetails(session.getData(Constant.USER_ID),"0")
     }
 
 }
