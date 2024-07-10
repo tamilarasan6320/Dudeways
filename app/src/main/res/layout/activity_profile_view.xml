@@ -384,7 +384,96 @@
         android:layout_height="wrap_content">
 
 
+        <RelativeLayout
+            android:id="@+id/rlStorepoints"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
+
+            <ImageView
+                android:backgroundTint="?attr/iconColor"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:background="@drawable/card_ic"
+                />
+
+
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/_50sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Store Points"
+                android:textColor="?attr/myTextColor"
+                android:textSize="@dimen/_12sdp"
+                android:fontFamily="@font/poppins_medium"
+                />
+
+        </RelativeLayout>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_24sdp"/>
+
+
+        <RelativeLayout
+            android:id="@+id/rlInviteFriends"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:backgroundTint="?attr/iconColor"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:background="@drawable/invite_friend_ic"
+                />
+
+
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/_50sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Invite Friends"
+                android:textColor="?attr/myTextColor"
+                android:textSize="@dimen/_12sdp"
+                android:fontFamily="@font/poppins_medium"
+                />
+
+        </RelativeLayout>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_24sdp"/>
+
+        <RelativeLayout
+            android:id="@+id/rlVerificationBadge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:backgroundTint="?attr/iconColor"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:background="@drawable/verfy_ic"
+                />
+
+
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/_50sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Verification Badge"
+                android:textColor="?attr/myTextColor"
+                android:textSize="@dimen/_12sdp"
+                android:fontFamily="@font/poppins_medium"
+                />
+
+        </RelativeLayout>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_24sdp"/>
         <RelativeLayout
             android:id="@+id/rlMytrips"
             android:layout_width="match_parent"
@@ -423,7 +512,7 @@
                 android:backgroundTint="?attr/iconColor"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
-                android:background="@drawable/my_trip_ic" />
+                android:background="@drawable/night_mode" />
 
 
             <TextView
@@ -431,7 +520,7 @@
                 android:layout_marginLeft="@dimen/_50sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Dark Mode"
+                android:text="Dark / Light Mode"
                 android:textColor="?attr/myTextColor"
                 android:textSize="@dimen/_12sdp"
                 android:fontFamily="@font/poppins_medium"
@@ -441,180 +530,9 @@
           <Space
             android:layout_width="match_parent"
             android:layout_height="@dimen/_24sdp"/>
-        <RelativeLayout
-            android:id="@+id/rlNotifications"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
 
-            <ImageView
-                android:backgroundTint="?attr/iconColor"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:background="@drawable/notication_ic"
-                />
 
-
-            <TextView
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/_50sdp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Manage Notifications"
-                android:textColor="?attr/myTextColor"
-                android:textSize="@dimen/_12sdp"
-                android:fontFamily="@font/poppins_medium"
-                />
-
-        </RelativeLayout>
-          <Space
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_24sdp"/>
-        <RelativeLayout
-            android:id="@+id/rlStorepoints"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
-            <ImageView
-                android:backgroundTint="?attr/iconColor"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:background="@drawable/card_ic"
-                />
-
-
-            <TextView
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/_50sdp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Store Points"
-                android:textColor="?attr/myTextColor"
-                android:textSize="@dimen/_12sdp"
-                android:fontFamily="@font/poppins_medium"
-                />
-
-        </RelativeLayout>
-          <Space
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_24sdp"/>
-        <RelativeLayout
-            android:id="@+id/rlTermscondition"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
-            <ImageView
-                android:backgroundTint="?attr/iconColor"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:background="@drawable/terms_ic"
-                />
-
-
-            <TextView
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/_50sdp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Terms and conditions"
-                android:textColor="?attr/myTextColor"
-                android:textSize="@dimen/_12sdp"
-                android:fontFamily="@font/poppins_medium"
-                />
-
-        </RelativeLayout>
-          <Space
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_24sdp"/>
-        <RelativeLayout
-            android:id="@+id/rlInviteFriends"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
-            <ImageView
-                android:backgroundTint="?attr/iconColor"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:background="@drawable/invite_friend_ic"
-                />
-
-
-            <TextView
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/_50sdp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Invite Friends"
-                android:textColor="?attr/myTextColor"
-                android:textSize="@dimen/_12sdp"
-                android:fontFamily="@font/poppins_medium"
-                />
-
-        </RelativeLayout>
-          <Space
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_24sdp"/>
-        <RelativeLayout
-            android:id="@+id/rlPrivacy"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
-            <ImageView
-                android:backgroundTint="?attr/iconColor"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:background="@drawable/lock_ic"
-                />
-
-
-            <TextView
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/_50sdp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Privacy policy"
-                android:textColor="?attr/myTextColor"
-                android:textSize="@dimen/_12sdp"
-                android:fontFamily="@font/poppins_medium"
-                />
-
-        </RelativeLayout>
-          <Space
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_24sdp"/>
-        <RelativeLayout
-            android:id="@+id/rlVerificationBadge"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
-            <ImageView
-                android:backgroundTint="?attr/iconColor"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:background="@drawable/verfy_ic"
-                />
-
-
-            <TextView
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/_50sdp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Verification Badge"
-                android:textColor="?attr/myTextColor"
-                android:textSize="@dimen/_12sdp"
-                android:fontFamily="@font/poppins_medium"
-                />
-
-        </RelativeLayout>
-          <Space
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_24sdp"/>
         <RelativeLayout
             android:id="@+id/rlDeactiveaccount"
             android:layout_width="match_parent"
@@ -644,6 +562,8 @@
         <Space
             android:layout_width="match_parent"
             android:layout_height="@dimen/_24sdp"/>
+
+
         <RelativeLayout
             android:id="@+id/rlCustomerSupport"
             android:layout_width="match_parent"
@@ -669,9 +589,101 @@
                 />
 
         </RelativeLayout>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_24sdp"/>
+
+        <RelativeLayout
+            android:id="@+id/rlNotifications"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:backgroundTint="?attr/iconColor"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:background="@drawable/notication_ic"
+                />
+
+
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/_50sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Manage Notifications"
+                android:textColor="?attr/myTextColor"
+                android:textSize="@dimen/_12sdp"
+                android:fontFamily="@font/poppins_medium"
+                />
+
+        </RelativeLayout>
           <Space
             android:layout_width="match_parent"
             android:layout_height="@dimen/_24sdp"/>
+
+        <RelativeLayout
+            android:id="@+id/rlTermscondition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:backgroundTint="?attr/iconColor"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:background="@drawable/terms_ic"
+                />
+
+
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/_50sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Terms and conditions"
+                android:textColor="?attr/myTextColor"
+                android:textSize="@dimen/_12sdp"
+                android:fontFamily="@font/poppins_medium"
+                />
+
+        </RelativeLayout>
+          <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_24sdp"/>
+
+        <RelativeLayout
+            android:id="@+id/rlPrivacy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:backgroundTint="?attr/iconColor"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:background="@drawable/lock_ic"
+                />
+
+
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/_50sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Privacy policy"
+                android:textColor="?attr/myTextColor"
+                android:textSize="@dimen/_12sdp"
+                android:fontFamily="@font/poppins_medium"
+                />
+
+        </RelativeLayout>
+          <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_24sdp"/>
+
+
         <RelativeLayout
             android:id="@+id/rlLogout"
             android:layout_width="match_parent"

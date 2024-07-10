@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.app.dudeways.Adapter.MytriplistAdapter
 import com.app.dudeways.Model.Mytriplist
 import com.app.dudeways.R
@@ -21,55 +22,85 @@ class MytripsActivity : BaseActivity() {
     lateinit var binding: ActivityMytripsBinding
     lateinit var activity: Activity
     lateinit var session: Session
+    private var offset = 0
+    private val limit = 10
+    private var isLoading = false
+    private var total = 0
+    private val mytriplist = ArrayList<Mytriplist>()
+    private lateinit var mytriplistAdapter: MytriplistAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_mytrips)
         binding = ActivityMytripsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         activity = this
         session = Session(activity)
 
-
         val linearLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         binding.rvMytriplist.layoutManager = linearLayoutManager
+
+        mytriplistAdapter = MytriplistAdapter(activity, mytriplist)
+        binding.rvMytriplist.adapter = mytriplistAdapter
 
         binding.ivBack.setOnClickListener {
             onBackPressed()
         }
 
-
-        mytripList()
-
         binding.swipeRefreshLayout.setOnRefreshListener {
+            offset = 0
             mytripList()
         }
 
+        binding.rvMytriplist.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val lastVisibleItemPosition = layoutManager.findLastCompletelyVisibleItemPosition()
+                val totalItemCount = layoutManager.itemCount
 
-        setContentView(binding.root)
+                if (!isLoading && lastVisibleItemPosition == totalItemCount - 1 && offset < total) {
+                    mytripList()
+                }
+            }
+        })
 
+        mytripList()
     }
 
     fun mytripList() {
+        if (isLoading) return
+        isLoading = true
+
         val params: MutableMap<String, String> = HashMap()
         params[Constant.USER_ID] = session.getData(Constant.USER_ID)
+        params[Constant.OFFSET] = offset.toString()
+        params[Constant.LIMIT] = limit.toString()
+
         ApiConfig.RequestToVolley({ result, response ->
+            isLoading = false
+            binding.swipeRefreshLayout.isRefreshing = false
+
             if (result) {
                 try {
                     val jsonObject = JSONObject(response)
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
+                        total = jsonObject.getInt(Constant.TOTAL)
+                        if (offset == 0) {
+                            mytriplist.clear()
+                        }
+
                         val jsonArray = jsonObject.getJSONArray(Constant.DATA)
-                        val g = Gson()
-                        val mytriplist = ArrayList<Mytriplist>()
+                        val gson = Gson()
 
                         for (i in 0 until jsonArray.length()) {
                             val jsonObject1 = jsonArray.getJSONObject(i)
-                            if (jsonObject1 != null) {
-                                val connect = g.fromJson(jsonObject1.toString(), Mytriplist::class.java)
-                                mytriplist.add(connect)
-                            }
+                            val trip = gson.fromJson(jsonObject1.toString(), Mytriplist::class.java)
+                            mytriplist.add(trip)
                         }
 
-                        val mytriplistAdapter = MytriplistAdapter(activity,mytriplist)
-                        binding.rvMytriplist.adapter = mytriplistAdapter
+                        mytriplistAdapter.notifyDataSetChanged()
+                        offset += limit
                     } else {
                         Toast.makeText(
                             activity,
@@ -81,10 +112,6 @@ class MytripsActivity : BaseActivity() {
                     e.printStackTrace()
                 }
             }
-
-            // Stop the refreshing animation once the network request is complete
-           binding.swipeRefreshLayout.isRefreshing = false
         }, activity, Constant.MY_TRIP_LIST, params, true, 1)
     }
-
 }

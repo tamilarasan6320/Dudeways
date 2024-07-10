@@ -11,14 +11,13 @@ import android.widget.CalendarView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
-import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dudeways.Activity.HomeActivity
 import com.google.gson.Gson
-import com.app.dudeways.Adapter.HomePtofilesAdapter
+import com.app.dudeways.Adapter.HomeProfilesAdapter
 import com.app.dudeways.Model.HomeCategory
 import com.app.dudeways.Model.HomeProfile
 import com.app.dudeways.R
@@ -36,16 +35,16 @@ class HomeFragment : Fragment() {
     private lateinit var homeCategoryAdapter: HomeCategorysAdapter
     private val homeCategoryList = ArrayList<HomeCategory>()
     private val homeProfileList = ArrayList<HomeProfile>()
-    private lateinit var homeProfilesAdapter: HomePtofilesAdapter
+    private lateinit var homeProfilesAdapter: HomeProfilesAdapter
     private lateinit var activity: Activity
     private lateinit var session: Session
-    private var selectedItemPosition = 0 // Set default position to 0
+    private var selectedItemPosition = 0
     private var offset = 0
-    private val limit = Constant.LOAD_ITEM_LIMIT
+    private val limit = 10
     private var isLoading = false
-    private var currentType: String = "latest"
-    private var selectedDated: String? = null
-    private var formattedDate: String? = null
+    private var currentType: String = "nearby"
+    private var selectedDate: String? = null
+    private var total = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,36 +57,31 @@ class HomeFragment : Fragment() {
         (activity as HomeActivity).binding.rltoolbar.visibility = View.VISIBLE
 
         setupRecyclerViews()
-        categoryList()
-        ProfileList("nearby")
+        loadCategoryList()
+        loadProfileList("nearby")
 
         binding.swipeRefreshLayout.setOnRefreshListener {
-            when (selectedItemPosition) {
-                0 -> ProfileList("nearby")
-                1 -> ProfileList("latest")
-                2 -> ProfileList("date")
-            }
+            offset = 0
+            loadProfileList(when (selectedItemPosition) {
+                0 -> "nearby"
+                1 -> "latest"
+                else -> "date"
+            })
         }
 
         return binding.root
     }
 
     private fun setupRecyclerViews() {
-        // Setup rvCategoryList with GridLayoutManager
         binding.rvCategoryList.layoutManager = GridLayoutManager(activity, 3)
-
-        // Setup rvProfileList with LinearLayoutManager
         binding.rvProfileList.layoutManager = LinearLayoutManager(activity)
 
-        // Initialize adapters
         homeCategoryAdapter = HomeCategorysAdapter(activity, homeCategoryList)
-        homeProfilesAdapter = HomePtofilesAdapter(activity, homeProfileList)
+        homeProfilesAdapter = HomeProfilesAdapter(activity, homeProfileList)
 
-        // Set adapters to RecyclerViews
         binding.rvCategoryList.adapter = homeCategoryAdapter
         binding.rvProfileList.adapter = homeProfilesAdapter
 
-        // Add scroll listener to rvProfileList for pagination
         binding.rvProfileList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -95,14 +89,14 @@ class HomeFragment : Fragment() {
                 val lastVisibleItemPosition = layoutManager.findLastCompletelyVisibleItemPosition()
                 val totalItemCount = layoutManager.itemCount
 
-                if (!isLoading && lastVisibleItemPosition == totalItemCount - 1) {
-                    ProfileList(currentType)
+                if (!isLoading && lastVisibleItemPosition == totalItemCount - 1 && offset < total) {
+                    loadProfileList(currentType)
                 }
             }
         })
     }
 
-    private fun categoryList() {
+    private fun loadCategoryList() {
         val homeCategory = ArrayList<HomeCategory>()
         val cat1 = HomeCategory("1", "Nearby", "")
         val cat2 = HomeCategory("1", "Latest", "")
@@ -116,50 +110,79 @@ class HomeFragment : Fragment() {
         binding.rvCategoryList.adapter = homeCategoryAdapter
     }
 
-    private fun ProfileList(type: String) {
+    private fun loadProfileList(type: String) {
         if (isLoading) return
         isLoading = true
-        val params = HashMap<String, String>()
-        params[Constant.USER_ID] = session.getData(Constant.USER_ID)
-        params[Constant.TYPE] = "latest"
-        params[Constant.OFFSET] = offset.toString()
-        params[Constant.LIMIT] = limit.toString()
-        params["date"] = selectedDated ?: ""
+
+        val params = buildProfileParams(type)
         ApiConfig.RequestToVolley({ result, response ->
-            isLoading = false
-            binding.swipeRefreshLayout.isRefreshing = false
-            if (result) {
-                try {
-                    val jsonObject = JSONObject(response)
-                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
-                        val jsonArray = jsonObject.getJSONArray(Constant.DATA)
-                        val gson = Gson()
-
-                        for (i in 0 until jsonArray.length()) {
-                            val jsonObject1 = jsonArray.getJSONObject(i)
-                            val profile = gson.fromJson(jsonObject1.toString(), HomeProfile::class.java)
-                            homeProfileList.add(profile)
-                        }
-
-                        if (offset == 0) {
-                            homeProfilesAdapter.notifyDataSetChanged()
-                        } else {
-                            homeProfilesAdapter.notifyItemRangeInserted(offset, homeProfileList.size - 1)
-                        }
-                        offset += limit
-                    } else {
-                        Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
-                    }
-                } catch (e: JSONException) {
-                    e.printStackTrace()
-                }
-            }
+            handleProfileResponse(result, response)
         }, activity, Constant.TRIP_LIST, params, true, 1)
     }
 
+    private fun buildProfileParams(type: String): HashMap<String, String> {
+        return hashMapOf(
+            Constant.USER_ID to session.getData(Constant.USER_ID),
+            Constant.TYPE to type,
+            Constant.OFFSET to offset.toString(),
+            Constant.LIMIT to limit.toString(),
+            "date" to (selectedDate ?: "")
+        )
+    }
 
+    private fun handleProfileResponse(result: Boolean, response: String) {
+        isLoading = false
+        binding.swipeRefreshLayout.isRefreshing = false
 
-    inner class HomeCategorysAdapter(private val activity: Activity, private val homeCategoryList: ArrayList<HomeCategory>) : RecyclerView.Adapter<HomeCategorysAdapter.ItemHolder>() {
+        if (result) {
+            try {
+                val jsonObject = JSONObject(response)
+                if (jsonObject.getBoolean(Constant.SUCCESS)) {
+                    total = jsonObject.getString(Constant.TOTAL).toInt()
+                    session.setData(Constant.TOTAL, total.toString())
+                    updateProfileList(jsonObject)
+                } else {
+                    showProfileListError(jsonObject.getString(Constant.MESSAGE))
+                }
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private fun updateProfileList(jsonObject: JSONObject) {
+        binding.rvProfileList.visibility = View.VISIBLE
+
+        if (offset == 0) {
+            homeProfileList.clear()
+        }
+
+        val jsonArray = jsonObject.getJSONArray(Constant.DATA)
+        val gson = Gson()
+
+        for (i in 0 until jsonArray.length()) {
+            val profile = gson.fromJson(jsonArray.getJSONObject(i).toString(), HomeProfile::class.java)
+            homeProfileList.add(profile)
+        }
+
+        if (offset == 0) {
+            homeProfilesAdapter.notifyDataSetChanged()
+        } else {
+            homeProfilesAdapter.notifyItemRangeInserted(offset, homeProfileList.size - 1)
+        }
+
+        offset += limit
+    }
+
+    private fun showProfileListError(message: String) {
+        binding.rvProfileList.visibility = View.GONE
+        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
+    }
+
+    inner class HomeCategorysAdapter(
+        private val activity: Activity,
+        private val homeCategoryList: ArrayList<HomeCategory>
+    ) : RecyclerView.Adapter<HomeCategorysAdapter.ItemHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
             val v = LayoutInflater.from(parent.context)
@@ -170,8 +193,8 @@ class HomeFragment : Fragment() {
         override fun onBindViewHolder(holder: ItemHolder, position: Int) {
             val category = homeCategoryList[position]
 
-            holder.tvName.text = if (position == 2 && selectedDated != null) {
-                selectedDated
+            holder.tvName.text = if (position == 2 && selectedDate != null) {
+                selectedDate
             } else {
                 category.name
             }
@@ -191,12 +214,18 @@ class HomeFragment : Fragment() {
                 selectedItemPosition = position
                 notifyItemChanged(previousPosition)
                 notifyItemChanged(position)
-                if (position == 0) {
-                    ProfileList("nearby")
-                } else if (position == 1) {
-                    ProfileList("latest")
-                } else if (position == 2) {
-                    showDatePickerDialog(holder.tvName)
+                binding.rvProfileList.scrollToPosition(0)  // Scroll to the top
+                offset = 0  // Reset the offset
+                when (position) {
+                    0 -> {
+                        currentType = "nearby"
+                        loadProfileList(currentType)
+                    }
+                    1 -> {
+                        currentType = "latest"
+                        loadProfileList(currentType)
+                    }
+                    2 -> showDatePickerDialog(holder.tvName)
                 }
             }
         }
@@ -228,20 +257,15 @@ class HomeFragment : Fragment() {
                 selectedDate.set(year, month, dayOfMonth)
 
                 val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                formattedDate = dateFormat.format(selectedDate.time)
+                this@HomeFragment.selectedDate = dateFormat.format(selectedDate.time)
 
-                tvName.text = formattedDate
-                selectedDated = formattedDate // Store the selected date
-
-                // call notifyDataSetChanged()
-                notifyDataSetChanged()
-                ProfileList("date")
-
+                tvName.text = this@HomeFragment.selectedDate
+                currentType = "date"
+                loadProfileList(currentType)
                 dialog.dismiss()
             }
 
             dialog.show()
         }
-
     }
 }

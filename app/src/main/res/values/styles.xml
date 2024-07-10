@@ -7,6 +7,8 @@
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:background">@drawable/custom_button_background</item>
         <item name="android:backgroundTint">@color/primary</item>
+
+        <item name="textInputStyle">@style/CustomTextInputLayout</item>
     </style>
 
     <!-- Custom style for calendar date -->
@@ -40,6 +42,22 @@
     <!-- Theme overlay for TextInputEditText Outlined style -->
     <style name="ThemeOverlay.AppTheme.TextInputEditText.Outlined" parent="">
         <item name="colorControlActivated">@color/primary</item>
+        <item name="android:enabled">@color/primary</item>
+
+
+    </style>
+
+    <style name="CustomTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/textinput_box_stroke_color</item>
+        <item name="hintTextColor">@color/textinput_hint_text_color</item>
+        <item name="colorControlActivated">@color/primary</item>
+    </style>
+
+    <!-- Custom overlay style for TextInputEditText -->
+    <style name="CustomTextInputEditText" parent="ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox">
+        <item name="colorAccent">@color/textinput_hint_text_color</item>
+        <item name="colorControlActivated">@color/primary</item>
+
     </style>
 
 </resources>

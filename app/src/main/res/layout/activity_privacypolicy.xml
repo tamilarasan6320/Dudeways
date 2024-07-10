@@ -7,60 +7,46 @@
     android:layout_height="match_parent"
     tools:context=".Activity.PrivacypolicyActivity">
 
-
     <RelativeLayout
-        android:padding="@dimen/_10sdp"
         android:id="@+id/rlToolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_10sdp">
 
         <ImageView
-                android:backgroundTint="?attr/iconColor"
             android:id="@+id/ivBack"
             android:layout_width="@dimen/_24sdp"
             android:layout_height="@dimen/_18sdp"
             android:background="@drawable/arrow_left"
-            />
-
-
+            android:backgroundTint="?attr/iconColor" />
 
         <TextView
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_toRightOf="@+id/ivBack"
+            android:id="@+id/tvTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/ivBack"
+            android:layout_marginLeft="@dimen/_10sdp"
             android:text="Privacy policy"
             android:textSize="@dimen/_14sdp"
             android:textColor="?attr/myTextColor"
-            android:fontFamily="@font/poppins_medium"
-            />
-
-
-
-
-
+            android:fontFamily="@font/poppins_medium" />
     </RelativeLayout>
 
-
     <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/rlToolbar"
         android:layout_margin="@dimen/_10sdp"
         android:background="@drawable/corners_bg"
         android:backgroundTint="@color/primary_light"
-        android:padding="@dimen/_10sdp"
-        android:layout_below="@+id/rlToolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:padding="@dimen/_10sdp">
 
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/privacyandpolicy"
-        android:fontFamily="@font/poppins_medium"
-        android:textColor="?attr/myTextColor"
-        />
-
+        <WebView
+            android:backgroundTint="@color/primary_light"
+            android:id="@+id/wvPrivacy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:textColor="?attr/myTextColor" />
     </ScrollView>
-
 </RelativeLayout>

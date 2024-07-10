@@ -239,30 +239,36 @@ fun ChatsActivity.observeUserStatus(
             val lastSeen = snapshot.child("last_seen").getValue(Long::class.java) ?: 0L
 
             if (status == "online") {
-                binding.tvLastSeen.text = "In chat"
+                binding.tvLastSeen.text = "Online"
                 binding.IVOnlineStatus.visibility = View.VISIBLE
-            } else {
-                binding.IVOnlineStatus.visibility = View.GONE
-                val currentTimeMillis = System.currentTimeMillis()
-                val timeAgoMillis = currentTimeMillis - lastSeen
-
-                val timeAgo: CharSequence = if (timeAgoMillis < DateUtils.DAY_IN_MILLIS) {
-                    DateUtils.getRelativeTimeSpanString(
-                        lastSeen,
-                        currentTimeMillis,
-                        DateUtils.MINUTE_IN_MILLIS,
-                        DateUtils.FORMAT_ABBREV_RELATIVE
-                    )
-                } else {
-                    val daysAgo = (timeAgoMillis / DateUtils.DAY_IN_MILLIS).toInt()
-                    when (daysAgo) {
-                        1 -> "1 day ago"
-                        else -> "$daysAgo days ago"
-                    }
-                }
-
-                binding.tvLastSeen.text = timeAgo
             }
+
+            else{
+                binding.tvLastSeen.text = ""
+            }
+
+//            } else {
+//                binding.IVOnlineStatus.visibility = View.GONE
+//                val currentTimeMillis = System.currentTimeMillis()
+//                val timeAgoMillis = currentTimeMillis - lastSeen
+//
+//                val timeAgo: CharSequence = if (timeAgoMillis < DateUtils.DAY_IN_MILLIS) {
+//                    DateUtils.getRelativeTimeSpanString(
+//                        lastSeen,
+//                        currentTimeMillis,
+//                        DateUtils.MINUTE_IN_MILLIS,
+//                        DateUtils.FORMAT_ABBREV_RELATIVE
+//                    )
+//                } else {
+//                    val daysAgo = (timeAgoMillis / DateUtils.DAY_IN_MILLIS).toInt()
+//                    when (daysAgo) {
+//                        1 -> "1 day ago"
+//                        else -> "$daysAgo days ago"
+//                    }
+//                }
+//
+//                binding.tvLastSeen.text = timeAgo
+//            }
         }
 
         override fun onCancelled(error: DatabaseError) {
@@ -485,6 +491,7 @@ fun ChatsActivity.addChat(
         }
     }, activity, Constant.ADD_CHAT, params, false, 1)
 }
+
 
 private fun ChatsActivity.updateMessageSeenStatus(
     databaseReference: DatabaseReference,

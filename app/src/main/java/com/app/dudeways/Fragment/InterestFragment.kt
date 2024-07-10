@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.app.dudeways.Activity.HomeActivity
 import com.app.dudeways.Adapter.ConnectAdapter
 import com.app.dudeways.Model.Connect
@@ -19,13 +20,17 @@ import com.google.gson.Gson
 import org.json.JSONException
 import org.json.JSONObject
 
-
 class InterestFragment : Fragment() {
 
-
-    lateinit var binding : FragmentInterestBinding
-    lateinit var activity : Activity
-    lateinit var session : Session
+    lateinit var binding: FragmentInterestBinding
+    lateinit var activity: Activity
+    lateinit var session: Session
+    private var offset = 0
+    private val limit = 10
+    private var isLoading = false
+    private var total = 0
+    private val connectList = ArrayList<Connect>()
+    private lateinit var connectAdapter: ConnectAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,70 +38,80 @@ class InterestFragment : Fragment() {
     ): View? {
         binding = FragmentInterestBinding.inflate(inflater, container, false)
         activity = requireActivity()
-
         session = Session(activity)
 
-
         (activity as HomeActivity).binding.rltoolbar.visibility = View.VISIBLE
-
 
         val linearLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         binding.rvConnectList.layoutManager = linearLayoutManager
 
+        connectAdapter = ConnectAdapter(activity, connectList)
+        binding.rvConnectList.adapter = connectAdapter
 
         binding.swipeRefreshLayout.setOnRefreshListener {
-        NotificationList()
+            offset = 0
+            NotificationList()
         }
+
+        binding.rvConnectList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val lastVisibleItemPosition = layoutManager.findLastCompletelyVisibleItemPosition()
+                val totalItemCount = layoutManager.itemCount
+
+                if (!isLoading && lastVisibleItemPosition == totalItemCount - 1 && offset < total) {
+                    NotificationList()
+                }
+            }
+        })
 
         NotificationList()
 
         return binding.root
-
     }
 
-
-
     private fun NotificationList() {
+        if (isLoading) return
+        isLoading = true
+
         val params: MutableMap<String, String> = HashMap()
         params[Constant.USER_ID] = session.getData(Constant.USER_ID)
+        params[Constant.OFFSET] = offset.toString()
+        params[Constant.LIMIT] = limit.toString()
 
         ApiConfig.RequestToVolley({ result, response ->
+            isLoading = false
+            binding.swipeRefreshLayout.isRefreshing = false
+
             if (result) {
                 try {
                     val jsonObject = JSONObject(response)
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
+                        total = jsonObject.getInt(Constant.TOTAL)
+                        if (offset == 0) {
+                            connectList.clear()
+                        }
+
                         val jsonArray = jsonObject.getJSONArray(Constant.DATA)
-                        val g = Gson()
-                        val connect_list = ArrayList<Connect>()
+                        val gson = Gson()
 
                         for (i in 0 until jsonArray.length()) {
                             val jsonObject1 = jsonArray.getJSONObject(i)
-                            if (jsonObject1 != null) {
-                                val connect = g.fromJson(jsonObject1.toString(), Connect::class.java)
-                                connect_list.add(connect)
-                            }
+                            val connect = gson.fromJson(jsonObject1.toString(), Connect::class.java)
+                            connectList.add(connect)
                         }
 
-                        val connectAdapter = ConnectAdapter(requireActivity(),connect_list)
-                        binding.rvConnectList.adapter = connectAdapter
+                        connectAdapter.notifyDataSetChanged()
+                        offset += limit
                     } else {
-                        Toast.makeText(
-                            activity,
-                            jsonObject.getString(Constant.MESSAGE),
-                            Toast.LENGTH_SHORT
-                        ).show()
+
+                        Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
                     }
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
             }
-
-            // Stop the refreshing animation once the network request is complete
-           binding.swipeRefreshLayout.isRefreshing = false
         }, activity, Constant.FREINDS_LIST, params, true, 1)
     }
-
-
-
-
 }

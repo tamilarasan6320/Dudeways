@@ -22,7 +22,7 @@ import com.bumptech.glide.Glide
 import org.json.JSONException
 import org.json.JSONObject
 
-class HomePtofilesAdapter(
+class HomeProfilesAdapter(
     val activity: Activity,
     private var homeProfile: ArrayList<HomeProfile>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

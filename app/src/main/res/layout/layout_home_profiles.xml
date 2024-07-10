@@ -58,10 +58,8 @@
 
 
             <ImageView
-                android:visibility="gone"
                 android:id="@+id/ivVerify"
                 android:layout_marginHorizontal="@dimen/_2sdp"
-                android:layout_gravity="center"
                 android:layout_width="@dimen/_16sdp"
                 android:layout_height="@dimen/_16sdp"
                 android:background="@drawable/verify_ic"

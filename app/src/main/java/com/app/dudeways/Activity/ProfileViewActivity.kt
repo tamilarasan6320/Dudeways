@@ -89,6 +89,11 @@ class ProfileViewActivity : BaseActivity() {
         }
 
 
+        binding.rlSetting.setOnClickListener{
+            val intent = Intent(activity,SeetingActivity::class.java)
+            startActivity(intent)
+        }
+
 
         binding.rlTermscondition.setOnClickListener {
             val intent = Intent(activity, TermsconditionActivity::class.java)
@@ -129,15 +134,23 @@ class ProfileViewActivity : BaseActivity() {
         if(gender == "male") {
             binding.ivGender.setBackgroundDrawable(resources.getDrawable(R.drawable.male_ic))
         }
-        else {
+        else if (gender == "female"){
             binding.ivGender.setBackgroundDrawable(resources.getDrawable(R.drawable.female_ic))
+        }
+        else{
+            binding.ivGender.setBackgroundDrawable(resources.getDrawable(R.drawable.third_gender))
         }
 
         if (gender == "male") {
             binding.ivGenderColor.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.blue_200))
-        } else {
+        } else if(gender == "female"){
             binding.ivGenderColor.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.primary))
         }
+
+        else{
+            binding.ivGenderColor.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.green))
+        }
+
 
 
 
@@ -345,31 +358,26 @@ class ProfileViewActivity : BaseActivity() {
     }
 
     private fun showLogoutConfirmationDialog() {
-        val dialogView = layoutInflater.inflate(R.layout.dialog_logout, null)
-
         val dialogBuilder = AlertDialog.Builder(activity)
-            .setView(dialogView)
+            .setMessage("Are you sure you want to logout?")
+            .setCancelable(true)
+            .setPositiveButton("Logout") { dialog, _ ->
+                // Perform logout action
+                logout()
+                dialog.dismiss()
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
             .create()
 
-
-        val btnLogout = dialogView.findViewById<Button>(R.id.btnLogout)
-        val btnCancel  = dialogView.findViewById<Button>(R.id.btnCancel)
-
-
-
-
-        btnCancel.setOnClickListener {
-            dialogBuilder.dismiss()
-        }
-
-        btnLogout.setOnClickListener {
-            // Perform logout action
-            logout()
-            dialogBuilder.dismiss()
-        }
-
         dialogBuilder.show()
+
+        // Change button text colors
+        dialogBuilder.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(activity, R.color.primary))
+        dialogBuilder.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(activity, R.color.text_grey))
     }
+
 
     private fun logout() {
         googleSignInClient.signOut().addOnCompleteListener(this) {

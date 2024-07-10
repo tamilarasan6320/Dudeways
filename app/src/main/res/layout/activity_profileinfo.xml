@@ -28,7 +28,7 @@
 
 
             <ImageButton
-            android:backgroundTint="?attr/iconColor"
+            android:backgroundTint="@color/black"
                 android:id="@+id/ivBack"
                 android:layout_margin="@dimen/_10sdp"
                 android:layout_width="@dimen/_24sdp"
@@ -348,7 +348,7 @@
 
 
             <ImageView
-                android:backgroundTint="?attr/iconColor"
+                android:backgroundTint="@color/black"
                 android:id="@+id/ivaddFriend"
                 android:layout_centerVertical="true"
                 android:layout_width="@dimen/_20sdp"
@@ -363,7 +363,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Add to Friend"
-                android:textColor="?attr/myTextColor"
+                android:textColor="@color/black"
                 android:textSize="@dimen/_10sdp"
                 android:fontFamily="@font/poppins_medium"
                 />

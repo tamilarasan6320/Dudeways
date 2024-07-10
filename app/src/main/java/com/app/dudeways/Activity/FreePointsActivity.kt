@@ -72,6 +72,11 @@ class FreePointsActivity : BaseActivity() {
             startActivity(intent)
         }
 
+        binding.llStep4.setOnClickListener {
+            val intent = Intent(activity, InviteFriendsActivity::class.java)
+            startActivity(intent)
+        }
+
         // Set OnClickListener for Step 3 button
         binding.llStep3.setOnClickListener {
             // Check if the ad is loaded before allowing the user to watch it
@@ -84,7 +89,7 @@ class FreePointsActivity : BaseActivity() {
         }
     }
 
-    private val adId = "ca-app-pub-3940256099942544/5224354917"
+    private val adId = "ca-app-pub-8693482193769963/5956761344"
 
     private fun loadRewardedVideoAd() {
         adMobRewardedVideoAd.rewardedVideoAdListener = object : RewardedVideoAdListener {
@@ -102,6 +107,7 @@ class FreePointsActivity : BaseActivity() {
             }
 
             override fun onRewardedVideoAdClosed() {
+                addpurchase()
             //    Toast.makeText(this@FreePointsActivity, "Ad Closed", Toast.LENGTH_SHORT).show()
             }
 

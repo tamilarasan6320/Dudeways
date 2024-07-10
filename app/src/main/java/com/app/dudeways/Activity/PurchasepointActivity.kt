@@ -1,6 +1,7 @@
 package com.app.dudeways.Activity
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.dudeways.R
 import com.app.dudeways.databinding.ActivityPurchasepointBinding
+import com.app.dudeways.gateway.MainActivity
 import com.app.dudeways.helper.ApiConfig
 import com.app.dudeways.helper.Constant
 import com.app.dudeways.helper.Session
@@ -95,10 +97,15 @@ class PurchasepointActivity : BaseActivity() {
                 try {
                     val jsonObject = JSONObject(response)
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
+
                         val `object` = JSONObject(response)
                         val jsonobj = `object`.getJSONObject(Constant.DATA)
 
-                        session.setData(Constant.POINTS, jsonobj.getString(Constant.POINTS))
+                        val total_points = jsonobj.getString("total_points")
+
+
+                        Toast.makeText(activity, "You have earned " + total_points + " points", Toast.LENGTH_SHORT).show()
+
                         Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
                     } else {
                         Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
@@ -106,6 +113,9 @@ class PurchasepointActivity : BaseActivity() {
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
+            }
+            else {
+                Toast.makeText(activity, response, Toast.LENGTH_SHORT).show()
             }
         }, activity, Constant.ADD_POINTS, params, true, 1)
     }
@@ -134,7 +144,13 @@ class PurchasepointActivity : BaseActivity() {
             holder.tvPrice.text = "₹" + item.price
 
             holder.itemView.setOnClickListener {
-                addpurchase(item.id)
+//                addpurchase(item.id)
+
+                val intent = Intent(activity, MainActivity::class.java)
+                intent.putExtra("id", item.id)
+                session.setData(Constant.AMOUNT,item.price)
+                startActivity(intent)
+
             }
 
         }

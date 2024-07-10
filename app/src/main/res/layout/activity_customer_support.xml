@@ -119,7 +119,7 @@
 
 
                                 <ImageView
-                android:backgroundTint="?attr/iconColor"
+                                    android:backgroundTint="@color/black"
                                     android:id="@+id/ivWhatsappLinkShare"
                                     android:layout_centerVertical="true"
                                     android:layout_width="@dimen/_20sdp"
@@ -134,7 +134,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="Share"
-                                    android:textColor="?attr/myTextColor"
+                                    android:textColor="@color/black"
                                     android:textSize="@dimen/_10sdp"
                                     android:fontFamily="@font/poppins_medium"
                                     />
@@ -142,7 +142,7 @@
                             </RelativeLayout>
                             <RelativeLayout
                                 android:id="@+id/rlInstagramLinkJoin"
-                                android:background="@color/green"
+                                android:background="@color/insta"
                                 android:layout_weight="1"
                                 android:padding="@dimen/_10sdp"
                                 android:layout_width="match_parent"
@@ -249,7 +249,7 @@
 
 
                                 <ImageView
-                                    android:backgroundTint="?attr/iconColor"
+                                    android:backgroundTint="@color/black"
                                     android:id="@+id/ivTelegramLinkShare"
                                     android:layout_centerVertical="true"
                                     android:layout_width="@dimen/_20sdp"
@@ -264,7 +264,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="Share"
-                                    android:textColor="?attr/myTextColor"
+                                    android:textColor="@color/black"
                                     android:textSize="@dimen/_10sdp"
                                     android:fontFamily="@font/poppins_medium"
                                     />

@@ -20,10 +20,10 @@ import org.json.JSONException
 import org.json.JSONObject
 
 class ProfileinfoActivity : BaseActivity() {
-
     lateinit var binding: ActivityProfileinfoBinding
     lateinit var activity: Activity
     lateinit var session: Session
+    var user_id: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profileinfo)
@@ -38,7 +38,9 @@ class ProfileinfoActivity : BaseActivity() {
 
         activity = this
         session = Session(activity)
-        val user_id = intent.getStringExtra("chat_user_id")
+         user_id = intent.getStringExtra("chat_user_id")
+
+
         val id = intent.getStringExtra("id")
         val friend = intent.getStringExtra("friend")
         val name = intent.getStringExtra("name")
@@ -61,11 +63,11 @@ class ProfileinfoActivity : BaseActivity() {
             if (friend_data == "0") {
                 val friend = "1"
                 friend_data = "1"
-                add_freind(binding.ivaddFriend, binding.tvAddFriend, id,friend)
+                add_freind(binding.ivaddFriend, binding.tvAddFriend, user_id,friend)
             } else if (friend_data == "1"   ) {
                 val friend = "2"
                 friend_data = "0"
-                add_freind(binding.ivaddFriend, binding.tvAddFriend, id,friend)
+                add_freind(binding.ivaddFriend, binding.tvAddFriend, user_id,friend)
             }
 
 
@@ -74,16 +76,22 @@ class ProfileinfoActivity : BaseActivity() {
         }
 
         binding.rlChat.setOnClickListener {
-            val intent = Intent(activity, ChatsActivity::class.java)
-            intent.putExtra("id", id)
-            intent.putExtra("name", name)
-            session.setData("reciver_profile", profile )
-            intent.putExtra("chat_user_id", user_id)
-            activity.startActivity(intent)
+            if (user_id == session.getData(Constant.USER_ID)) {
+                Toast.makeText(activity, "You can't chat with yourself", Toast.LENGTH_SHORT).show()
+            } else {
+                val intent = Intent(activity, ChatsActivity::class.java)
+                intent.putExtra("id", id)
+                intent.putExtra("name", name)
+                session.setData("reciver_profile", profile )
+                intent.putExtra("chat_user_id", user_id)
+                activity.startActivity(intent)
+            }
         }
 
 
+
         userdetails(user_id)
+        profile_view(user_id)
 
 
     }
@@ -153,11 +161,11 @@ class ProfileinfoActivity : BaseActivity() {
     }
 
 
-    private fun add_freind(ivaddFriend: ImageView, tvAddFriend: TextView, id: String?, friend: String) {
+    private fun add_freind(ivaddFriend: ImageView, tvAddFriend: TextView, user_id: String?, friend: String) {
         val session = Session(activity)
         val params: MutableMap<String, String> = HashMap()
         params[Constant.USER_ID] = session.getData(Constant.USER_ID)
-        params[Constant.FRIEND_USER_ID] = id!!
+        params[Constant.FRIEND_USER_ID] = user_id!!
         params[Constant.FRIEND] = friend
 
         ApiConfig.RequestToVolley({ result, response ->
@@ -180,11 +188,7 @@ class ProfileinfoActivity : BaseActivity() {
 
 
                     } else {
-                        Toast.makeText(
-                            activity,
-                            jsonObject.getString(Constant.MESSAGE),
-                            Toast.LENGTH_SHORT
-                        ).show()
+                       Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
                     }
                 } catch (e: JSONException) {
                     e.printStackTrace()
@@ -194,5 +198,33 @@ class ProfileinfoActivity : BaseActivity() {
             // Stop the refreshing animation once the network request is complete
 
         }, activity, Constant.ADD_FRIENDS, params, true, 1)
+    }
+    private fun profile_view(user_id: String?) {
+        val session = Session(activity)
+        val params: MutableMap<String, String> = HashMap()
+        params[Constant.USER_ID] = session.getData(Constant.USER_ID)
+        params[Constant.PROFILE_USER_ID] = user_id!!
+        ApiConfig.RequestToVolley({ result, response ->
+            if (result) {
+                try {
+                    val jsonObject = JSONObject(response)
+                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
+
+
+
+                     //   Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
+
+
+                    } else {
+                       // Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }
+
+            // Stop the refreshing animation once the network request is complete
+
+        }, activity, Constant.PROFILE_VIEW, params, true, 1)
     }
 }

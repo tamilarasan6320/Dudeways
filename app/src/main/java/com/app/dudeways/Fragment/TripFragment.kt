@@ -3,10 +3,10 @@ package com.app.dudeways.Fragment
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.app.dudeways.Activity.HomeActivity
 import com.app.dudeways.Activity.MytripsActivity
 import com.app.dudeways.Activity.Trip.StarttripActivity
@@ -16,7 +16,7 @@ import com.app.dudeways.databinding.FragmentTripBinding
 class TripFragment : Fragment() {
 
     lateinit var binding: FragmentTripBinding
-    lateinit var actvity: Activity
+    lateinit var activity: Activity
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,6 +25,10 @@ class TripFragment : Fragment() {
         // Inflate the layout for this fragment
 
         binding = FragmentTripBinding.inflate(inflater, container, false)
+
+        activity = requireActivity()
+
+        (activity as HomeActivity).binding.rltoolbar.visibility = View.GONE
 
 
         binding.btnStart.setOnClickListener {
@@ -39,7 +43,7 @@ class TripFragment : Fragment() {
         }
 
 
-        (activity as HomeActivity).binding.rltoolbar.visibility = View.GONE
+
 
         return binding.root
 

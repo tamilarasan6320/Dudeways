@@ -23,6 +23,7 @@ import com.app.dudeways.Adapter.ChatAdapter
 import com.app.dudeways.Model.ChatModel
 import com.app.dudeways.R
 import com.app.dudeways.databinding.ActivityChatsBinding
+import com.app.dudeways.extentions.addChat
 import com.app.dudeways.extentions.fetchMessages
 import com.app.dudeways.extentions.logError
 import com.app.dudeways.extentions.logInfo
@@ -50,7 +51,6 @@ import kotlin.collections.HashMap
 import kotlin.random.Random
 
 class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
-
     lateinit var binding: ActivityChatsBinding
     lateinit var activity: Activity
     lateinit var session: Session
@@ -111,8 +111,8 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
             .setAudioAttributes(audioAttributes)
             .build()
 
-        sentTone = soundPool.load(this, R.raw.sent_tone, 1)
-        receiveTone = soundPool.load(this, R.raw.recieve_tone, 1)
+        sentTone = soundPool.load(this, R.raw.sent_new, 1)
+     //  receiveTone = soundPool.load(this, R.raw.recieve_tone, 1)
 
         binding.sendButton.setOnClickListener {
             val message = binding.messageEdittext.text.toString()
@@ -224,7 +224,7 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
                         true
                     }
                     R.id.menu_clear_chat -> {
-                        clearChatInFirebase(senderName ?: "", receiverName ?: "")
+                        clearChatInFirebase(senderName ?: "", receiverName ?: "",receiverId)
                         true
                     }
                     R.id.menu_report -> {
@@ -309,11 +309,12 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
     }
 
 
-    private fun clearChatInFirebase(senderName: String, receiverName: String) {
+    private fun clearChatInFirebase(senderName: String, receiverName: String, receiverID: String) {
         val senderChatReference = databaseReference.child("CHATS_V2").child(senderName).child(receiverName)
         val receiverChatReference = databaseReference.child("CHATS_V2").child(receiverName).child(senderName)
 
         senderChatReference.removeValue().addOnSuccessListener {
+            deletechat(receiverID)
             makeToast("Chat cleared successfully")
             messages.clear()
             chatAdapter?.notifyDataSetChanged()
@@ -324,6 +325,36 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
         receiverChatReference.removeValue().addOnFailureListener {
             makeToast("Failed to clear chat for receiver")
         }
+    }
+
+
+    fun deletechat(
+        receiverID: String
+    ) {
+        val params: MutableMap<String, String> = HashMap()
+        params[Constant.USER_ID] = session.getData(Constant.USER_ID)
+        params[Constant.CHAT_USER_ID] = receiverID
+        ApiConfig.RequestToVolley({ result, response ->
+            if (result) {
+                try {
+                    val jsonObject = JSONObject(response)
+                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
+
+                        val intent = Intent(activity, HomeActivity::class.java)
+                        startActivity(intent)
+                        finish()
+
+                   //     Toast.makeText(this, "done", Toast.LENGTH_SHORT).show()
+
+                    } else {
+                        Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
+                        logError(CHATS_ACTIVITY, "Message failed to update to the API.")
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }
+        }, activity, Constant.DELETE_CHAT, params, false, 1)
     }
 
 
@@ -457,6 +488,18 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
             senderId,
             false
         )
+    }
+
+    override fun onStop() {
+        super.onStop()
+        // Set user offline status with last seen time
+        setUserStatus(firebaseDatabase, senderId, false)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        // Set user online status
+        setUserStatus(firebaseDatabase, senderId, true)
     }
 
 

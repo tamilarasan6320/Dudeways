@@ -4,15 +4,11 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import com.app.dudeways.Adapter.HomePtofilesAdapter
-import com.app.dudeways.Model.HomeProfile
 import com.app.dudeways.R
 import com.app.dudeways.databinding.ActivityDeactivateBinding
 import com.app.dudeways.helper.ApiConfig
 import com.app.dudeways.helper.Constant
 import com.app.dudeways.helper.Session
-import com.google.gson.Gson
 import org.json.JSONException
 import org.json.JSONObject
 

@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.PrivacypolicyActivity">
+    tools:context=".Activity.SeetingActivity">
 
 
     <RelativeLayout
@@ -15,7 +15,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-                android:backgroundTint="?attr/iconColor"
+            android:backgroundTint="?attr/iconColor"
             android:id="@+id/ivBack"
             android:layout_width="@dimen/_24sdp"
             android:layout_height="@dimen/_18sdp"
@@ -28,11 +28,13 @@
             android:layout_toRightOf="@+id/ivBack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Terms and conditions"
+            android:text="Theme"
             android:textSize="@dimen/_14sdp"
             android:textColor="?attr/myTextColor"
-            android:fontFamily="@font/poppins_regular"
+            android:fontFamily="@font/poppins_medium"
             />
+
+
 
 
 
@@ -41,22 +43,30 @@
     </RelativeLayout>
 
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/rlToolbar"
-        android:layout_margin="@dimen/_10sdp"
-        android:background="@drawable/corners_bg"
-        android:backgroundTint="@color/primary_light"
-        android:padding="@dimen/_10sdp">
 
-        <WebView
-            android:backgroundTint="@color/primary_light"
-            android:id="@+id/wvPrivacy"
+
+    <RelativeLayout
+        android:layout_margin="@dimen/_8sdp"
+        android:padding="@dimen/_8sdp"
+        android:layout_below="@+id/rlToolbar"
+        android:layout_width="match_parent"
+        android:background="@drawable/round_corner_stroke"
+        android:layout_height="wrap_content">
+
+
+        <Switch
+            android:padding="@dimen/_8sdp"
+            android:id="@+id/darkModeSwitch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_medium"
-            android:textColor="?attr/myTextColor" />
-    </ScrollView>
+            android:text="Dark / Light Mode"
+            app:trackTint="@color/primary"
+            app:thumbTint="@color/colorPrimary"
+            />
+
+
+    </RelativeLayout>
+
+
 
 </RelativeLayout>

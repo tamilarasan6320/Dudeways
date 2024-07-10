@@ -11,7 +11,6 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
@@ -38,11 +37,9 @@ public class ApiConfig extends Application {
     RequestQueue mRequestQueue;
     static Session session;
 
-
     public static String VolleyErrorMessage(VolleyError error) {
         String message = "";
         try {
-            message = "";
             if (error instanceof NetworkError) {
                 message = "Cannot connect to Internet...Please check your connection!";
             } else if (error instanceof ServerError) {
@@ -53,13 +50,13 @@ public class ApiConfig extends Application {
                 message = "Parsing error! Please try again after some time!";
             } else if (error instanceof TimeoutError) {
                 message = "Connection TimeOut! Please check your internet connection.";
-            } else
-                message = "";
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return message;
     }
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public static void RequestToVolley(final VolleyCallback callback, final Activity activity, final String url, final Map<String, String> params, final boolean isProgress, int method) {
         session = new Session(activity);
@@ -71,9 +68,9 @@ public class ApiConfig extends Application {
 
         if (isProgress)
             progressDisplay.showProgress();
-        StringRequest stringRequest = new StringRequest( method, url, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(method, url, new Response.Listener<String>() {
             @Override
-            public void onResponse( String s ) {
+            public void onResponse(String s) {
                 if (ApiConfig.isConnected(activity))
                     callback.onSuccess(true, s);
                 if (isProgress)
@@ -81,59 +78,44 @@ public class ApiConfig extends Application {
             }
         }, new Response.ErrorListener() {
             @Override
-            public void onErrorResponse( VolleyError volleyError ) {
+            public void onErrorResponse(VolleyError volleyError) {
                 try {
-                    String responseBody = new String( volleyError.networkResponse.data, "utf-8" );
-                    JSONObject jsonObject = new JSONObject( responseBody );
-                    if (ApiConfig.isConnected(activity))
-                        callback.onSuccess(true, responseBody);
+                    if (volleyError.networkResponse != null) {
+                        String responseBody = new String(volleyError.networkResponse.data, "utf-8");
+                        JSONObject jsonObject = new JSONObject(responseBody);
+                        if (ApiConfig.isConnected(activity))
+                            callback.onSuccess(true, responseBody);
+                    } else {
+                        // Handle the error without network response, e.g., network is down or server didn't respond
+                        if (ApiConfig.isConnected(activity))
+                            callback.onSuccess(false, "");
+                        String message = VolleyErrorMessage(volleyError);
+                        if (!message.equals(""))
+                            Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+                    }
                     if (isProgress)
                         progressDisplay.hideProgress();
-                } catch ( JSONException e ) {
-                    //Handle a malformed json response
-                } catch (UnsupportedEncodingException error){
-
+                } catch (JSONException e) {
+                    // Handle a malformed JSON response
+                    e.printStackTrace();
+                } catch (UnsupportedEncodingException error) {
+                    error.printStackTrace();
                 }
             }
-        }
-        ){
+        }) {
             @Override
             public Map<String, String> getHeaders() {
                 Map<String, String> params1 = new HashMap<>();
-                params1.put(Constant.AUTHORIZATION, "Bearer " +session.getData(Constant.TOKEN));
+                params1.put(Constant.AUTHORIZATION, "Bearer " + session.getData(Constant.TOKEN));
                 return params1;
             }
 
-
             @Override
             protected Map<String, String> getParams() {
-
                 return params;
             }
         };
 
-//        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
-//            if (ApiConfig.isConnected(activity))
-//                callback.onSuccess(true, response);
-//            if (isProgress)
-//                progressDisplay.hideProgress();
-//        }, error -> {
-//            if (isProgress)
-//                progressDisplay.hideProgress();
-//            if (ApiConfig.isConnected(activity))
-//                callback.onSuccess(false, "");
-//            String message = VolleyErrorMessage(error);
-//            if (!message.equals(""))
-//                Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
-//        }) {
-//
-//
-//            @Override
-//            protected Map<String, String> getParams() {
-//
-//                return params;
-//            }
-//        };
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, 0, 0));
         ApiConfig.getInstance().getRequestQueue().getCache().clear();
         ApiConfig.getInstance().addToRequestQueue(stringRequest);
@@ -162,20 +144,19 @@ public class ApiConfig extends Application {
             if (!message.equals(""))
                 Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
         }) {
-
-
             @Override
             protected Map<String, String> getParams() {
-
                 return params;
             }
         };
+
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, 0, 0));
         ApiConfig.getInstance().getRequestQueue().getCache().clear();
         ApiConfig.getInstance().addToRequestQueue(stringRequest);
     }
+
     public static void RequestToVolleyMulti(final VolleyCallback callback, final Activity activity, final String url, final Map<String, String> params, final Map<String, String> fileParams) {
-        if(isConnected(activity)) {
+        if (isConnected(activity)) {
             VolleyMultiPartRequest multipartRequest = new VolleyMultiPartRequest(url,
                     response -> callback.onSuccess(true, response),
                     error -> callback.onSuccess(false, "")) {
@@ -183,7 +164,6 @@ public class ApiConfig extends Application {
                 public Map<String, String> getDefaultParams() {
                     return params;
                 }
-
 
                 @Override
                 public Map<String, String> getFileParams() {
@@ -196,6 +176,7 @@ public class ApiConfig extends Application {
             getInstance().addToRequestQueue(multipartRequest);
         }
     }
+
     public static void GetVolleyRequest(final VolleyCallback callback, final Activity activity, final String url, final Map<String, String> params, final boolean isProgress) {
         if (ProgressDisplay.mProgressBar != null) {
             ProgressDisplay.mProgressBar.setVisibility(View.GONE);
@@ -219,14 +200,12 @@ public class ApiConfig extends Application {
             if (!message.equals(""))
                 Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
         }) {
-
-
             @Override
             protected Map<String, String> getParams() {
-
                 return params;
             }
         };
+
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, 0, 0));
         ApiConfig.getInstance().getRequestQueue().getCache().clear();
         ApiConfig.getInstance().addToRequestQueue(stringRequest);
@@ -236,7 +215,6 @@ public class ApiConfig extends Application {
         return mInstance;
     }
 
-
     public static Boolean isConnected(final Activity activity) {
         boolean check = false;
         try {
@@ -244,33 +222,28 @@ public class ApiConfig extends Application {
             NetworkInfo networkInfo = ConnectionManager.getActiveNetworkInfo();
             if (networkInfo != null && networkInfo.isConnected()) {
                 check = true;
-            } else {
-                //Toast.makeText(activity, "No Internet", Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return check;
     }
+
     @Override
     public void onCreate() {
         super.onCreate();
         mInstance = this;
-
-
     }
+
     public RequestQueue getRequestQueue() {
         if (mRequestQueue == null) {
             mRequestQueue = Volley.newRequestQueue(getApplicationContext());
         }
-
         return mRequestQueue;
     }
+
     public <T> void addToRequestQueue(Request<T> req) {
         req.setTag(TAG);
         getRequestQueue().add(req);
     }
-
-
-
 }

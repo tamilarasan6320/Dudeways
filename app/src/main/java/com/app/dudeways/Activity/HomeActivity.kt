@@ -6,7 +6,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.content.res.ColorStateList
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
@@ -16,12 +15,8 @@ import android.provider.Settings
 import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
-import com.app.dudeways.Adapter.HomePtofilesAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import com.app.dudeways.Fragment.ExploreFragment
@@ -32,7 +27,6 @@ import com.app.dudeways.Fragment.MessagesFragment
 import com.app.dudeways.Fragment.NotificationFragment
 import com.app.dudeways.Fragment.TripFragment
 import com.app.dudeways.Fragment.ViewFragment
-import com.app.dudeways.Model.HomeProfile
 import com.app.dudeways.R
 import com.app.dudeways.databinding.ActivityHomeBinding
 import com.app.dudeways.helper.ApiConfig
@@ -41,7 +35,6 @@ import com.app.dudeways.helper.Session
 import com.bumptech.glide.Glide
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.google.gson.Gson
 import com.onesignal.OneSignal
 import com.onesignal.debug.LogLevel
 import com.zoho.commons.InitConfig
@@ -69,8 +62,6 @@ class HomeActivity : BaseActivity() , NavigationBarView.OnItemSelectedListener {
 
     private var tripFragment = TripFragment()
     private var exploreFragment = ExploreFragment()
-    private var likesFragment = LikesFragment()
-    private var viewFragment = ViewFragment()
     private var messagesFragment = MessagesFragment()
     private var homeFragment = HomeFragment()
     private var notification = NotificationFragment()
@@ -94,6 +85,18 @@ class HomeActivity : BaseActivity() , NavigationBarView.OnItemSelectedListener {
         loadProfilePicture()
 
         getLocation()
+
+        // Restore selected item from saved instance state if available
+        if (savedInstanceState != null) {
+            val selectedItemId = savedInstanceState.getInt("selectedItemId", R.id.navHome)
+            bottomNavigationView?.selectedItemId = selectedItemId
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        // Save the selected item id
+        outState.putInt("selectedItemId", bottomNavigationView?.selectedItemId ?: R.id.navHome)
     }
 
     private fun initializeComponents() {
@@ -104,14 +107,12 @@ class HomeActivity : BaseActivity() , NavigationBarView.OnItemSelectedListener {
 
         tripFragment = TripFragment()
         exploreFragment = ExploreFragment()
-        likesFragment = LikesFragment()
-        viewFragment = ViewFragment()
         messagesFragment = MessagesFragment()
         homeFragment = HomeFragment()
         notification = NotificationFragment()
         interestFragment = InterestFragment()
 
-        fm.beginTransaction().replace(R.id.fragment_container, tripFragment).commit()
+        fm.beginTransaction().replace(R.id.fragment_container, homeFragment).commit()
     }
 
     private fun initializeOneSignal() {
@@ -297,6 +298,7 @@ class HomeActivity : BaseActivity() , NavigationBarView.OnItemSelectedListener {
     private fun userdetails(user_id: String?) {
         val params: MutableMap<String, String> = HashMap()
         params[Constant.USER_ID] = user_id.toString()
+        params[Constant.ONLINE_STATUS] = "1"
         ApiConfig.RequestToVolley({ result, response ->
             if (result) {
                 try {

@@ -22,6 +22,7 @@ class IdverficationActivity : BaseActivity() {
         binding.btnStart.setOnClickListener {
             val intent = Intent(activity, Stage1Activity::class.java)
             startActivity(intent)
+            finish()
         }
 
 

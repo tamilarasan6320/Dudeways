@@ -28,10 +28,12 @@ class spinActivity : BaseActivity() {
     private lateinit var activity: Activity
     private lateinit var session: Session
 
+    private val sectors = arrayOf("1", "2", "3", "4", "5", "6")
+    private val sectorDegrees = IntArray(sectors.size)
+    private val random = Random()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_spin)
         binding = ActivitySpinBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -41,7 +43,7 @@ class spinActivity : BaseActivity() {
         val spinBtn = findViewById<Button>(R.id.spinBtn)
         wheel1 = findViewById(R.id.wheel1)
 
-        degreeForSectors
+        degreeForSectors()
 
         binding.ivBack.setOnClickListener {
             onBackPressed()
@@ -56,10 +58,14 @@ class spinActivity : BaseActivity() {
     }
 
     private fun spin() {
-        degree = random.nextInt(sectors.size - 1)
+        // Set the degree to stop at sector 6
+        val degreeToStop = 0 // Index 5 corresponds to sector 6
+
+        // Calculate the final rotation degree based on the selected sector
+        val rotateDegrees = 360 * 5 + sectorDegrees[degreeToStop]
 
         val rotateAnimation = RotateAnimation(
-            0f, (360 * sectors.size + sectorDegrees[degree]).toFloat(),
+            0f, rotateDegrees.toFloat(),
             RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f
         )
 
@@ -72,79 +78,49 @@ class spinActivity : BaseActivity() {
             }
 
             override fun onAnimationEnd(animation: Animation) {
-             //   Toast.makeText(this@spinActivity, "You've got" + sectors[sectors.size - (degree + 1)], Toast.LENGTH_SHORT).show()
                 isSpinning = false
 
-                if (sectors[sectors.size - (degree + 1)] == "1") {
-                    addpurchase("1")
-                } else if (sectors[sectors.size - (degree + 1)] == "2") {
-                    addpurchase("2")
-                } else if (sectors[sectors.size - (degree + 1)] == "3") {
-                    addpurchase("3")
-                } else if (sectors[sectors.size - (degree + 1)] == "4") {
-                    addpurchase("4")
-                } else if (sectors[sectors.size - (degree + 1)] == "5") {
-                    addpurchase("5")
-                } else if (sectors[sectors.size - (degree + 1)] == "6") {
-                    addpurchase("6")
-                }
-
+                // Process the sector based on its value (sector 6 in this case)
+                val sectorValue = sectors[degreeToStop]
+                addPurchase(sectorValue)
             }
 
             override fun onAnimationRepeat(animation: Animation) {
             }
         })
 
-        wheel1!!.startAnimation(rotateAnimation)
+        wheel1?.startAnimation(rotateAnimation)
     }
 
-    private val degreeForSectors: Unit
-        get() {
-            val sectorDegree = 360 / sectors.size
-            for (i in sectors.indices) {
-                sectorDegrees[i] = (i + 1) * sectorDegree
-            }
+    private fun degreeForSectors() {
+        val sectorDegree = 360 / sectors.size
+        for (i in sectors.indices) {
+            sectorDegrees[i] = (i + 1) * sectorDegree
         }
-
-
-    companion object {
-        private val sectors = arrayOf("1", "2", "3", "4", "5", "6")
-        private val sectorDegrees = IntArray(sectors.size)
-        private val random = Random()
     }
 
-
-    private fun addpurchase(point: String) {
-
+    private fun addPurchase(point: String) {
         var points = ""
-        if (point == "1") {
-            points = "20"
-        } else if (point == "2") {
-            points = "30"
-        } else if (point == "3") {
-            points = "40"
-        } else if (point == "4") {
-            points = "50"
-        } else if (point == "5") {
-            points = "100"
-        } else if (point == "6") {
-            points = "10"
+        when (point) {
+            "1" -> points = "20"
+            "2" -> points = "30"
+            "3" -> points = "40"
+            "4" -> points = "50"
+            "5" -> points = "100"
+            "6" -> points = "10"
         }
 
         val params: MutableMap<String, String> = HashMap()
         params[Constant.USER_ID] = session.getData(Constant.USER_ID)
-      //  params["points_id"] = id
         params["points"] = points
+
         ApiConfig.RequestToVolley({ result, response ->
             if (result) {
                 try {
                     val jsonObject = JSONObject(response)
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
-                        val `object` = JSONObject(response)
-                        val jsonobj = `object`.getJSONObject(Constant.DATA)
-
-
-                        session.setData(Constant.POINTS, jsonobj.getString(Constant.POINTS))
+                        val dataObj = jsonObject.getJSONObject(Constant.DATA)
+                        session.setData(Constant.POINTS, dataObj.getString(Constant.POINTS))
                         Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
                     } else {
                         Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()

@@ -64,7 +64,7 @@ class ConnectAdapter(
         }
 
         holder.tvAge.text = report.age
-        holder.tvDistance.text = report.distance + "\u2022 " + status
+        holder.tvDistance.text = report.distance + "" + status
 
 
         val gender = report.gender
