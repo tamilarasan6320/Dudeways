@@ -22,9 +22,9 @@ import org.json.JSONObject
 
 class NotificationFragment : Fragment() {
 
-    lateinit var binding: FragmentNotificationBinding
-    lateinit var activity: Activity
-    lateinit var session: Session
+    private lateinit var binding: FragmentNotificationBinding
+    private lateinit var activity: Activity
+    private lateinit var session: Session
     private var offset = 0
     private val limit = 10
     private var isLoading = false
@@ -36,23 +36,28 @@ class NotificationFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         binding = FragmentNotificationBinding.inflate(inflater, container, false)
         activity = requireActivity()
         session = Session(activity)
 
         (activity as HomeActivity).binding.rltoolbar.visibility = View.VISIBLE
 
+        setupRecyclerView()
+        setupSwipeRefreshLayout()
+
+        if (notificationList.isEmpty()) {
+            NotificationList()
+        }
+
+        return binding.root
+    }
+
+    private fun setupRecyclerView() {
         val linearLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         binding.rvNotificationList.layoutManager = linearLayoutManager
 
         notificationAdapter = NotificationAdapter(activity, notificationList)
         binding.rvNotificationList.adapter = notificationAdapter
-
-        binding.swipeRefreshLayout.setOnRefreshListener {
-            offset = 0
-            NotificationList()
-        }
 
         binding.rvNotificationList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -66,10 +71,13 @@ class NotificationFragment : Fragment() {
                 }
             }
         })
+    }
 
-        NotificationList()
-
-        return binding.root
+    private fun setupSwipeRefreshLayout() {
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            offset = 0
+            NotificationList()
+        }
     }
 
     private fun NotificationList() {

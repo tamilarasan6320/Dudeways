@@ -22,9 +22,9 @@ import org.json.JSONObject
 
 class MessagesFragment : Fragment() {
 
-    lateinit var binding: FragmentMessagesBinding
-    lateinit var activity: Activity
-    lateinit var session: Session
+    private lateinit var binding: FragmentMessagesBinding
+    private lateinit var activity: Activity
+    private lateinit var session: Session
     private var offset = 0
     private val limit = 10
     private var isLoading = false
@@ -36,24 +36,28 @@ class MessagesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         binding = FragmentMessagesBinding.inflate(inflater, container, false)
-
         activity = requireActivity()
         session = Session(activity)
 
         (activity as HomeActivity).binding.rltoolbar.visibility = View.VISIBLE
 
+        setupRecyclerView()
+        setupSwipeRefreshLayout()
+
+        if (chatList.isEmpty()) {
+            chatlist()
+        }
+
+        return binding.root
+    }
+
+    private fun setupRecyclerView() {
         val linearLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         binding.rvChat.layoutManager = linearLayoutManager
 
         chatlistAdapter = ChatlistAdapter(activity, chatList)
         binding.rvChat.adapter = chatlistAdapter
-
-        binding.swipeRefreshLayout.setOnRefreshListener {
-            offset = 0
-            chatlist()
-        }
 
         binding.rvChat.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -67,10 +71,13 @@ class MessagesFragment : Fragment() {
                 }
             }
         })
+    }
 
-        chatlist()
-
-        return binding.root
+    private fun setupSwipeRefreshLayout() {
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            offset = 0
+            chatlist()
+        }
     }
 
     private fun chatlist() {

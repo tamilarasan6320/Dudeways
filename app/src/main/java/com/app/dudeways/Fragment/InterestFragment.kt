@@ -22,9 +22,9 @@ import org.json.JSONObject
 
 class InterestFragment : Fragment() {
 
-    lateinit var binding: FragmentInterestBinding
-    lateinit var activity: Activity
-    lateinit var session: Session
+    private lateinit var binding: FragmentInterestBinding
+    private lateinit var activity: Activity
+    private lateinit var session: Session
     private var offset = 0
     private val limit = 10
     private var isLoading = false
@@ -42,16 +42,22 @@ class InterestFragment : Fragment() {
 
         (activity as HomeActivity).binding.rltoolbar.visibility = View.VISIBLE
 
+        setupRecyclerView()
+        setupSwipeRefreshLayout()
+
+        if (connectList.isEmpty()) {
+            NotificationList()
+        }
+
+        return binding.root
+    }
+
+    private fun setupRecyclerView() {
         val linearLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         binding.rvConnectList.layoutManager = linearLayoutManager
 
         connectAdapter = ConnectAdapter(activity, connectList)
         binding.rvConnectList.adapter = connectAdapter
-
-        binding.swipeRefreshLayout.setOnRefreshListener {
-            offset = 0
-            NotificationList()
-        }
 
         binding.rvConnectList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -65,10 +71,13 @@ class InterestFragment : Fragment() {
                 }
             }
         })
+    }
 
-        NotificationList()
-
-        return binding.root
+    private fun setupSwipeRefreshLayout() {
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            offset = 0
+            NotificationList()
+        }
     }
 
     private fun NotificationList() {
@@ -105,7 +114,6 @@ class InterestFragment : Fragment() {
                         connectAdapter.notifyDataSetChanged()
                         offset += limit
                     } else {
-
                         Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
                     }
                 } catch (e: JSONException) {
