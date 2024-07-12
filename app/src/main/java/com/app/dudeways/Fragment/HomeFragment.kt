@@ -58,15 +58,20 @@ class HomeFragment : Fragment() {
 
         setupRecyclerViews()
         loadCategoryList()
-        loadProfileList("nearby")
+
+        if (homeProfileList.isEmpty()) {
+            loadProfileList("nearby")
+        }
 
         binding.swipeRefreshLayout.setOnRefreshListener {
             offset = 0
-            loadProfileList(when (selectedItemPosition) {
-                0 -> "nearby"
-                1 -> "latest"
-                else -> "date"
-            })
+            loadProfileList(
+                when (selectedItemPosition) {
+                    0 -> "nearby"
+                    1 -> "latest"
+                    else -> "date"
+                }
+            )
         }
 
         return binding.root
@@ -214,8 +219,8 @@ class HomeFragment : Fragment() {
                 selectedItemPosition = position
                 notifyItemChanged(previousPosition)
                 notifyItemChanged(position)
-                binding.rvProfileList.scrollToPosition(0)  // Scroll to the top
-                offset = 0  // Reset the offset
+                binding.rvProfileList.scrollToPosition(0)
+                offset = 0
                 when (position) {
                     0 -> {
                         currentType = "nearby"
@@ -269,3 +274,4 @@ class HomeFragment : Fragment() {
         }
     }
 }
+
