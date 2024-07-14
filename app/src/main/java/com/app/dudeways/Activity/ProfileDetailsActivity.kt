@@ -27,10 +27,12 @@ class ProfileDetailsActivity : BaseActivity() {
     lateinit var activity: Activity
     lateinit var session: Session
 
-    var professions = listOf<String>()
+    var professions = mutableListOf<Pair<String, String>>() // Pair of (professionName, professionId)
 
     var select_option = "0"
     var gender = ""
+
+    var profession_id = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -122,14 +124,13 @@ class ProfileDetailsActivity : BaseActivity() {
             } else if (binding.etcity.text.toString().isEmpty()) {
                 binding.etcity.error = "Please enter city"
                 return@setOnClickListener
-            }else if (binding.etIntroduction.text.toString().isEmpty()) {
+            } else if (binding.etIntroduction.text.toString().isEmpty()) {
                 binding.etIntroduction.error = "Please enter introduction"
                 return@setOnClickListener
             } else if (binding.etIntroduction.text.toString().length < 15) {
                 binding.etIntroduction.error = "Introduction should be at least 15 characters"
                 return@setOnClickListener
-            }
-            else {
+            } else {
                 register()
             }
         }
@@ -147,9 +148,6 @@ class ProfileDetailsActivity : BaseActivity() {
             binding.nsProfileDetails.visibility = View.VISIBLE
             binding.llDescribtion.visibility = View.GONE
         }
-
-
-
     }
 
     private fun showProfessionDialogstate(etState: EditText) {
@@ -160,8 +158,8 @@ class ProfileDetailsActivity : BaseActivity() {
             "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura",
             "Uttar Pradesh", "Uttarakhand", "West Bengal"
         )
-        val adapter = ProfessionAdapter(State) { selectedProfession ->
-            binding.etState.setText(selectedProfession)
+        val adapter = ProfessionAdapter(State) { selectedState ->
+            binding.etState.setText(selectedState)
             binding.cardstate.visibility = View.GONE
             binding.etState.error = null
         }
@@ -170,9 +168,9 @@ class ProfileDetailsActivity : BaseActivity() {
     }
 
     private fun showProfessionDialog(etProfession: EditText) {
-
-        val adapter = ProfessionAdapter(professions) { selectedProfession ->
+        val adapter = ProfessionAdapter(professions.map { it.first }) { selectedProfession ->
             binding.etProfession.setText(selectedProfession)
+            profession_id = professions.first { it.first == selectedProfession }.second
             binding.cardProfession.visibility = View.GONE
             binding.etProfession.error = null
         }
@@ -197,7 +195,7 @@ class ProfileDetailsActivity : BaseActivity() {
         params[Constant.EMAIL] = session.getData(Constant.EMAIL)
         params[Constant.AGE] = binding.etAge.text.toString()
         params[Constant.GENDER] = gender.toString()
-        params[Constant.PROFESSION] = binding.etProfession.text.toString()
+        params[Constant.PROFESSION_ID] = profession_id // Pass the profession ID
         params[Constant.STATE] = binding.etState.text.toString()
         params[Constant.CITY] = binding.etcity.text.toString()
         params[Constant.INTRODUCTION] = binding.etIntroduction.text.toString()
@@ -241,6 +239,7 @@ class ProfileDetailsActivity : BaseActivity() {
             }
         }, activity, Constant.REGISTER, params, true, 1)
     }
+
     private fun profession_list() {
         val params: MutableMap<String, String> = HashMap()
         ApiConfig.RequestToVolley({ result, response ->
@@ -249,15 +248,15 @@ class ProfileDetailsActivity : BaseActivity() {
                     val jsonObject: JSONObject = JSONObject(response)
                     if (jsonObject.getBoolean("success")) {
                         val jsonArray = jsonObject.getJSONArray("data")
+
                         // Clear previous data
-                        professions = mutableListOf()
+                        professions.clear()
                         for (i in 0 until jsonArray.length()) {
                             val professionObject = jsonArray.getJSONObject(i)
                             val profession = professionObject.getString("profession")
-                            professions += profession
+                            val id = professionObject.getString("id")
+                            professions.add(profession to id) // Store as Pair(professionName, professionId)
                         }
-                        // Now professions list is populated, you can use it wherever needed
-                        //  Toast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_SHORT).show()
                     } else {
                         Toast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_SHORT).show()
                     }
