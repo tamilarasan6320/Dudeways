@@ -74,10 +74,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Name"
-                app:hintTextColor="@color/primary"
-                app:boxStrokeColor="@color/primary"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined">
+               
+                 style="@style/CustomTextInputLayout"
+                android:theme="@style/CustomTextInputEditText">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etName"
@@ -94,11 +93,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:hint="E-mail id"
-                app:hintTextColor="@color/primary"
-                app:boxStrokeColor="@color/primary"
+               
                 android:clickable="false"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined">
+                 style="@style/CustomTextInputLayout"
+                android:theme="@style/CustomTextInputEditText">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etEmail"
@@ -117,8 +115,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:hint="Mobile Number"
-                app:hintTextColor="@color/primary"
-                app:boxStrokeColor="@color/primary"
+               
                 android:visibility="gone"
                 android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -137,10 +134,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:hint="Age"
-                app:hintTextColor="@color/primary"
-                app:boxStrokeColor="@color/primary"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined">
+               
+                 style="@style/CustomTextInputLayout"
+                android:theme="@style/CustomTextInputEditText">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etAge"
@@ -158,10 +154,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:hint="Profession"
-                app:hintTextColor="@color/primary"
-                app:boxStrokeColor="@color/primary"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined">
+               
+                 style="@style/CustomTextInputLayout"
+                android:theme="@style/CustomTextInputEditText">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etProfession"
@@ -206,10 +201,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:hint="City"
-                app:hintTextColor="@color/primary"
-                app:boxStrokeColor="@color/primary"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined">
+               
+                 style="@style/CustomTextInputLayout"
+                android:theme="@style/CustomTextInputEditText">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etcity"
@@ -226,10 +220,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:hint="State"
-                app:hintTextColor="@color/primary"
-                app:boxStrokeColor="@color/primary"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined">
+               
+                 style="@style/CustomTextInputLayout"
+                android:theme="@style/CustomTextInputEditText">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etState"
@@ -274,10 +267,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:hint="Describe Yourself"
-                app:hintTextColor="@color/primary"
-                app:boxStrokeColor="@color/primary"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined">
+               
+                 style="@style/CustomTextInputLayout"
+                android:theme="@style/CustomTextInputEditText">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etIntroduction"

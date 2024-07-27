@@ -26,7 +26,7 @@
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.95" />
 
-            <com.app.dudeways.front.CameraSourcePreview
+            <com.gmwapp.dudeways.front.CameraSourcePreview
                 android:id="@+id/camera_preview"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -34,16 +34,16 @@
                 app:layout_constraintStart_toStartOf="@+id/guideline_left"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <com.app.dudeways.front.GraphicOverlay
+                <com.gmwapp.dudeways.front.GraphicOverlay
                     android:id="@+id/face_overlay"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
-                <com.app.dudeways.front.CircleCameraMaskPreview
+                <com.gmwapp.dudeways.front.CircleCameraMaskPreview
                     android:id="@+id/camera_mask"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
-            </com.app.dudeways.front.CameraSourcePreview>
+            </com.gmwapp.dudeways.front.CameraSourcePreview>
 
             <TextView
                 android:id="@+id/tv_back"

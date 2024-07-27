@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "789941112934",
+    "firebase_url": "https://dudeways-c8f31-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "dudeways-c8f31",
     "storage_bucket": "dudeways-c8f31.appspot.com"
   },
@@ -12,7 +13,52 @@
           "package_name": "com.app.dudeways"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "789941112934-18spc9nh9191179np66326ru8aabrvjd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.dudeways",
+            "certificate_hash": "b855ca1116bd9b52f2d6a233f5f77a50e6e8b9c2"
+          }
+        },
+        {
+          "client_id": "789941112934-bckblous21mqtuvem527k8hg1mbl5lf3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.dudeways",
+            "certificate_hash": "8d5a0efd77731bdc552c0c456017ed6c5fb48676"
+          }
+        },
+        {
+          "client_id": "789941112934-dnl57g8sl0ce6rr8c88ecc9j5u86ru83.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.dudeways",
+            "certificate_hash": "ae03da532a8e2362bdf5330ff5be9e7e28dce5a7"
+          }
+        },
+        {
+          "client_id": "789941112934-gft4l226m657jqdhlj6p3sj7esqoj2l6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.dudeways",
+            "certificate_hash": "9e6749bd6438418b95b2c725408dc53ac997cf23"
+          }
+        },
+        {
+          "client_id": "789941112934-it4nqe2a8sq0iqpsk55fvfem1oiu7oad.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.dudeways",
+            "certificate_hash": "f2aed7f3cc6bb4a94e8c6e57b6486dc32b672b97"
+          }
+        },
+        {
+          "client_id": "789941112934-hh4j9ueivjq4uei4e2k3g3414qvmhnod.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBWHtzikXBUPPoscHyaO0rEiusQ5MsNmFg"
@@ -20,7 +66,49 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "789941112934-hh4j9ueivjq4uei4e2k3g3414qvmhnod.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:789941112934:android:98fb01222e9cbbdc8bdda7",
+        "android_client_info": {
+          "package_name": "com.gmwapp.dudeways"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "789941112934-m9c5va8lel593k2mecigkq2immqpoeep.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gmwapp.dudeways",
+            "certificate_hash": "ae03da532a8e2362bdf5330ff5be9e7e28dce5a7"
+          }
+        },
+        {
+          "client_id": "789941112934-hh4j9ueivjq4uei4e2k3g3414qvmhnod.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWHtzikXBUPPoscHyaO0rEiusQ5MsNmFg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "789941112934-hh4j9ueivjq4uei4e2k3g3414qvmhnod.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

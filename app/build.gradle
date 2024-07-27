@@ -6,15 +6,15 @@ plugins {
 }
 
 android {
-    namespace 'com.app.dudeways'
+    namespace 'com.gmwapp.dudeways'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.app.dudeways"
+        applicationId "com.gmwapp.dudeways"
         minSdk 24
         targetSdk 34
-        versionCode 5
-        versionName "5.0"
+        versionCode 7
+        versionName "7.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -99,7 +99,7 @@ dependencies {
     implementation 'com.github.mmoamenn:LuckyWheel_Android:0.1.2'
     implementation 'com.google.android.gms:play-services-auth:18.1.0'
     implementation 'com.onesignal:OneSignal:[5.0.0, 5.99.99]'
-    implementation 'com.google.android.gms:play-services-ads:19.3.0'
+    implementation 'com.google.android.gms:play-services-ads:21.0.0+'
     implementation 'com.zoho.salesiq:mobilisten:7.0.0'
 
     implementation 'com.google.android.material:material:1.8.0'
