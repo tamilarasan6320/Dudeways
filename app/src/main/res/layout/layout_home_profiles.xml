@@ -184,12 +184,11 @@
 
 
             <ImageView
-                android:backgroundTint="?attr/iconColor"
+                android:layout_width="18dp"
+                android:layout_height="14dp"
                 android:layout_gravity="center"
-                android:layout_width="@dimen/_14sdp"
-                android:layout_height="@dimen/_14sdp"
                 android:background="@drawable/date_ic"
-                />
+                android:backgroundTint="?attr/iconColor" />
 
 
             <TextView

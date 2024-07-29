@@ -334,7 +334,7 @@ fun ChatsActivity.updateMessagesForSender(
     )
     addChat(message,receiverID)
 
-    if (chat_status == "0") {
+    if (session.getData(Constant.CHAT_STATUS) == "0") {
 
         val dialogView = activity.layoutInflater.inflate(R.layout.dialog_custom, null)
 
@@ -478,6 +478,7 @@ fun ChatsActivity.addChat(
                 val jsonObject = JSONObject(response)
                 if (jsonObject.getBoolean(Constant.SUCCESS)) {
                     logInfo(CHATS_ACTIVITY, "Message update to the API.")
+                    session.setData(Constant.CHAT_STATUS, "1")
 
                   //  Toast.makeText(this, chat_status, Toast.LENGTH_SHORT).show()
 
