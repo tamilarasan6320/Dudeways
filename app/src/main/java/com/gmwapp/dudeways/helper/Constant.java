@@ -56,7 +56,7 @@ public class Constant {
     public static final String CART_LIST = BaseUrl + "cartlist";
     public static final String ADD_TO_CART = BaseUrl + "booklist/add-cart";
     public static final String SEARCHBOOKS = BaseUrl + "booklist/searchbooks";
-    public static final String APPUPDATE = BaseUrl + "app_update";
+    public static final String APPUPDATE = BaseUrl + "appsettings_list";
     public static final String RECHARGE_CREATE = BaseUrl + "create_recharge";
     public static final String RECHARGE_STATUS = BaseUrl + "check_recharge_status";
 
@@ -98,7 +98,7 @@ public class Constant {
     public static final String FrontPROOF= "front_proof";
     public static final String BackPROOF = "back_proof";
 
-    public static final String VERSION = "version";
+    public static final String APP_VERSION = "app_version";
     public static final String LINK = "link";
 
     public static final String LATITUDE = "latitude";

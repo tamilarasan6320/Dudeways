@@ -2,10 +2,13 @@ package com.gmwapp.dudeways.Activity
 
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import android.widget.VideoView
 import androidx.activity.enableEdgeToEdge
@@ -17,6 +20,8 @@ import com.gmwapp.dudeways.helper.ApiConfig
 import com.gmwapp.dudeways.helper.Constant
 import com.gmwapp.dudeways.helper.Session
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -25,6 +30,8 @@ class SplashscreenActivity : BaseActivity() {
     private var handler: Handler? = null
     private var activity: Activity? = null
    lateinit var session: Session
+
+    private var currentVersion: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,19 +54,37 @@ class SplashscreenActivity : BaseActivity() {
 
         setContentView(binding.root)
 
-        val videoView = findViewById<VideoView>(R.id.videoView)
-        val videoUri = Uri.parse("android.resource://" + packageName + "/" + R.raw.logo_animation)
+//        val videoView = findViewById<VideoView>(R.id.videoView)
+//        val videoUri = Uri.parse("android.resource://" + packageName + "/" + R.raw.logo_animation)
+//
+//        videoView.setVideoURI(videoUri)
+//        videoView.start()
 
-        videoView.setVideoURI(videoUri)
-        videoView.start()
-
-        videoView.setOnCompletionListener {
-            GotoActivity()
-            // Do something when the video ends
-        }
+//        videoView.setOnCompletionListener {
+//            GotoActivity()
+//            // Do something when the video ends
+//        }
 
         handleIncomingIntent(intent)
 
+        setupViews()
+
+    }
+
+    override fun onResume() {
+        setupViews()
+        super.onResume()
+    }
+
+    private fun setupViews() {
+        try {
+            val pInfo = packageManager.getPackageInfo(packageName, 0)
+            currentVersion = pInfo.versionCode.toString()
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+        }
+
+        appupdate()
     }
 
     override fun onNewIntent(intent: Intent) {
@@ -81,11 +106,93 @@ class SplashscreenActivity : BaseActivity() {
         }
     }
 
+    private fun appupdate() {
+        val videoView = findViewById<VideoView>(R.id.videoView)
+        val videoUri = Uri.parse("android.resource://" + packageName + "/" + R.raw.logo_animation)
+
+        videoView.setVideoURI(videoUri)
+        videoView.start()
+
+        val params: MutableMap<String, String> = HashMap()
+        ApiConfig.RequestToVolley({ result, response ->
+            if (result) {
+                try {
+                    val jsonObject = JSONObject(response)
+                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
+                        val jsonArray: JSONArray = jsonObject.getJSONArray(Constant.DATA)
+
+
+                        val latestVersion = jsonArray.getJSONObject(0).getString(Constant.APP_VERSION)
+                        val link = jsonArray.getJSONObject(0).getString(Constant.LINK)
+                        //   Toast.makeText(activity,latestVersion + currentVersion!!.toInt() , Toast.LENGTH_SHORT).show()
+                        val description = jsonArray.getJSONObject(0).getString("description")
+                        if (currentVersion!!.toInt() >= latestVersion.toInt()) {
+                            videoView.setOnCompletionListener {
+                                GotoActivity()
+                                // Do something when the video ends
+                            }
+                        } else {
+                            showUpdateDialog(link,description)
+
+                        }
+
+                    } else {
+//                        val jsonArray: JSONArray = jsonObject.getJSONArray(Constant.DATA)
+//
+//
+//                        val latestVersion = jsonArray.getJSONObject(0).getString(Constant.VERSION)
+//                        val link = jsonArray.getJSONObject(0).getString(Constant.LINK)
+//                        val description = jsonArray.getJSONObject(0).getString("description")
+//                        if (currentVersion!!.toInt() == latestVersion.toInt()) {
+//                            GotoActivity()
+//                        } else {
+//                            showUpdateDialog(link, description)
+//                        }
+
+
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                    Toast.makeText(activity, e.toString(), Toast.LENGTH_SHORT).show()
+                }
+            }
+        }, activity, Constant.APPUPDATE, params, true)
+        // Return a dummy intent, as the actual navigation is handled inside the callback
+
+        Log.d("AppUpdate", "API Endpoint: ${Constant.APPUPDATE}")
+        Log.d("AppUpdate", "API Endpoint:: $params")
+    }
+
+    private fun showUpdateDialog(link: String, description: String) {
+        val bottomSheetDialog = BottomSheetDialog(this)
+        val view = layoutInflater.inflate(R.layout.bottom_dialog_update, null)
+        bottomSheetDialog.setContentView(view)
+        bottomSheetDialog.setCancelable(false);
+
+        val btnUpdate = view.findViewById<View>(R.id.btnUpdate)
+        val dialogMessage = view.findViewById<TextView>(R.id.dialog_message)
+        dialogMessage.text = description
+
+
+        btnUpdate.setOnClickListener(View.OnClickListener {
+            val url = link;
+            val i = Intent(Intent.ACTION_VIEW)
+            i.data = Uri.parse(url)
+            startActivity(i)
+        })
+
+
+        // Customize your bottom dialog here
+        // For example, you can set text, buttons, etc.
+
+        bottomSheetDialog.show()
+    }
+
 
     private fun GotoActivity() {
         handler?.postDelayed({
-            if (session!!.getBoolean("is_logged_in")) { login()
-
+            if (session!!.getBoolean("is_logged_in")) {
+                login()
             } else {
              //   Toast.makeText(activity, "Please login", Toast.LENGTH_SHORT).show()
                 val intent = Intent(activity, WelcomeActivity::class.java)
