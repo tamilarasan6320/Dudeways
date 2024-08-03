@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvPlan"
+        android:layout_margin="@dimen/_10sdp"
+        app:strokeColor="@color/primary_light"
+        app:strokeWidth="@dimen/_1sdp"
+        android:layout_width="match_parent"
+        app:cardCornerRadius="@dimen/_10sdp"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:id="@+id/tvSave"
+            android:paddingVertical="@dimen/_2sdp"
+            android:paddingHorizontal="@dimen/_10sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="@dimen/_10sdp"
+            android:fontFamily="@font/poppins_medium"
+            android:textColor="@color/white"
+            android:background="@color/red"
+            />
+
+
+
+        <RelativeLayout
+            android:padding="@dimen/_10sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:buttonTint="?attr/radiobgcolor"
+                android:layout_alignParentRight="true"
+                android:id="@+id/rbplan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/_18sdp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:id="@+id/tvPlan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="@dimen/_16sdp"
+                    android:textColor="@color/colorPrimary"
+                    android:fontFamily="@font/poppins_medium"
+                    />
+
+                <TextView
+                    android:id="@+id/tvDays"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="@dimen/_10sdp"
+                    android:textColor="?attr/textgrey"
+                    android:fontFamily="@font/poppins_medium"
+                    />
+                <TextView
+                    android:id="@+id/tvPlanPrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="@dimen/_16sdp"
+                    android:textColor="?attr/myTextColor"
+                    android:fontFamily="@font/poppins_medium"
+                    />
+
+
+
+
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+</RelativeLayout>

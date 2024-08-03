@@ -8,7 +8,9 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.canhub.cropper.CropImage
+import com.gmwapp.dudeways.R
 import com.gmwapp.dudeways.databinding.ActivityStage3Binding
 import com.gmwapp.dudeways.helper.ApiConfig
 import com.gmwapp.dudeways.helper.Constant
@@ -36,6 +38,8 @@ class Stage3Activity : BaseActivity() {
 
         activity = this
         session = Session(activity)
+
+
 
         binding.ivBack.setOnClickListener {
             onBackPressed()
@@ -128,12 +132,22 @@ class Stage3Activity : BaseActivity() {
                     val jsonObject = JSONObject(response)
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
 
+
+
+                        val `object` = JSONObject(response)
+                        val jsonobj = `object`.getJSONObject(Constant.DATA)
+                            val front_image = jsonobj.getString("front_image")
+                        session.setData(Constant.FRONT_IMAGE, front_image)
+
+
+                            verifyBackImage(bitmap)
+
+
                         // Verify the back image here
-                        verifyBackImage(bitmap)
                       //  Toast.makeText(activity, "" + jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
 
                     } else {
-                        Toast.makeText(activity, "" + jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity, "2" + jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
                     }
                 } catch (e: JSONException) {
                     e.printStackTrace()
@@ -162,17 +176,24 @@ class Stage3Activity : BaseActivity() {
                 try {
                     val jsonObject = JSONObject(response)
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
-                        startActivity(Intent(this, Stage1Activity::class.java))
-                        finish()
-                        session.setData(Constant.PROOF2, "1")
-                        session.setData(Constant.VERDICATION_STATUS,"1")
+
+                        val `object` = JSONObject(response)
+                        val jsonobj = `object`.getJSONObject(Constant.DATA)
+
+                            val back_image = jsonobj.getString("back_image")
+                            session.setData(Constant.BACK_IMAGE, back_image)
+                            startActivity(Intent(this, PurchaseverifybuttonActivity::class.java))
+                            finish()
+
+
+
                        // Toast.makeText(activity, "" + jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
                     } else {
-                        Toast.makeText(activity, "" + jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity, "1" + jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
                     }
                 } catch (e: JSONException) {
                     e.printStackTrace()
-                    Toast.makeText(activity, "Error parsing response", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "1Error parsing response", Toast.LENGTH_SHORT).show()
                 }
             } else {
                 Toast.makeText(activity, "Failed to upload image", Toast.LENGTH_SHORT).show()

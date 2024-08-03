@@ -35,42 +35,62 @@ class Stage1Activity : BaseActivity() {
 
         Glide.with(activity).load(session.getData(Constant.PROFILE)).placeholder(R.drawable.profile_placeholder).into(binding.civProfile)
 
-        val proof1 = session.getData(Constant.PROOF1)
-        val proof2 = session.getData(Constant.PROOF2)
+        val proof1 = session.getData(Constant.SELFIE_IMAGE)
+        val proof2 = session.getData(Constant.FRONT_IMAGE)
+        val proof3 = session.getData(Constant.BACK_IMAGE)
 
-        if (proof1 == "1") {
-            isStep1Clicked = true
-            binding.ivProofCheck1.visibility = View.VISIBLE
+        // if proof1 is not null then show the image
+
+        if (proof1.isEmpty()) {
+            binding.ivProofCheck1.visibility = View.GONE
 
         }
+        else{
+            binding.ivProofCheck1.visibility = View.VISIBLE
+        }
 
-        if (proof2 == "1") {
-            isStep2Clicked = true
+        if (proof2.isEmpty() || proof3.isEmpty()){
+            binding.ivProofCheck2.visibility = View.GONE
+        }
+        else{
             binding.ivProofCheck2.visibility = View.VISIBLE
         }
 
-        binding.llStep1.setOnClickListener {
-            if (isStep1Clicked) {
 
-            } else {
+
+        binding.llStep1.setOnClickListener {
+
+            if (proof1.isEmpty()) {
                 val intent = Intent(activity, Stage2Activity::class.java)
                 startActivity(intent)
                 finish()
+                return@setOnClickListener
+            }
+            else{
+
             }
 
         }
 
         binding.llStep2.setOnClickListener {
-            if (isStep2Clicked) {
 
-            } else {
+
+
+
+            if(proof2.isEmpty() || proof3.isEmpty()){
                 val intent = Intent(activity, Stage3Activity::class.java)
                 startActivity(intent)
                 finish()
+                return@setOnClickListener
+            }
+            else{
+
             }
 
-
         }
+
+
+
 
 
         binding.btnRequestVerification.setOnClickListener {

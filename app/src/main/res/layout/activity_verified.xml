@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.IdverficationActivity">
+
+
+
+    <RelativeLayout
+        android:id="@+id/rlToolbar"
+        android:padding="@dimen/_20sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:backgroundTint="?attr/iconColor"
+            android:layout_centerVertical="true"
+            android:id="@+id/ivBack"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_18sdp"
+            android:background="@drawable/arrow_left"
+            />
+
+        <TextView
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/_14sdp"
+            android:layout_toRightOf="@+id/ivBack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Verification Badge"
+            android:textSize="@dimen/_14sdp"
+            android:textColor="?attr/myTextColor"
+            android:fontFamily="@font/poppins_medium"
+            />
+
+
+    </RelativeLayout>
+
+
+
+
+
+    <LinearLayout
+        android:padding="@dimen/_10sdp"
+        android:layout_below="@+id/rlToolbar"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:id="@+id/tvDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_12sdp"
+            android:textColor="?attr/myTextColor"
+            android:fontFamily="@font/poppins_semibold"
+            />
+
+
+
+
+
+        <RelativeLayout
+            android:layout_gravity="center"
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="wrap_content">
+
+
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civProfile"
+                android:layout_width="@dimen/_140sdp"
+                android:layout_height="@dimen/_140sdp"
+                android:src="@color/grey"
+                app:civ_border_color="@color/primary"
+                app:civ_border_width="@dimen/_1sdp"/>
+
+            <ImageView
+                android:id="@+id/IV_online_status"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:background="@drawable/verify_ic"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/_82sdp"
+                />
+
+
+        </RelativeLayout>
+
+
+
+
+
+
+
+
+    </LinearLayout>
+
+
+
+
+    <com.google.android.material.button.MaterialButton
+        android:visibility="gone"
+        android:layout_marginHorizontal="@dimen/_14sdp"
+        android:layout_marginBottom="@dimen/_50sdp"
+        android:id="@+id/btnVerify"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/_24sdp"
+        android:fontFamily="@font/poppins_medium"
+        app:backgroundTint="@null"
+        android:background="@drawable/gradient_button"
+        android:text="Back To Home"
+        android:textAllCaps="false"
+        android:textSize="@dimen/_14sdp"
+        />
+
+
+
+
+
+
+</RelativeLayout>

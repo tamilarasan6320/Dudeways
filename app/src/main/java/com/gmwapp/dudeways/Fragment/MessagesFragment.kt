@@ -21,7 +21,6 @@ import org.json.JSONException
 import org.json.JSONObject
 
 class MessagesFragment : Fragment() {
-
     private lateinit var binding: FragmentMessagesBinding
     private lateinit var activity: Activity
     private lateinit var session: Session
@@ -83,7 +82,6 @@ class MessagesFragment : Fragment() {
     private fun chatlist() {
         if (isLoading) return
         isLoading = true
-
         val params: MutableMap<String, String> = HashMap()
         params[Constant.USER_ID] = session.getData(Constant.USER_ID)
         params[Constant.OFFSET] = offset.toString()
@@ -125,5 +123,11 @@ class MessagesFragment : Fragment() {
                 }
             }
         }, activity, Constant.CHAT_LIST, params, true, 1)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        chatlist()
+        // Refresh chat list or any other data you want to update
     }
 }

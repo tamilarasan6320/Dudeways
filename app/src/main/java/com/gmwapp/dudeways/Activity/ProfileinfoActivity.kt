@@ -4,6 +4,9 @@ import android.app.Activity
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -14,6 +17,7 @@ import com.gmwapp.dudeways.helper.ApiConfig
 import com.gmwapp.dudeways.helper.Constant
 import com.gmwapp.dudeways.helper.Session
 import com.bumptech.glide.Glide
+import de.hdodenhof.circleimageview.CircleImageView
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -36,6 +40,43 @@ class ProfileinfoActivity : BaseActivity() {
 
         activity = this
         session = Session(activity)
+
+
+
+        val civProfile: CircleImageView = findViewById(R.id.civProfile)
+        val fullscreenContainer: View = findViewById(R.id.fullscreen_container)
+        val fullscreenImage: CircleImageView = findViewById(R.id.fullscreen_image)
+
+        civProfile.setOnClickListener {
+            // Set the image resource to the fullscreen image view
+            fullscreenImage.setImageDrawable(civProfile.drawable)
+
+            // Show the fullscreen container
+            fullscreenContainer.visibility = View.VISIBLE
+
+            // Load and apply the zoom animation
+            val zoomInAnimation = AnimationUtils.loadAnimation(this, R.anim.zoom_in)
+            fullscreenImage.startAnimation(zoomInAnimation)
+        }
+
+        // Hide the fullscreen image on click
+        fullscreenContainer.setOnClickListener {
+            // Load and apply the zoom out animation
+            val zoomOutAnimation = AnimationUtils.loadAnimation(this, R.anim.zoom_out)
+            fullscreenImage.startAnimation(zoomOutAnimation)
+
+            // Set a listener to hide the container after the animation ends
+            zoomOutAnimation.setAnimationListener(object : Animation.AnimationListener {
+                override fun onAnimationStart(animation: Animation) {}
+                override fun onAnimationEnd(animation: Animation) {
+                    fullscreenContainer.visibility = View.GONE
+                }
+
+                override fun onAnimationRepeat(animation: Animation) {}
+            })
+        }
+
+
          user_id = intent.getStringExtra("chat_user_id")
 
 
@@ -114,6 +155,14 @@ class ProfileinfoActivity : BaseActivity() {
 
                         val gender = jsonobj.getString(Constant.GENDER)
                         val age = jsonobj.getString(Constant.AGE)
+                        val verify = jsonobj.getString("verified")
+
+                        if (verify == "1") {
+                            binding.ivVerify.visibility = View.VISIBLE
+                        } else {
+                            binding.ivVerify.visibility = View.GONE
+                        }
+
                         binding.ivAge.text = age
 
                         if(gender == "male") {

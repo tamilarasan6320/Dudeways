@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.PurchaseverifybuttonActivity">
+
+
+    <RelativeLayout
+        android:id="@+id/rlToolbar"
+        android:padding="@dimen/_20sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:backgroundTint="?attr/iconColor"
+            android:layout_centerVertical="true"
+            android:id="@+id/ivBack"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_18sdp"
+            android:background="@drawable/arrow_left"
+            />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/_14sdp"
+            android:layout_toRightOf="@+id/ivBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Purchase Verify"
+            android:textSize="@dimen/_14sdp"
+            android:textColor="?attr/myTextColor"
+            android:fontFamily="@font/poppins_medium"
+            />
+
+        <ImageView
+            android:layout_marginLeft="@dimen/_6sdp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/tvTitle"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:background="@drawable/verify_ic"
+            />
+
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_margin="@dimen/_4sdp"
+        android:layout_below="@+id/rlToolbar"
+        android:id="@+id/llStep1"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+       <LinearLayout
+           android:orientation="horizontal"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+
+
+           <ImageView
+               android:layout_gravity="center"
+               android:layout_width="@dimen/_16sdp"
+               android:layout_height="@dimen/_16sdp"
+               android:background="@drawable/check_ic"
+               />
+
+           <TextView
+               android:layout_marginLeft="@dimen/_10sdp"
+               android:layout_gravity="center"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="Selfie Upload Done."
+               android:textSize="@dimen/_10sdp"
+               android:textColor="?attr/myTextColor"
+               android:fontFamily="@font/poppins_medium"
+               />
+
+
+       </LinearLayout>
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_marginLeft="@dimen/_7sdp"
+            app:dividerColor="@color/green"
+            android:layout_width="@dimen/_2sdp"
+            android:layout_height="@dimen/_20sdp"/>
+       <LinearLayout
+           android:orientation="horizontal"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+
+
+           <ImageView
+               android:layout_gravity="center"
+               android:layout_width="@dimen/_16sdp"
+               android:layout_height="@dimen/_16sdp"
+               android:background="@drawable/check_ic"
+               />
+
+           <TextView
+               android:layout_marginLeft="@dimen/_10sdp"
+               android:layout_gravity="center"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="Id Proof Upload Done."
+               android:textSize="@dimen/_10sdp"
+               android:textColor="?attr/myTextColor"
+               android:fontFamily="@font/poppins_medium"
+               />
+
+
+       </LinearLayout>
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_marginLeft="@dimen/_7sdp"
+            app:dividerColor="@color/green"
+            android:layout_width="@dimen/_2sdp"
+            android:layout_height="@dimen/_20sdp"/>
+       <LinearLayout
+           android:orientation="horizontal"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+
+
+           <ImageView
+               android:layout_gravity="center"
+               android:layout_width="@dimen/_16sdp"
+               android:layout_height="@dimen/_16sdp"
+               android:background="@drawable/pending_ic"
+               />
+
+           <TextView
+               android:layout_marginLeft="@dimen/_10sdp"
+               android:layout_gravity="center"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="Payment Pending..."
+               android:textSize="@dimen/_10sdp"
+               android:textColor="#ca354b"
+               android:fontFamily="@font/poppins_medium"
+               />
+
+
+       </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_below="@+id/llStep1"
+        android:id="@+id/rvplan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        />
+
+
+
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_margin="@dimen/_10sdp"
+        android:id="@+id/btnPurchase"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/_24sdp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="Purchase Now"
+        android:textAllCaps="false"
+        android:textSize="@dimen/_14sdp"
+        app:backgroundTint="@null"
+        android:background="@drawable/gradient_button" />
+
+</RelativeLayout>

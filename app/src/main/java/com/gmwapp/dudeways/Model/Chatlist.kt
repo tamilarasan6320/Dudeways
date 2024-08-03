@@ -1,5 +1,7 @@
 package com.gmwapp.dudeways.Model
 
+import com.zoho.livechat.android.comm.PXRClearUnread
+
 class Chatlist {
 
 
@@ -18,6 +20,8 @@ class Chatlist {
     var updated_at: String? = null
     var created_at: String? = null
     var friend: String? = null
+    var verified: String? = null
+    var unread: String? = null
 
     constructor(
         id: String?,
@@ -33,6 +37,8 @@ class Chatlist {
         updated_at: String?,
         created_at: String?,
         friend: String?,
+        verified: String?,
+        unread: String?,
     ) {
         this.id = id
         this.user_id = user_id
@@ -47,6 +53,8 @@ class Chatlist {
         this.created_at = created_at
         this.online_status = online_status
         this.friend = friend
+        this.verified = verified
+        this.unread = unread
 
     }
 

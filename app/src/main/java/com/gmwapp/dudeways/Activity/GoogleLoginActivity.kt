@@ -19,6 +19,9 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.zoho.commons.InitConfig
+import com.zoho.livechat.android.listeners.InitListener
+import com.zoho.salesiqembed.ZohoSalesIQ
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -40,7 +43,10 @@ class GoogleLoginActivity : BaseActivity() {
         activity = this
         session = Session(activity)
 
+        initializeZohoSalesIQ()
+
         FirebaseApp.initializeApp(this)
+
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -55,7 +61,24 @@ class GoogleLoginActivity : BaseActivity() {
             signInGoogle()
         }
 
+        binding.tvHelp.setOnClickListener {
+            ZohoSalesIQ.Chat.show()
+        }
 
+    }
+
+    private fun initializeZohoSalesIQ() {
+        val initConfig = InitConfig()
+        ZohoSalesIQ.init(application, "FkbMlSXKPaATeaZN35ZmjRdYaU29Wkx2QMkU75bCptU3ZA8TYZl2%2B%2BvFc55TAwVG_in", "xHGPBNAi6lC%2Fm7ngAEy%2FPSgch2eW42oPrw91hcyRHElKYqtGLQkB%2FuE%2F7QPdaD9BbNzYtKPn9U0kV316gEW6vUjMNMCKY5Jey7HFiemj%2BueB02iLgVZl6g%3D%3D", initConfig, object :
+            InitListener {
+            override fun onInitSuccess() {
+                // Initialization successful
+            }
+
+            override fun onInitError(errorCode: Int, errorMessage: String) {
+                // Handle initialization errors
+            }
+        })
     }
 
     private fun signInGoogle() {

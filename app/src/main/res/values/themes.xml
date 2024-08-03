@@ -13,6 +13,9 @@
         <item name="myTextColor">@color/black</item> <!-- Default text color -->
         <item name="iconColor">@color/black</item> <!-- Default text color -->
         <item name="textgrey">@color/text_grey</item>
+        <item name="cardlightcolor">@color/primary_extra_light</item>
+        <item name="cardbgcolor">@color/white</item>
+        <item name="radiobgcolor">@color/primary</item>
 
     </style>
 
@@ -26,6 +29,9 @@
         <item name="myTextColor">@color/white</item> <!-- Text color for dark mode -->
         <item name="iconColor">@color/text_grey_dark</item> <!-- Text color for dark mode -->
         <item name="textgrey">@color/text_grey_dark</item> <!-- Text color for dark mode -->
+        <item name="cardlightcolor">@color/primary_light</item> <!-- Text color for dark mode -->
+        <item name="cardbgcolor">@color/transparent</item> <!-- Text color for dark mode -->
+        <item name="radiobgcolor">@color/white</item> <!-- Text color for dark mode -->
     </style>
 
 

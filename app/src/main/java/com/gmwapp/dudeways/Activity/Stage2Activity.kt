@@ -8,6 +8,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import com.bumptech.glide.Glide
+import com.gmwapp.dudeways.R
 import com.gmwapp.dudeways.databinding.ActivityStage2Binding
 import com.gmwapp.dudeways.helper.ApiConfig
 import com.gmwapp.dudeways.helper.Constant
@@ -57,6 +59,7 @@ class Stage2Activity : BaseActivity() {
             onBackPressed()
         }
 
+
         binding.cvProof1.setOnClickListener {
             startActivityForResult(Intent(this, SelfiActivity::class.java), SELFIE_REQUEST_CODE)
         }
@@ -86,11 +89,26 @@ class Stage2Activity : BaseActivity() {
                 try {
                     val jsonObject = JSONObject(response)
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
-                        startActivity(Intent(this, Stage1Activity::class.java))
-                        finish()
-                        session.setData(Constant.PROOF1, "1")
-                        Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
+
+                        val dataArray = jsonObject.getJSONArray("data")
+                        if (dataArray.length() > 0) {
+                            val dataObject = dataArray.getJSONObject(0)
+                            val selfieImageUrl = dataObject.getString("selfie_image")
+
+
+                            session.setData(Constant.SELFIE_IMAGE, selfieImageUrl)
+
+
+                            startActivity(Intent(this, Stage1Activity::class.java))
+                            finish()
+
+
+                            Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
+                        }
+
+
                     } else {
+                        session.setData(Constant.SELFIE_IMAGE, "")
                         Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
                     }
                 } catch (e: JSONException) {

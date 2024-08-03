@@ -54,8 +54,7 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
     lateinit var binding: ActivityChatsBinding
     lateinit var activity: Activity
     lateinit var session: Session
-    private val firebaseDatabase: FirebaseDatabase =
-        Firebase.database("https://dudeways-c8f31-default-rtdb.asia-southeast1.firebasedatabase.app")
+    private val firebaseDatabase: FirebaseDatabase = Firebase.database("https://dudeways-c8f31-default-rtdb.asia-southeast1.firebasedatabase.app")
     private val databaseReference: DatabaseReference = firebaseDatabase.reference
     private var chatReference: DatabaseReference? = null
     private var chatAdapter: ChatAdapter? = null
@@ -82,6 +81,8 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
         activity = this
         session = Session(activity)
 
+
+
         senderId = session.getData(Constant.USER_ID)
         receiverId = intent.getStringExtra("chat_user_id").toString()
         senderName = session.getData(Constant.NAME)
@@ -99,6 +100,12 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
 
         binding.ivBack.setOnClickListener {
             onBackPressedDispatcher.onBackPressed()
+        }
+
+        binding.ivProfile.setOnClickListener{
+            val intent = Intent(activity, ProfileinfoActivity::class.java)
+            intent.putExtra("chat_user_id", receiverId!!)
+            activity.startActivity(intent)
         }
 
         val audioAttributes = AudioAttributes.Builder()
@@ -178,6 +185,8 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
                     val chatModel = snapshot.getValue(ChatModel::class.java)
                     logInfo(CHATS_ACTIVITY, "from firebase child added - $chatModel")
                     onMessageAdded(chatModel)
+//                    Toast.makeText(activity,"1",Toast.LENGTH_SHORT).show()
+                    read_chats()
                 }
 
                 override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
@@ -274,6 +283,32 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
             // Stop the refreshing animation once the network request is complete
 
         }, activity, Constant.ADD_FRIENDS, params, true, 1)
+    }
+    private fun read_chats() {
+        val session = Session(activity)
+        val params: MutableMap<String, String> = HashMap()
+        params[Constant.USER_ID] = session.getData(Constant.USER_ID)
+        params[Constant.CHAT_USER_ID] = receiverId!!
+        ApiConfig.RequestToVolley({ result, response ->
+            if (result) {
+                try {
+                    val jsonObject = JSONObject(response)
+                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
+
+
+                        //Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
+                    }
+                    else {
+                     //   Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }
+
+            // Stop the refreshing animation once the network request is complete
+
+        }, activity, Constant.READ_CHATS, params, true, 1)
     }
 
 

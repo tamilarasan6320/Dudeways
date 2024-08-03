@@ -45,15 +45,15 @@ class NotificationAdapter(
         Glide.with(activitys).load(report.profile).placeholder(R.drawable.profile_placeholder)
             .into(holder.civProfile)
 
-        holder.civProfile.setOnClickListener {
-            val intent = Intent(activity, ProfileinfoActivity::class.java)
-            intent.putExtra("name", report.name)
-            intent.putExtra("chat_user_id", report.notify_user_id.toString())
-            intent.putExtra("id", report.id.toString())
-            session.setData("reciver_profile", report.profile)
-            activity.startActivity(intent)
-
-        }
+//        holder.civProfile.setOnClickListener {
+//            val intent = Intent(activity, ProfileinfoActivity::class.java)
+//            intent.putExtra("name", report.name)
+//            intent.putExtra("chat_user_id", report.notify_user_id.toString())
+//            intent.putExtra("id", report.id.toString())
+//            session.setData("reciver_profile", report.profile)
+//            activity.startActivity(intent)
+//
+//        }
 
     }
 

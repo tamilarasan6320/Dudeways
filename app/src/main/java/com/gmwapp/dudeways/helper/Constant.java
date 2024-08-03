@@ -11,6 +11,7 @@ public class Constant {
 
     public static final String REGISTER = BaseUrl + "register";
     public static final String PROFESSION_LIST = BaseUrl + "profession_list";
+    public static final String VERIFICATION_LIST = BaseUrl + "verification_list";
     public static final String UPDATE_USERS = BaseUrl + "update_users";
     public static final String CHECK_MOBILE = BaseUrl + "check_mobile";
     public static final String CHECK_EMAIL = BaseUrl + "check_email";
@@ -49,6 +50,7 @@ public class Constant {
     public static final String NOTFICATION_LIST = BaseUrl + "notification_list";
     public static final String UPDATE_NOTIFY = BaseUrl + "update_notify";
     public static final String ADD_FRIENDS = BaseUrl + "add_friends";
+    public static final String READ_CHATS = BaseUrl + "read_chats";
     public static final String PROFILE_VIEW = BaseUrl + "profile_view";
     public static final String ADD_TRIP = BaseUrl + "add_trip";
     public static final String UPDATE_TRIP_IMAGE = BaseUrl + "update_trip_image";
@@ -58,9 +60,13 @@ public class Constant {
     public static final String SEARCHBOOKS = BaseUrl + "booklist/searchbooks";
     public static final String APPUPDATE = BaseUrl + "appsettings_list";
     public static final String RECHARGE_CREATE = BaseUrl + "create_recharge";
+    public static final String CREATE_VERIFICATION = BaseUrl + "create_verification";
     public static final String RECHARGE_STATUS = BaseUrl + "check_recharge_status";
+    public static final String VERIFICATION_STATUS = BaseUrl + "verification_status";
+    public static final String PLAN_LIST = BaseUrl + "plan_list";
 
     public static final String STATUS = "status";
+    public static final String PAYMENT_STATUS = "payment_status";
 
 
 
@@ -114,6 +120,7 @@ public class Constant {
     public static final String VIEW_NOTIFY = "view_notify";
     public static final String TYPE = "type";
     public static final String CHAT_USER_ID = "chat_user_id";
+    public static final String UNREAD = "unread";
     public static final String CHAT_ID = "chat_id";
     public static final String TRIP_ID = "trip_id";
     public static final String FRIEND_USER_ID = "friend_user_id";
@@ -145,6 +152,19 @@ public class Constant {
     public static final String ADDRESS = "address";
 
 
+
+    public static final String RECIVER_PROFILE = "reciver_profile";
+    public static final String RECIVER_COVER_IMG = "reciver_cover_img";
+    public static final String RECIVER_GENDER = "reciver_gender";
+    public static final String RECIVER_NAME = "reciver_name";
+    public static final String RECIVER_AGE = "reciver_age";
+    public static final String RECIVER_PROFESSION = "reciver_profession";
+    public static final String RECIVER_CITY = "reciver_city";
+    public static final String RECIVER_STATE = "reciver_state";
+    public static final String RECIVER_UNIQUE_NAME = "reciver_unique_name";
+
+
+
     public static final String IMAGE = "image";
     public static final String PAYMENT_PROOF = "payment_proof";
 
@@ -157,6 +177,7 @@ public class Constant {
     public static final String FRONT_IMAGE = "front_image";
     public static final String BACK_IMAGE = "back_image";
     public static final String SELFIE_IMAGE = "selfie_image";
+    public static final String VERIFICATION_FALSE = "verification_false";
     public static final String BOOKID = "book_id";
     public static final String CART_ID = "cart_id";
     public static final String TYPE_TRIP_DATE = "trip_date";

@@ -208,19 +208,31 @@ class ProfileViewActivity : BaseActivity() {
         }
 
         binding.rlVerificationBadge.setOnClickListener {
+            val proof1 = session.getData(Constant.SELFIE_IMAGE)
+            val proof2 = session.getData(Constant.FRONT_IMAGE)
+            val proof3 = session.getData(Constant.BACK_IMAGE)
+            val status = session.getData(Constant.STATUS)
+            val payment_status = session.getData(Constant.PAYMENT_STATUS)
 
-            val proof1 = session.getData(Constant.PROOF1)
-            val proof2 = session.getData(Constant.PROOF2)
 
-            if(proof1 == "1" && proof2 == "1") {
-                val intent = Intent(activity, Stage4Activity::class.java)
-                startActivity(intent)
-            }
-            else {
+            // if proof 1 2 3 is empty
+            if(proof1.isEmpty() || proof2.isEmpty() || proof3.isEmpty()) {
                 val intent = Intent(activity, IdverficationActivity::class.java)
                 startActivity(intent)
             }
+            else if (payment_status == "0") {
+                val intent = Intent(activity, PurchaseverifybuttonActivity::class.java)
+                startActivity(intent)
+            }
+            else if (status == "0") {
+                val intent = Intent(activity, Stage4Activity::class.java)
+                startActivity(intent)
+            }
 
+            else if (status == "1"){
+                val intent = Intent(activity, VerifiedActivity::class.java)
+                startActivity(intent)
+            }
 
         }
 
@@ -401,6 +413,59 @@ class ProfileViewActivity : BaseActivity() {
         finish()
     }
 
+    private fun verification_list() {
+        val params: MutableMap<String, String> = HashMap()
+        params[Constant.USER_ID] = session.getData(Constant.USER_ID)
+        ApiConfig.RequestToVolley({ result, response ->
+            if (result) {
+                try {
+                    val jsonObject: JSONObject = JSONObject(response)
+                    if (jsonObject.getBoolean("success")) {
 
+                        val dataArray = jsonObject.getJSONArray("data")
+                        if (dataArray.length() > 0) {
+                            val dataObject = dataArray.getJSONObject(0)
+                            val selfieImageUrl = dataObject.getString("selfie_image")
+                            val front_image = dataObject.getString("front_image")
+                            val back_image = dataObject.getString("back_image")
+                            val status = dataObject.getString("status")
+                            val payment_status = dataObject.getString("payment_status")
+
+                            session.setData(Constant.SELFIE_IMAGE, selfieImageUrl)
+                            session.setData(Constant.FRONT_IMAGE, front_image)
+                            session.setData(Constant.BACK_IMAGE, back_image)
+                            session.setData(Constant.STATUS, status)
+                            session.setData(Constant.PAYMENT_STATUS, payment_status)
+
+
+                        } else {
+
+                            session.setData(Constant.SELFIE_IMAGE, "")
+                            session.setData(Constant.FRONT_IMAGE, "")
+                            session.setData(Constant.BACK_IMAGE, "")
+                            session.setData(Constant.STATUS, "")
+                            session.setData(Constant.PAYMENT_STATUS, "")
+                         //   Toast.makeText(activity, "No data available", Toast.LENGTH_SHORT).show()
+                        }
+                    } else {
+                        session.setData(Constant.SELFIE_IMAGE, "")
+                        session.setData(Constant.FRONT_IMAGE, "")
+                        session.setData(Constant.BACK_IMAGE, "")
+                        session.setData(Constant.STATUS, "")
+                        session.setData(Constant.PAYMENT_STATUS, "")
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }
+        }, activity, Constant.VERIFICATION_LIST, params, true, 1)
+    }
+
+
+
+    override fun onResume() {
+        super.onResume()
+        verification_list()
+    }
 
     }

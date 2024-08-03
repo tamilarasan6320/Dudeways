@@ -4,6 +4,9 @@
     <attr name="myTextColor" format="reference|color" />
     <attr name="iconColor" format="reference|color" />
     <attr name="textgrey" format="reference|color" />
+    <attr name="cardlightcolor" format="reference|color" />
+    <attr name="cardbgcolor" format="reference|color" />
+    <attr name="radiobgcolor" format="reference|color" />
 
     <!-- Add more custom attributes as needed -->
 </resources>

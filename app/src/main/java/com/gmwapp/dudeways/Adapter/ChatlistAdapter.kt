@@ -42,8 +42,26 @@ class ChatlistAdapter(
         val session = Session(activity)
 
 
+        val unread = report.unread
+
+
+
+        if (unread == "0") {
+            holder.tvUnread.visibility = View.GONE
+        } else {
+            holder.tvUnread.visibility = View.VISIBLE
+            holder.tvUnread.text = unread
+        }
+
+
         holder.TV_user_name.text = report.name
         holder.TV_message_content.text = report.latest_message
+
+        if (report.verified == "1") {
+            holder.ivVerify.visibility = View.VISIBLE
+        } else {
+            holder.ivVerify.visibility = View.GONE
+        }
 
         if (report.online_status == "1") {
             holder.IV_online_status.visibility = View.VISIBLE
@@ -120,6 +138,8 @@ class ChatlistAdapter(
         val TV_message_content: TextView = itemView.findViewById(R.id.TV_message_content)
         val TV_sent_time: TextView = itemView.findViewById(R.id.TV_sent_time)
         val IV_online_status: ImageView = itemView.findViewById(R.id.IV_online_status)
+        val ivVerify: ImageView = itemView.findViewById(R.id.ivVerify)
+        val tvUnread: TextView = itemView.findViewById(R.id.tvUnread)
 
 
     }

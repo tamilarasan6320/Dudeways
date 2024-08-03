@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
@@ -35,13 +34,18 @@
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:allowBackup"
         tools:targetApi="31">
-
-
-        <activity android:name=".gateway.MainActivity"
-            android:exported="true">
-        </activity>
-
-
+        <activity
+            android:name=".Activity.VerifiedActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.PurchaseverifybuttonActivity"
+            android:exported="false" />
+        <activity
+            android:name=".gateway.PurchaseVerifyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".gateway.MainActivity"
+            android:exported="true" />
         <activity
             android:name=".Activity.SeetingActivity"
             android:exported="false" />
@@ -144,8 +148,8 @@
         <activity
             android:name=".Activity.SplashscreenActivity"
             android:exported="true"
-            android:theme="@style/Theme.Paring"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.Paring">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

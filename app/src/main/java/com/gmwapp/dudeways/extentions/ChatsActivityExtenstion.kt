@@ -471,6 +471,7 @@ fun ChatsActivity.addChat(
     val params: MutableMap<String, String> = HashMap()
     params[Constant.USER_ID] = session.getData(Constant.USER_ID)
     params[Constant.CHAT_USER_ID] = receiverID
+    params[Constant.UNREAD] = "1"
     params[Constant.MESSAGE] = message
     ApiConfig.RequestToVolley({ result, response ->
         if (result) {

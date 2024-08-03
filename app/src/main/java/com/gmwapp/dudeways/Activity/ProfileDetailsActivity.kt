@@ -265,4 +265,5 @@ class ProfileDetailsActivity : BaseActivity() {
             }
         }, activity, Constant.PROFESSION_LIST, params, true, 1)
     }
+
 }
