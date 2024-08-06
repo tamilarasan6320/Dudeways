@@ -64,6 +64,12 @@ class FreePointsActivity : BaseActivity() {
                 startActivity(intent)
             }
 
+            else if (status == "1"){
+                val intent = Intent(activity, VerifiedActivity::class.java)
+                startActivity(intent)
+            }
+
+
         }
 
         binding.llStep2.setOnClickListener {

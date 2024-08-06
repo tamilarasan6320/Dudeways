@@ -99,7 +99,7 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
             .into(binding.ivProfile)
 
         binding.ivBack.setOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
+            onBackPressed()
         }
 
         binding.ivProfile.setOnClickListener{
@@ -536,6 +536,10 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
         // Set user online status
         setUserStatus(firebaseDatabase, senderId, true)
     }
+
+
+    //on backpressed
+
 
 
 }

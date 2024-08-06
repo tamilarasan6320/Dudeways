@@ -364,6 +364,7 @@ fun ChatsActivity.updateMessagesForSender(
         dialogBuilder.show()
 
     }
+
     else {
         databaseReference.child("CHATS_V2")
         .child(senderName)
@@ -478,15 +479,17 @@ fun ChatsActivity.addChat(
             try {
                 val jsonObject = JSONObject(response)
                 if (jsonObject.getBoolean(Constant.SUCCESS)) {
-                    logInfo(CHATS_ACTIVITY, "Message update to the API.")
-                    session.setData(Constant.CHAT_STATUS, "1")
 
-                  //  Toast.makeText(this, chat_status, Toast.LENGTH_SHORT).show()
+                    chat_status = jsonObject.getString("chat_status")
+                    session.setData(Constant.CHAT_STATUS, chat_status)
+
 
                 } else {
                     chat_status = jsonObject.getString("chat_status")
                     session.setData(Constant.CHAT_STATUS, chat_status)
-                    logError(CHATS_ACTIVITY, "Message failed to update to the API.")
+
+                //    Toast.makeText(this,"1"+ chat_status, Toast.LENGTH_SHORT).show()
+
                 }
             } catch (e: JSONException) {
                 e.printStackTrace()

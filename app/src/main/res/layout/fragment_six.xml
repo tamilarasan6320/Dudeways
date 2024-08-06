@@ -202,6 +202,18 @@
 
 
 
+        <CheckBox
+            android:id="@+id/cbUseProfileImage"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Use my profile as trip image"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="@dimen/_14sdp"
+            android:textColor="?attr/myTextColor" />
+
+
+
 
 
 

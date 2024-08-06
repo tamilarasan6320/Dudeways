@@ -2,11 +2,12 @@ package com.gmwapp.dudeways.Fragment
 
 import android.app.Activity
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gmwapp.dudeways.Activity.HomeActivity
@@ -126,8 +127,13 @@ class MessagesFragment : Fragment() {
     }
 
     override fun onResume() {
+
+        chatList.clear()
+
+        if (chatList.isEmpty()) {
+            chatlist()
+        }
+
         super.onResume()
-        chatlist()
-        // Refresh chat list or any other data you want to update
     }
 }

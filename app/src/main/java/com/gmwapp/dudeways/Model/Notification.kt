@@ -4,7 +4,7 @@ class Notification {
 
     var id: Int? = null
     var user_id: Int? = null
-    var notify_user_id: Int? = null
+    var notify_user_id: String? = null
     var name: String? = null
     var profile: String? = null
     var cover_img: String? = null
@@ -18,7 +18,7 @@ class Notification {
     constructor(
         id: Int?,
         userId: Int?,
-        notifyUserId: Int?,
+        notifyUserId: String?,
         name: String?,
         profile: String?,
         coverImg: String?,

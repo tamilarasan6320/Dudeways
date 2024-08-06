@@ -37,6 +37,7 @@ public class Constant {
     public static final String REWARD_POINTS = BaseUrl + "reward_points";
     public static final String TRIP_TYPE =  "trip_type";
     public static final String TRIP_LOCATION = "location";
+    public static final String PROFILE_IMAGE = "profile_image";
     public static final String TRIP_DETAILS = BaseUrl + "trip_details";
     public static final String TRIP_TITLE =  "trip_title";
     public static final String TRIP_DESCRIPTION =  "trip_description";
@@ -176,6 +177,7 @@ public class Constant {
 
     public static final String FRONT_IMAGE = "front_image";
     public static final String BACK_IMAGE = "back_image";
+    public static final String BACK_PRESSED = "back_pressed";
     public static final String SELFIE_IMAGE = "selfie_image";
     public static final String VERIFICATION_FALSE = "verification_false";
     public static final String BOOKID = "book_id";

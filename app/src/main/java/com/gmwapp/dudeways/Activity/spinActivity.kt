@@ -101,13 +101,22 @@ class spinActivity : BaseActivity() {
     private fun addPurchase(point: String) {
         var points = ""
         when (point) {
-            "1" -> points = "20"
-            "2" -> points = "30"
-            "3" -> points = "40"
-            "4" -> points = "50"
-            "5" -> points = "100"
-            "6" -> points = "10"
+//            "1" -> points = "20"
+//            "2" -> points = "30"
+//            "3" -> points = "40"
+//            "4" -> points = "50"
+//            "5" -> points = "100"
+//            "6" -> points = "10"
+//
+            "1" -> points = "10"
+            "2" -> points = "20"
+            "3" -> points = "30"
+            "4" -> points = "40"
+            "5" -> points = "50"
+            "6" -> points = "100"
+
         }
+      //  Toast.makeText(activity, "You have won $points points", Toast.LENGTH_SHORT).show()
 
         val params: MutableMap<String, String> = HashMap()
         params[Constant.USER_ID] = session.getData(Constant.USER_ID)

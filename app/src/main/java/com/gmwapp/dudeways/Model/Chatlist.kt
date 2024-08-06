@@ -1,6 +1,5 @@
 package com.gmwapp.dudeways.Model
 
-import com.zoho.livechat.android.comm.PXRClearUnread
 
 class Chatlist {
 

@@ -62,6 +62,8 @@ class SixFragment : Fragment() {
             "3" -> trip_type = "Airport Flyover"
         }
 
+
+
         return binding.root
     }
 
@@ -100,14 +102,28 @@ class SixFragment : Fragment() {
     }
 
     fun addtripImage(id: String) {
-        if (filePath1.isNullOrEmpty()) {
-            Toast.makeText(activity, "Please select an image to upload.", Toast.LENGTH_SHORT).show()
+        val profileImage: String
+
+        // Check if either the checkbox is checked or an image is selected
+        if (binding.cbUseProfileImage.isChecked) {
+            profileImage = "1"
+            filePath1 = session.getData(Constant.PROFILE_IMAGE)
+        } else {
+            profileImage = "0"
+        }
+
+        if (!binding.cbUseProfileImage.isChecked && filePath1.isNullOrEmpty()) {
+            Toast.makeText(activity, "Please select an image to upload or use your profile image.", Toast.LENGTH_SHORT).show()
             return
         }
+
         val params: MutableMap<String, String> = HashMap()
         params[Constant.TRIP_ID] = id
+        params[Constant.PROFILE_IMAGE] = profileImage
         val fileParams: MutableMap<String, String> = HashMap()
-        fileParams[Constant.TRIP_IMAGE] = filePath1!!
+        if (!filePath1.isNullOrEmpty()) {
+            fileParams[Constant.TRIP_IMAGE] = filePath1!!
+        }
 
         ApiConfig.RequestToVolleyMulti({ result, response ->
             if (result) {
@@ -140,6 +156,7 @@ class SixFragment : Fragment() {
         params[Constant.TRIP_TITLE] = session.getData(Constant.TRIP_TITLE)
         params[Constant.TRIP_DESCRIPTION] = session.getData(Constant.TRIP_DESCRIPTION)
         params[Constant.TRIP_LOCATION] = session.getData(Constant.TRIP_LOCATION)
+
 
         ApiConfig.RequestToVolley({ result, response ->
             if (result) {

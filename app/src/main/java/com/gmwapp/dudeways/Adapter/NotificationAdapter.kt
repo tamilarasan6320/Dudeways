@@ -7,12 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.gmwapp.dudeways.Activity.ProfileinfoActivity
 import com.gmwapp.dudeways.Model.Notification
 import com.gmwapp.dudeways.R
 import com.gmwapp.dudeways.helper.Session
 import com.bumptech.glide.Glide
+import com.gmwapp.dudeways.Activity.ChatsActivity
+import com.gmwapp.dudeways.helper.Constant
 
 class NotificationAdapter(
     val activity: Activity,
@@ -54,6 +57,27 @@ class NotificationAdapter(
 //            activity.startActivity(intent)
 //
 //        }
+
+        holder.itemView.setOnClickListener{
+
+
+
+
+            if (report.notify_user_id == session.getData(Constant.USER_ID)) {
+                Toast.makeText(activity, "You can't chat with yourself", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                val intent = Intent(activity, ChatsActivity::class.java)
+                intent.putExtra("id", report.id)
+                intent.putExtra("name", report.name)
+                session.setData("reciver_profile", report.profile)
+                intent.putExtra("chat_user_id", report.notify_user_id)
+                activity.startActivity(intent)
+            }
+
+
+
+        }
 
     }
 

@@ -16,6 +16,7 @@ import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
@@ -89,6 +90,14 @@ class HomeActivity : BaseActivity() , NavigationBarView.OnItemSelectedListener {
             val selectedItemId = savedInstanceState.getInt("selectedItemId", R.id.navHome)
             bottomNavigationView?.selectedItemId = selectedItemId
         }
+
+
+        val chatBadge = bottomNavigationView!!.getOrCreateBadge(R.id.navMessages)
+        chatBadge.isVisible = true
+        chatBadge.number = 5
+        chatBadge.backgroundColor = ContextCompat.getColor(this, R.color.primary)
+        chatBadge.badgeTextColor = ContextCompat.getColor(this, R.color.white)
+
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -326,6 +335,7 @@ class HomeActivity : BaseActivity() , NavigationBarView.OnItemSelectedListener {
                         session.setData(Constant.ADD_FRIEND_NOTIFY, jsonobj.getString(Constant.ADD_FRIEND_NOTIFY))
                         session.setData(Constant.VIEW_NOTIFY, jsonobj.getString(Constant.VIEW_NOTIFY))
                         session.setData(Constant.PROFILE_VERIFIED, jsonobj.getString(Constant.PROFILE_VERIFIED))
+                        session.setData(Constant.CHAT_STATUS, jsonobj.getString(Constant.CHAT_STATUS))
 
 
 
@@ -351,5 +361,7 @@ class HomeActivity : BaseActivity() , NavigationBarView.OnItemSelectedListener {
         super.onStop()
         userdetails(session.getData(Constant.USER_ID),"0")
     }
+
+
 
 }
