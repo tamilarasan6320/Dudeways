@@ -209,6 +209,7 @@
             android:layout_height="wrap_content"
             android:text="Use my profile as trip image"
             android:fontFamily="@font/poppins_regular"
+            android:buttonTint="@color/primary"
             android:textSize="@dimen/_14sdp"
             android:textColor="?attr/myTextColor" />
 

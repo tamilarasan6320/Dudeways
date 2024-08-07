@@ -106,11 +106,13 @@ class ChatlistAdapter(
                 Toast.makeText(activity, "You can't chat with yourself", Toast.LENGTH_SHORT).show()
             }
             else {
+             //        chatList.clear()
                 val intent = Intent(activity, ChatsActivity::class.java)
                 intent.putExtra("id", report.id)
                 intent.putExtra("name", report.name)
                 session.setData("reciver_profile", report.profile)
                 intent.putExtra("chat_user_id", report.chat_user_id)
+             intent.putExtra("unread", report.unread)
                 activity.startActivity(intent)
             }
 

@@ -205,23 +205,7 @@ fun ChatsActivity.setUserStatus(
 /**
  *  Observes typing status and updates the UI accordingly.
  */
-fun ChatsActivity.observeTypingStatus(
-    firebaseDatabase: FirebaseDatabase,
-    receiverID: String,
-) {
-    firebaseDatabase.getReference("typing_status/$receiverID")
-        .addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val isTyping = snapshot.getValue(Boolean::class.java) ?: false
-                binding.typingStatus.visibility = if (isTyping) View.VISIBLE else View.GONE
-                binding.tvLastSeen.visibility = if (isTyping) View.GONE else View.VISIBLE
-            }
 
-            override fun onCancelled(error: DatabaseError) {
-                logError(CHATS_ACTIVITY, "Error observing typing status: ${error.message}")
-            }
-        })
-}
 
 /**
  *  Observes user status and updates the UI accordingly.
@@ -483,12 +467,15 @@ fun ChatsActivity.addChat(
                     chat_status = jsonObject.getString("chat_status")
                     session.setData(Constant.CHAT_STATUS, chat_status)
 
+                 //   Toast.makeText(this, chat_status, Toast.LENGTH_SHORT).show()
+
+
 
                 } else {
                     chat_status = jsonObject.getString("chat_status")
                     session.setData(Constant.CHAT_STATUS, chat_status)
 
-                //    Toast.makeText(this,"1"+ chat_status, Toast.LENGTH_SHORT).show()
+                //    Toast.makeText(this, chat_status, Toast.LENGTH_SHORT).show()
 
                 }
             } catch (e: JSONException) {

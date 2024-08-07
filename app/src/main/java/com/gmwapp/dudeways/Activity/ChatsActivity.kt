@@ -28,7 +28,6 @@ import com.gmwapp.dudeways.extentions.fetchMessages
 import com.gmwapp.dudeways.extentions.logError
 import com.gmwapp.dudeways.extentions.logInfo
 import com.gmwapp.dudeways.extentions.makeToast
-import com.gmwapp.dudeways.extentions.observeTypingStatus
 import com.gmwapp.dudeways.extentions.observeUserStatus
 import com.gmwapp.dudeways.extentions.playReceiveTone
 import com.gmwapp.dudeways.extentions.popUpMenu
@@ -81,17 +80,15 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
         activity = this
         session = Session(activity)
 
-
-
         senderId = session.getData(Constant.USER_ID)
         receiverId = intent.getStringExtra("chat_user_id").toString()
         senderName = session.getData(Constant.NAME)
         receiverName = intent.getStringExtra("name")
         binding.tvName.text = receiverName
+        read_chats()
         chatReference =
             databaseReference.child("CHATS_V2").child(senderName!!).child(receiverName!!)
         typingStatusReference = firebaseDatabase.getReference("typing_status/$senderId")
-
 
         Glide.with(this)
             .load(session.getData("reciver_profile"))
@@ -150,15 +147,16 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
             }
         }
 
-
-        // Inside your onCreate method
         binding.root.viewTreeObserver.addOnGlobalLayoutListener {
             val rect = Rect()
             binding.root.getWindowVisibleDisplayFrame(rect)
             val screenHeight = binding.root.rootView.height
             val keypadHeight = screenHeight - rect.bottom
             if (keypadHeight > screenHeight * 0.15) { // keyboard is opened
-                binding.RVChats.smoothScrollToPosition(chatAdapter?.itemCount?.minus(1) ?: 0)
+                binding.RVChats.postDelayed({
+                                            //here
+               //     binding.RVChats.smoothScrollToPosition(chatAdapter?.itemCount?.minus(1) ?: 0)
+                }, 100)
             }
         }
 
@@ -172,6 +170,7 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
             override fun afterTextChanged(s: Editable?) {}
         })
 
+
         binding.ivMore.setOnClickListener {
             showPopupMenu()
         }
@@ -179,20 +178,16 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
         fetchMessages(chatReference, this@ChatsActivity) {
             isConversationsFetching = it
         }
+
         chatReference?.addChildEventListener(
             object : ChildEventListener {
                 override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                     val chatModel = snapshot.getValue(ChatModel::class.java)
                     logInfo(CHATS_ACTIVITY, "from firebase child added - $chatModel")
                     onMessageAdded(chatModel)
-//                    Toast.makeText(activity,"1",Toast.LENGTH_SHORT).show()
-                    read_chats()
                 }
 
                 override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-//                    val chatModel = snapshot.getValue(ChatModel::class.java)
-//                    logInfo(CHATS_ACTIVITY, "Child changed - $chatModel")
-//                    onMessageChanged(chatModel)
                 }
 
                 override fun onChildRemoved(snapshot: DataSnapshot) {
@@ -201,19 +196,47 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
                 }
 
                 override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-                    TODO("Not yet implemented")
+                    // Not implemented
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
+                    // Not implemented
                 }
             }
         )
 
-
         observeTypingStatus(firebaseDatabase, receiverId)
         setUserStatus(firebaseDatabase, senderId, true)
         observeUserStatus(firebaseDatabase, receiverId)
+    }
+
+    private  fun ChatsActivity.observeTypingStatus(
+        firebaseDatabase: FirebaseDatabase,
+        receiverID: String,
+    ) {
+        firebaseDatabase.getReference("typing_status/$receiverID")
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val isTyping = snapshot.getValue(Boolean::class.java) ?: false
+                    binding.typingStatus.visibility = if (isTyping) View.VISIBLE else View.GONE
+                    binding.tvLastSeen.visibility = if (isTyping) View.GONE else View.VISIBLE
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    logError(CHATS_ACTIVITY, "Error observing typing status: ${error.message}")
+                }
+            })
+    }
+
+
+    override fun onBackPressed() {
+        read_chats()
+        // Set typing status to false
+        onStop()
+
+
+        // Call the super method to handle the back press action
+        super.onBackPressed()
     }
 
 
@@ -221,7 +244,6 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
         val popupMenu = PopupMenu(this, binding.ivMore)
         popupMenu.inflate(R.menu.chat_options_menu)
 
-        // Check current block status
         isBlocked(senderId, receiverId) { blocked ->
             val blockMenuItem = popupMenu.menu.findItem(R.id.menu_block_chat)
             blockMenuItem.title = if (blocked) "Unblock User" else "Block User"
@@ -233,11 +255,11 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
                         true
                     }
                     R.id.menu_clear_chat -> {
-                        clearChatInFirebase(senderName ?: "", receiverName ?: "",receiverId)
+                        clearChatInFirebase(senderName ?: "", receiverName ?: "", receiverId)
                         true
                     }
                     R.id.menu_report -> {
-                        add_freind()
+                        addFriend()
                         true
                     }
                     else -> false
@@ -248,8 +270,7 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
         }
     }
 
-
-    private fun add_freind() {
+    private fun addFriend() {
         val session = Session(activity)
         val params: MutableMap<String, String> = HashMap()
         params[Constant.USER_ID] = session.getData(Constant.USER_ID)
@@ -261,29 +282,20 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
                 try {
                     val jsonObject = JSONObject(response)
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
-
                         val intent = Intent(activity, HomeActivity::class.java)
                         startActivity(intent)
                         finish()
-
                         Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
-                    }
-                    else {
-                        Toast.makeText(
-                            activity,
-                            jsonObject.getString(Constant.MESSAGE),
-                            Toast.LENGTH_SHORT
-                        ).show()
+                    } else {
+                        Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
                     }
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
             }
-
-            // Stop the refreshing animation once the network request is complete
-
         }, activity, Constant.ADD_FRIENDS, params, true, 1)
     }
+
     private fun read_chats() {
         val session = Session(activity)
         val params: MutableMap<String, String> = HashMap()
@@ -294,24 +306,14 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
                 try {
                     val jsonObject = JSONObject(response)
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
-
-
                         //Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
-                    }
-                    else {
-                     //   Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
                     }
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
             }
-
-            // Stop the refreshing animation once the network request is complete
-
-        }, activity, Constant.READ_CHATS, params, true, 1)
+        }, activity, Constant.READ_CHATS, params, false, 1)
     }
-
-
 
     private fun updateBlockStatus(senderId: String, receiverId: String, isBlocked: Boolean) {
         val blockReference = databaseReference.child("blocked_users").child(senderId).child(receiverId)
@@ -327,8 +329,6 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
         }
     }
 
-
-
     private fun isBlocked(senderId: String, receiverId: String, callback: (Boolean) -> Unit) {
         val blockReference = databaseReference.child("blocked_users").child(senderId).child(receiverId)
         blockReference.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -343,13 +343,12 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
         })
     }
 
-
     private fun clearChatInFirebase(senderName: String, receiverName: String, receiverID: String) {
         val senderChatReference = databaseReference.child("CHATS_V2").child(senderName).child(receiverName)
         val receiverChatReference = databaseReference.child("CHATS_V2").child(receiverName).child(senderName)
 
         senderChatReference.removeValue().addOnSuccessListener {
-            deletechat(receiverID)
+            deleteChat(receiverID)
             makeToast("Chat cleared successfully")
             messages.clear()
             chatAdapter?.notifyDataSetChanged()
@@ -362,35 +361,31 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
         }
     }
 
-
-    fun deletechat(
-        receiverID: String
-    ) {
+    fun deleteChat(receiverID: String) {
         val params: MutableMap<String, String> = HashMap()
         params[Constant.USER_ID] = session.getData(Constant.USER_ID)
         params[Constant.CHAT_USER_ID] = receiverID
+
         ApiConfig.RequestToVolley({ result, response ->
             if (result) {
                 try {
                     val jsonObject = JSONObject(response)
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
-
-                        val intent = Intent(activity, HomeActivity::class.java)
-                        startActivity(intent)
+                        val  Intent = Intent(activity, HomeActivity::class.java)
+                        startActivity(Intent)
                         finish()
-
-                        //     Toast.makeText(this, "done", Toast.LENGTH_SHORT).show()
-
+                        makeToast(jsonObject.getString(Constant.MESSAGE))
                     } else {
-                        Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
-                        logError(CHATS_ACTIVITY, "Message failed to update to the API.")
+                        makeToast(jsonObject.getString(Constant.MESSAGE))
+                        // Do something if needed
                     }
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
             }
-        }, activity, Constant.DELETE_CHAT, params, false, 1)
+        }, activity, Constant.DELETE_CHAT, params, true, 1)
     }
+
 
 
     @SuppressLint("NotifyDataSetChanged")
@@ -507,9 +502,7 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
         binding.RVChats.apply {
             layoutManager = LinearLayoutManager(this@ChatsActivity)
             adapter = chatAdapter
-            scrollToPosition(
-                chatAdapter?.itemCount?.minus(1) ?: 0
-            ) // Ensure scrolling to the last message
+            scrollToPosition(chatAdapter?.itemCount?.minus(1) ?: 0) // Ensure scrolling to the last message
             invalidate()
         }
     }
@@ -527,6 +520,7 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
 
     override fun onStop() {
         super.onStop()
+        typingStatusReference.setValue(false)
         // Set user offline status with last seen time
         setUserStatus(firebaseDatabase, senderId, false)
     }
@@ -536,10 +530,6 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
         // Set user online status
         setUserStatus(firebaseDatabase, senderId, true)
     }
-
-
-    //on backpressed
-
 
 
 }

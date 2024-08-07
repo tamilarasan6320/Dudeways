@@ -78,10 +78,11 @@
 
 
                 <TextView
+                    android:visibility="gone"
                     android:id="@+id/typingStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=""
+                    android:text="typing..."
                     android:textSize="@dimen/_10sdp"
                     android:fontFamily="@font/poppins_semibold"
                     android:textColor="@color/primary"

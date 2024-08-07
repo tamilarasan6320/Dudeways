@@ -179,14 +179,14 @@ public class VolleyMultiPartRequest extends Request<String> {
             writeFirstBoundary();
             DataPart dp = dataFile.get(i);
 
-            dos.writeBytes("Content-Disposition: form-data; name=\"" + inputName + "\"; filename=\"" + dp.getFileName() + "\"" + lineEnd);
-            if (dp.getType() != null && !dp.getType().trim().isEmpty()) {
-                dos.writeBytes("Content-Type: " + dp.getType() + lineEnd);
+            dos.writeBytes("Content-Disposition: form-data; name=\"" + inputName + "\"; filename=\"" + dp.fileName + "\"" + lineEnd);
+            if (dp.type != null && !dp.type.trim().isEmpty()) {
+                dos.writeBytes("Content-Type: " + dp.type + lineEnd);
             }
 
             dos.writeBytes(lineEnd);
 
-            ByteArrayInputStream fileInputStream = new ByteArrayInputStream(dp.getContent());
+            ByteArrayInputStream fileInputStream = new ByteArrayInputStream(dp.content);
 
 
             int bytesAvailable = fileInputStream.available();

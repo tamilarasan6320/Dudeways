@@ -1,188 +1,184 @@
-package com.gmwapp.dudeways.helper;
+package com.gmwapp.dudeways.helper
 
-import org.jetbrains.annotations.Nullable;
+object Constant {
+    const val AppPlayStoreUrl: String =
+        "https://play.google.com/store/apps/details?id=com.gmwapp.dudeways"
+    const val MainBaseUrl: String = "https://dudeways.com/"
 
-public class Constant {
-    public static final String AppPlayStoreUrl = "https://play.google.com/store/apps/details?id=com.gmwapp.dudeways";
-    public static final String MainBaseUrl = "https://dudeways.com/";
-
-    public static final String BaseUrl = MainBaseUrl + "api/";
+    const val BaseUrl: String = MainBaseUrl + "api/"
 
 
-    public static final String REGISTER = BaseUrl + "register";
-    public static final String PROFESSION_LIST = BaseUrl + "profession_list";
-    public static final String VERIFICATION_LIST = BaseUrl + "verification_list";
-    public static final String UPDATE_USERS = BaseUrl + "update_users";
-    public static final String CHECK_MOBILE = BaseUrl + "check_mobile";
-    public static final String CHECK_EMAIL = BaseUrl + "check_email";
-    public static final String USERDETAILS = BaseUrl + "userdetails";
-    public static final String OTHER_USER_DETAILS = BaseUrl + "other_userdetails";
-    public static final String SETTINGS_LIST = BaseUrl + "settings_list";
-    public static final String PRIVACY_POLICY = BaseUrl + "privacy_policy";
-    public static final String TERMS_CONDITIONS = BaseUrl + "terms_conditions";
+    const val REGISTER: String = BaseUrl + "register"
+    const val PROFESSION_LIST: String = BaseUrl + "profession_list"
+    const val VERIFICATION_LIST: String = BaseUrl + "verification_list"
+    const val UPDATE_USERS: String = BaseUrl + "update_users"
+    const val CHECK_MOBILE: String = BaseUrl + "check_mobile"
+    const val CHECK_EMAIL: String = BaseUrl + "check_email"
+    const val USERDETAILS: String = BaseUrl + "userdetails"
+    const val OTHER_USER_DETAILS: String = BaseUrl + "other_userdetails"
+    const val SETTINGS_LIST: String = BaseUrl + "settings_list"
+    const val PRIVACY_POLICY: String = BaseUrl + "privacy_policy"
+    const val TERMS_CONDITIONS: String = BaseUrl + "terms_conditions"
 
-    public static final String UPDATE_IMAGE = BaseUrl + "update_image";
-    public static final String UPDATE_COVER_IMG = BaseUrl + "update_cover_img";
-    public static final String VERIFY_FRONT_IMAGE = BaseUrl + "verify_front_image";
-    public static final String VERIFY_BACK_IMAGE = BaseUrl + "verify_back_image";
-    public static final String VERIFY_SELFIE_IMAGE = BaseUrl + "verify_selfie_image";
-    public static final String TRIP_LIST = BaseUrl + "trip_list";
-    public static final String UPDATE_LOCATION= BaseUrl + "update_location";
-    public static final String ADD_FEEDBACK = BaseUrl + "add_feedback";
-    public static final String ADD_CHAT = BaseUrl + "add_chat";
-    public static final String DELETE_CHAT = BaseUrl + "delete_chat";
-    public static final String POINTS_LIST = BaseUrl + "points_list";
-    public static final String ADD_POINTS = BaseUrl + "add_points";
-    public static final String SPIN_POINTS = BaseUrl + "spin_points";
-    public static final String REWARD_POINTS = BaseUrl + "reward_points";
-    public static final String TRIP_TYPE =  "trip_type";
-    public static final String TRIP_LOCATION = "location";
-    public static final String PROFILE_IMAGE = "profile_image";
-    public static final String TRIP_DETAILS = BaseUrl + "trip_details";
-    public static final String TRIP_TITLE =  "trip_title";
-    public static final String TRIP_DESCRIPTION =  "trip_description";
-    public static final String TRIP_FROM_DATE = "from_date";
-    public static final String TRIP_TO_DATE =  "to_date";
-    public static final String TRIP_IMAGE = "trip_image";
-    public static final String MY_TRIP_LIST = BaseUrl + "my_trip_list";
-    public static final String DELETE_TRIP = BaseUrl + "delete_trip";
-    public static final String FREINDS_LIST = BaseUrl + "friends_list";
-    public static final String CHAT_LIST = BaseUrl + "chat_list";
-    public static final String NOTFICATION_LIST = BaseUrl + "notification_list";
-    public static final String UPDATE_NOTIFY = BaseUrl + "update_notify";
-    public static final String ADD_FRIENDS = BaseUrl + "add_friends";
-    public static final String READ_CHATS = BaseUrl + "read_chats";
-    public static final String PROFILE_VIEW = BaseUrl + "profile_view";
-    public static final String ADD_TRIP = BaseUrl + "add_trip";
-    public static final String UPDATE_TRIP_IMAGE = BaseUrl + "update_trip_image";
-    public static final String MYBOOKS = BaseUrl + "mybooks";
-    public static final String CART_LIST = BaseUrl + "cartlist";
-    public static final String ADD_TO_CART = BaseUrl + "booklist/add-cart";
-    public static final String SEARCHBOOKS = BaseUrl + "booklist/searchbooks";
-    public static final String APPUPDATE = BaseUrl + "appsettings_list";
-    public static final String RECHARGE_CREATE = BaseUrl + "create_recharge";
-    public static final String CREATE_VERIFICATION = BaseUrl + "create_verification";
-    public static final String RECHARGE_STATUS = BaseUrl + "check_recharge_status";
-    public static final String VERIFICATION_STATUS = BaseUrl + "verification_status";
-    public static final String PLAN_LIST = BaseUrl + "plan_list";
+    const val UPDATE_IMAGE: String = BaseUrl + "update_image"
+    const val UPDATE_COVER_IMG: String = BaseUrl + "update_cover_img"
+    const val VERIFY_FRONT_IMAGE: String = BaseUrl + "verify_front_image"
+    const val VERIFY_BACK_IMAGE: String = BaseUrl + "verify_back_image"
+    const val VERIFY_SELFIE_IMAGE: String = BaseUrl + "verify_selfie_image"
+    const val TRIP_LIST: String = BaseUrl + "trip_list"
+    const val UPDATE_LOCATION: String = BaseUrl + "update_location"
+    const val ADD_FEEDBACK: String = BaseUrl + "add_feedback"
+    const val ADD_CHAT: String = BaseUrl + "add_chat"
+    const val DELETE_CHAT: String = BaseUrl + "delete_chat"
+    const val POINTS_LIST: String = BaseUrl + "points_list"
+    const val ADD_POINTS: String = BaseUrl + "add_points"
+    const val SPIN_POINTS: String = BaseUrl + "spin_points"
+    const val REWARD_POINTS: String = BaseUrl + "reward_points"
+    const val TRIP_TYPE: String = "trip_type"
+    const val TRIP_LOCATION: String = "location"
+    const val PROFILE_IMAGE: String = "profile_image"
+    const val TRIP_DETAILS: String = BaseUrl + "trip_details"
+    const val TRIP_TITLE: String = "trip_title"
+    const val TRIP_DESCRIPTION: String = "trip_description"
+    const val TRIP_FROM_DATE: String = "from_date"
+    const val TRIP_TO_DATE: String = "to_date"
+    const val TRIP_IMAGE: String = "trip_image"
+    const val MY_TRIP_LIST: String = BaseUrl + "my_trip_list"
+    const val DELETE_TRIP: String = BaseUrl + "delete_trip"
+    const val FREINDS_LIST: String = BaseUrl + "friends_list"
+    const val CHAT_LIST: String = BaseUrl + "chat_list"
+    const val NOTFICATION_LIST: String = BaseUrl + "notification_list"
+    const val UPDATE_NOTIFY: String = BaseUrl + "update_notify"
+    const val ADD_FRIENDS: String = BaseUrl + "add_friends"
+    const val READ_CHATS: String = BaseUrl + "read_chats"
+    const val PROFILE_VIEW: String = BaseUrl + "profile_view"
+    const val ADD_TRIP: String = BaseUrl + "add_trip"
+    const val UPDATE_TRIP_IMAGE: String = BaseUrl + "update_trip_image"
+    const val MYBOOKS: String = BaseUrl + "mybooks"
+    const val CART_LIST: String = BaseUrl + "cartlist"
+    const val ADD_TO_CART: String = BaseUrl + "booklist/add-cart"
+    const val SEARCHBOOKS: String = BaseUrl + "booklist/searchbooks"
+    const val APPUPDATE: String = BaseUrl + "appsettings_list"
+    const val RECHARGE_CREATE: String = BaseUrl + "create_recharge"
+    const val CREATE_VERIFICATION: String = BaseUrl + "create_verification"
+    const val RECHARGE_STATUS: String = BaseUrl + "check_recharge_status"
+    const val VERIFICATION_STATUS: String = BaseUrl + "verification_status"
+    const val PLAN_LIST: String = BaseUrl + "plan_list"
 
-    public static final String STATUS = "status";
-    public static final String PAYMENT_STATUS = "payment_status";
-
+    const val STATUS: String = "status"
+    const val PAYMENT_STATUS: String = "payment_status"
 
 
     // const val LOAD_ITEM_LIMIT = 10
-    public static final int LOAD_ITEM_LIMIT = 10;
+    const val LOAD_ITEM_LIMIT: Int = 10
 
 
-    public static final String KEY = "key";
-    public static final String CLIENT_TXN_ID = "client_txn_id";
-    public static final String AMOUNT = "amount";
-    public static final String P_INFO = "p_info";
-    public static final String CUSTOMER_NAME = "customer_name";
-    public static final String CUSTOMER_EMAIL = "customer_email";
-    public static final String CUSTOMER_MOBILE = "customer_mobile";
-    public static final String REDIRECT_URL = "redirect_url";
-    public static final String UDF1 = "udf1";
-    public static final String UDF2 = "udf2";
-    public static final String UDF3 = "udf3";
-    public static final String TXN_ID = "txn_id";
-    public static final String MARKET_ID = "market_id";
-    public static final String DATE = "date";
+    const val KEY: String = "key"
+    const val CLIENT_TXN_ID: String = "client_txn_id"
+    const val AMOUNT: String = "amount"
+    const val P_INFO: String = "p_info"
+    const val CUSTOMER_NAME: String = "customer_name"
+    const val CUSTOMER_EMAIL: String = "customer_email"
+    const val CUSTOMER_MOBILE: String = "customer_mobile"
+    const val REDIRECT_URL: String = "redirect_url"
+    const val UDF1: String = "udf1"
+    const val UDF2: String = "udf2"
+    const val UDF3: String = "udf3"
+    const val TXN_ID: String = "txn_id"
+    const val MARKET_ID: String = "market_id"
+    const val DATE: String = "date"
 
-    public static final String REMOVE_FROM_CART = BaseUrl + "booklist/delete-cart";
-    public static final String ORDER = BaseUrl + "order";
-
-
-    public static final String AUTHORIZATION = "Authorization";
-    public static final String TOKEN = "token";
-    public static final String LIMIT = "limit";
-    public static final String TOTAL = "total";
-    public static final String OFFSET = "offset";
-    public static final String PROOF1 = "proof1";
-    public static final String PROOF2 = "proof2";
-    public static final String VERDICATION_STATUS = "0";
-    public static final String FrontPROOF= "front_proof";
-    public static final String BackPROOF = "back_proof";
-
-    public static final String APP_VERSION = "app_version";
-    public static final String LINK = "link";
-
-    public static final String LATITUDE = "latitude";
-
-    public static final String LONGITUDE = "longtitude";
-
-    public static final String MOBILE = "mobile";
-    public static final String ID = "id";
-    public static final String USER_ID = "user_id";
-    public static final String ONLINE_STATUS = "online_status";
-    public static final String MESSAGE_NOTIFY = "message_notify";
-    public static final String ADD_FRIEND_NOTIFY = "add_friend_notify";
-    public static final String VIEW_NOTIFY = "view_notify";
-    public static final String TYPE = "type";
-    public static final String CHAT_USER_ID = "chat_user_id";
-    public static final String UNREAD = "unread";
-    public static final String CHAT_ID = "chat_id";
-    public static final String TRIP_ID = "trip_id";
-    public static final String FRIEND_USER_ID = "friend_user_id";
-    public static final String PROFILE_USER_ID = "profile_user_id";
-    public static final String FRIEND = "friend";
-
-    public static final String NAME = "name";
-    public static final String CHAT_STATUS = "chat_status";
-    public static final String UNIQUE_NAME = "unique_name";
-    public static final String INSTAGRAM_LINK = "instagram_link";
-    public static final String TELEGRAM_LINK = "telegram_link";
-    public static final String SEARCH = "search";
-    public static final String EMAIL = "email";
-    public static final String AGE = "age";
-    public static final String GENDER = "gender";
-    public static final String PROFESSION = "profession";
-    public static final String PROFESSION_ID = "profession_id";
-    public static final String STATE = "state";
-    public static final String CITY = "city";
-    public static final String INTRODUCTION = "introduction";
-    public static final String REFER_CODE = "refer_code";
-    public static final String REFERRED_BY = "referred_by";
-    public static final String POINTS = "points";
-
-    public static final String SUCCESS = "success";
-    public static final String MESSAGE = "message";
-
-    public static final String DATA = "data";
-    public static final String ADDRESS = "address";
+    const val REMOVE_FROM_CART: String = BaseUrl + "booklist/delete-cart"
+    const val ORDER: String = BaseUrl + "order"
 
 
+    const val AUTHORIZATION: String = "Authorization"
+    const val TOKEN: String = "token"
+    const val LIMIT: String = "limit"
+    const val TOTAL: String = "total"
+    const val OFFSET: String = "offset"
+    const val PROOF1: String = "proof1"
+    const val PROOF2: String = "proof2"
+    const val VERDICATION_STATUS: String = "0"
+    const val FrontPROOF: String = "front_proof"
+    const val BackPROOF: String = "back_proof"
 
-    public static final String RECIVER_PROFILE = "reciver_profile";
-    public static final String RECIVER_COVER_IMG = "reciver_cover_img";
-    public static final String RECIVER_GENDER = "reciver_gender";
-    public static final String RECIVER_NAME = "reciver_name";
-    public static final String RECIVER_AGE = "reciver_age";
-    public static final String RECIVER_PROFESSION = "reciver_profession";
-    public static final String RECIVER_CITY = "reciver_city";
-    public static final String RECIVER_STATE = "reciver_state";
-    public static final String RECIVER_UNIQUE_NAME = "reciver_unique_name";
+    const val APP_VERSION: String = "app_version"
+    const val LINK: String = "link"
+
+    const val LATITUDE: String = "latitude"
+
+    const val LONGITUDE: String = "longtitude"
+
+    const val MOBILE: String = "mobile"
+    const val ID: String = "id"
+    const val USER_ID: String = "user_id"
+    const val ONLINE_STATUS: String = "online_status"
+    const val MESSAGE_NOTIFY: String = "message_notify"
+    const val ADD_FRIEND_NOTIFY: String = "add_friend_notify"
+    const val VIEW_NOTIFY: String = "view_notify"
+    const val TYPE: String = "type"
+    const val CHAT_USER_ID: String = "chat_user_id"
+    const val UNREAD: String = "unread"
+    const val CHAT_ID: String = "chat_id"
+    const val TRIP_ID: String = "trip_id"
+    const val FRIEND_USER_ID: String = "friend_user_id"
+    const val PROFILE_USER_ID: String = "profile_user_id"
+    const val FRIEND: String = "friend"
+
+    const val NAME: String = "name"
+    const val CHAT_STATUS: String = "chat_status"
+    const val UNREAD_COUNT: String = "unread_count"
+    const val UNIQUE_NAME: String = "unique_name"
+    const val INSTAGRAM_LINK: String = "instagram_link"
+    const val TELEGRAM_LINK: String = "telegram_link"
+    const val SEARCH: String = "search"
+    const val EMAIL: String = "email"
+    const val AGE: String = "age"
+    const val GENDER: String = "gender"
+    const val PROFESSION: String = "profession"
+    const val PROFESSION_ID: String = "profession_id"
+    const val STATE: String = "state"
+    const val CITY: String = "city"
+    const val INTRODUCTION: String = "introduction"
+    const val REFER_CODE: String = "refer_code"
+    const val REFERRED_BY: String = "referred_by"
+    const val POINTS: String = "points"
+
+    const val SUCCESS: String = "success"
+    const val MESSAGE: String = "message"
+
+    const val DATA: String = "data"
+    const val ADDRESS: String = "address"
 
 
+    const val RECIVER_PROFILE: String = "reciver_profile"
+    const val RECIVER_COVER_IMG: String = "reciver_cover_img"
+    const val RECIVER_GENDER: String = "reciver_gender"
+    const val RECIVER_NAME: String = "reciver_name"
+    const val RECIVER_AGE: String = "reciver_age"
+    const val RECIVER_PROFESSION: String = "reciver_profession"
+    const val RECIVER_CITY: String = "reciver_city"
+    const val RECIVER_STATE: String = "reciver_state"
+    const val RECIVER_UNIQUE_NAME: String = "reciver_unique_name"
 
-    public static final String IMAGE = "image";
-    public static final String PAYMENT_PROOF = "payment_proof";
 
-    public static final String PROFILE = "profile";
-    public static final String COVER_IMG = "cover_img";
-    public static final String VERIFIED = "verified";
+    const val IMAGE: String = "image"
+    const val PAYMENT_PROOF: String = "payment_proof"
 
-    public static final String PROFILE_VERIFIED = "profile_verified";
+    const val PROFILE: String = "profile"
+    const val COVER_IMG: String = "cover_img"
+    const val VERIFIED: String = "verified"
 
-    public static final String FRONT_IMAGE = "front_image";
-    public static final String BACK_IMAGE = "back_image";
-    public static final String BACK_PRESSED = "back_pressed";
-    public static final String SELFIE_IMAGE = "selfie_image";
-    public static final String VERIFICATION_FALSE = "verification_false";
-    public static final String BOOKID = "book_id";
-    public static final String CART_ID = "cart_id";
-    public static final String TYPE_TRIP_DATE = "trip_date";
-    @Nullable
-    public static final String RECEIVER_PROFILE = "receiver_profile";
+    const val PROFILE_VERIFIED: String = "profile_verified"
+
+    const val FRONT_IMAGE: String = "front_image"
+    const val BACK_IMAGE: String = "back_image"
+    const val BACK_PRESSED: String = "back_pressed"
+    const val SELFIE_IMAGE: String = "selfie_image"
+    const val VERIFICATION_FALSE: String = "verification_false"
+    const val BOOKID: String = "book_id"
+    const val CART_ID: String = "cart_id"
+    const val TYPE_TRIP_DATE: String = "trip_date"
+    val RECEIVER_PROFILE: String? = "receiver_profile"
 }

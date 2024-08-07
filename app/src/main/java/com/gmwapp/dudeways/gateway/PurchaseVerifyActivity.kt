@@ -163,7 +163,7 @@ class PurchaseVerifyActivity : AppCompatActivity() {
         params[Constant.TXN_ID] = currentDateAndTime
         params[Constant.DATE] = currentDate()
         params[Constant.KEY] = "707029bb-78d4-44b6-9f72-0d7fe80e338b"
-        params["point_id"] = id.toString()
+        params["plan_id"] = id.toString()
         ApiConfig.RequestToVolley({ result, response ->
             if (result) {
                 try {

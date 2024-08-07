@@ -92,12 +92,29 @@ class HomeActivity : BaseActivity() , NavigationBarView.OnItemSelectedListener {
         }
 
 
+
+
+
+
+
+
+    }
+
+    private fun chatBadge() {
+       // Toast.makeText(activity, session.getData(Constant.UNREAD_COUNT.toString()), Toast.LENGTH_SHORT).show()
         val chatBadge = bottomNavigationView!!.getOrCreateBadge(R.id.navMessages)
-        chatBadge.isVisible = true
-        chatBadge.number = 5
+        chatBadge.number = session.getData(Constant.UNREAD_COUNT.toString()).toInt()
+
+        if (chatBadge.number == 0) {
+            chatBadge.isVisible = false
+        }
+        else{
+            chatBadge.isVisible = true
+        }
+
+
         chatBadge.backgroundColor = ContextCompat.getColor(this, R.color.primary)
         chatBadge.badgeTextColor = ContextCompat.getColor(this, R.color.white)
-
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -165,15 +182,31 @@ class HomeActivity : BaseActivity() , NavigationBarView.OnItemSelectedListener {
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         val transaction = fm.beginTransaction()
         when (item.itemId) {
-            R.id.navHome -> transaction.replace(R.id.fragment_container, homeFragment)
-            R.id.navExplore -> transaction.replace(R.id.fragment_container, tripFragment)
-            R.id.navIntersts -> transaction.replace(R.id.fragment_container, interestFragment)
-            R.id.navMessages -> transaction.replace(R.id.fragment_container, messagesFragment)
-            R.id.navNotification -> transaction.replace(R.id.fragment_container, notification)
+            R.id.navHome -> {
+                transaction.replace(R.id.fragment_container, homeFragment)
+                onStart()
+            }
+            R.id.navExplore -> {
+                transaction.replace(R.id.fragment_container, tripFragment)
+               onStart()
+            }
+            R.id.navIntersts -> {
+                transaction.replace(R.id.fragment_container, interestFragment)
+                onStart()
+            }
+            R.id.navMessages -> {
+                transaction.replace(R.id.fragment_container, messagesFragment)
+                onStart()
+            }
+            R.id.navNotification -> {
+                transaction.replace(R.id.fragment_container, notification)
+                onStart()
+            }
         }
         transaction.commit()
         return true
     }
+
 
     override fun onBackPressed() {
         if (backPressedTime + 2000 > System.currentTimeMillis()) {
@@ -313,8 +346,6 @@ class HomeActivity : BaseActivity() , NavigationBarView.OnItemSelectedListener {
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
                         val `object` = JSONObject(response)
                         val jsonobj = `object`.getJSONObject(Constant.DATA)
-
-
                         session.setData(Constant.NAME, jsonobj.getString(Constant.NAME))
                         session.setData(Constant.UNIQUE_NAME, jsonobj.getString(Constant.UNIQUE_NAME))
                         session.setData(Constant.EMAIL, jsonobj.getString(Constant.EMAIL))
@@ -336,8 +367,9 @@ class HomeActivity : BaseActivity() , NavigationBarView.OnItemSelectedListener {
                         session.setData(Constant.VIEW_NOTIFY, jsonobj.getString(Constant.VIEW_NOTIFY))
                         session.setData(Constant.PROFILE_VERIFIED, jsonobj.getString(Constant.PROFILE_VERIFIED))
                         session.setData(Constant.CHAT_STATUS, jsonobj.getString(Constant.CHAT_STATUS))
+                        session.setData(Constant.UNREAD_COUNT, jsonobj.getString(Constant.UNREAD_COUNT))
 
-
+                        chatBadge()
 
                     } else {
                         Toast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_SHORT).show()
@@ -347,19 +379,25 @@ class HomeActivity : BaseActivity() , NavigationBarView.OnItemSelectedListener {
                     e.printStackTrace()
                 }
             }
-        }, activity, Constant.USERDETAILS, params, true, 1)
+        }, activity, Constant.USERDETAILS, params, false, 1)
     }
 
     // onstart
     override fun onStart() {
         super.onStart()
         userdetails(session.getData(Constant.USER_ID),"1")
+
     }
 
     // onstop
     override fun onStop() {
         super.onStop()
         userdetails(session.getData(Constant.USER_ID),"0")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        onStart()
     }
 
 

@@ -98,12 +98,12 @@ class FreePointsActivity : BaseActivity() {
         RewardedAd.load(this, adId, adRequest, object : RewardedAdLoadCallback() {
             override fun onAdFailedToLoad(loadAdError: LoadAdError) {
                 rewardedAd = null
-                Toast.makeText(this@FreePointsActivity, "Ad Failed To Load", Toast.LENGTH_SHORT).show()
+              //  Toast.makeText(this@FreePointsActivity, "Ad Failed To Load", Toast.LENGTH_SHORT).show()
             }
 
             override fun onAdLoaded(ad: RewardedAd) {
                 rewardedAd = ad
-                Toast.makeText(this@FreePointsActivity, "Ad Loaded", Toast.LENGTH_SHORT).show()
+              //  Toast.makeText(this@FreePointsActivity, "Ad Loaded", Toast.LENGTH_SHORT).show()
             }
         })
     }

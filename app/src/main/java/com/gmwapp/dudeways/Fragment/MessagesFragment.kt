@@ -127,13 +127,33 @@ class MessagesFragment : Fragment() {
     }
 
     override fun onResume() {
-
-        chatList.clear()
-
-        if (chatList.isEmpty()) {
-            chatlist()
-        }
-
         super.onResume()
+        // Clear the chat list and reset the offset
+        //chatList.clear()
+        offset = 0
+
+        // Refresh the chat list
+        chatlist()
+
+        // Display a toast message for debugging purposes
+     //   Toast.makeText(activity, "onResume", Toast.LENGTH_SHORT).show()
     }
+
+
+    override fun onStart() {
+        super.onStart()
+        if (isVisible) {
+            // Clear the chat list and reset the offset
+        //    chatList.clear()
+            offset = 0
+
+            // Refresh the chat list
+            chatlist()
+
+            // Display a toast message for debugging purposes
+         //   Toast.makeText(activity, "Fragment is visible", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
 }

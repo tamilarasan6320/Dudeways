@@ -8,6 +8,7 @@ import android.content.res.ColorStateList
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -58,6 +59,16 @@ class ProfileViewActivity : BaseActivity() {
         activity = this
 
         session = Session(activity)
+
+
+        val verify = session.getData(Constant.VERIFIED)
+
+        if (verify == "1"){
+            binding.ivVerify.visibility = View.VISIBLE
+        }
+        else{
+            binding.ivVerify.visibility = View.GONE
+        }
 
 
 

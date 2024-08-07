@@ -114,49 +114,51 @@ class SplashscreenActivity : BaseActivity() {
         videoView.start()
 
         val params: MutableMap<String, String> = HashMap()
-        ApiConfig.RequestToVolley({ result, response ->
-            if (result) {
-                try {
-                    val jsonObject = JSONObject(response)
-                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
-                        val jsonArray: JSONArray = jsonObject.getJSONArray(Constant.DATA)
+        activity?.let {
+            ApiConfig.RequestToVolley({ result, response ->
+                if (result) {
+                    try {
+                        val jsonObject = JSONObject(response)
+                        if (jsonObject.getBoolean(Constant.SUCCESS)) {
+                            val jsonArray: JSONArray = jsonObject.getJSONArray(Constant.DATA)
 
 
-                        val latestVersion = jsonArray.getJSONObject(0).getString(Constant.APP_VERSION)
-                        val link = jsonArray.getJSONObject(0).getString(Constant.LINK)
-                        //   Toast.makeText(activity,latestVersion + currentVersion!!.toInt() , Toast.LENGTH_SHORT).show()
-                        val description = jsonArray.getJSONObject(0).getString("description")
-                        if (currentVersion!!.toInt() >= latestVersion.toInt()) {
-                            videoView.setOnCompletionListener {
-                                GotoActivity()
-                                // Do something when the video ends
+                            val latestVersion = jsonArray.getJSONObject(0).getString(Constant.APP_VERSION)
+                            val link = jsonArray.getJSONObject(0).getString(Constant.LINK)
+                            //   Toast.makeText(activity,latestVersion + currentVersion!!.toInt() , Toast.LENGTH_SHORT).show()
+                            val description = jsonArray.getJSONObject(0).getString("description")
+                            if (currentVersion!!.toInt() >= latestVersion.toInt()) {
+                                videoView.setOnCompletionListener {
+                                    GotoActivity()
+                                    // Do something when the video ends
+                                }
+                            } else {
+                                showUpdateDialog(link,description)
+
                             }
+
                         } else {
-                            showUpdateDialog(link,description)
+    //                        val jsonArray: JSONArray = jsonObject.getJSONArray(Constant.DATA)
+    //
+    //
+    //                        val latestVersion = jsonArray.getJSONObject(0).getString(Constant.VERSION)
+    //                        val link = jsonArray.getJSONObject(0).getString(Constant.LINK)
+    //                        val description = jsonArray.getJSONObject(0).getString("description")
+    //                        if (currentVersion!!.toInt() == latestVersion.toInt()) {
+    //                            GotoActivity()
+    //                        } else {
+    //                            showUpdateDialog(link, description)
+    //                        }
+
 
                         }
-
-                    } else {
-//                        val jsonArray: JSONArray = jsonObject.getJSONArray(Constant.DATA)
-//
-//
-//                        val latestVersion = jsonArray.getJSONObject(0).getString(Constant.VERSION)
-//                        val link = jsonArray.getJSONObject(0).getString(Constant.LINK)
-//                        val description = jsonArray.getJSONObject(0).getString("description")
-//                        if (currentVersion!!.toInt() == latestVersion.toInt()) {
-//                            GotoActivity()
-//                        } else {
-//                            showUpdateDialog(link, description)
-//                        }
-
-
+                    } catch (e: JSONException) {
+                        e.printStackTrace()
+                        Toast.makeText(activity, e.toString(), Toast.LENGTH_SHORT).show()
                     }
-                } catch (e: JSONException) {
-                    e.printStackTrace()
-                    Toast.makeText(activity, e.toString(), Toast.LENGTH_SHORT).show()
                 }
-            }
-        }, activity, Constant.APPUPDATE, params, true)
+            }, it, Constant.APPUPDATE, params, true)
+        }
         // Return a dummy intent, as the actual navigation is handled inside the callback
 
         Log.d("AppUpdate", "API Endpoint: ${Constant.APPUPDATE}")
@@ -212,46 +214,48 @@ class SplashscreenActivity : BaseActivity() {
     private fun login() {
         val params: MutableMap<String, String> = HashMap()
         params[Constant.EMAIL] = session.getData(Constant.EMAIL)
-        ApiConfig.RequestToVolley({ result, response ->
-            if (result) {
-                try {
-                    val jsonObject: JSONObject = JSONObject(response)
-                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
+        activity?.let {
+            ApiConfig.RequestToVolley({ result, response ->
+                if (result) {
+                    try {
+                        val jsonObject: JSONObject = JSONObject(response)
+                        if (jsonObject.getBoolean(Constant.SUCCESS)) {
 
-                        val registered = jsonObject.getString("registered")
-                        if (registered == "true") {
-                            val `object` = JSONObject(response)
-                            val jsonobj = `object`.getJSONObject(Constant.DATA)
-                            session.setData(Constant.USER_ID, jsonobj.getString(Constant.ID))
-                            session.setData(Constant.NAME, jsonobj.getString(Constant.NAME))
-                            session.setData(Constant.UNIQUE_NAME, jsonobj.getString(Constant.UNIQUE_NAME))
-                            session.setData(Constant.EMAIL, jsonobj.getString(Constant.EMAIL))
-                            session.setData(Constant.AGE, jsonobj.getString(Constant.AGE))
-                            session.setData(Constant.GENDER, jsonobj.getString (Constant.GENDER))
-                            session.setData(Constant.PROFESSION, jsonobj.getString(Constant.PROFESSION))
-                            session.setData(Constant.STATE, jsonobj.getString(Constant.STATE))
-                            session.setData(Constant.CITY, jsonobj.getString(Constant.CITY))
-                            session.setData(Constant.MOBILE, jsonobj.getString(Constant.MOBILE))
-                            session.setData(Constant.REFER_CODE, jsonobj.getString(Constant.REFER_CODE))
-                            session.setData(Constant.COVER_IMG, jsonobj.getString(Constant.COVER_IMG))
-                            session.setData(Constant.POINTS, jsonobj.getString(Constant.POINTS))
+                            val registered = jsonObject.getString("registered")
+                            if (registered == "true") {
+                                val `object` = JSONObject(response)
+                                val jsonobj = `object`.getJSONObject(Constant.DATA)
+                                session.setData(Constant.USER_ID, jsonobj.getString(Constant.ID))
+                                session.setData(Constant.NAME, jsonobj.getString(Constant.NAME))
+                                session.setData(Constant.UNIQUE_NAME, jsonobj.getString(Constant.UNIQUE_NAME))
+                                session.setData(Constant.EMAIL, jsonobj.getString(Constant.EMAIL))
+                                session.setData(Constant.AGE, jsonobj.getString(Constant.AGE))
+                                session.setData(Constant.GENDER, jsonobj.getString (Constant.GENDER))
+                                session.setData(Constant.PROFESSION, jsonobj.getString(Constant.PROFESSION))
+                                session.setData(Constant.STATE, jsonobj.getString(Constant.STATE))
+                                session.setData(Constant.CITY, jsonobj.getString(Constant.CITY))
+                                session.setData(Constant.MOBILE, jsonobj.getString(Constant.MOBILE))
+                                session.setData(Constant.REFER_CODE, jsonobj.getString(Constant.REFER_CODE))
+                                session.setData(Constant.COVER_IMG, jsonobj.getString(Constant.COVER_IMG))
+                                session.setData(Constant.POINTS, jsonobj.getString(Constant.POINTS))
 
-                            if (GoogleSignIn.getLastSignedInAccount(this) != null) {
-                                val intent = Intent(activity,HomeActivity::class.java)
-                                startActivity(intent)
-                                finish()
+                                if (GoogleSignIn.getLastSignedInAccount(this) != null) {
+                                    val intent = Intent(activity,HomeActivity::class.java)
+                                    startActivity(intent)
+                                    finish()
+                                }
+
                             }
 
+                        } else {
+                            Toast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_SHORT).show()
+
                         }
-
-                    } else {
-                        Toast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_SHORT).show()
-
+                    } catch (e: JSONException) {
+                        e.printStackTrace()
                     }
-                } catch (e: JSONException) {
-                    e.printStackTrace()
                 }
-            }
-        }, activity, Constant.CHECK_EMAIL, params, true, 1)
+            }, it, Constant.CHECK_EMAIL, params, true, 1)
+        }
     }
 }

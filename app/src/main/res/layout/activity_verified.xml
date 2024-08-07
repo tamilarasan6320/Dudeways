@@ -87,7 +87,10 @@
                 android:background="@drawable/verify_ic"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="@dimen/_82sdp"
+                android:backgroundTint="@color/primary"
                 />
+
+
 
 
         </RelativeLayout>
@@ -98,6 +101,17 @@
 
 
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Verified Badge"
+            android:textSize="@dimen/_14sdp"
+            android:fontFamily="@font/poppins_medium"
+            android:textColor="?attr/myTextColor"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            />
 
     </LinearLayout>
 
