@@ -101,7 +101,8 @@ class ConnectAdapter(
                 intent.putExtra("name", report.name)
                 session.setData("reciver_profile", report.profile)
                 intent.putExtra("chat_user_id", report.friend_user_id)
-                activity.startActivity(intent)
+               intent.putExtra("unique_name", report.unique_name)
+               activity.startActivity(intent)
             }
 
 

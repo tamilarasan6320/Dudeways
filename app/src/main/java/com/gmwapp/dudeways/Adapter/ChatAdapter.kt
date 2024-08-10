@@ -1,6 +1,7 @@
 package com.gmwapp.dudeways.Adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
@@ -41,7 +42,7 @@ class ChatAdapter(
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
         val chatMessage = conversations[position]
-        holder.bind(chatMessage)
+        holder.bind(chatMessage, position)
     }
 
     override fun getItemCount(): Int = conversations.size
@@ -56,37 +57,85 @@ class ChatAdapter(
 
     inner class ItemHolder(private val binding: ViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(chatMessage: ChatModel?) {
+
+        fun bind(chatMessage: ChatModel?, position: Int) {
             chatMessage?.let {
+                val messageTime = it.dateTime?.toLong() ?: 0L
+                val formattedTime = formatTime(messageTime)
+                val formattedDate = formatDate(messageTime)
+
+                val shouldShowDateHeader = shouldDisplayDateHeader(position, formattedDate)
+
                 when (binding) {
                     is SenderChatMessageBinding -> {
                         binding.tvMessage.text = it.message
-                        binding.tvTime.text = it.dateTime?.run {
-                            formatDateTime(toLong())
-                        } ?: ""
-                        Glide.with(binding.root.context).load(session.getData(Constant.PROFILE)).placeholder(R.drawable.profile_placeholder).into(binding.ivUserProfile)
+                        binding.tvTime.text = formattedTime
+                        if (shouldShowDateHeader) {
+                            binding.tvDateHeader.text = formattedDate
+                            binding.tvDateHeader.visibility = View.VISIBLE
+                        } else {
+                            binding.tvDateHeader.visibility = View.GONE
+                        }
+                        Glide.with(binding.root.context).load(session.getData(Constant.PROFILE))
+                            .placeholder(R.drawable.profile_placeholder).into(binding.ivUserProfile)
                     }
 
                     is ReceiverChatMessageBinding -> {
                         binding.tvMessage.text = it.message
-                        binding.tvTime.text =
-                            it.dateTime?.run {
-                                formatDateTime(toLong())
-                            } ?: ""
-
-                        Glide.with(binding.root.context).load(session.getData("reciver_profile")).placeholder(R.drawable.profile_placeholder).into(binding.ivUserProfile)
-
+                        binding.tvTime.text = formattedTime
+                        if (shouldShowDateHeader) {
+                            binding.tvDateHeader.text = formattedDate
+                            binding.tvDateHeader.visibility = View.VISIBLE
+                        } else {
+                            binding.tvDateHeader.visibility = View.GONE
+                        }
+                        Glide.with(binding.root.context).load(session.getData("reciver_profile"))
+                            .placeholder(R.drawable.profile_placeholder).into(binding.ivUserProfile)
                     }
 
                     else -> {}
                 }
             }
         }
+
+        private fun shouldDisplayDateHeader(position: Int, currentDate: String): Boolean {
+            if (position == 0) return true // Show date at the start of the chat
+            val previousMessage = conversations[position - 1]
+            val previousDate = previousMessage?.dateTime?.toLong()?.let { formatDate(it) }
+            return currentDate != previousDate
+        }
     }
 
-    @Throws(TypeCastException::class)
-    private fun formatDateTime(timestamp: Long): String {
-        val sdf = SimpleDateFormat("hh:mm a", Locale.getDefault())
-        return sdf.format(timestamp)
+    private fun formatTime(timestamp: Long): String {
+        val timeFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
+        return timeFormat.format(timestamp)
+    }
+
+    private fun formatDate(timestamp: Long): String {
+        val calendar = Calendar.getInstance()
+        val currentCalendar = Calendar.getInstance()
+
+        // Setting the time to the message timestamp
+        calendar.timeInMillis = timestamp
+
+        // Getting the formatted date
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+
+        return when {
+            isToday(calendar, currentCalendar) -> "Today"
+            isYesterday(calendar, currentCalendar) -> "Yesterday"
+            else -> dateFormat.format(calendar.time)
+        }
+    }
+
+    private fun isToday(calendar: Calendar, currentCalendar: Calendar): Boolean {
+        return calendar.get(Calendar.YEAR) == currentCalendar.get(Calendar.YEAR) &&
+                calendar.get(Calendar.DAY_OF_YEAR) == currentCalendar.get(Calendar.DAY_OF_YEAR)
+    }
+
+    private fun isYesterday(calendar: Calendar, currentCalendar: Calendar): Boolean {
+        currentCalendar.add(Calendar.DAY_OF_YEAR, -1)
+        return calendar.get(Calendar.YEAR) == currentCalendar.get(Calendar.YEAR) &&
+                calendar.get(Calendar.DAY_OF_YEAR) == currentCalendar.get(Calendar.DAY_OF_YEAR)
     }
 }

@@ -158,7 +158,7 @@
         android:layout_below="@+id/llStep1"
         android:id="@+id/rvplan"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
 
         />
 

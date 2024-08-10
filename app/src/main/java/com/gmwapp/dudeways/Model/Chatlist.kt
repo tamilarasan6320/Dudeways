@@ -12,6 +12,7 @@ class Chatlist {
     var profile: String? = null
     var chat_user_id: String? = null
     var online_status: String? = null
+    var unique_name: String? = null
     var latest_message: String? = null
     var latest_msg_time: String? = null
     var msg_seen: String? = null
@@ -38,6 +39,7 @@ class Chatlist {
         friend: String?,
         verified: String?,
         unread: String?,
+        unique_name: String?,
     ) {
         this.id = id
         this.user_id = user_id
@@ -54,6 +56,7 @@ class Chatlist {
         this.friend = friend
         this.verified = verified
         this.unread = unread
+        this.unique_name = unique_name
 
     }
 

@@ -119,6 +119,7 @@ object Constant {
     const val VIEW_NOTIFY: String = "view_notify"
     const val TYPE: String = "type"
     const val CHAT_USER_ID: String = "chat_user_id"
+    const val MSG_SEEN: String = "msg_seen"
     const val UNREAD: String = "unread"
     const val CHAT_ID: String = "chat_id"
     const val TRIP_ID: String = "trip_id"

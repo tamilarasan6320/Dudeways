@@ -316,7 +316,7 @@ fun ChatsActivity.updateMessagesForSender(
         type = "TEXT",
         sentBy = session.getData(Constant.NAME)
     )
-    addChat(message,receiverID)
+ //   addChat(message,receiverID)
 
     if (session.getData(Constant.CHAT_STATUS) == "0") {
 

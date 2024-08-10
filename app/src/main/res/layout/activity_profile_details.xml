@@ -191,6 +191,7 @@
                     android:layout_height="wrap_content" />
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:id="@+id/llOthers"
                     android:orientation="horizontal"
                     android:paddingVertical="@dimen/_5sdp"

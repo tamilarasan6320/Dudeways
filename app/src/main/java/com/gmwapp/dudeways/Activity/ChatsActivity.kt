@@ -2,6 +2,7 @@ package com.gmwapp.dudeways.Activity
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Rect
 import android.media.AudioAttributes
@@ -13,6 +14,7 @@ import android.text.format.DateUtils
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
@@ -38,6 +40,7 @@ import com.gmwapp.dudeways.helper.Constant
 import com.gmwapp.dudeways.helper.Session
 import com.gmwapp.dudeways.listeners.OnMessagesFetchedListener
 import com.bumptech.glide.Glide
+import com.gmwapp.dudeways.extentions.chat_status
 import com.google.firebase.Timestamp
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
@@ -82,9 +85,9 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
 
         senderId = session.getData(Constant.USER_ID)
         receiverId = intent.getStringExtra("chat_user_id").toString()
-        senderName = session.getData(Constant.NAME)
-        receiverName = intent.getStringExtra("name")
-        binding.tvName.text = receiverName
+        senderName = session.getData(Constant.UNIQUE_NAME)
+        receiverName = intent.getStringExtra("unique_name")
+        binding.tvName.text = intent.getStringExtra("name")
         read_chats()
         chatReference =
             databaseReference.child("CHATS_V2").child(senderName!!).child(receiverName!!)
@@ -119,32 +122,94 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
         //  receiveTone = soundPool.load(this, R.raw.recieve_tone, 1)
 
         binding.sendButton.setOnClickListener {
-            val message = binding.messageEdittext.text.toString()
-            if (message.isNotEmpty()) {
-                isBlocked(senderId, receiverId) { isBlocked ->
-                    if (isBlocked) {
-                        makeToast("You cannot send messages to this user blocked.")
-                    } else {
-                        senderName?.let { sName ->
-                            receiverName?.let { rName ->
-                                updateMessagesForSender(
-                                    databaseReference = databaseReference,
-                                    senderID = senderId,
-                                    receiverID = receiverId,
-                                    senderName = senderName!!,
-                                    receiverName = receiverName!!,
-                                    message = message,
-                                    soundPool = soundPool,
-                                    sentTone = sentTone
-                                )
-                                binding.messageEdittext.text.clear()
-                            } ?: logError(CHATS_ACTIVITY, "Unable to send your message.")
-                        } ?: logError(CHATS_ACTIVITY, "Unable to send your message.")
+            val params: MutableMap<String, String> = HashMap()
+            params[Constant.USER_ID] = session.getData(Constant.USER_ID)
+            params[Constant.CHAT_USER_ID] = receiverId
+            params[Constant.UNREAD] = "1"
+            params[Constant.MESSAGE] = binding.messageEdittext.text.toString()
+            ApiConfig.RequestToVolley({ result, response ->
+                if (result) {
+                    try {
+                        val jsonObject = JSONObject(response)
+                        if (jsonObject.getBoolean(Constant.SUCCESS)) {
+                            chat_status = jsonObject.getString("chat_status")
+                            session.setData(Constant.CHAT_STATUS, chat_status)
+                            val message = binding.messageEdittext.text.toString()
+                            if (message.isNotEmpty()) {
+                                isBlocked(senderId, receiverId) { isBlocked ->
+                                    if (isBlocked) {
+                                        makeToast("You cannot send messages to this user blocked.")
+                                    } else {
+                                        senderName?.let { sName ->
+                                            receiverName?.let { rName ->
+                                                updateMessagesForSender(
+                                                    databaseReference = databaseReference,
+                                                    senderID = senderId,
+                                                    receiverID = receiverId,
+                                                    senderName = senderName!!,
+                                                    receiverName = receiverName!!,
+                                                    message = message,
+                                                    soundPool = soundPool,
+                                                    sentTone = sentTone
+                                                )
+                                                binding.messageEdittext.text.clear()
+                                            } ?: logError(CHATS_ACTIVITY, "Unable to send your message.")
+                                        } ?: logError(CHATS_ACTIVITY, "Unable to send your message.")
+                                    }
+                                }
+                            } else {
+
+                                makeToast("Enter text to send")
+                            }
+
+                            //   Toast.makeText(this, chat_status, Toast.LENGTH_SHORT).show()
+
+
+
+                        } else {
+                            chat_status = jsonObject.getString("chat_status")
+                            session.setData(Constant.CHAT_STATUS, chat_status)
+
+
+
+                            val dialogView = activity.layoutInflater.inflate(R.layout.dialog_custom, null)
+
+                            val dialogBuilder = AlertDialog.Builder(activity)
+                                .setView(dialogView)
+                                .create()
+                            val title = dialogView.findViewById<TextView>(R.id.dialog_title)
+                            val btnPurchase = dialogView.findViewById<LinearLayout>(R.id.btnPurchase)
+                            val btnFreePoints = dialogView.findViewById<LinearLayout>(R.id.btnFreePoints)
+
+
+                            title.text = "You have ${session.getData(Constant.POINTS)} Points"
+
+                            btnPurchase.setOnClickListener {
+                                val intent = Intent(activity, PurchasepointActivity::class.java)
+                                activity.startActivity(intent)
+                                dialogBuilder.dismiss()
+                            }
+
+                            btnFreePoints.setOnClickListener {
+                                val intent = Intent(activity, FreePointsActivity::class.java)
+                                activity.startActivity(intent)
+                                dialogBuilder.dismiss()
+                            }
+
+
+                            dialogBuilder.show()
+
+                            //    Toast.makeText(this, chat_status, Toast.LENGTH_SHORT).show()
+
+                        }
+                    } catch (e: JSONException) {
+                        e.printStackTrace()
                     }
                 }
-            } else {
-                makeToast("Enter text to send")
-            }
+            }, activity, Constant.ADD_CHAT, params, false, 1)
+
+
+
         }
 
         binding.root.viewTreeObserver.addOnGlobalLayoutListener {
@@ -276,7 +341,6 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
         params[Constant.USER_ID] = session.getData(Constant.USER_ID)
         params[Constant.FRIEND_USER_ID] = receiverId!!
         params[Constant.FRIEND] = "2"
-
         ApiConfig.RequestToVolley({ result, response ->
             if (result) {
                 try {
@@ -301,6 +365,7 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
         val params: MutableMap<String, String> = HashMap()
         params[Constant.USER_ID] = session.getData(Constant.USER_ID)
         params[Constant.CHAT_USER_ID] = receiverId!!
+        params[Constant.MSG_SEEN] = "0"
         ApiConfig.RequestToVolley({ result, response ->
             if (result) {
                 try {
@@ -395,26 +460,7 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
         if (messages.isNotEmpty()) {
             messages.sortBy { it?.dateTime }
             initializeRecyclerView(messages)
-            binding.RVChats.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    super.onScrolled(recyclerView, dx, dy)
-                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
-                    val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
-                    if (firstVisibleItemPosition != RecyclerView.NO_POSITION) {
-                        val chatModel = chatAdapter?.getItemInfo(firstVisibleItemPosition)
-                        val dateTime = chatModel?.dateTime
-
-                        if (dateTime != lastDisplayedDateTime) {
-                            lastDisplayedDateTime = dateTime
-                            val actualDate = dateTime?.let { Date(it) }
-                            val formattedDate = SimpleDateFormat("MMM dd yyyy", Locale.getDefault())
-                            binding.tvDate.visibility = View.VISIBLE
-                            binding.tvDate.text = actualDate?.let { formattedDate.format(it) }
-                        }
-                    }
-                }
-            })
             binding.RVChats.scrollToPosition(chatAdapter?.itemCount?.minus(1) ?: 0)
         } else {
             //Display empty conversation placeholder.

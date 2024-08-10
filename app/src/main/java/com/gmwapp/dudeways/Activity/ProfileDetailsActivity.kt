@@ -72,11 +72,8 @@ class ProfileDetailsActivity : BaseActivity() {
             binding.llMale.backgroundTintList = resources.getColorStateList(R.color.primary)
             binding.llFemale.backgroundTintList =
                 resources.getColorStateList(R.color.primary_extra_light)
-            binding.llOthers.backgroundTintList =
-                resources.getColorStateList(R.color.primary_extra_light)
             binding.tvMale.setTextColor(resources.getColor(R.color.white))
             binding.tvFemale.setTextColor(resources.getColor(R.color.black))
-            binding.tvOthers.setTextColor(resources.getColor(R.color.black))
             select_option = "1"
             gender = "male"
         }
@@ -84,26 +81,12 @@ class ProfileDetailsActivity : BaseActivity() {
             binding.llFemale.backgroundTintList = resources.getColorStateList(R.color.primary)
             binding.llMale.backgroundTintList =
                 resources.getColorStateList(R.color.primary_extra_light)
-            binding.llOthers.backgroundTintList =
-                resources.getColorStateList(R.color.primary_extra_light)
             binding.tvMale.setTextColor(resources.getColor(R.color.black))
             binding.tvFemale.setTextColor(resources.getColor(R.color.white))
-            binding.tvOthers.setTextColor(resources.getColor(R.color.black))
             select_option = "2"
             gender = "female"
         }
-        binding.llOthers.setOnClickListener {
-            binding.tvMale.setTextColor(resources.getColor(R.color.black))
-            binding.tvFemale.setTextColor(resources.getColor(R.color.black))
-            binding.tvOthers.setTextColor(resources.getColor(R.color.white))
-            binding.llOthers.backgroundTintList = resources.getColorStateList(R.color.primary)
-            binding.llMale.backgroundTintList =
-                resources.getColorStateList(R.color.primary_extra_light)
-            binding.llFemale.backgroundTintList =
-                resources.getColorStateList(R.color.primary_extra_light)
-            select_option = "3"
-            gender = "others"
-        }
+
 
         binding.btnSave.setOnClickListener {
             if (binding.etName.text.toString().isEmpty()) {

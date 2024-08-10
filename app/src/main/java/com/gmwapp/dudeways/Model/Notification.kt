@@ -13,6 +13,8 @@ class Notification {
     var time: String? = null
     var updated_at: String? = null
     var created_at: String? = null
+    var unique_name: String? = null
+
 //    var friend: String? = null
 
     constructor(
@@ -27,6 +29,7 @@ class Notification {
         time: String?,
         updatedAt: String?,
         createdAt: String?,
+        unique_name: String?,
 //        friend: String?,
     ) {
         this.id = id
@@ -40,6 +43,7 @@ class Notification {
         this.time = time
         this.updated_at = updatedAt
         this.created_at = createdAt
+        this.unique_name = unique_name
 //        this.friend = friend
     }
 

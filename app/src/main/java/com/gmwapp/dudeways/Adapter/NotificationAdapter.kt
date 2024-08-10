@@ -60,9 +60,6 @@ class NotificationAdapter(
 
         holder.itemView.setOnClickListener{
 
-
-
-
             if (report.notify_user_id == session.getData(Constant.USER_ID)) {
                 Toast.makeText(activity, "You can't chat with yourself", Toast.LENGTH_SHORT).show()
             }
@@ -72,6 +69,7 @@ class NotificationAdapter(
                 intent.putExtra("name", report.name)
                 session.setData("reciver_profile", report.profile)
                 intent.putExtra("chat_user_id", report.notify_user_id)
+                intent.putExtra("unique_name", report.unique_name)
                 activity.startActivity(intent)
             }
 
