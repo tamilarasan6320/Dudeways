@@ -26,6 +26,9 @@ class ProfileinfoActivity : BaseActivity() {
     lateinit var activity: Activity
     lateinit var session: Session
     var user_id: String? = null
+    var unique_name: String? = null
+    var name: String? = null
+    var profile: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profileinfo)
@@ -77,13 +80,13 @@ class ProfileinfoActivity : BaseActivity() {
         }
 
 
-         user_id = intent.getStringExtra("chat_user_id")
+        user_id = intent.getStringExtra("chat_user_id")
+        userdetails(user_id)
 
 
         val id = intent.getStringExtra("id")
         val friend = intent.getStringExtra("friend")
-        val name = intent.getStringExtra("name")
-        val profile = intent.getStringExtra("profile")
+
 
 
          var friend_data = "" + friend
@@ -123,13 +126,14 @@ class ProfileinfoActivity : BaseActivity() {
                 intent.putExtra("name", name)
                 session.setData("reciver_profile", profile )
                 intent.putExtra("chat_user_id", user_id)
+                intent.putExtra("unique_name",unique_name )
                 activity.startActivity(intent)
             }
         }
 
 
 
-        userdetails(user_id)
+
         profile_view(user_id)
 
 
@@ -181,9 +185,6 @@ class ProfileinfoActivity : BaseActivity() {
                         }
 
 
-
-
-
                         binding.tvName.text = jsonobj.getString(Constant.NAME)
                         binding.tvProfessional.text =  jsonobj.getString(Constant.PROFESSION)
                         binding.tvCity.text = jsonobj.getString(Constant.CITY)
@@ -193,6 +194,9 @@ class ProfileinfoActivity : BaseActivity() {
                         binding.tvPlace.text = jsonobj.getString(Constant.CITY) + ", " + jsonobj.getString(Constant.STATE)
 
 
+                        unique_name = jsonobj.getString(Constant.UNIQUE_NAME)
+                        name = jsonobj.getString(Constant.NAME)
+                        profile = jsonobj.getString(Constant.PROFILE)
 
 
 

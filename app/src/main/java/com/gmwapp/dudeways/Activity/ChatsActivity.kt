@@ -61,7 +61,6 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
     private var chatReference: DatabaseReference? = null
     private var chatAdapter: ChatAdapter? = null
     private var messages = mutableListOf<ChatModel?>()
-
     private var senderId = ""
     private var receiverId = ""
     private var senderName: String? = null
@@ -228,9 +227,12 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
         binding.messageEdittext.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
+
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                typingStatusReference = firebaseDatabase.getReference("typing_status/${senderId}_to_${receiverId}")
                 typingStatusReference.setValue(s.toString().isNotEmpty())
             }
+
 
             override fun afterTextChanged(s: Editable?) {}
         })
@@ -275,23 +277,23 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
         observeUserStatus(firebaseDatabase, receiverId)
     }
 
-    private  fun ChatsActivity.observeTypingStatus(
+    private fun ChatsActivity.observeTypingStatus(
         firebaseDatabase: FirebaseDatabase,
         receiverID: String,
     ) {
-        firebaseDatabase.getReference("typing_status/$receiverID")
-            .addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val isTyping = snapshot.getValue(Boolean::class.java) ?: false
-                    binding.typingStatus.visibility = if (isTyping) View.VISIBLE else View.GONE
-                    binding.tvLastSeen.visibility = if (isTyping) View.GONE else View.VISIBLE
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    logError(CHATS_ACTIVITY, "Error observing typing status: ${error.message}")
-                }
-            })
+        val typingStatusReference = firebaseDatabase.getReference("typing_status/${receiverID}_to_${senderId}")
+        typingStatusReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val isTyping = snapshot.getValue(Boolean::class.java) ?: false
+                binding.typingStatus.visibility = if (isTyping) View.VISIBLE else View.GONE
+                binding.tvLastSeen.visibility = if (isTyping) View.GONE else View.VISIBLE
+            }
+            override fun onCancelled(error: DatabaseError) {
+                logError(CHATS_ACTIVITY, "Error observing typing status: ${error.message}")
+            }
+        })
     }
+
 
 
     override fun onBackPressed() {
@@ -566,10 +568,11 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
 
     override fun onStop() {
         super.onStop()
+        typingStatusReference = firebaseDatabase.getReference("typing_status/${senderId}_to_${receiverId}")
         typingStatusReference.setValue(false)
-        // Set user offline status with last seen time
         setUserStatus(firebaseDatabase, senderId, false)
     }
+
 
     override fun onStart() {
         super.onStart()
