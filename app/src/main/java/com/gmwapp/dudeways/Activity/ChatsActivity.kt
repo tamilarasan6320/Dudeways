@@ -69,7 +69,7 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
     private lateinit var soundPool: SoundPool
     private var sentTone: Int = 0
     private var receiveTone: Int = 0
-
+    private var friend_verified = ""
     private var isConversationsFetching: Boolean = true
 
     private lateinit var typingStatusReference: DatabaseReference
@@ -84,6 +84,7 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
 
         senderId = session.getData(Constant.USER_ID)
         receiverId = intent.getStringExtra("chat_user_id").toString()
+        friend_verified = intent.getStringExtra("friend_verified").toString()
         senderName = session.getData(Constant.UNIQUE_NAME)
         receiverName = intent.getStringExtra("unique_name")
         binding.tvName.text = intent.getStringExtra("name")
@@ -91,6 +92,15 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
         chatReference =
             databaseReference.child("CHATS_V2").child(senderName!!).child(receiverName!!)
         typingStatusReference = firebaseDatabase.getReference("typing_status/$senderId")
+
+
+        if (friend_verified == "1") {
+            binding.tvAbout.visibility = View.INVISIBLE
+            binding.ivVerified.visibility = View.VISIBLE
+        } else {
+            binding.tvAbout.visibility = View.VISIBLE
+            binding.ivVerified.visibility = View.INVISIBLE
+        }
 
         Glide.with(this)
             .load(session.getData("reciver_profile"))
@@ -121,6 +131,8 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
         //  receiveTone = soundPool.load(this, R.raw.recieve_tone, 1)
 
         binding.sendButton.setOnClickListener {
+            //disable binding.sendButton.isClickable = false
+            binding.sendButton.isClickable = false
             val params: MutableMap<String, String> = HashMap()
             params[Constant.USER_ID] = session.getData(Constant.USER_ID)
             params[Constant.CHAT_USER_ID] = receiverId
@@ -133,12 +145,17 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
                         if (jsonObject.getBoolean(Constant.SUCCESS)) {
                             chat_status = jsonObject.getString("chat_status")
                             session.setData(Constant.CHAT_STATUS, chat_status)
+
                             val message = binding.messageEdittext.text.toString()
                             if (message.isNotEmpty()) {
                                 isBlocked(senderId, receiverId) { isBlocked ->
                                     if (isBlocked) {
+                                        binding.sendButton.isClickable = true
+
                                         makeToast("You cannot send messages to this user blocked.")
                                     } else {
+                                        binding.sendButton.isClickable = true
+
                                         senderName?.let { sName ->
                                             receiverName?.let { rName ->
                                                 updateMessagesForSender(
@@ -157,7 +174,7 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
                                     }
                                 }
                             } else {
-
+                                binding.sendButton.isClickable = true
                                 makeToast("Enter text to send")
                             }
 
@@ -166,6 +183,8 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
 
 
                         } else {
+                            binding.sendButton.isClickable = true
+
                             chat_status = jsonObject.getString("chat_status")
                             session.setData(Constant.CHAT_STATUS, chat_status)
 

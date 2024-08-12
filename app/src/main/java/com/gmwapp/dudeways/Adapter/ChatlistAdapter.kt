@@ -69,11 +69,7 @@ class ChatlistAdapter(
             holder.IV_online_status.visibility = View.GONE
         }
 
-        if (report.msg_seen == "1") {
-            holder.IC_read.visibility = View.VISIBLE
-        } else {
-            holder.IC_read.visibility = View.GONE
-        }
+
 
         holder.TV_sent_time.text = report.latest_msg_time
 
@@ -114,6 +110,7 @@ class ChatlistAdapter(
                 intent.putExtra("chat_user_id", report.chat_user_id)
              intent.putExtra("unread", report.unread)
              intent.putExtra("unique_name", report.unique_name)
+                intent.putExtra("friend_verified", report.verified)
                 activity.startActivity(intent)
             }
 
@@ -136,7 +133,6 @@ class ChatlistAdapter(
     internal class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 //
         val TV_user_name: TextView = itemView.findViewById(R.id.TV_user_name)
-        val IC_read: ImageView = itemView.findViewById(R.id.IC_read)
         val IV_user_profile: ImageView = itemView.findViewById(R.id.IV_user_profile)
         val TV_message_content: TextView = itemView.findViewById(R.id.TV_message_content)
         val TV_sent_time: TextView = itemView.findViewById(R.id.TV_sent_time)

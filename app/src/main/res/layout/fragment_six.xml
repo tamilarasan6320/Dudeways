@@ -5,6 +5,13 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Activity.Trip.Fragment.SixFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+
     
     
     <LinearLayout
@@ -187,6 +194,13 @@
                 android:scaleType="fitXY"
                 />
 
+            <ImageView
+                android:id="@+id/ivPost"
+                android:layout_width="@dimen/_280sdp"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                />
+
 
             <ImageButton
                 android:id="@+id/ivAddProof1"
@@ -220,5 +234,7 @@
 
 
     </LinearLayout>
+
+    </ScrollView>
 
 </FrameLayout>

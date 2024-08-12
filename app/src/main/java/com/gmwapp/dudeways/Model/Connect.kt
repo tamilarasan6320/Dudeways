@@ -18,6 +18,7 @@ class Connect {
     var created_at: String? = null
     var friend: String? = null
     var unique_name: String? = null
+    var verified: String? = null
 
 
     constructor(
@@ -37,7 +38,8 @@ class Connect {
         updated_at: String?,
         created_at: String?,
         friend: String?,
-        unique_name: String?
+        unique_name: String?,
+        verified: String?
     ) {
         this.id = id
         this.user_id = user_id
@@ -56,6 +58,7 @@ class Connect {
         this.created_at = created_at
         this.friend = friend
         this.unique_name = unique_name
+        this.verified = verified
 
  }
 

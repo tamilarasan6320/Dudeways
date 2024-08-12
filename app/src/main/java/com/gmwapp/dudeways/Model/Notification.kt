@@ -14,6 +14,7 @@ class Notification {
     var updated_at: String? = null
     var created_at: String? = null
     var unique_name: String? = null
+    var verified: String? = null
 
 //    var friend: String? = null
 
@@ -30,6 +31,7 @@ class Notification {
         updatedAt: String?,
         createdAt: String?,
         unique_name: String?,
+        verified: String?,
 //        friend: String?,
     ) {
         this.id = id
@@ -44,6 +46,7 @@ class Notification {
         this.updated_at = updatedAt
         this.created_at = createdAt
         this.unique_name = unique_name
+        this.verified = verified
 //        this.friend = friend
     }
 

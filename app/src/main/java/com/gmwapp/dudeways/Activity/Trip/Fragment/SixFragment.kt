@@ -55,6 +55,10 @@ class SixFragment : Fragment() {
             pickImageFromGallery()
         }
 
+        binding.ivPost.setOnClickListener {
+            pickImageFromGallery()
+        }
+
         when (session.getData(Constant.TRIP_TYPE)) {
             "0" -> trip_type = "Road Trip"
             "1" -> trip_type = "Adventure Trip"
@@ -82,9 +86,9 @@ class SixFragment : Fragment() {
             if (requestCode == REQUEST_IMAGE_GALLERY) {
                 imageUri = data?.data
                 CropImage.activity(imageUri)
-                    .setAspectRatio(5, 3)
                     .setCropShape(CropImageView.CropShape.RECTANGLE)
                     .start(requireContext(), this)
+
             } else if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
                 val result: CropImage.ActivityResult? = CropImage.getActivityResult(data)
                 if (result != null) {
@@ -92,8 +96,9 @@ class SixFragment : Fragment() {
                     val imgFile = File(filePath1)
                     if (imgFile.exists()) {
                         val myBitmap = BitmapFactory.decodeFile(imgFile.absolutePath)
-                        binding.ivProof1.setImageBitmap(myBitmap)
+                        binding.ivPost.setImageBitmap(myBitmap)
                         binding.ivAddProof1.visibility = View.GONE
+                        binding.ivProof1.visibility = View.INVISIBLE
                     //    binding.rlProfile.visibility = View.GONE
                     }
                 }

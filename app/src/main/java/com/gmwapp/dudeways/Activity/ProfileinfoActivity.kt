@@ -29,6 +29,8 @@ class ProfileinfoActivity : BaseActivity() {
     var unique_name: String? = null
     var name: String? = null
     var profile: String? = null
+    var friend_verified: String? = null
+    var friend: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profileinfo)
@@ -84,32 +86,25 @@ class ProfileinfoActivity : BaseActivity() {
         userdetails(user_id)
 
 
+
+
         val id = intent.getStringExtra("id")
-        val friend = intent.getStringExtra("friend")
 
 
 
-         var friend_data = "" + friend
 
-        if (friend_data == "0") {
-            binding.ivaddFriend.setBackgroundResource(R.drawable.add_account)
-            binding.tvAddFriend.text = "Add to Friend"
-        } else if (friend_data == "1") {
-            binding.ivaddFriend.setBackgroundResource(R.drawable.added_frd)
-            binding.tvAddFriend.text = "Friend Added"
-        }
 
 
         binding.rlAddFriend.setOnClickListener {
             // Change the background of rlAddFriend
-            if (friend_data == "0") {
-                val friend = "1"
-                friend_data = "1"
-                add_freind(binding.ivaddFriend, binding.tvAddFriend, user_id,friend)
-            } else if (friend_data == "1"   ) {
-                val friend = "2"
-                friend_data = "0"
-                add_freind(binding.ivaddFriend, binding.tvAddFriend, user_id,friend)
+            if (friend == "0") {
+                val friends = "1"
+                friend= "1"
+                add_freind(binding.ivaddFriend, binding.tvAddFriend, user_id,friends)
+            } else if (friend == "1"   ) {
+                val friends = "2"
+                friend = "0"
+                add_freind(binding.ivaddFriend, binding.tvAddFriend, user_id,friends)
             }
 
 
@@ -127,6 +122,7 @@ class ProfileinfoActivity : BaseActivity() {
                 session.setData("reciver_profile", profile )
                 intent.putExtra("chat_user_id", user_id)
                 intent.putExtra("unique_name",unique_name )
+                intent.putExtra("friend_verified", friend_verified)
                 activity.startActivity(intent)
             }
         }
@@ -142,7 +138,8 @@ class ProfileinfoActivity : BaseActivity() {
 
     private fun userdetails(user_id: String?) {
         val params: MutableMap<String, String> = HashMap()
-        params[Constant.USER_ID] = user_id.toString()
+        params[Constant.USER_ID] = session.getData(Constant.USER_ID)
+        params[Constant.OTHER_USER_ID] = user_id!!
         ApiConfig.RequestToVolley({ result, response ->
             if (result) {
                 try {
@@ -197,8 +194,24 @@ class ProfileinfoActivity : BaseActivity() {
                         unique_name = jsonobj.getString(Constant.UNIQUE_NAME)
                         name = jsonobj.getString(Constant.NAME)
                         profile = jsonobj.getString(Constant.PROFILE)
+                        friend_verified = jsonobj.getString(Constant.VERIFIED)
+                        friend = jsonobj.getString("friend_status")
 
 
+                        var friend_data = "" + friend
+
+                     //   Toast.makeText(activity, friend_data, Toast.LENGTH_SHORT).show()
+
+                        if (friend_data == "0") {
+                            binding.ivaddFriend.setBackgroundResource(R.drawable.add_account)
+                            binding.tvAddFriend.text = "Add to Friend"
+                        } else if (friend_data == "1") {
+                            binding.ivaddFriend.setBackgroundResource(R.drawable.added_frd)
+                            binding.tvAddFriend.text = "Friend Added"
+                        }
+
+
+                        // Toast.makeText(activity, friend, Toast.LENGTH_SHORT).show()
 
                     } else {
                         Toast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_SHORT).show()

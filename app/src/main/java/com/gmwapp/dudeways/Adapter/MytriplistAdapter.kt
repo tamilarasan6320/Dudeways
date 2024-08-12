@@ -2,6 +2,7 @@ package com.gmwapp.dudeways.Adapter
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.gmwapp.dudeways.Activity.MytripsActivity
 import com.gmwapp.dudeways.Model.Mytriplist
@@ -44,79 +46,53 @@ class MytriplistAdapter(
         val report: Mytriplist = mytriplist[position]
 
 
+        if (report.trip_status == "1") {
+            holder.tvStatus.text = "Approved"
+            holder.rlStatus.setBackgroundColor(ContextCompat.getColor(activity, R.color.green))
+        }
+        else if (report.trip_status == "2") {
+            holder.tvStatus.text = "Rejected"
+            holder.rlStatus.setBackgroundColor(ContextCompat.getColor(activity, R.color.red))
+        }
+        else {
+            holder.tvStatus.text = "Pending"
+            holder.rlStatus.setBackgroundColor(ContextCompat.getColor(activity, R.color.blue_200))
+        }
+
 
 
         holder.tvName.text = report.name
         holder.tvLocation.text = report.location
         holder.tvDescription.text = report.trip_description
-        holder.tvUsername.text = "@"+report.unique_name
-        holder.tvDate.text = "From "+report.from_date+" to "+report.to_date
+        holder.tvUsername.text = "@" + report.unique_name
+        holder.tvDate.text = "From " + report.from_date + " to " + report.to_date
         holder.tvTitle.text = report.trip_title
 
+        // Load the image and adjust the height based on its aspect ratio
+        Glide.with(activitys)
+            .asBitmap()
+            .load(report.trip_image)
+            .placeholder(R.drawable.placeholder_bg)
+            .into(object : com.bumptech.glide.request.target.BitmapImageViewTarget(holder.ivProfileImage) {
+                override fun onResourceReady(resource: Bitmap, transition: com.bumptech.glide.request.transition.Transition<in Bitmap>?) {
+                    // Calculate the height based on the image aspect ratio
+                    val width = holder.ivProfileImage.width
+                    val aspectRatio = resource.height.toFloat() / resource.width.toFloat()
+                    val height = (width * aspectRatio).toInt()
 
-        // check report.user_name is more than 10 latters
-        if (report.name?.length!! > 10) {
-            if (report.unique_name?.length!! > 7) {
-                holder.tvUsername.text = "@"+ report.unique_name!!.substring(0, 7) + ".."
-            } else {
-                holder.tvUsername.text = "@"+report.unique_name
-            }
-        } else {
-            holder.tvUsername.text = "@"+report.unique_name
-        }
+                    // Set the ImageView's height
+                    holder.ivProfileImage.layoutParams.height = height
+                    holder.ivProfileImage.requestLayout()
 
-
-        if (report.trip_status.equals("0")) {
-            holder.tvStatus.text = "In Review"
-            holder.rlStatus.setBackgroundColor(activity.resources.getColor(R.color.blue))
-
-        }
-        if (report.trip_status.equals("1")) {
-            holder.tvStatus.text = "Approved"
-            holder.rlStatus.setBackgroundColor(activity.resources.getColor(R.color.green))
-
-        }
-        if (report.trip_status.equals("2")) {
-            holder.tvStatus.text = "Rejected"
-            holder.rlStatus.setBackgroundColor(activity.resources.getColor(R.color.red))
-
-        }
-
-
-        holder.tvmore.setOnClickListener {
-            if (holder.tvDescription.visibility == View.VISIBLE) {
-                holder.tvDescription.visibility = View.GONE
-                holder.tvmore.text = activity.getString(R.string.more)
-            } else {
-                holder.tvDescription.visibility = View.VISIBLE
-                holder.tvmore.text = activity.getString(R.string.less)
-            }
-        }
-
-
-
-        holder.llDelete.setOnClickListener {
-            AlertDialog.Builder(activity)
-                .setTitle("Delete Trip")
-                .setMessage("Are you sure you want to delete this trip?")
-                .setPositiveButton("Yes") { dialog, which ->
-                    deleteTrip(report.id)
+                    // Set the loaded bitmap to the ImageView
+                    holder.ivProfileImage.setImageBitmap(resource)
                 }
-                .setNegativeButton("No", null)
-                .show()
-        }
-
-
-
-
-
-        Glide.with(activitys).load(report.trip_image).placeholder(R.drawable.placeholder_bg)
-            .into(holder.ivProfileImage)
+            })
 
         Glide.with(activitys).load(report.profile).placeholder(R.drawable.profile_placeholder)
             .into(holder.ivProfile)
 
-
+        // Other binding logic...
     }
 
     fun deleteTrip(id: String?) {

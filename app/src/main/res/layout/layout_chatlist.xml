@@ -80,12 +80,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <ImageView
-                    android:id="@+id/IC_read"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/simplification"
-                    android:paddingHorizontal="@dimen/_5sdp"/>
+
                 <TextView
                     android:id="@+id/TV_message_content"
                     android:layout_width="wrap_content"

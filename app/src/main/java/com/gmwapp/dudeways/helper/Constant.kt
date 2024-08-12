@@ -113,6 +113,7 @@ object Constant {
     const val MOBILE: String = "mobile"
     const val ID: String = "id"
     const val USER_ID: String = "user_id"
+    const val OTHER_USER_ID: String = "other_user_id"
     const val ONLINE_STATUS: String = "online_status"
     const val MESSAGE_NOTIFY: String = "message_notify"
     const val ADD_FRIEND_NOTIFY: String = "add_friend_notify"

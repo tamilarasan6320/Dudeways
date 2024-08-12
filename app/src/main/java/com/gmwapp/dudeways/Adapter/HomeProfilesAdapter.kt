@@ -2,6 +2,7 @@ package com.gmwapp.dudeways.Adapter
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -116,12 +117,30 @@ class HomeProfilesAdapter(
                 session.setData("reciver_profile", report.profile)
                 intent.putExtra("chat_user_id", report.user_id)
                 intent.putExtra("unique_name", report.unique_name)
+                intent.putExtra("friend_verified", report.verified)
                 activity.startActivity(intent)
             }
         }
 
-        Glide.with(activity).load(report.trip_image).placeholder(R.drawable.placeholder_bg)
-            .into(holder.ivProfileImage)
+        Glide.with(activity)
+            .asBitmap()
+            .load(report.trip_image)
+            .placeholder(R.drawable.placeholder_bg)
+            .into(object : com.bumptech.glide.request.target.BitmapImageViewTarget(holder.ivProfileImage) {
+                override fun onResourceReady(resource: Bitmap, transition: com.bumptech.glide.request.transition.Transition<in Bitmap>?) {
+                    // Calculate the height based on the image aspect ratio
+                    val width = holder.ivProfileImage.width
+                    val aspectRatio = resource.height.toFloat() / resource.width.toFloat()
+                    val height = (width * aspectRatio).toInt()
+
+                    // Set the ImageView's height
+                    holder.ivProfileImage.layoutParams.height = height
+                    holder.ivProfileImage.requestLayout()
+
+                    // Set the loaded bitmap to the ImageView
+                    holder.ivProfileImage.setImageBitmap(resource)
+                }
+            })
 
         Glide.with(activity).load(report.profile).placeholder(R.drawable.profile_placeholder)
             .into(holder.ivProfile)

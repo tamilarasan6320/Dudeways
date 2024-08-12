@@ -119,7 +119,7 @@ class ChatAdapter(
         calendar.timeInMillis = timestamp
 
         // Getting the formatted date
-        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
 
         return when {
             isToday(calendar, currentCalendar) -> "Today"
