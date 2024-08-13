@@ -17,8 +17,7 @@
             android:layout_centerHorizontal="true"
             android:layout_width="@dimen/_260sdp"
             android:layout_height="@dimen/_260sdp"
-            android:id="@+id/ivSplashImage"
-            />
+            android:id="@+id/ivSplashImage"/>
 
     </RelativeLayout>
 
