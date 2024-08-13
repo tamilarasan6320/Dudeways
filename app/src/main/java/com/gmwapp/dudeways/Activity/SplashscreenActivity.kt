@@ -134,7 +134,6 @@ class SplashscreenActivity : BaseActivity() {
                                 }
                             } else {
                                 showUpdateDialog(link,description)
-
                             }
 
                         } else {
@@ -149,8 +148,6 @@ class SplashscreenActivity : BaseActivity() {
     //                        } else {
     //                            showUpdateDialog(link, description)
     //                        }
-
-
                         }
                     } catch (e: JSONException) {
                         e.printStackTrace()
@@ -174,8 +171,6 @@ class SplashscreenActivity : BaseActivity() {
         val btnUpdate = view.findViewById<View>(R.id.btnUpdate)
         val dialogMessage = view.findViewById<TextView>(R.id.dialog_message)
         dialogMessage.text = description
-
-
         btnUpdate.setOnClickListener(View.OnClickListener {
             val url = link;
             val i = Intent(Intent.ACTION_VIEW)
@@ -238,6 +233,8 @@ class SplashscreenActivity : BaseActivity() {
                                 session.setData(Constant.REFER_CODE, jsonobj.getString(Constant.REFER_CODE))
                                 session.setData(Constant.COVER_IMG, jsonobj.getString(Constant.COVER_IMG))
                                 session.setData(Constant.POINTS, jsonobj.getString(Constant.POINTS))
+                                session.setData(Constant.LOGIN, jsonobj.getString(Constant.LOGIN))
+
 
                                 if (GoogleSignIn.getLastSignedInAccount(this) != null) {
                                     val intent = Intent(activity,HomeActivity::class.java)
