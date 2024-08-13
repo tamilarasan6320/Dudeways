@@ -72,6 +72,16 @@ class GoogleLoginActivity : BaseActivity() {
             ZohoSalesIQ.Chat.show()
         }
 
+
+        val login = session.getData("login")
+
+        if (login == "1") {
+            binding.tvmore.visibility = View.VISIBLE
+        }
+        else {
+            binding.tvmore.visibility = View.GONE
+        }
+
         binding.tvmore.setOnClickListener {
             showLoginDialog()
         }
