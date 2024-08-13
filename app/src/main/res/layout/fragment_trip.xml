@@ -27,48 +27,68 @@
 
         <TextView
             android:padding="@dimen/_5sdp"
-            android:textAlignment="center"
+            android:layout_above="@+id/text"
             android:layout_marginTop="@dimen/_100sdp"
+            android:layout_marginHorizontal="@dimen/_10sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Adventure awaits just beyond the horizon."
+            android:text="Find Your Perfect Travel Mate"
             android:textSize="@dimen/_18sdp"
             android:fontFamily="@font/poppins_bold"
-            android:textColor="#282B38"
+            android:textColor="#FFFFFF"
             />
 
-        <com.google.android.material.button.MaterialButton
-            android:layout_above="@+id/btnMytrip"
+        <TextView
+            android:padding="@dimen/_5sdp"
+            android:id="@+id/text"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:layout_above="@+id/btTrips"
             android:layout_marginHorizontal="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
-            android:id="@+id/btnStart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_medium"
-            app:backgroundTint="@null"
-            android:background="@drawable/gradient_button"
-            android:text="Start"
-            android:textAllCaps="false"
-            android:textSize="@dimen/_14sdp" />
+            android:text="Explore the world with your buddy"
+            android:textSize="@dimen/_12sdp"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="#FFFFFF"
+            />
 
-        <com.google.android.material.button.MaterialButton
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/btTrips"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/_40sdp"
             android:layout_alignParentBottom="true"
-            android:layout_marginHorizontal="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_50sdp"
-            android:id="@+id/btnMytrip"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_medium"
-            android:paddingVertical="@dimen/_8sdp"
-            app:backgroundTint="@null"
-            android:backgroundTint="@color/primary_extra_light"
-            android:text="View My Trip"
-            app:strokeColor="@color/primary"
-            app:strokeWidth="2dp"
-            android:textAllCaps="false"
-            android:textSize="@dimen/_14sdp"
-            android:textColor="@color/black"
-            />
+            android:layout_marginHorizontal="@dimen/_10sdp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnStart"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:fontFamily="@font/poppins_medium"
+                android:background="@drawable/gradient_button"
+                android:text="Post Trip"
+                android:textAllCaps="false"
+                android:textSize="@dimen/_12sdp"
+                app:backgroundTint="@null" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnMytrip"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/poppins_medium"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:background="@drawable/gradient_button"
+                android:text="View My Trip"
+                android:textAllCaps="false"
+                android:textSize="@dimen/_12sdp"
+                app:backgroundTint="@null" />
+
+            </LinearLayout>
 
     </RelativeLayout>
 
