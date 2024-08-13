@@ -1,9 +1,14 @@
 package com.gmwapp.dudeways.Activity
 
 import android.app.Activity
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.WindowManager
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import com.gmwapp.dudeways.R
 import com.gmwapp.dudeways.databinding.ActivityGoogleLoginBinding
@@ -16,6 +21,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
@@ -63,6 +70,10 @@ class GoogleLoginActivity : BaseActivity() {
 
         binding.tvHelp.setOnClickListener {
             ZohoSalesIQ.Chat.show()
+        }
+
+        binding.tvmore.setOnClickListener {
+            showLoginDialog()
         }
 
     }
@@ -184,7 +195,42 @@ class GoogleLoginActivity : BaseActivity() {
     }
 
 
+    private fun showLoginDialog() {
+        val dialog = Dialog(this)
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.bottom_sheet_login, null)
 
+        dialog.setContentView(dialogView)
+
+        val emailEditText: EditText = dialogView.findViewById(R.id.etEmail)
+        val passwordEditText: EditText = dialogView.findViewById(R.id.etPassword)
+        val loginButton: Button = dialogView.findViewById(R.id.btnLogin)
+
+        dialog.window?.setLayout(
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.WRAP_CONTENT
+        )
+
+        loginButton.setOnClickListener {
+            val email = emailEditText.text.toString()
+            val password = passwordEditText.text.toString()
+
+            // Check if the entered email and password match the predefined values
+            if (email == "testdudeways@gmail.com" && password == "test@123") {
+                // Move to HomeActivity
+                val intent = Intent(this, HomeActivity::class.java)
+                session.setData(Constant.USER_ID,"50")
+                session.setBoolean("is_logged_in", true)
+                startActivity(intent)
+                dialog.dismiss() // Dismiss dialog after login
+            } else {
+                // Show an error message (e.g., Toast or Snackbar)
+                emailEditText.error = "Invalid email or password"
+                passwordEditText.error = "Invalid email or password"
+            }
+        }
+
+        dialog.show()
+    }
 
 
 }
