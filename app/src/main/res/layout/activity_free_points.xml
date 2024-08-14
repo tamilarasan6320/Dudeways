@@ -7,12 +7,10 @@
     android:layout_height="match_parent"
     tools:context=".Activity.FreePointsActivity">
 
-
-
-
     <RelativeLayout
         android:id="@+id/rlToolbar"
         android:padding="@dimen/_20sdp"
+        android:background="?attr/titleBG"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -20,24 +18,22 @@
             android:backgroundTint="?attr/iconColor"
             android:layout_centerVertical="true"
             android:id="@+id/ivBack"
-          android:layout_width="@dimen/_18sdp"
-                android:layout_height="@dimen/_18sdp"
+            android:layout_width="@dimen/_18sdp"
+            android:layout_height="@dimen/_18sdp"
             android:background="@drawable/arrow_left"
             />
 
         <TextView
-            android:id="@+id/tvTitle"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/_14sdp"
             android:layout_toRightOf="@+id/ivBack"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Free Points"
             android:textSize="@dimen/_14sdp"
             android:textColor="?attr/myTextColor"
             android:fontFamily="@font/poppins_medium"
             />
-
 
 
     </RelativeLayout>
@@ -49,264 +45,503 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <LinearLayout
-            android:visibility="gone"
-            android:id="@+id/llStep1"
-            android:layout_marginHorizontal="@dimen/_10sdp"
-            android:padding="@dimen/_10sdp"
-            android:background="@drawable/round_corner_stroke"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-
-
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Complete Verification Badge"
-                    android:textSize="@dimen/_12sdp"
-                    android:layout_centerVertical="true"
-                    android:textColor="?attr/myTextColor"
-                    android:fontFamily="@font/poppins_semibold"
-                    />
-
-
-                <ImageView
-                    android:visibility="invisible"
-                    android:id="@+id/ivProofCheck1"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_20sdp"
-                    android:src="@drawable/check_ic"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:scaleType="fitXY"
-                    />
-
-
-            </RelativeLayout>
-
-
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginBottom="@dimen/_10sdp"
-                app:dividerColor="@color/black"
-                android:thickness="@dimen/_2sdp"
-                />
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Get 100 Points Free"
-                android:textSize="@dimen/_14sdp"
-                android:textColor="@color/primary"
-                android:fontFamily="@font/poppins_semibold"
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_marginTop="@dimen/_10sdp"
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/llStep4"
-            android:layout_marginHorizontal="@dimen/_10sdp"
-            android:padding="@dimen/_10sdp"
-            android:background="@drawable/round_corner_stroke"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:layout_marginVertical="@dimen/_7sdp"
+            android:elevation="5dp"
+            app:cardElevation="@dimen/_5sdp"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            app:cardCornerRadius="@dimen/_16sdp">
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-
-
-
-                <TextView
-                    android:layout_width="match_parent"
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Invite your friends"
-                    android:textSize="@dimen/_12sdp"
-                    android:layout_centerVertical="true"
-                    android:textColor="?attr/myTextColor"
-                    android:fontFamily="@font/poppins_semibold"
-                    />
+                    app:cardUseCompatPadding="true"
+                    app:cardBackgroundColor="@color/feedback_select"
+                    app:cardCornerRadius="@dimen/_15sdp">
 
+                    <ImageView
+                        android:layout_margin="@dimen/_15sdp"
+                        android:src="@drawable/frinds_icon"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"/>
 
-                <ImageView
-                    android:visibility="invisible"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_20sdp"
-                    android:src="@drawable/check_ic"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:scaleType="fitXY"
-                    />
+                </com.google.android.material.card.MaterialCardView>
 
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical">
 
-            </RelativeLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Earn 10% in points from every purchase your friend makes"
+                        android:textColor="@color/primary"
+                        android:textSize="@dimen/_10sdp"
+                        android:fontFamily="@font/poppins_bold"/>
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Invite Your Friends"
+                        android:textColor="?attr/myTextColor"
+                        android:textSize="@dimen/_10sdp"
+                        android:fontFamily="@font/poppins_regular"/>
 
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginBottom="@dimen/_10sdp"
-                app:dividerColor="@color/black"
-                android:thickness="@dimen/_2sdp"
-                />
+                </LinearLayout>
 
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="match_parent"
+                    app:cardUseCompatPadding="true"
+                    app:cardBackgroundColor="@color/feedback_select"
+                    app:cardCornerRadius="@dimen/_15sdp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Get 10 % for every purchase"
-                android:textSize="@dimen/_14sdp"
-                android:textColor="@color/primary"
-                android:fontFamily="@font/poppins_semibold"
-                />
+                    <TextView
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Get Link"
+                        android:textSize="@dimen/_10sdp"
+                        android:textColor="@color/primary"
+                        android:fontFamily="@font/poppins_bold"/>
 
-        </LinearLayout>
-        <LinearLayout
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/llStep2"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginHorizontal="@dimen/_10sdp"
-            android:padding="@dimen/_10sdp"
-            android:background="@drawable/round_corner_stroke"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:layout_marginVertical="@dimen/_7sdp"
+            app:cardElevation="@dimen/_5sdp"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            app:cardCornerRadius="@dimen/_16sdp">
 
-
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-
-
-
-                <TextView
-                    android:layout_width="match_parent"
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Spin Wheel"
-                    android:textSize="@dimen/_12sdp"
-                    android:layout_centerVertical="true"
-                    android:textColor="?attr/myTextColor"
-                    android:fontFamily="@font/poppins_semibold"
-                    />
+                    app:cardUseCompatPadding="true"
+                    app:cardBackgroundColor="@color/feedback_select"
+                    app:cardCornerRadius="@dimen/_15sdp">
 
+                    <ImageView
+                        android:layout_margin="@dimen/_15sdp"
+                        android:src="@drawable/spinner_icon"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"/>
 
-                <ImageView
-                    android:visibility="invisible"
-                    android:id="@+id/ivProofCheck2"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_20sdp"
-                    android:src="@drawable/check_ic"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:scaleType="fitXY"
-                    />
+                </com.google.android.material.card.MaterialCardView>
 
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical">
 
-            </RelativeLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Earn free points every day"
+                        android:textColor="@color/primary"
+                        android:textSize="@dimen/_10sdp"
+                        android:fontFamily="@font/poppins_bold"/>
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Spin wheel &amp; earn points"
+                        android:textColor="?attr/myTextColor"
+                        android:textSize="@dimen/_10sdp"
+                        android:fontFamily="@font/poppins_regular"/>
 
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginBottom="@dimen/_10sdp"
-                app:dividerColor="@color/black"
-                android:thickness="@dimen/_2sdp"
-                />
+                </LinearLayout>
 
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="match_parent"
+                    app:cardUseCompatPadding="true"
+                    app:cardBackgroundColor="@color/feedback_select"
+                    app:cardCornerRadius="@dimen/_15sdp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Get Daily Points Free"
-                android:textSize="@dimen/_14sdp"
-                android:textColor="@color/primary"
-                android:fontFamily="@font/poppins_semibold"
-                />
+                    <TextView
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Spin Now"
+                        android:textSize="@dimen/_10sdp"
+                        android:textColor="@color/primary"
+                        android:fontFamily="@font/poppins_bold"/>
 
-        </LinearLayout>
-        <LinearLayout
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/llStep3"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginHorizontal="@dimen/_10sdp"
-            android:padding="@dimen/_10sdp"
-            android:background="@drawable/round_corner_stroke"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:layout_marginVertical="@dimen/_7sdp"
+            android:elevation="5dp"
+            app:cardElevation="@dimen/_5sdp"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            app:cardCornerRadius="@dimen/_16sdp">
 
-
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-
-
-
-                <TextView
-                    android:layout_width="match_parent"
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Watch Video"
-                    android:textSize="@dimen/_12sdp"
-                    android:layout_centerVertical="true"
-                    android:textColor="?attr/myTextColor"
-                    android:fontFamily="@font/poppins_semibold"
-                    />
+                    app:cardUseCompatPadding="true"
+                    app:cardBackgroundColor="@color/feedback_select"
+                    app:cardCornerRadius="@dimen/_15sdp">
+
+                    <ImageView
+                        android:layout_margin="@dimen/_15sdp"
+                        android:src="@drawable/video_icon"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"/>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Earn points every day by watching ads"
+                        android:textColor="@color/primary"
+                        android:textSize="@dimen/_10sdp"
+                        android:fontFamily="@font/poppins_bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Get Free Points"
+                        android:textColor="?attr/myTextColor"
+                        android:textSize="@dimen/_10sdp"
+                        android:fontFamily="@font/poppins_regular"/>
+
+                </LinearLayout>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="match_parent"
+                    app:cardUseCompatPadding="true"
+                    app:cardBackgroundColor="@color/feedback_select"
+                    app:cardCornerRadius="@dimen/_15sdp">
+
+                    <TextView
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Play Now"
+                        android:textSize="@dimen/_10sdp"
+                        android:textColor="@color/primary"
+                        android:fontFamily="@font/poppins_bold"/>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
 
 
-                <ImageView
-                    android:visibility="invisible"
-                    android:id="@+id/ivProofCheck3"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_20sdp"
-                    android:src="@drawable/check_ic"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:scaleType="fitXY"
-                    />
+        <!--        <LinearLayout-->
+        <!--            android:id="@+id/llStep1"-->
+        <!--            android:layout_marginHorizontal="@dimen/_10sdp"-->
+        <!--            android:padding="@dimen/_10sdp"-->
+        <!--            android:background="@drawable/round_corner_stroke"-->
+        <!--            android:orientation="vertical"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content">-->
+
+        <!--            <RelativeLayout-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content">-->
 
 
-            </RelativeLayout>
 
 
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginBottom="@dimen/_10sdp"
-                app:dividerColor="@color/black"
-                android:thickness="@dimen/_2sdp"
-                />
+        <!--                <TextView-->
+        <!--                    android:layout_width="match_parent"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:text="Complete Verification Badge"-->
+        <!--                    android:textSize="@dimen/_12sdp"-->
+        <!--                    android:layout_centerVertical="true"-->
+        <!--                    android:textColor="?attr/myTextColor"-->
+        <!--                    android:fontFamily="@font/poppins_semibold"-->
+        <!--                    />-->
 
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Get Free Points"
-                android:textSize="@dimen/_14sdp"
-                android:textColor="@color/primary"
-                android:fontFamily="@font/poppins_semibold"
-                />
+        <!--                <ImageView-->
+        <!--                    android:visibility="invisible"-->
+        <!--                    android:id="@+id/ivProofCheck1"-->
+        <!--                    android:layout_marginTop="@dimen/_10sdp"-->
+        <!--                    android:layout_width="@dimen/_20sdp"-->
+        <!--                    android:layout_height="@dimen/_20sdp"-->
+        <!--                    android:src="@drawable/check_ic"-->
+        <!--                    android:layout_centerVertical="true"-->
+        <!--                    android:layout_alignParentRight="true"-->
+        <!--                    android:scaleType="fitXY"-->
+        <!--                    />-->
 
-        </LinearLayout>
+
+        <!--            </RelativeLayout>-->
+
+
+        <!--            <com.google.android.material.divider.MaterialDivider-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_marginTop="@dimen/_10sdp"-->
+        <!--                android:layout_marginBottom="@dimen/_10sdp"-->
+        <!--                app:dividerColor="@color/black"-->
+        <!--                android:thickness="@dimen/_2sdp"-->
+        <!--                />-->
+
+
+        <!--            <TextView-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:text="Get 100 Points Free"-->
+        <!--                android:textSize="@dimen/_14sdp"-->
+        <!--                android:textColor="@color/primary"-->
+        <!--                android:fontFamily="@font/poppins_semibold"/>-->
+
+        <!--        </LinearLayout>-->
+
+        <!--        <LinearLayout-->
+        <!--            android:layout_marginTop="@dimen/_10sdp"-->
+        <!--            android:id="@+id/llStep4"-->
+        <!--            android:layout_marginHorizontal="@dimen/_10sdp"-->
+        <!--            android:padding="@dimen/_10sdp"-->
+        <!--            android:background="@drawable/round_corner_stroke"-->
+        <!--            android:orientation="vertical"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content">-->
+
+        <!--            <RelativeLayout-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content">-->
+
+
+
+
+        <!--                <TextView-->
+        <!--                    android:layout_width="match_parent"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:text="Invite your friends"-->
+        <!--                    android:textSize="@dimen/_12sdp"-->
+        <!--                    android:layout_centerVertical="true"-->
+        <!--                    android:textColor="?attr/myTextColor"-->
+        <!--                    android:fontFamily="@font/poppins_semibold"-->
+        <!--                    />-->
+
+
+        <!--                <ImageView-->
+        <!--                    android:visibility="invisible"-->
+        <!--                    android:layout_marginTop="@dimen/_10sdp"-->
+        <!--                    android:layout_width="@dimen/_20sdp"-->
+        <!--                    android:layout_height="@dimen/_20sdp"-->
+        <!--                    android:src="@drawable/check_ic"-->
+        <!--                    android:layout_centerVertical="true"-->
+        <!--                    android:layout_alignParentRight="true"-->
+        <!--                    android:scaleType="fitXY"-->
+        <!--                    />-->
+
+
+        <!--            </RelativeLayout>-->
+
+
+        <!--            <com.google.android.material.divider.MaterialDivider-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_marginTop="@dimen/_10sdp"-->
+        <!--                android:layout_marginBottom="@dimen/_10sdp"-->
+        <!--                app:dividerColor="@color/black"-->
+        <!--                android:thickness="@dimen/_2sdp"-->
+        <!--                />-->
+
+
+        <!--            <TextView-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:text="Get 10 % for every purchase"-->
+        <!--                android:textSize="@dimen/_14sdp"-->
+        <!--                android:textColor="@color/primary"-->
+        <!--                android:fontFamily="@font/poppins_semibold"-->
+        <!--                />-->
+
+        <!--        </LinearLayout>-->
+        <!--        <LinearLayout-->
+        <!--            android:id="@+id/llStep2"-->
+        <!--            android:layout_marginTop="@dimen/_10sdp"-->
+        <!--            android:layout_marginHorizontal="@dimen/_10sdp"-->
+        <!--            android:padding="@dimen/_10sdp"-->
+        <!--            android:background="@drawable/round_corner_stroke"-->
+        <!--            android:orientation="vertical"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content">-->
+
+
+        <!--            <RelativeLayout-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content">-->
+
+
+
+
+        <!--                <TextView-->
+        <!--                    android:layout_width="match_parent"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:text="Spin Wheel"-->
+        <!--                    android:textSize="@dimen/_12sdp"-->
+        <!--                    android:layout_centerVertical="true"-->
+        <!--                    android:textColor="?attr/myTextColor"-->
+        <!--                    android:fontFamily="@font/poppins_semibold"-->
+        <!--                    />-->
+
+
+        <!--                <ImageView-->
+        <!--                    android:visibility="invisible"-->
+        <!--                    android:id="@+id/ivProofCheck2"-->
+        <!--                    android:layout_marginTop="@dimen/_10sdp"-->
+        <!--                    android:layout_width="@dimen/_20sdp"-->
+        <!--                    android:layout_height="@dimen/_20sdp"-->
+        <!--                    android:src="@drawable/check_ic"-->
+        <!--                    android:layout_centerVertical="true"-->
+        <!--                    android:layout_alignParentRight="true"-->
+        <!--                    android:scaleType="fitXY"-->
+        <!--                    />-->
+
+
+        <!--            </RelativeLayout>-->
+
+
+        <!--            <com.google.android.material.divider.MaterialDivider-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_marginTop="@dimen/_10sdp"-->
+        <!--                android:layout_marginBottom="@dimen/_10sdp"-->
+        <!--                app:dividerColor="@color/black"-->
+        <!--                android:thickness="@dimen/_2sdp"-->
+        <!--                />-->
+
+
+        <!--            <TextView-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:text="Get Daily Points Free"-->
+        <!--                android:textSize="@dimen/_14sdp"-->
+        <!--                android:textColor="@color/primary"-->
+        <!--                android:fontFamily="@font/poppins_semibold"-->
+        <!--                />-->
+
+        <!--        </LinearLayout>-->
+        <!--        <LinearLayout-->
+        <!--            android:id="@+id/llStep3"-->
+        <!--            android:layout_marginTop="@dimen/_10sdp"-->
+        <!--            android:layout_marginHorizontal="@dimen/_10sdp"-->
+        <!--            android:padding="@dimen/_10sdp"-->
+        <!--            android:background="@drawable/round_corner_stroke"-->
+        <!--            android:orientation="vertical"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content">-->
+
+
+        <!--            <RelativeLayout-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content">-->
+
+
+
+
+        <!--                <TextView-->
+        <!--                    android:layout_width="match_parent"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:text="Watch Video"-->
+        <!--                    android:textSize="@dimen/_12sdp"-->
+        <!--                    android:layout_centerVertical="true"-->
+        <!--                    android:textColor="?attr/myTextColor"-->
+        <!--                    android:fontFamily="@font/poppins_semibold"-->
+        <!--                    />-->
+
+
+        <!--                <ImageView-->
+        <!--                    android:visibility="invisible"-->
+        <!--                    android:id="@+id/ivProofCheck3"-->
+        <!--                    android:layout_marginTop="@dimen/_10sdp"-->
+        <!--                    android:layout_width="@dimen/_20sdp"-->
+        <!--                    android:layout_height="@dimen/_20sdp"-->
+        <!--                    android:src="@drawable/check_ic"-->
+        <!--                    android:layout_centerVertical="true"-->
+        <!--                    android:layout_alignParentRight="true"-->
+        <!--                    android:scaleType="fitXY"-->
+        <!--                    />-->
+
+
+        <!--            </RelativeLayout>-->
+
+
+        <!--            <com.google.android.material.divider.MaterialDivider-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_marginTop="@dimen/_10sdp"-->
+        <!--                android:layout_marginBottom="@dimen/_10sdp"-->
+        <!--                app:dividerColor="@color/black"-->
+        <!--                android:thickness="@dimen/_2sdp"-->
+        <!--                />-->
+
+
+        <!--            <TextView-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:text="Get Free Points"-->
+        <!--                android:textSize="@dimen/_14sdp"-->
+        <!--                android:textColor="@color/primary"-->
+        <!--                android:fontFamily="@font/poppins_semibold"-->
+        <!--                />-->
+
+        <!--        </LinearLayout>-->
 
 
     </LinearLayout>

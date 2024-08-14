@@ -42,35 +42,35 @@ class FreePointsActivity : BaseActivity() {
             onBackPressed()
         }
 
-        binding.llStep1.setOnClickListener {
-            val proof1 = session.getData(Constant.SELFIE_IMAGE)
-            val proof2 = session.getData(Constant.FRONT_IMAGE)
-            val proof3 = session.getData(Constant.BACK_IMAGE)
-            val status = session.getData(Constant.STATUS)
-            val payment_status = session.getData(Constant.PAYMENT_STATUS)
-
-
-            // if proof 1 2 3 is empty
-            if(proof1.isEmpty() || proof2.isEmpty() || proof3.isEmpty()) {
-                val intent = Intent(activity, IdverficationActivity::class.java)
-                startActivity(intent)
-            }
-            else if (payment_status == "0") {
-                val intent = Intent(activity, PurchaseverifybuttonActivity::class.java)
-                startActivity(intent)
-            }
-            else if (status == "0") {
-                val intent = Intent(activity, Stage4Activity::class.java)
-                startActivity(intent)
-            }
-
-            else if (status == "1"){
-                val intent = Intent(activity, VerifiedActivity::class.java)
-                startActivity(intent)
-            }
-
-
-        }
+//        binding.llStep1.setOnClickListener {
+//            val proof1 = session.getData(Constant.SELFIE_IMAGE)
+//            val proof2 = session.getData(Constant.FRONT_IMAGE)
+//            val proof3 = session.getData(Constant.BACK_IMAGE)
+//            val status = session.getData(Constant.STATUS)
+//            val payment_status = session.getData(Constant.PAYMENT_STATUS)
+//
+//
+//            // if proof 1 2 3 is empty
+//            if(proof1.isEmpty() || proof2.isEmpty() || proof3.isEmpty()) {
+//                val intent = Intent(activity, IdverficationActivity::class.java)
+//                startActivity(intent)
+//            }
+//            else if (payment_status == "0") {
+//                val intent = Intent(activity, PurchaseverifybuttonActivity::class.java)
+//                startActivity(intent)
+//            }
+//            else if (status == "0") {
+//                val intent = Intent(activity, Stage4Activity::class.java)
+//                startActivity(intent)
+//            }
+//
+//            else if (status == "1"){
+//                val intent = Intent(activity, VerifiedActivity::class.java)
+//                startActivity(intent)
+//            }
+//
+//
+//        }
 
         binding.llStep2.setOnClickListener {
             val intent = Intent(activity, spinActivity::class.java)
