@@ -68,8 +68,9 @@ class HomeFragment : Fragment() {
             offset = 0
             loadProfileList(
                 when (selectedItemPosition) {
-                    0 -> "nearby"
+                    0 -> "Female"
                     1 -> "latest"
+                    2 -> "latest"
                     else -> "date"
                 }
             )
@@ -79,7 +80,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupRecyclerViews() {
-        binding.rvCategoryList.layoutManager = GridLayoutManager(activity, 3)
+        binding.rvCategoryList.layoutManager = GridLayoutManager(activity, 4)
         binding.rvProfileList.layoutManager = LinearLayoutManager(activity)
 
         homeCategoryAdapter = HomeCategorysAdapter(activity, homeCategoryList)
@@ -104,14 +105,17 @@ class HomeFragment : Fragment() {
 
     private fun loadCategoryList() {
         val homeCategory = ArrayList<HomeCategory>()
-        val cat1 = HomeCategory("1", "Nearby", "")
-        val cat2 = HomeCategory("1", "Latest", "")
-        val cat3 = HomeCategory("1", "Trip Date", "")
+        val cat1 = HomeCategory("1", "Female", "")
+        val cat2 = HomeCategory("1", "Nearby", "")
+        val cat3 = HomeCategory("1", "Latest", "")
+        val cat4 = HomeCategory("1", "Trip Date", "")
 
 
         homeCategory.add(cat1)
         homeCategory.add(cat2)
         homeCategory.add(cat3)
+        homeCategory.add(cat4)
+
 
         val homeCategoryAdapter = HomeCategorysAdapter(requireActivity(), homeCategory)
         binding.rvCategoryList.adapter = homeCategoryAdapter
@@ -200,7 +204,7 @@ class HomeFragment : Fragment() {
         override fun onBindViewHolder(holder: ItemHolder, position: Int) {
             val category = homeCategoryList[position]
 
-            holder.tvName.text = if (position == 2 && selectedDate != null) {
+            holder.tvName.text = if (position == 3 && selectedDate != null) {
                 selectedDate
             } else {
                 category.name
@@ -224,22 +228,23 @@ class HomeFragment : Fragment() {
                 binding.rvProfileList.scrollToPosition(0)
                 offset = 0
                 when (position) {
+
                     0 -> {
                         currentType = "nearby"
                         loadProfileList(currentType)
                     }
                     1 -> {
+                        currentType = "nearby"
+                        loadProfileList(currentType)
+                    }
+                    2 -> {
                         currentType = "latest"
                         loadProfileList(currentType)
                     }
-                    2 -> showDatePickerDialog(holder.tvName)
+                    3 -> showDatePickerDialog(holder.tvName)
 
-                    4 -> {
 
-                    }
-                    5 -> {
 
-                    }
                 }
             }
         }
@@ -251,7 +256,6 @@ class HomeFragment : Fragment() {
         inner class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             val tvName: TextView = itemView.findViewById(R.id.tvName)
             val cardView: CardView = itemView.findViewById(R.id.cardView)
-            val ivIcon: ImageView = itemView.findViewById(R.id.ivIcon)
         }
 
         private fun showDatePickerDialog(tvName: TextView) {

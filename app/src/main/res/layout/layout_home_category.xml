@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginHorizontal="@dimen/_5sdp"
+    android:layout_marginHorizontal="@dimen/_2sdp"
     >
 
     <com.google.android.material.card.MaterialCardView
@@ -18,16 +18,7 @@
         android:layout_height="wrap_content">
 
 
-        <ImageView
-            android:visibility="invisible"
-            android:id="@+id/ivIcon"
-            android:layout_gravity="center_vertical"
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_20sdp"
-            android:background="@drawable/male"
-            android:backgroundTint="@color/primary"
-            android:padding="@dimen/_6sdp"
-            />
+
 
 
 
@@ -49,7 +40,7 @@
                 android:fontFamily="@font/poppins_regular"
                 android:text="Shafeeka"
                 android:textColor="@color/primary"
-                android:textSize="@dimen/_12sdp" />
+                />
 
 
 

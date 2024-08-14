@@ -10,7 +10,7 @@
 
     <RelativeLayout
         android:id="@+id/rlToolbar"
-        android:background="@color/titleBG"
+        android:background="?attr/titleBG"
         android:padding="@dimen/_20sdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -19,7 +19,7 @@
             android:backgroundTint="?attr/iconColor"
             android:layout_centerVertical="true"
             android:id="@+id/ivBack"
-            android:layout_width="@dimen/_24sdp"
+            android:layout_width="@dimen/_18sdp"
             android:layout_height="@dimen/_18sdp"
             android:background="@drawable/arrow_left"
             />
@@ -51,8 +51,8 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/_220sdp"
+                android:layout_height="@dimen/_220sdp"
                 android:src="@drawable/feedback_image"
                 android:adjustViewBounds="true"
                 android:layout_marginVertical="@dimen/_10sdp"

@@ -11,7 +11,7 @@
     <RelativeLayout
         android:id="@+id/rlToolbar"
         android:padding="@dimen/_20sdp"
-        android:background="@color/titleBG"
+        android:background="?attr/titleBG"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -19,7 +19,7 @@
             android:backgroundTint="?attr/iconColor"
             android:layout_centerVertical="true"
             android:id="@+id/ivBack"
-            android:layout_width="@dimen/_24sdp"
+            android:layout_width="@dimen/_18sdp"
             android:layout_height="@dimen/_18sdp"
             android:background="@drawable/arrow_left"
             />
@@ -114,7 +114,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Join Telegram Group"
                                 android:textSize="@dimen/_7sdp"
-                                android:textColor="?attr/myTextColor"
+                                android:textColor="@color/black"
                                 android:fontFamily="@font/poppins_medium"/>
                         </LinearLayout>
 
@@ -149,7 +149,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Visit Instagram Page"
                                 android:textSize="@dimen/_7sdp"
-                                android:textColor="?attr/myTextColor"
+                                android:textColor="@color/black"
                                 android:fontFamily="@font/poppins_medium"/>
                         </LinearLayout>
 
@@ -185,7 +185,8 @@
                                 android:layout_height="wrap_content"
                                 android:text="Chat Now"
                                 android:textSize="@dimen/_7sdp"
-                                android:textColor="?attr/myTextColor"
+                                android:textColor="@color/black"
+
                                 android:fontFamily="@font/poppins_medium"/>
                         </LinearLayout>
 
