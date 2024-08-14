@@ -45,6 +45,9 @@ class ChatlistAdapter(
         val unread = report.unread
 
 
+      //holder.tvCount.text = "Points "+report.points
+
+
 
         if (unread == "0") {
             holder.tvUnread.visibility = View.GONE
@@ -139,6 +142,7 @@ class ChatlistAdapter(
         val IV_online_status: ImageView = itemView.findViewById(R.id.IV_online_status)
         val ivVerify: ImageView = itemView.findViewById(R.id.ivVerify)
         val tvUnread: TextView = itemView.findViewById(R.id.tvUnread)
+        val tvCount: TextView = itemView.findViewById(R.id.tvCount)
 
 
     }

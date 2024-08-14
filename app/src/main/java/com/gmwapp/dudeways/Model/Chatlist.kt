@@ -22,6 +22,7 @@ class Chatlist {
     var friend: String? = null
     var verified: String? = null
     var unread: String? = null
+    var points: String? = null
 
     constructor(
         id: String?,
@@ -40,6 +41,7 @@ class Chatlist {
         verified: String?,
         unread: String?,
         unique_name: String?,
+        points: String?,
     ) {
         this.id = id
         this.user_id = user_id
@@ -57,6 +59,7 @@ class Chatlist {
         this.verified = verified
         this.unread = unread
         this.unique_name = unique_name
+        this.points = points
 
     }
 

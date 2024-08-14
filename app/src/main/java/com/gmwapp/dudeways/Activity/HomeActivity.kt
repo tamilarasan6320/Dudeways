@@ -83,7 +83,7 @@ class HomeActivity : BaseActivity() , NavigationBarView.OnItemSelectedListener {
         setupBottomNavigation()
         loadProfilePicture()
 
-        getLocation()
+
 
         // Restore selected item from saved instance state if available
         if (savedInstanceState != null) {
@@ -322,7 +322,7 @@ class HomeActivity : BaseActivity() , NavigationBarView.OnItemSelectedListener {
                 try {
                     val jsonObject = JSONObject(response)
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
-                        userdetails(session.getData(Constant.USER_ID),"1")
+                       // userdetails(session.getData(Constant.USER_ID),"1")
                         // Location updated successfully
                     } else {
                         Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
@@ -368,6 +368,16 @@ class HomeActivity : BaseActivity() , NavigationBarView.OnItemSelectedListener {
                         session.setData(Constant.PROFILE_VERIFIED, jsonobj.getString(Constant.PROFILE_VERIFIED))
                         session.setData(Constant.CHAT_STATUS, jsonobj.getString(Constant.CHAT_STATUS))
                         session.setData(Constant.UNREAD_COUNT, jsonobj.getString(Constant.UNREAD_COUNT))
+
+                        val latitude = jsonobj.getString(Constant.LATITUDE)
+                        val longitude = jsonobj.getString(Constant.LONGITUDE)
+                        session.setData(Constant.LATITUDE, latitude)
+                        session.setData(Constant.LONGITUDE, longitude)
+
+                        if (latitude == "" && longitude == "") {
+                            getLocation()
+                        }
+
 
                         chatBadge()
 

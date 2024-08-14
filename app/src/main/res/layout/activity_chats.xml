@@ -23,7 +23,7 @@
                 android:backgroundTint="?attr/iconColor"
                 android:layout_centerVertical="true"
                 android:id="@+id/ivBack"
-                android:layout_width="@dimen/_24sdp"
+                android:layout_width="@dimen/_18sdp"
                 android:layout_height="@dimen/_18sdp"
                 android:background="@drawable/arrow_left"
                 />
@@ -124,11 +124,10 @@
 
 
             <ImageButton
-            android:backgroundTint="?attr/iconColor"
                 android:id="@+id/ivMore"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:background="@drawable/more_ic"
+                android:layout_width="12dp"
+                android:layout_height="30dp"
+                android:background="@drawable/menu_ic"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:onClick="onMoreOptionsClicked" />
@@ -194,7 +193,7 @@
 
 
         <RelativeLayout
-            android:padding="@dimen/_10sdp"
+            android:padding="@dimen/_5sdp"
             android:id="@+id/llMessage"
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
@@ -203,36 +202,30 @@
 
             <!-- EditText for typing new message -->
             <EditText
-                android:layout_toLeftOf="@+id/rlSend"
+                android:layout_toLeftOf="@+id/sendButton"
                 android:id="@+id/messageEdittext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
                 android:background="@drawable/edit_text_messages_background"
-                android:hint="Message"
-                android:textColorHint="@color/black"
+                android:hint="@string/type_a_message"
+                android:textColorHint="@color/grey"
                 android:textColor="@color/black"
                 android:inputType="textMultiLine"
                 android:maxLines="5"
-                android:padding="12dp"
+                android:padding="@dimen/_12sdp"
                 android:textCursorDrawable="@drawable/color_cursor"
                 android:scrollbars="vertical" />
 
-            <RelativeLayout
-                android:padding="@dimen/_5sdp"
-                android:id="@+id/rlSend"
-                android:layout_alignParentRight="true"
-                android:background="@drawable/edit_text_messages_background"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+
 
 
                 <ImageButton
+                    android:layout_alignParentRight="true"
                     android:id="@+id/sendButton"
                     android:layout_centerInParent="true"
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="@dimen/_24sdp"
-                    android:background="@drawable/sent_ic"
+                    android:layout_width="@dimen/_54sdp"
+                    android:layout_height="@dimen/_54sdp"
+                    android:background="@drawable/button_sent"
                     />
 
             </RelativeLayout>
@@ -249,4 +242,3 @@
 
 
 
-</RelativeLayout>

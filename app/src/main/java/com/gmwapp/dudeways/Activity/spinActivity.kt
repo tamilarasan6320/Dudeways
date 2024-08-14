@@ -27,7 +27,7 @@ class spinActivity : BaseActivity() {
     private lateinit var activity: Activity
     private lateinit var session: Session
 
-    private val sectors = arrayOf("1", "2", "3", "4", "5", "6")
+    private val sectors = arrayOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12")
     private val sectorDegrees = IntArray(sectors.size)
     private val random = Random()
 
@@ -58,7 +58,7 @@ class spinActivity : BaseActivity() {
 
     private fun spin() {
         // Set the degree to stop at sector 6
-        val degreeToStop = 0 // Index 5 corresponds to sector 6
+        val degreeToStop = 10 // Index 5 corresponds to sector 6
 
         // Calculate the final rotation degree based on the selected sector
         val rotateDegrees = 360 * 5 + sectorDegrees[degreeToStop]
@@ -120,7 +120,7 @@ class spinActivity : BaseActivity() {
 
         val params: MutableMap<String, String> = HashMap()
         params[Constant.USER_ID] = session.getData(Constant.USER_ID)
-        params["points"] = points
+        params["points"] ="10"
 
         ApiConfig.RequestToVolley({ result, response ->
             if (result) {

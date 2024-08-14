@@ -125,6 +125,8 @@ class SplashscreenActivity : BaseActivity() {
 
                             val latestVersion = jsonArray.getJSONObject(0).getString(Constant.APP_VERSION)
                             val link = jsonArray.getJSONObject(0).getString(Constant.LINK)
+                            session.setData(Constant.LOGIN,jsonArray.getJSONObject(0).getString(Constant.LOGIN))
+
                             //   Toast.makeText(activity,latestVersion + currentVersion!!.toInt() , Toast.LENGTH_SHORT).show()
                             val description = jsonArray.getJSONObject(0).getString("description")
                             if (currentVersion!!.toInt() >= latestVersion.toInt()) {
@@ -233,7 +235,6 @@ class SplashscreenActivity : BaseActivity() {
                                 session.setData(Constant.REFER_CODE, jsonobj.getString(Constant.REFER_CODE))
                                 session.setData(Constant.COVER_IMG, jsonobj.getString(Constant.COVER_IMG))
                                 session.setData(Constant.POINTS, jsonobj.getString(Constant.POINTS))
-                                session.setData(Constant.LOGIN, jsonobj.getString(Constant.LOGIN))
 
 
                                 if (GoogleSignIn.getLastSignedInAccount(this) != null) {

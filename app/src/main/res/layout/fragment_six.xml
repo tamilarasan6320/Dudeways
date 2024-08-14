@@ -12,8 +12,8 @@
 
 
 
-    
-    
+
+
     <LinearLayout
         android:layout_marginTop="@dimen/_20sdp"
         android:orientation="vertical"
@@ -24,139 +24,51 @@
 
 
         <LinearLayout
-            android:layout_marginHorizontal="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
-            android:gravity="center"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:weightSum="3.3"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/_10sdp">
 
 
-            <RelativeLayout
-                android:paddingVertical="@dimen/_5sdp"
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add destination photo of your trip"
+                android:textSize="@dimen/_12sdp"
+                android:fontFamily="@font/poppins_bold"
+                android:textColor="@color/black"
+                android:layout_gravity="start"
+                android:layout_marginVertical="@dimen/_10sdp"
+                />
+
+            <!-- Progress Text -->
+            <TextView
+                android:id="@+id/tvProgressText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5/5"
+                android:layout_gravity="start"
+                android:textSize="@dimen/_12sdp"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/text_grey_light"
+                android:layout_marginEnd="@dimen/_8sdp"/>
+
+            <!-- Horizontal ProgressBar -->
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
                 android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content">
-
-
-
-
-
-                <com.google.android.material.divider.MaterialDivider
-                    android:id="@+id/divider1"
-                    app:dividerThickness="@dimen/_1sdp"
-                    android:layout_centerVertical="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:dividerColor="@color/primary_light"
-                    />
-
-
-
-                <TextView
-                    android:id="@+id/tv1"
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="@dimen/_24sdp"
-                    android:text="1"
-                    android:textColor="@color/white"
-                    android:gravity="center"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:textSize="@dimen/_16sdp"
-                    android:background="@drawable/round_shape"
-                    />
-
-
-
-
-
-
-            </RelativeLayout>
-
-
-
-            <RelativeLayout
-                android:paddingVertical="@dimen/_5sdp"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content">
-
-
-                <com.google.android.material.divider.MaterialDivider
-                    app:dividerColor="@color/primary_light"
-                    app:dividerThickness="@dimen/_1sdp"
-                    android:layout_centerVertical="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:id="@+id/tv2"
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="@dimen/_24sdp"
-                    android:text="2"
-                    android:textColor="@color/white"
-                    android:gravity="center"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:textSize="@dimen/_16sdp"
-                    android:background="@drawable/round_shape"
-                    />
-
-            </RelativeLayout>
-            <RelativeLayout
-                android:paddingVertical="@dimen/_5sdp"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content">
-
-
-                <com.google.android.material.divider.MaterialDivider
-                    app:dividerColor="@color/primary_light"
-                    app:dividerThickness="@dimen/_1sdp"
-                    android:layout_centerVertical="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:id="@+id/tv3"
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="@dimen/_24sdp"
-                    android:text="3"
-                    android:textColor="@color/white"
-                    android:gravity="center"
-                    android:fontFamily="@font/poppins_medium"
-                    android:textSize="@dimen/_16sdp"
-                    android:background="@drawable/round_shape"
-                    />
-            </RelativeLayout>
-            <RelativeLayout
-                android:paddingVertical="@dimen/_5sdp"
-                android:layout_weight="0.3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/tv4"
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="@dimen/_24sdp"
-                    android:text="4"
-                    android:textColor="@color/white"
-                    android:gravity="center"
-                    android:fontFamily="@font/poppins_medium"
-                    android:textSize="@dimen/_16sdp"
-                    android:background="@drawable/round_shape"
-                    />
-            </RelativeLayout>
-
-
-
-
-
-
-
-
-
-
-
+                android:layout_height="@dimen/_4sdp"
+                android:max="5"
+                android:progress="5"
+                android:progressDrawable="@drawable/progress_gradient"
+                android:indeterminateOnly="false"
+                android:progressTintMode="src_in" />
 
         </LinearLayout>
 
@@ -217,6 +129,7 @@
 
 
         <CheckBox
+            android:visibility="gone"
             android:id="@+id/cbUseProfileImage"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_width="wrap_content"

@@ -95,11 +95,11 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
 
 
         if (friend_verified == "1") {
-            binding.tvAbout.visibility = View.INVISIBLE
+            binding.tvAbout.visibility = View.VISIBLE
             binding.ivVerified.visibility = View.VISIBLE
         } else {
             binding.tvAbout.visibility = View.VISIBLE
-            binding.ivVerified.visibility = View.INVISIBLE
+            binding.ivVerified.visibility = View.GONE
         }
 
         Glide.with(this)

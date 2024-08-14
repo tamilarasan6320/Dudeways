@@ -44,6 +44,15 @@ class SixFragment : Fragment() {
         activity = requireActivity()
         session = Session(activity)
 
+
+        if (session.getData(Constant.PROFILE) == "") {
+            binding.cbUseProfileImage.visibility = View.GONE
+
+        }
+        else{
+            binding.cbUseProfileImage.visibility = View.VISIBLE
+        }
+
         (activity as StarttripActivity).binding.tvTitle.visibility = View.INVISIBLE
         (activity as StarttripActivity).binding.btnNext.text = "Start Trip"
 

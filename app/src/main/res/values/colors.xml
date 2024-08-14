@@ -10,6 +10,7 @@
     <color name="insta">#F15353</color>
 
     <color name="text_grey">#4D4D4D</color>
+    <color name="text_grey_light">#A1A1A1</color>
     <color name="text_grey_dark">#C5C1C1</color>
 
 
@@ -21,6 +22,10 @@
     <color name="inactive">#F19DB6</color>
     <color name="active">#FF5084</color>
 
+
+    <color name="startColor">#FE8B4B</color> <!-- Start of gradient -->
+    <color name="endColor">#FF5084</color>   <!-- End of gradient -->
+    <color name="progress_background_color">#E0E0E0</color> <!-- Background color -->
 
     <color name="colorPrimary">#3F51B5</color>
 

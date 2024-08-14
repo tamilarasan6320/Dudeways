@@ -32,6 +32,8 @@ class oneFragment : Fragment() {
         activity = requireActivity()
         session = Session(activity)
 
+
+
         (activity as StarttripActivity).binding.tvTitle.visibility = View.VISIBLE
         (activity as StarttripActivity).binding.ivBack.visibility = View.VISIBLE
         (activity as StarttripActivity).binding.btnNext.visibility = View.VISIBLE

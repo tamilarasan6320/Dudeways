@@ -18,6 +18,17 @@
         android:layout_height="wrap_content">
 
 
+        <ImageView
+            android:visibility="invisible"
+            android:id="@+id/ivIcon"
+            android:layout_gravity="center_vertical"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:background="@drawable/male"
+            android:backgroundTint="@color/primary"
+            android:padding="@dimen/_6sdp"
+            />
+
 
 
 
@@ -27,6 +38,8 @@
         android:layout_height="wrap_content"
         android:paddingVertical="@dimen/_6sdp"
         >
+
+
 
         <TextView
                 android:layout_gravity="center"

@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CalendarView
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
@@ -106,6 +107,7 @@ class HomeFragment : Fragment() {
         val cat1 = HomeCategory("1", "Nearby", "")
         val cat2 = HomeCategory("1", "Latest", "")
         val cat3 = HomeCategory("1", "Trip Date", "")
+
 
         homeCategory.add(cat1)
         homeCategory.add(cat2)
@@ -231,6 +233,13 @@ class HomeFragment : Fragment() {
                         loadProfileList(currentType)
                     }
                     2 -> showDatePickerDialog(holder.tvName)
+
+                    4 -> {
+
+                    }
+                    5 -> {
+
+                    }
                 }
             }
         }
@@ -242,6 +251,7 @@ class HomeFragment : Fragment() {
         inner class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             val tvName: TextView = itemView.findViewById(R.id.tvName)
             val cardView: CardView = itemView.findViewById(R.id.cardView)
+            val ivIcon: ImageView = itemView.findViewById(R.id.ivIcon)
         }
 
         private fun showDatePickerDialog(tvName: TextView) {
