@@ -34,30 +34,30 @@ class CustomerSupportActivity : BaseActivity() {
             onBackPressed()
         }
 
-        binding.rlInstagramLinkShare.setOnClickListener {
-            val link = session.getData(Constant.INSTAGRAM_LINK)
-
-            val shareBody = "" + link
-            val sharingIntent = android.content.Intent(android.content.Intent.ACTION_SEND)
-            sharingIntent.type = "text/plain"
-            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Dudeways")
-            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody)
-            startActivity(android.content.Intent.createChooser(sharingIntent, "Share using"))
-
-        }
-
-
-        binding.rlTelegramLinkShare.setOnClickListener {
-            val link = session.getData(Constant.TELEGRAM_LINK)
-
-            val shareBody = "" + link
-            val sharingIntent = android.content.Intent(android.content.Intent.ACTION_SEND)
-            sharingIntent.type = "text/plain"
-            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Dudeways")
-            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody)
-            startActivity(android.content.Intent.createChooser(sharingIntent, "Share using"))
-
-        }
+//        binding.rlInstagramLinkShare.setOnClickListener {
+//            val link = session.getData(Constant.INSTAGRAM_LINK)
+//
+//            val shareBody = "" + link
+//            val sharingIntent = android.content.Intent(android.content.Intent.ACTION_SEND)
+//            sharingIntent.type = "text/plain"
+//            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Dudeways")
+//            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody)
+//            startActivity(android.content.Intent.createChooser(sharingIntent, "Share using"))
+//
+//        }
+//
+//
+//        binding.rlTelegramLinkShare.setOnClickListener {
+//            val link = session.getData(Constant.TELEGRAM_LINK)
+//
+//            val shareBody = "" + link
+//            val sharingIntent = android.content.Intent(android.content.Intent.ACTION_SEND)
+//            sharingIntent.type = "text/plain"
+//            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Dudeways")
+//            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody)
+//            startActivity(android.content.Intent.createChooser(sharingIntent, "Share using"))
+//
+//        }
 
         binding.rlInstagramLinkJoin.setOnClickListener {
             val link = session.getData(Constant.INSTAGRAM_LINK)

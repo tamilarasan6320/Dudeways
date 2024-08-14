@@ -10,6 +10,7 @@
 
     <RelativeLayout
         android:id="@+id/rlToolbar"
+        android:background="@color/titleBG"
         android:padding="@dimen/_20sdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -18,8 +19,8 @@
             android:backgroundTint="?attr/iconColor"
             android:layout_centerVertical="true"
             android:id="@+id/ivBack"
-          android:layout_width="@dimen/_18sdp"
-                android:layout_height="@dimen/_18sdp"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_18sdp"
             android:background="@drawable/arrow_left"
             />
 
@@ -45,10 +46,144 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:padding="@dimen/_10sdp"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/feedback_image"
+                android:adjustViewBounds="true"
+                android:layout_marginVertical="@dimen/_10sdp"
+                android:layout_marginHorizontal="@dimen/_40sdp"/>
+
+            <TextView
+                android:layout_marginTop="@dimen/_40sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:textAlignment="center"
+                android:text="Please choose an emoji to express how you feel when using Dudewasy"
+                android:textColor="?attr/myTextColor"
+                android:textSize="@dimen/_8sdp"
+                android:fontFamily="@font/poppins_regular"
+                />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardUseCompatPadding="true"
+                android:elevation="10dp"
+                app:cardElevation="@dimen/_10sdp"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                app:cardCornerRadius="@dimen/_15sdp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardEmoji1"
+                        android:layout_width="0dp"
+                        android:elevation="0dp"
+                        app:cardElevation="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:cardUseCompatPadding="true"
+                        app:cardCornerRadius="@dimen/_8sdp">
+
+                        <ImageView
+                            android:layout_marginVertical="@dimen/_5sdp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/feedback_emoji1"
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="@dimen/_30sdp"/>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardEmoji2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:cardUseCompatPadding="true"
+                        android:elevation="0dp"
+                        app:cardElevation="0dp"
+                        app:cardCornerRadius="@dimen/_8sdp">
+
+                        <ImageView
+                            android:layout_marginVertical="@dimen/_5sdp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/feedback_emoji2"
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="@dimen/_30sdp"/>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardEmoji3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:cardUseCompatPadding="true"
+                        android:elevation="0dp"
+                        app:cardElevation="0dp"
+                        app:cardCornerRadius="@dimen/_8sdp">
+
+                        <ImageView
+                            android:layout_marginVertical="@dimen/_5sdp"
+                            android:src="@drawable/feedback_emoji3"
+                            android:layout_gravity="center"
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="@dimen/_30sdp"/>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardEmoji4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:cardUseCompatPadding="true"
+                        android:elevation="0dp"
+                        app:cardElevation="0dp"
+                        app:cardCornerRadius="@dimen/_8sdp">
+
+                        <ImageView
+                            android:layout_marginVertical="@dimen/_5sdp"
+                            android:src="@drawable/feedback_emoji4"
+                            android:layout_gravity="center"
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="@dimen/_30sdp"/>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardEmoji5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:cardUseCompatPadding="true"
+                        android:elevation="0dp"
+                        app:cardElevation="0dp"
+                        app:cardCornerRadius="@dimen/_8sdp">
+
+                        <ImageView
+                            android:layout_marginVertical="@dimen/_5sdp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/feedback_emoji5"
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="@dimen/_30sdp"/>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+
+
+
+            </com.google.android.material.card.MaterialCardView>
 
 
             <!--            <androidx.recyclerview.widget.RecyclerView-->
@@ -68,22 +203,55 @@
             <!--                android:fontFamily="@font/poppins_regular"-->
             <!--                />-->
 
-
-            <EditText
-                android:layout_marginTop="@dimen/_10sdp"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minLines="6"
-                android:gravity="start"
-                android:background="@drawable/rounded_edittext"
-                android:hint="Enter your feedback here"
-                android:inputType="textMultiLine"
-                android:padding="@dimen/_10sdp"
-                android:textSize="@dimen/_14sdp"
+                android:layout_marginHorizontal="@dimen/_13sdp"
+                android:layout_marginTop="@dimen/_13sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:hint="Your Feedback"
+                app:hintTextColor="@color/primary"
+
+                style="@style/CustomTextInputLayout"
+                android:theme="@style/CustomTextInputEditText">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etFeedback"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:minLines="5"
+                    android:gravity="start"
+                    android:inputType="textMultiLine"
+                    android:textSize="@dimen/_12sdp"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_25sdp"
+                android:text="Ex: Good matches but needs more filter option"
+                android:textColor="@color/primary"
+                android:textSize="@dimen/_8sdp"
                 android:fontFamily="@font/poppins_regular"
-                android:layout_marginBottom="@dimen/_10sdp"
-                android:id="@+id/etFeedback"
                 />
+
+
+            <!--            <EditText-->
+            <!--                android:layout_marginTop="@dimen/_10sdp"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:minLines="6"-->
+            <!--                android:gravity="start"-->
+            <!--                android:background="@drawable/rounded_edittext"-->
+            <!--                android:hint="Enter your feedback here"-->
+            <!--                android:inputType="textMultiLine"-->
+            <!--                android:padding="@dimen/_10sdp"-->
+            <!--                android:textSize="@dimen/_14sdp"-->
+            <!--                android:fontFamily="@font/poppins_regular"-->
+            <!--                android:layout_marginBottom="@dimen/_10sdp"-->
+            <!--                android:id="@+id/etFeedback"-->
+            <!--                />-->
 
 
             <!--            <com.google.android.material.button.MaterialButton-->
@@ -101,11 +269,11 @@
             <!--                />-->
 
             <com.google.android.material.button.MaterialButton
-                android:layout_marginHorizontal="@dimen/_14sdp"
+                android:layout_marginHorizontal="@dimen/_50sdp"
+                android:layout_marginVertical="@dimen/_30sdp"
                 android:id="@+id/btnfeedback"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_24sdp"
                 android:fontFamily="@font/poppins_medium"
                 app:backgroundTint="@null"
                 android:background="@drawable/gradient_button"

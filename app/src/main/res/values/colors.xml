@@ -8,6 +8,7 @@
     <color name="red">#D60000</color>
     <color name="green">#34B233</color>
     <color name="insta">#F15353</color>
+    <color name="titleBG">#F7F8FA</color>
 
     <color name="text_grey">#4D4D4D</color>
     <color name="text_grey_light">#A1A1A1</color>
@@ -21,6 +22,8 @@
 
     <color name="inactive">#F19DB6</color>
     <color name="active">#FF5084</color>
+    <color name="borderColor">#E8E6EA</color>
+    <color name="feedback_select">#FFFFE5ED</color>
 
 
     <color name="startColor">#FE8B4B</color> <!-- Start of gradient -->

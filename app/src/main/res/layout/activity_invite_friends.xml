@@ -12,14 +12,15 @@
         android:id="@+id/rlToolbar"
         android:padding="@dimen/_20sdp"
         android:layout_width="match_parent"
+        android:background="@color/titleBG"
         android:layout_height="wrap_content">
 
         <ImageButton
             android:backgroundTint="?attr/iconColor"
             android:layout_centerVertical="true"
             android:id="@+id/ivBack"
-          android:layout_width="@dimen/_18sdp"
-                android:layout_height="@dimen/_18sdp"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_18sdp"
             android:background="@drawable/arrow_left"
             />
 
@@ -52,9 +53,233 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_140sdp"
-                android:src="@drawable/invite_friend_banner" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/invite_friend_banner"
+                android:adjustViewBounds="true"
+                android:layout_marginVertical="@dimen/_10sdp"
+                android:layout_marginHorizontal="@dimen/_40sdp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Refer a Friend Earn 10% Points"
+                android:textColor="@color/primary"
+                android:textSize="@dimen/_14sdp"
+                android:fontFamily="@font/poppins_bold"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="How its work"
+                android:textColor="?attr/myTextColor"
+                android:textSize="@dimen/_10sdp"
+                android:fontFamily="@font/poppins_regular"
+                />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal">
+
+                    <RelativeLayout
+                        android:orientation="vertical"
+                        android:elevation="@dimen/_5sdp"
+                        android:layout_marginHorizontal="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginBottom="@dimen/_3sdp"
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:background="@drawable/rounded_background">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="1"
+                            android:textColor="@color/primary"
+                            android:textSize="@dimen/_18sdp"
+                            android:fontFamily="@font/poppins_bold"
+                            />
+                    </RelativeLayout>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/_15sdp"
+                        android:layout_centerVertical="true"
+                        android:adjustViewBounds="true"
+                        android:background="@null"
+                        android:backgroundTint="?attr/iconColor"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/arrow_down" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginVertical="@dimen/_5sdp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Invite Your Friend"
+                        android:textColor="@color/primary"
+                        android:textSize="@dimen/_12sdp"
+                        android:fontFamily="@font/poppins_bold"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Just share your refer code"
+                        android:textColor="?attr/myTextColor"
+                        android:textSize="@dimen/_10sdp"
+                        android:fontFamily="@font/poppins_regular"
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal">
+
+                    <RelativeLayout
+                        android:orientation="vertical"
+                        android:elevation="@dimen/_5sdp"
+                        android:layout_marginHorizontal="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginBottom="@dimen/_3sdp"
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:background="@drawable/rounded_background">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="2"
+                            android:textColor="@color/primary"
+                            android:textSize="@dimen/_18sdp"
+                            android:fontFamily="@font/poppins_bold"
+                            />
+                    </RelativeLayout>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/_15sdp"
+                        android:layout_centerVertical="true"
+                        android:adjustViewBounds="true"
+                        android:background="@null"
+                        android:backgroundTint="?attr/iconColor"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/arrow_down" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginVertical="@dimen/_5sdp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Make Purchase"
+                        android:textColor="@color/primary"
+                        android:textSize="@dimen/_12sdp"
+                        android:fontFamily="@font/poppins_bold"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Your friend must purchase points"
+                        android:textColor="?attr/myTextColor"
+                        android:textSize="@dimen/_10sdp"
+                        android:fontFamily="@font/poppins_regular"
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <RelativeLayout
+                    android:orientation="vertical"
+                    android:elevation="@dimen/_5sdp"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:layout_marginVertical="@dimen/_10sdp"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:background="@drawable/rounded_background">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="3"
+                        android:textColor="@color/primary"
+                        android:textSize="@dimen/_18sdp"
+                        android:fontFamily="@font/poppins_bold"
+                        />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginVertical="@dimen/_5sdp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Earn 10% Points"
+                        android:textColor="@color/primary"
+                        android:textSize="@dimen/_12sdp"
+                        android:fontFamily="@font/poppins_bold"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Every purchase your friend make you"
+                        android:textColor="?attr/myTextColor"
+                        android:textSize="@dimen/_10sdp"
+                        android:fontFamily="@font/poppins_regular"
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
 
 
             <LinearLayout
@@ -73,15 +298,15 @@
                     android:fontFamily="@font/poppins_medium"
                     android:paddingVertical="@dimen/_8sdp"
                     app:backgroundTint="@null"
-                    android:backgroundTint="@color/primary_extra_light"
+                    android:backgroundTint="@color/white"
                     android:text=""
-                    app:strokeColor="@color/primary"
-                    app:strokeWidth="2dp"
+                    app:strokeColor="@color/borderColor"
+                    app:strokeWidth="1dp"
                     android:textAllCaps="false"
                     android:textSize="@dimen/_12sdp"
                     android:textColor="@color/black"
                     app:icon="@drawable/copy_ic"
-                    app:iconTint="@color/black"
+                    app:iconTint="@color/primary"
                     app:iconSize="@dimen/_12sdp"
                     app:iconGravity="textStart"
                     app:iconPadding="@dimen/_4sdp"
@@ -101,9 +326,14 @@
                     android:fontFamily="@font/poppins_medium"
                     app:backgroundTint="@null"
                     android:background="@drawable/gradient_button"
-                    android:text="Refer Friends"
+                    android:text="Get Link"
                     android:textAllCaps="false"
-                    android:textSize="@dimen/_12sdp" />
+                    android:textSize="@dimen/_12sdp"
+                    app:icon="@drawable/get_link"
+                    app:iconTint="@color/white"
+                    app:iconSize="@dimen/_12sdp"
+                    app:iconGravity="textStart"
+                    app:iconPadding="@dimen/_4sdp" />
 
             </LinearLayout>
 

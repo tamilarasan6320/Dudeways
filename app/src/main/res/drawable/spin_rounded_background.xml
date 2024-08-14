@@ -1,0 +1,13 @@
+<!-- res/drawable/rounded_background.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="#F672A2"
+                android:endColor="#FF5084"
+                android:angle="270" />
+
+            <corners android:radius="@dimen/_25sdp"/>
+        </shape>
+    </item>
+</layer-list>
