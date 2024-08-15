@@ -2,6 +2,8 @@ package com.gmwapp.dudeways.Activity
 
 import android.app.Activity
 import android.os.Bundle
+import android.widget.CheckBox
+import android.widget.LinearLayout
 import android.widget.Toast
 import com.gmwapp.dudeways.R
 import com.gmwapp.dudeways.databinding.ActivityNotificationBinding
@@ -30,27 +32,71 @@ class NotificationActivity : BaseActivity() {
             onBackPressed()
         }
 
+        val checkBox1 = binding.cb1
+        val layout1 = findViewById<LinearLayout>(R.id.bdLayout1)
+
+        val checkBox2 = binding.cb2
+        val layout2 = findViewById<LinearLayout>(R.id.bdLayout2)
+
+        val checkBox3 = binding.cb3
+        val layout3 = findViewById<LinearLayout>(R.id.bdLayout3)
+
+        val checkBox4 = binding.cb4
+        val layout4 = findViewById<LinearLayout>(R.id.bdLayout4)
+
+        val checkBox5 = binding.cb5
+        val layout5 = findViewById<LinearLayout>(R.id.bdLayout5)
 
         if (session.getData(Constant.MESSAGE_NOTIFY).equals("1", ignoreCase = true)) {
-            binding.cb1.isChecked = true
+            checkBox1.isChecked = true
+            layout1.setBackgroundResource(R.drawable.notification_select_border)
+        } else {
+            layout1.setBackgroundResource(R.drawable.notification_unselect_border)
         }
+
         if (session.getData(Constant.ADD_FRIEND_NOTIFY).equals("1", ignoreCase = true)) {
-            binding.cb2.isChecked = true
+            checkBox3.isChecked = true
+            layout3.setBackgroundResource(R.drawable.notification_select_border)
+        } else {
+            layout3.setBackgroundResource(R.drawable.notification_unselect_border)
         }
+
         if (session.getData(Constant.VIEW_NOTIFY).equals("1", ignoreCase = true)) {
-            binding.cb3.isChecked = true
+            checkBox4.isChecked = true
+            layout4.setBackgroundResource(R.drawable.notification_select_border)
+        } else {
+            layout4.setBackgroundResource(R.drawable.notification_unselect_border)
         }
 
+        // Setting the change listeners
+        checkBox1.setOnCheckedChangeListener { _, isChecked ->
+            layout1.setBackgroundResource(if (isChecked) R.drawable.notification_select_border else R.drawable.notification_unselect_border)
+        }
 
+        checkBox2.setOnCheckedChangeListener { _, isChecked ->
+            layout2.setBackgroundResource(if (isChecked) R.drawable.notification_select_border else R.drawable.notification_unselect_border)
+        }
 
+        checkBox3.setOnCheckedChangeListener { _, isChecked ->
+            layout3.setBackgroundResource(if (isChecked) R.drawable.notification_select_border else R.drawable.notification_unselect_border)
+        }
+
+        checkBox4.setOnCheckedChangeListener { _, isChecked ->
+            layout4.setBackgroundResource(if (isChecked) R.drawable.notification_select_border else R.drawable.notification_unselect_border)
+        }
+
+        checkBox5.setOnCheckedChangeListener { _, isChecked ->
+            layout5.setBackgroundResource(if (isChecked) R.drawable.notification_select_border else R.drawable.notification_unselect_border)
+        }
 
         binding.btnUpdate.setOnClickListener {
-            val messageNotify = if (binding.cb1.isChecked) "1" else "0"
-            val addFriendNotify = if (binding.cb2.isChecked) "1" else "0"
-            val viewNotify = if (binding.cb3.isChecked) "1" else "0"
+            val messageNotify = if (checkBox1.isChecked) "1" else "0"
+            val addFriendNotify = if (checkBox3.isChecked) "1" else "0"
+            val viewNotify = if (checkBox4.isChecked) "1" else "0"
             updateNotification(messageNotify, addFriendNotify, viewNotify)
         }
     }
+
 
     private fun updateNotification(messageNotify: String, addFriendNotify: String, viewNotify: String) {
         val params: MutableMap<String, String> = HashMap()

@@ -8,29 +8,31 @@
     tools:context=".Activity.MytripsActivity">
 
     <RelativeLayout
-        android:padding="@dimen/_10sdp"
         android:id="@+id/rlToolbar"
+        android:padding="@dimen/_20sdp"
+        android:background="?attr/titleBG"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-                android:backgroundTint="?attr/iconColor"
+        <ImageButton
+            android:backgroundTint="?attr/iconColor"
+            android:layout_centerVertical="true"
             android:id="@+id/ivBack"
-          android:layout_width="@dimen/_18sdp"
-                android:layout_height="@dimen/_18sdp"
+            android:layout_width="@dimen/_18sdp"
+            android:layout_height="@dimen/_18sdp"
             android:background="@drawable/arrow_left"
-            android:padding="@dimen/_5sdp"/>
-
+            />
 
         <TextView
-            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/_14sdp"
             android:layout_toRightOf="@+id/ivBack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="My trips"
+            android:text="My trip"
             android:textSize="@dimen/_14sdp"
             android:textColor="?attr/myTextColor"
-            android:fontFamily="@font/poppins_regular"
+            android:fontFamily="@font/poppins_medium"
             />
 
 
@@ -48,7 +50,6 @@
         >
 
     <androidx.recyclerview.widget.RecyclerView
-        android:padding="@dimen/_10sdp"
         android:id="@+id/rvMytriplist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
