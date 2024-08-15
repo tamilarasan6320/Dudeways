@@ -35,7 +35,7 @@
                 android:text="What type of trip are you planning"
                 android:textSize="@dimen/_12sdp"
                 android:fontFamily="@font/poppins_bold"
-                android:textColor="@color/black"
+                android:textColor="?attr/myTextColor"
                 android:layout_gravity="start"
                 android:layout_marginVertical="@dimen/_10sdp"
                 />
