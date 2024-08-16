@@ -12,6 +12,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="@dimen/_10sdp"
         >
 
         <LinearLayout
@@ -115,34 +116,16 @@
         <!--        <com.google.android.material.divider.MaterialDivider-->
         <!--            android:layout_width="match_parent"-->
         <!--            android:layout_height="wrap_content"/>-->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/rlTelegramLinkJoin"
+
+        <ImageView
+            android:id="@+id/ivProfileImage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardUseCompatPadding="true"
-            app:cardBackgroundColor="#EBF2FF"
-            app:cardCornerRadius="@dimen/_15sdp">
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/ivProfileImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_160sdp"
-                    android:scaleType="fitXY"
-                    />
-
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+            android:scaleType="fitXY"
+            android:paddingBottom="@dimen/_10sdp"
+            />
 
         <LinearLayout
-            android:layout_marginTop="@dimen/_8sdp"
-            android:padding="@dimen/_5sdp"
-            android:paddingVertical="@dimen/_2sdp"
             android:gravity="start"
             android:layout_gravity="center"
             android:orientation="horizontal"
@@ -156,16 +139,19 @@
                 android:text="Munnar Kerala"
                 android:textColor="?attr/textgrey"
                 android:textSize="@dimen/_10sdp"
-                android:layout_marginLeft="@dimen/_5sdp"
                 android:fontFamily="@font/poppins_medium"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_weight="1"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:singleLine="false"
                 />
+
 
             <RelativeLayout
                 android:id="@+id/rlStatus"
                 android:background="@drawable/rounded_km_bg"
-                android:padding="@dimen/_5sdp"
+                android:padding="@dimen/_3sdp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
@@ -198,8 +184,6 @@
 
 
         <RelativeLayout
-            android:paddingHorizontal="@dimen/_4sdp"
-            android:paddingVertical="@dimen/_2sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -235,7 +219,6 @@
 
 
         <LinearLayout
-            android:paddingHorizontal="@dimen/_4sdp"
             android:paddingVertical="@dimen/_2sdp"
             android:orientation="horizontal"
             android:layout_width="wrap_content"
@@ -254,14 +237,15 @@
             <TextView
                 android:layout_marginLeft="@dimen/_4sdp"
                 android:id="@+id/tvDate"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textColor="?attr/textgrey"
                 android:textSize="@dimen/_10sdp"
-                android:gravity="center"
+                android:gravity="start"
                 android:layout_gravity="center"
                 android:fontFamily="@font/poppins_regular"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
                 />
 
             <TextView
@@ -320,22 +304,17 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_5sdp">
+            android:layout_height="wrap_content">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/tvStatus"
                 android:layout_width="0dp"
-                android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:fontFamily="@font/poppins_medium"
-                android:backgroundTint="@color/green"
-                android:text="Approved"
+                android:text=""
                 android:textAllCaps="false"
                 android:textSize="@dimen/_12sdp"
-                app:icon="@drawable/verified_icon"
                 app:iconSize="@dimen/_12sdp"
                 app:iconGravity="textStart"
                 app:iconPadding="@dimen/_4sdp"
@@ -344,25 +323,29 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/llDelete"
                 android:layout_width="0dp"
-                android:layout_marginHorizontal="@dimen/_5sdp"
-                android:layout_marginVertical="@dimen/_4sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/poppins_medium"
+                android:paddingVertical="@dimen/_8sdp"
                 app:backgroundTint="@null"
-                android:background="@drawable/gradient_button"
-                android:text="Get Link"
+                android:backgroundTint="@color/white"
+                android:text="Remove"
+                app:strokeColor="@color/borderColor"
+                app:strokeWidth="1dp"
                 android:textAllCaps="false"
                 android:textSize="@dimen/_12sdp"
-                app:icon="@drawable/get_link"
-                app:iconTint="@color/white"
+                android:textColor="@color/black"
+                app:icon="@drawable/delete_ic"
+                app:iconTint="@color/primary"
                 app:iconSize="@dimen/_12sdp"
                 app:iconGravity="textStart"
-                app:iconPadding="@dimen/_4sdp" />
+                app:iconPadding="@dimen/_4sdp"
+                app:cornerRadius="8dp"
+                />
+
 
         </LinearLayout>
-
-
     </LinearLayout>
 
 

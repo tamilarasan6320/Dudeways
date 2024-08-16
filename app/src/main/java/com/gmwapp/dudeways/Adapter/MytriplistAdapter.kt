@@ -2,6 +2,7 @@ package com.gmwapp.dudeways.Adapter
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ import com.gmwapp.dudeways.R
 import com.gmwapp.dudeways.helper.Constant
 import com.bumptech.glide.Glide
 import com.gmwapp.dudeways.helper.ApiConfig
+import com.google.android.material.button.MaterialButton
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -66,21 +68,23 @@ class MytriplistAdapter(
         }
 
 
-//        if (report.trip_status.equals("0")) {
-//            holder.tvStatus.text = "In Review"
-//            holder.rlStatus.setBackgroundColor(activity.resources.getColor(R.color.blue))
-//
-//        }
-//        if (report.trip_status.equals("1")) {
-//            holder.tvStatus.text = "Approved"
-//            holder.rlStatus.setBackgroundColor(activity.resources.getColor(R.color.green))
-//
-//        }
-//        if (report.trip_status.equals("2")) {
-//            holder.tvStatus.text = "Rejected"
-//            holder.rlStatus.setBackgroundColor(activity.resources.getColor(R.color.red))
-//
-//        }
+        if (report.trip_status.equals("0")) {
+            holder.tvStatus.text = "In Review"
+            holder.tvStatus.setBackgroundColor(activity.resources.getColor(R.color.yellow))
+            holder.tvStatus.setIconResource(R.drawable.panding_clock)
+        }
+        if (report.trip_status.equals("1")) {
+            holder.tvStatus.text = "Approved"
+            holder.tvStatus.setBackgroundColor(activity.resources.getColor(R.color.green))
+            holder.tvStatus.setIconResource(R.drawable.verified_icon)
+            holder.tvStatus.iconTint = ColorStateList.valueOf(activity.resources.getColor(R.color.white))
+        }
+        if (report.trip_status.equals("2")) {
+            holder.tvStatus.text = "Rejected"
+            holder.tvStatus.setBackgroundColor(activity.resources.getColor(R.color.red))
+            holder.tvStatus.setIconResource(R.drawable.rejected_icon)
+            holder.tvStatus.iconTint = ColorStateList.valueOf(activity.resources.getColor(R.color.white))
+        }
 
 
         holder.tvmore.setOnClickListener {
@@ -95,16 +99,16 @@ class MytriplistAdapter(
 
 
 
-//        holder.llDelete.setOnClickListener {
-//            AlertDialog.Builder(activity)
-//                .setTitle("Delete Trip")
-//                .setMessage("Are you sure you want to delete this trip?")
-//                .setPositiveButton("Yes") { dialog, which ->
-//                    deleteTrip(report.id)
-//                }
-//                .setNegativeButton("No", null)
-//                .show()
-//        }
+        holder.llDelete.setOnClickListener {
+            AlertDialog.Builder(activity)
+                .setTitle("Delete Trip")
+                .setMessage("Are you sure you want to delete this trip?")
+                .setPositiveButton("Yes") { dialog, which ->
+                    deleteTrip(report.id)
+                }
+                .setNegativeButton("No", null)
+                .show()
+        }
 
 
 
@@ -172,8 +176,8 @@ class MytriplistAdapter(
         val tvmore: TextView = itemView.findViewById(R.id.tvmore)
         val ivProfile:ImageView = itemView.findViewById(R.id.ivProfile)
 //        val rlStatus:RelativeLayout = itemView.findViewById(R.id.rlStatus)
-//        val tvStatus:TextView = itemView.findViewById(R.id.tvStatus)
-//        val llDelete:LinearLayout = itemView.findViewById(R.id.llDelete)
+        val tvStatus:MaterialButton = itemView.findViewById(R.id.tvStatus)
+        val llDelete: MaterialButton = itemView.findViewById(R.id.llDelete)
 
 
 
