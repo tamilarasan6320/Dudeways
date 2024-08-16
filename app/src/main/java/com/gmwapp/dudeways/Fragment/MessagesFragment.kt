@@ -134,6 +134,8 @@ class MessagesFragment : Fragment() {
 
         // Refresh the chat list
         chatlist()
+        verification_list()
+
 
         // Display a toast message for debugging purposes
      //   Toast.makeText(activity, "onResume", Toast.LENGTH_SHORT).show()
@@ -149,11 +151,62 @@ class MessagesFragment : Fragment() {
 
             // Refresh the chat list
             chatlist()
+            verification_list()
 
             // Display a toast message for debugging purposes
          //   Toast.makeText(activity, "Fragment is visible", Toast.LENGTH_SHORT).show()
         }
     }
+
+
+    private fun verification_list() {
+        val params: MutableMap<String, String> = HashMap()
+        params[Constant.USER_ID] = session.getData(Constant.USER_ID)
+        ApiConfig.RequestToVolley({ result, response ->
+            if (result) {
+                try {
+                    val jsonObject: JSONObject = JSONObject(response)
+                    if (jsonObject.getBoolean("success")) {
+
+                        val dataArray = jsonObject.getJSONArray("data")
+                        if (dataArray.length() > 0) {
+                            val dataObject = dataArray.getJSONObject(0)
+                            val selfieImageUrl = dataObject.getString("selfie_image")
+                            val front_image = dataObject.getString("front_image")
+                            val back_image = dataObject.getString("back_image")
+                            val status = dataObject.getString("status")
+                            val payment_status = dataObject.getString("payment_status")
+
+                            session.setData(Constant.SELFIE_IMAGE, selfieImageUrl)
+                            session.setData(Constant.FRONT_IMAGE, front_image)
+                            session.setData(Constant.BACK_IMAGE, back_image)
+                            session.setData(Constant.STATUS, status)
+                            session.setData(Constant.PAYMENT_STATUS, payment_status)
+
+
+                        } else {
+
+                            session.setData(Constant.SELFIE_IMAGE, "")
+                            session.setData(Constant.FRONT_IMAGE, "")
+                            session.setData(Constant.BACK_IMAGE, "")
+                            session.setData(Constant.STATUS, "")
+                            session.setData(Constant.PAYMENT_STATUS, "")
+                            //   Toast.makeText(activity, "No data available", Toast.LENGTH_SHORT).show()
+                        }
+                    } else {
+                        session.setData(Constant.SELFIE_IMAGE, "")
+                        session.setData(Constant.FRONT_IMAGE, "")
+                        session.setData(Constant.BACK_IMAGE, "")
+                        session.setData(Constant.STATUS, "")
+                        session.setData(Constant.PAYMENT_STATUS, "")
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }
+        }, activity, Constant.VERIFICATION_LIST, params, false, 1)
+    }
+
 
 
 }

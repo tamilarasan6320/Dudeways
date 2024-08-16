@@ -28,7 +28,7 @@ class VerifiedActivity : BaseActivity() {
         activity = this
         session = Session(activity)
 
-        binding.btnVerify.setOnClickListener {
+        binding.btnBack.setOnClickListener {
             onBackPressed()
         }
 
@@ -36,7 +36,6 @@ class VerifiedActivity : BaseActivity() {
             onBackPressed()
         }
 
-        Glide.with(activity).load(session.getData(Constant.PROFILE)).placeholder(R.drawable.profile_placeholder).into(binding.civProfile)
 
 
 

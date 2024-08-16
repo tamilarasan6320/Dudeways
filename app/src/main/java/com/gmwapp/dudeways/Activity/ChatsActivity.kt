@@ -3,6 +3,7 @@ package com.gmwapp.dudeways.Activity
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
 import android.media.AudioAttributes
@@ -12,7 +13,10 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.text.format.DateUtils
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.PopupMenu
@@ -74,6 +78,10 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
 
     private lateinit var typingStatusReference: DatabaseReference
 
+
+    var gender = ""
+    var  verified = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -92,6 +100,9 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
         chatReference =
             databaseReference.child("CHATS_V2").child(senderName!!).child(receiverName!!)
         typingStatusReference = firebaseDatabase.getReference("typing_status/$senderId")
+
+        gender = session.getData(Constant.GENDER)
+        verified = session.getData(Constant.VERIFIED)
 
 
         if (friend_verified == "1") {
@@ -132,101 +143,117 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
 
         binding.sendButton.setOnClickListener {
             //disable binding.sendButton.isClickable = false
-            binding.sendButton.isClickable = false
-            val params: MutableMap<String, String> = HashMap()
-            params[Constant.USER_ID] = session.getData(Constant.USER_ID)
-            params[Constant.CHAT_USER_ID] = receiverId
-            params[Constant.UNREAD] = "1"
-            params[Constant.MESSAGE] = binding.messageEdittext.text.toString()
-            ApiConfig.RequestToVolley({ result, response ->
-                if (result) {
-                    try {
-                        val jsonObject = JSONObject(response)
-                        if (jsonObject.getBoolean(Constant.SUCCESS)) {
-                            chat_status = jsonObject.getString("chat_status")
-                            session.setData(Constant.CHAT_STATUS, chat_status)
 
-                            val message = binding.messageEdittext.text.toString()
-                            if (message.isNotEmpty()) {
-                                isBlocked(senderId, receiverId) { isBlocked ->
-                                    if (isBlocked) {
-                                        binding.sendButton.isClickable = true
+            if (gender == "male" && verified == "0") {
+                showCustomDialog(this)
+            }
+            else {
+                binding.sendButton.isClickable = false
+                val params: MutableMap<String, String> = HashMap()
+                params[Constant.USER_ID] = session.getData(Constant.USER_ID)
+                params[Constant.CHAT_USER_ID] = receiverId
+                params[Constant.UNREAD] = "1"
+                params[Constant.MESSAGE] = binding.messageEdittext.text.toString()
+                ApiConfig.RequestToVolley({ result, response ->
+                    if (result) {
+                        try {
+                            val jsonObject = JSONObject(response)
+                            if (jsonObject.getBoolean(Constant.SUCCESS)) {
+                                chat_status = jsonObject.getString("chat_status")
+                                session.setData(Constant.CHAT_STATUS, chat_status)
 
-                                        makeToast("You cannot send messages to this user blocked.")
-                                    } else {
-                                        binding.sendButton.isClickable = true
+                                val message = binding.messageEdittext.text.toString()
+                                if (message.isNotEmpty()) {
+                                    isBlocked(senderId, receiverId) { isBlocked ->
+                                        if (isBlocked) {
+                                            binding.sendButton.isClickable = true
 
-                                        senderName?.let { sName ->
-                                            receiverName?.let { rName ->
-                                                updateMessagesForSender(
-                                                    databaseReference = databaseReference,
-                                                    senderID = senderId,
-                                                    receiverID = receiverId,
-                                                    senderName = senderName!!,
-                                                    receiverName = receiverName!!,
-                                                    message = message,
-                                                    soundPool = soundPool,
-                                                    sentTone = sentTone
+                                            makeToast("You cannot send messages to this user blocked.")
+                                        } else {
+                                            binding.sendButton.isClickable = true
+
+                                            senderName?.let { sName ->
+                                                receiverName?.let { rName ->
+                                                    updateMessagesForSender(
+                                                        databaseReference = databaseReference,
+                                                        senderID = senderId,
+                                                        receiverID = receiverId,
+                                                        senderName = senderName!!,
+                                                        receiverName = receiverName!!,
+                                                        message = message,
+                                                        soundPool = soundPool,
+                                                        sentTone = sentTone
+                                                    )
+                                                    binding.messageEdittext.text.clear()
+                                                } ?: logError(
+                                                    CHATS_ACTIVITY,
+                                                    "Unable to send your message."
                                                 )
-                                                binding.messageEdittext.text.clear()
-                                            } ?: logError(CHATS_ACTIVITY, "Unable to send your message.")
-                                        } ?: logError(CHATS_ACTIVITY, "Unable to send your message.")
+                                            } ?: logError(
+                                                CHATS_ACTIVITY,
+                                                "Unable to send your message."
+                                            )
+                                        }
                                     }
+                                } else {
+                                    binding.sendButton.isClickable = true
+                                    makeToast("Enter text to send")
                                 }
+
+                                //   Toast.makeText(this, chat_status, Toast.LENGTH_SHORT).show()
+
+
                             } else {
                                 binding.sendButton.isClickable = true
-                                makeToast("Enter text to send")
+
+                                chat_status = jsonObject.getString("chat_status")
+                                session.setData(Constant.CHAT_STATUS, chat_status)
+
+
+                                val dialogView =
+                                    activity.layoutInflater.inflate(R.layout.dialog_custom, null)
+
+                                val dialogBuilder = AlertDialog.Builder(activity)
+                                    .setView(dialogView)
+                                    .create()
+                                val title = dialogView.findViewById<TextView>(R.id.dialog_title)
+                                val btnPurchase =
+                                    dialogView.findViewById<LinearLayout>(R.id.btnPurchase)
+                                val btnFreePoints =
+                                    dialogView.findViewById<LinearLayout>(R.id.btnFreePoints)
+
+                                val tv_how_points = dialogView.findViewById<TextView>(R.id.tv_how_points)
+
+                                tv_how_points.visibility = View.GONE
+
+
+                                title.text = "You have ${session.getData(Constant.POINTS)} Points"
+
+                                btnPurchase.setOnClickListener {
+                                    val intent = Intent(activity, PurchasepointActivity::class.java)
+                                    activity.startActivity(intent)
+                                    dialogBuilder.dismiss()
+                                }
+
+                                btnFreePoints.setOnClickListener {
+                                    val intent = Intent(activity, FreePointsActivity::class.java)
+                                    activity.startActivity(intent)
+                                    dialogBuilder.dismiss()
+                                }
+
+
+                                dialogBuilder.show()
+
+                                //    Toast.makeText(this, chat_status, Toast.LENGTH_SHORT).show()
+
                             }
 
-                            //   Toast.makeText(this, chat_status, Toast.LENGTH_SHORT).show()
-
-
-
-                        } else {
-                            binding.sendButton.isClickable = true
-
-                            chat_status = jsonObject.getString("chat_status")
-                            session.setData(Constant.CHAT_STATUS, chat_status)
-
-
-
-                            val dialogView = activity.layoutInflater.inflate(R.layout.dialog_custom, null)
-
-                            val dialogBuilder = AlertDialog.Builder(activity)
-                                .setView(dialogView)
-                                .create()
-                            val title = dialogView.findViewById<TextView>(R.id.dialog_title)
-                            val btnPurchase = dialogView.findViewById<LinearLayout>(R.id.btnPurchase)
-                            val btnFreePoints = dialogView.findViewById<LinearLayout>(R.id.btnFreePoints)
-
-
-                            title.text = "You have ${session.getData(Constant.POINTS)} Points"
-
-                            btnPurchase.setOnClickListener {
-                                val intent = Intent(activity, PurchasepointActivity::class.java)
-                                activity.startActivity(intent)
-                                dialogBuilder.dismiss()
-                            }
-
-                            btnFreePoints.setOnClickListener {
-                                val intent = Intent(activity, FreePointsActivity::class.java)
-                                activity.startActivity(intent)
-                                dialogBuilder.dismiss()
-                            }
-
-
-                            dialogBuilder.show()
-
-                            //    Toast.makeText(this, chat_status, Toast.LENGTH_SHORT).show()
-
+                        } catch (e: JSONException) {
+                            e.printStackTrace()
                         }
-                    } catch (e: JSONException) {
-                        e.printStackTrace()
                     }
-                }
-            }, activity, Constant.ADD_CHAT, params, false, 1)
-
-
+                }, activity, Constant.ADD_CHAT, params, false, 1)
+            }
 
         }
 
@@ -599,6 +626,64 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
         setUserStatus(firebaseDatabase, senderId, true)
     }
 
+    fun showCustomDialog(context: Context) {
+        // Inflate the custom layout
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.custom_dialog, null)
+
+        // Create an AlertDialog builder and set the custom layout
+        val builder = AlertDialog.Builder(context)
+            .setView(dialogView)
+
+        // Create the dialog
+        val dialog = builder.create()
+
+        // Get references to the views in the custom layout
+
+
+
+
+
+     val btnVerify = dialogView.findViewById<Button>(R.id.btnVerify)
+
+        // Set up click listeners for the buttons
+        btnVerify.setOnClickListener {
+
+            val proof1 = session.getData(Constant.SELFIE_IMAGE)
+            val proof2 = session.getData(Constant.FRONT_IMAGE)
+            val proof3 = session.getData(Constant.BACK_IMAGE)
+            val status = session.getData(Constant.STATUS)
+            val payment_status = session.getData(Constant.PAYMENT_STATUS)
+
+
+            // if proof 1 2 3 is empty
+            if(proof1.isEmpty() || proof2.isEmpty() || proof3.isEmpty()) {
+                val intent = Intent(activity, IdverficationActivity::class.java)
+                startActivity(intent)
+            }
+            else if (payment_status == "0") {
+                val intent = Intent(activity, PurchaseverifybuttonActivity::class.java)
+                startActivity(intent)
+            }
+            else if (status == "0") {
+                val intent = Intent(activity, Stage4Activity::class.java)
+                startActivity(intent)
+            }
+
+            else if (status == "1"){
+                val intent = Intent(activity, VerifiedActivity::class.java)
+                startActivity(intent)
+            }
+
+
+            dialog.dismiss() // Dismiss the dialog
+        }
+
+
+
+
+        // Show the dialog
+        dialog.show()
+    }
 
 }
 

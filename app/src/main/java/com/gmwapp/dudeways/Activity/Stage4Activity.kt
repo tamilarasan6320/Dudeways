@@ -22,7 +22,7 @@ class Stage4Activity : BaseActivity() {
         activity = this
         session = Session(activity)
 
-        binding.btnVerify.setOnClickListener {
+        binding.btnBack.setOnClickListener {
            onBackPressed()
         }
 
@@ -30,7 +30,6 @@ class Stage4Activity : BaseActivity() {
             onBackPressed()
         }
 
-        Glide.with(activity).load(session.getData(Constant.PROFILE)).placeholder(R.drawable.profile_placeholder).into(binding.civProfile)
 
 
 

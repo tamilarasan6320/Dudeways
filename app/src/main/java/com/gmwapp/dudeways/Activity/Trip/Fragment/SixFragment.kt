@@ -45,12 +45,11 @@ class SixFragment : Fragment() {
         session = Session(activity)
 
 
-        if (session.getData(Constant.PROFILE) == "") {
-            binding.cbUseProfileImage.visibility = View.GONE
-
+        if (session.getData(Constant.PROFILE) != "") {
+            binding.cbUseProfileImage.visibility = View.VISIBLE
         }
         else{
-            binding.cbUseProfileImage.visibility = View.VISIBLE
+            binding.cbUseProfileImage.visibility = View.GONE
         }
 
         (activity as StarttripActivity).binding.tvTitle.visibility = View.INVISIBLE

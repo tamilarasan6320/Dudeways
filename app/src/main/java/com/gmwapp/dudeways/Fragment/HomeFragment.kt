@@ -61,15 +61,15 @@ class HomeFragment : Fragment() {
         loadCategoryList()
 
         if (homeProfileList.isEmpty()) {
-            loadProfileList("nearby")
+            loadProfileList("female")
         }
 
         binding.swipeRefreshLayout.setOnRefreshListener {
             offset = 0
             loadProfileList(
                 when (selectedItemPosition) {
-                    0 -> "Female"
-                    1 -> "latest"
+                    0 -> "female"
+                    1 -> "nearby"
                     2 -> "latest"
                     else -> "date"
                 }
@@ -230,7 +230,7 @@ class HomeFragment : Fragment() {
                 when (position) {
 
                     0 -> {
-                        currentType = "nearby"
+                        currentType = "female"
                         loadProfileList(currentType)
                     }
                     1 -> {

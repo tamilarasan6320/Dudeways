@@ -185,6 +185,10 @@ class ProfileViewActivity : BaseActivity() {
             val title = dialogView.findViewById<TextView>(R.id.dialog_title)
             val btnPurchase = dialogView.findViewById<LinearLayout>(R.id.btnPurchase)
             val btnFreePoints = dialogView.findViewById<LinearLayout>(R.id.btnFreePoints)
+            val tv_min_points = dialogView.findViewById<TextView>(R.id.tv_min_points)
+
+            tv_min_points.visibility = View.GONE
+
 
 
             title.text = "You have ${session.getData(Constant.POINTS)} Points"

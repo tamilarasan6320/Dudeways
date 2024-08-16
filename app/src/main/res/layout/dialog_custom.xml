@@ -126,6 +126,28 @@
     </LinearLayout>
 
 
+        <TextView
+            android:id="@+id/tv_min_points"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Minimum 10 points required to chat"
+            android:layout_gravity="center"
+            android:textSize="@dimen/_10sdp"
+            android:fontFamily="@font/poppins_regular"
+            />
+        <TextView
+            android:id="@+id/tv_how_points"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Spend 10 points for a one-hour conversation with a user"
+            android:layout_gravity="center"
+            android:textSize="@dimen/_12sdp"
+            android:gravity="center"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/primary"
+            />
+
+
 
     </LinearLayout>
 

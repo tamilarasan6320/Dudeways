@@ -3,6 +3,7 @@ package com.gmwapp.dudeways.Adapter
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.res.ColorStateList
+import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -67,19 +68,17 @@ class MytriplistAdapter(
             holder.tvUsername.text = "@"+report.unique_name
         }
 
-
-        if (report.trip_status.equals("0")) {
+        if (report.trip_status == "0") {
             holder.tvStatus.text = "In Review"
             holder.tvStatus.setBackgroundColor(activity.resources.getColor(R.color.yellow))
             holder.tvStatus.setIconResource(R.drawable.panding_clock)
-        }
-        if (report.trip_status.equals("1")) {
+            holder.tvStatus.iconTint = ColorStateList.valueOf(activity.resources.getColor(R.color.black))
+        } else if (report.trip_status == "1") {
             holder.tvStatus.text = "Approved"
             holder.tvStatus.setBackgroundColor(activity.resources.getColor(R.color.green))
             holder.tvStatus.setIconResource(R.drawable.verified_icon)
             holder.tvStatus.iconTint = ColorStateList.valueOf(activity.resources.getColor(R.color.white))
-        }
-        if (report.trip_status.equals("2")) {
+        } else if (report.trip_status == "2") {
             holder.tvStatus.text = "Rejected"
             holder.tvStatus.setBackgroundColor(activity.resources.getColor(R.color.red))
             holder.tvStatus.setIconResource(R.drawable.rejected_icon)
@@ -111,11 +110,39 @@ class MytriplistAdapter(
         }
 
 
+        // Load the image and adjust the height based on its aspect ratio
+        // Load the image and adjust the height based on its aspect ratio
+        Glide.with(activitys)
+            .asBitmap()
+            .load(report.trip_image)
+            .placeholder(R.drawable.placeholder_bg)
+            .into(object : com.bumptech.glide.request.target.BitmapImageViewTarget(holder.ivProfileImage) {
+                override fun onResourceReady(
+                    resource: Bitmap,
+                    transition: com.bumptech.glide.request.transition.Transition<in Bitmap>?
+                ) {
+                    // Calculate the new dimensions based on the image aspect ratio
+                    val width = resource.width / 1
+                    val height = resource.height / 1
+
+                    // Set the ImageView's dimensions
+                    holder.ivProfileImage.layoutParams.width = width
+                    holder.ivProfileImage.layoutParams.height = height
+                    holder.ivProfileImage.requestLayout()
+
+                    // Set the loaded bitmap to the ImageView
+                    holder.ivProfileImage.setImageBitmap(resource)
+                }
+            })
 
 
 
-        Glide.with(activitys).load(report.trip_image).placeholder(R.drawable.placeholder_bg)
-            .into(holder.ivProfileImage)
+
+
+
+
+//                    Glide.with(activitys).load(report.trip_image).placeholder(R.drawable.placeholder_bg)
+//            .into(holder.ivProfileImage)
 
         Glide.with(activitys).load(report.profile).placeholder(R.drawable.profile_placeholder)
             .into(holder.ivProfile)
