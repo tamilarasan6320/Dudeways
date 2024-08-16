@@ -81,19 +81,10 @@ class ProfileinfoActivity : BaseActivity() {
             })
         }
 
-
         user_id = intent.getStringExtra("chat_user_id")
         userdetails(user_id)
 
-
-
-
         val id = intent.getStringExtra("id")
-
-
-
-
-
 
         binding.rlAddFriend.setOnClickListener {
             // Change the background of rlAddFriend
@@ -127,12 +118,17 @@ class ProfileinfoActivity : BaseActivity() {
             }
         }
 
-
-
+        binding.tvmore.setOnClickListener {
+            if (binding.tvDescription.visibility == View.VISIBLE) {
+                binding.tvDescription.visibility = View.GONE
+                binding.tvmore.text = activity.getString(R.string.more)
+            } else {
+                binding.tvDescription.visibility = View.VISIBLE
+                binding.tvmore.text = activity.getString(R.string.less)
+            }
+        }
 
         profile_view(user_id)
-
-
     }
 
 
@@ -184,11 +180,14 @@ class ProfileinfoActivity : BaseActivity() {
 
                         binding.tvName.text = jsonobj.getString(Constant.NAME)
                         binding.tvProfessional.text =  jsonobj.getString(Constant.PROFESSION)
-                        binding.tvCity.text = jsonobj.getString(Constant.CITY)
-                        binding.tvState.text = jsonobj.getString(Constant.STATE)
+//                        binding.tvCity.text = jsonobj.getString(Constant.CITY)
+//                        binding.tvState.text = jsonobj.getString(Constant.STATE)
                         binding.tvGender.text = jsonobj.getString(Constant.GENDER)
                         binding.tvUsername.text = "@"+jsonobj.getString(Constant.UNIQUE_NAME)
                         binding.tvPlace.text = jsonobj.getString(Constant.CITY) + ", " + jsonobj.getString(Constant.STATE)
+                        binding.tvAbout.text = jsonobj.getString(Constant.INTRODUCTION)
+                        binding.tvDescription.text = jsonobj.getString(Constant.INTRODUCTION)
+                        binding.tvAge.text = jsonobj.getString(Constant.AGE)
 
 
                         unique_name = jsonobj.getString(Constant.UNIQUE_NAME)
@@ -203,10 +202,10 @@ class ProfileinfoActivity : BaseActivity() {
                      //   Toast.makeText(activity, friend_data, Toast.LENGTH_SHORT).show()
 
                         if (friend_data == "0") {
-                            binding.ivaddFriend.setBackgroundResource(R.drawable.add_account)
+                            binding.ivaddFriend.setBackgroundResource(R.drawable.add_frinds)
                             binding.tvAddFriend.text = "Add to Friend"
                         } else if (friend_data == "1") {
-                            binding.ivaddFriend.setBackgroundResource(R.drawable.added_frd)
+                            binding.ivaddFriend.setBackgroundResource(R.drawable.frinds_added)
                             binding.tvAddFriend.text = "Friend Added"
                         }
 
@@ -240,11 +239,11 @@ class ProfileinfoActivity : BaseActivity() {
 
 
                         if (friend == "1") {
-                            ivaddFriend.setBackgroundResource(R.drawable.added_frd)
+                            ivaddFriend.setBackgroundResource(R.drawable.frinds_added)
                             tvAddFriend.text = "Friend Added"
 
                         } else if (friend == "2") {
-                            ivaddFriend.setBackgroundResource(R.drawable.add_account)
+                            ivaddFriend.setBackgroundResource(R.drawable.add_frinds)
                             tvAddFriend.text = "Add to Friend"
                         }
 
