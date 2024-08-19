@@ -30,7 +30,6 @@ class threeFragment : Fragment() {
         session = Session(activity)
 
         (activity as StarttripActivity).binding.ivBack.visibility = View.VISIBLE
-        (activity as StarttripActivity).binding.tvTitle.visibility = View.INVISIBLE
         (activity as StarttripActivity).binding.btnNext.visibility = View.VISIBLE
         (activity as StarttripActivity).binding.btnNext.text = "Next"
 

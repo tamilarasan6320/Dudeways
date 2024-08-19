@@ -32,6 +32,8 @@ import com.gmwapp.dudeways.helper.ApiConfig
 import com.gmwapp.dudeways.helper.Constant
 import com.gmwapp.dudeways.helper.Session
 import com.bumptech.glide.Glide
+import com.gmwapp.dudeways.Fragment.MyProfileFragment
+import com.gmwapp.dudeways.Fragment.SearchFragment
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.onesignal.OneSignal
@@ -63,7 +65,9 @@ class HomeActivity : BaseActivity() , NavigationBarView.OnItemSelectedListener {
     private var exploreFragment = ExploreFragment()
     private var messagesFragment = MessagesFragment()
     private var homeFragment = HomeFragment()
+    private var searchFragment = SearchFragment()
     private var notification = NotificationFragment()
+    private var myProfileFragment = MyProfileFragment()
     private var interestFragment = InterestFragment()
 
     private lateinit var mFusedLocationClient: FusedLocationProviderClient
@@ -90,6 +94,7 @@ class HomeActivity : BaseActivity() , NavigationBarView.OnItemSelectedListener {
             val selectedItemId = savedInstanceState.getInt("selectedItemId", R.id.navHome)
             bottomNavigationView?.selectedItemId = selectedItemId
         }
+
 
 
 
@@ -135,8 +140,16 @@ class HomeActivity : BaseActivity() , NavigationBarView.OnItemSelectedListener {
         homeFragment = HomeFragment()
         notification = NotificationFragment()
         interestFragment = InterestFragment()
+        myProfileFragment = MyProfileFragment()
+        searchFragment = SearchFragment()
 
         fm.beginTransaction().replace(R.id.fragment_container, homeFragment).commit()
+
+
+        binding.ivSearch.setOnClickListener {
+            fm.beginTransaction().replace(R.id.fragment_container, searchFragment).commit()
+        }
+
     }
 
     private fun initializeOneSignal() {
@@ -202,6 +215,10 @@ class HomeActivity : BaseActivity() , NavigationBarView.OnItemSelectedListener {
                 transaction.replace(R.id.fragment_container, notification)
                 onStart()
             }
+         /*   R.id.navProfile -> {
+                transaction.replace(R.id.fragment_container, myProfileFragment)
+                onStart()
+            }*/
         }
         transaction.commit()
         return true
@@ -209,16 +226,25 @@ class HomeActivity : BaseActivity() , NavigationBarView.OnItemSelectedListener {
 
 
     override fun onBackPressed() {
-        if (backPressedTime + 2000 > System.currentTimeMillis()) {
-            backToast.cancel()
-            super.onBackPressed()
-            return
+        val currentFragment = fm.findFragmentById(R.id.fragment_container)
+
+        if (currentFragment is SearchFragment) {
+            // If current fragment is SearchFragment, replace it with HomeFragment
+            fm.beginTransaction().replace(R.id.fragment_container, homeFragment).commit()
         } else {
-            backToast = Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT)
-            backToast.show()
+            // If not, follow the default behavior
+            if (backPressedTime + 2000 > System.currentTimeMillis()) {
+                backToast.cancel()
+                super.onBackPressed()
+                return
+            } else {
+                backToast = Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT)
+                backToast.show()
+            }
+            backPressedTime = System.currentTimeMillis()
         }
-        backPressedTime = System.currentTimeMillis()
     }
+
 
     @SuppressLint("MissingPermission", "SetTextI18n")
     private fun getLocation() {

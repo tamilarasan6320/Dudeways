@@ -17,6 +17,8 @@
         <item name="cardbgcolor">@color/white</item>
         <item name="titleBG">@color/titleBG</item>
         <item name="radiobgcolor">@color/primary</item>
+        <item name="MenuBG">#F3F3F3</item>
+        <item name="textmenu">#4F5E7B</item>
 
     </style>
 
@@ -32,8 +34,11 @@
         <item name="textgrey">@color/text_grey_dark</item> <!-- Text color for dark mode -->
         <item name="cardlightcolor">@color/primary_light</item> <!-- Text color for dark mode -->
         <item name="cardbgcolor">@color/transparent</item> <!-- Text color for dark mode -->
-        <item name="titleBG">@color/transparent</item> <!-- Text color for dark mode -->
+        <item name="titleBG">#262626</item> <!-- Text color for dark mode -->
         <item name="radiobgcolor">@color/white</item> <!-- Text color for dark mode -->
+        <item name="MenuBG">#262626</item> <!-- Text color for dark mode -->
+        <item name="textmenu">#4F5E7B</item>
+
     </style>
 
 

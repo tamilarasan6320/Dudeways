@@ -56,6 +56,7 @@ class HomeFragment : Fragment() {
         session = Session(activity)
 
         (activity as HomeActivity).binding.rltoolbar.visibility = View.VISIBLE
+        (activity as HomeActivity).binding.bottomNavigationView.visibility = View.VISIBLE
 
         setupRecyclerViews()
         loadCategoryList()
@@ -75,6 +76,9 @@ class HomeFragment : Fragment() {
                 }
             )
         }
+
+
+
 
         return binding.root
     }

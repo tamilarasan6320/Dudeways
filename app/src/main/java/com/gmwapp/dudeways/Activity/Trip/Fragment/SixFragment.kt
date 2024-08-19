@@ -52,7 +52,6 @@ class SixFragment : Fragment() {
             binding.cbUseProfileImage.visibility = View.GONE
         }
 
-        (activity as StarttripActivity).binding.tvTitle.visibility = View.INVISIBLE
         (activity as StarttripActivity).binding.btnNext.text = "Start Trip"
 
         binding.ivAddProof1.setOnClickListener {
