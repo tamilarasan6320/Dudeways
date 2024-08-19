@@ -14,11 +14,11 @@
     <ImageView
         android:layout_alignParentRight="true"
         android:id="@+id/ivVerify"
-        android:layout_width="@dimen/_20sdp"
-        android:layout_height="@dimen/_20sdp"
-        android:background="@drawable/verify_new"
-        android:layout_marginTop="@dimen/_34sdp"
-        android:layout_marginRight="@dimen/_8sdp"
+        android:layout_width="@dimen/_13sdp"
+        android:layout_height="@dimen/_13sdp"
+        android:background="@drawable/online"
+        android:layout_marginTop="@dimen/_41sdp"
+        android:layout_marginRight="@dimen/_13sdp"
         />
 
 </RelativeLayout>

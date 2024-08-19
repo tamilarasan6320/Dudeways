@@ -89,6 +89,7 @@ class CustomerSupportActivity : BaseActivity() {
 
                         session.setData(Constant.INSTAGRAM_LINK, array.getJSONObject(0).getString(Constant.INSTAGRAM_LINK))
                         session.setData(Constant.TELEGRAM_LINK, array.getJSONObject(0).getString(Constant.TELEGRAM_LINK))
+                        session.setData(Constant.UPI_ID, array.getJSONObject(0).getString(Constant.UPI_ID))
 
 
 

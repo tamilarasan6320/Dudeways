@@ -13,6 +13,8 @@
     <string name="default_web_client_id">789941112934-hh4j9ueivjq4uei4e2k3g3414qvmhnod.apps.googleusercontent.com</string>
     <string name="back">Back</string>
     <string name="look_straight_to_the_camera">Look straight to the Camera</string>
+    <string name="click_here_to_upload"><u>Click here to upload payment screenshot</u></string>
+    <string name="screenshot_uploaded"><u>Screenshot uploaded</u></string>
 
     <string name="admob_app_id">ca-app-pub-8693482193769963~4468032819</string>
     <string name="shafeeka">Shafeeka</string>

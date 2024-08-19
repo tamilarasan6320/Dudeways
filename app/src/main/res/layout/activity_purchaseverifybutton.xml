@@ -146,6 +146,62 @@
 
        </LinearLayout>
 
+        <TextView
+            android:id="@+id/btnUploadScreenshots"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/click_here_to_upload"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/_10sdp"
+            android:fontFamily="@font/poppins_medium"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:layout_marginVertical="@dimen/_5sdp"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:layout_gravity="center">
+
+
+            <TextView
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="UPI ID:"
+                android:textColor="?attr/myTextColor"
+                android:textSize="@dimen/_10sdp"
+                android:fontFamily="@font/poppins_medium"
+                />
+
+            <TextView
+                android:id="@+id/tvUpiId"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text=""
+                android:textSize="@dimen/_12sdp"
+                android:textColor="#ca354b"
+                android:fontFamily="@font/poppins_medium"
+                />
+
+            <ImageView
+                android:id="@+id/btnCopyUpi"
+                android:layout_gravity="center"
+                android:layout_width="@dimen/_16sdp"
+                android:layout_height="@dimen/_16sdp"
+                android:background="@drawable/copy_ic"
+                android:backgroundTint="@color/primary"
+                />
+
+
+        </LinearLayout>
 
 
 
@@ -167,13 +223,13 @@
 
     <com.google.android.material.button.MaterialButton
         android:layout_margin="@dimen/_10sdp"
-        android:id="@+id/btnPurchase"
+        android:id="@+id/btnSendReview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="@dimen/_24sdp"
         android:fontFamily="@font/poppins_medium"
-        android:text="Purchase Now"
+        android:text="Send for review"
         android:textAllCaps="false"
         android:textSize="@dimen/_14sdp"
         app:backgroundTint="@null"

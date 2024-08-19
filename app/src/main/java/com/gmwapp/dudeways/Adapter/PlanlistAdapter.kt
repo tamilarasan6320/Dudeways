@@ -31,14 +31,16 @@ class PlanlistAdapter(
 
         holder.tvSave.text = "Save Rs." + plan.save_amount
         holder.tvPlan.text = plan.plan_name
-        holder.tvDays.text = "${plan.validity} Days"
+        holder.tvDays.text = " / ${plan.validity} Days"
         holder.tvPlanPrice.text = "Rs.${plan.price}"
 
-        holder.rbplan.isChecked = position == selectedPosition
-        holder.cvPlan.setCardBackgroundColor(
-            if (position == selectedPosition) getColorFromAttr(R.attr.cardlightcolor)
-            else getColorFromAttr(R.attr.cardbgcolor)
-        )
+        holder.rbplan.visibility = View.GONE
+
+//        holder.rbplan.isChecked = position == selectedPosition
+//        holder.cvPlan.setCardBackgroundColor(
+//            if (position == selectedPosition) getColorFromAttr(R.attr.cardlightcolor)
+//            else getColorFromAttr(R.attr.cardbgcolor)
+//        )
 
         holder.itemView.setOnClickListener {
             selectedPosition = position
@@ -46,11 +48,11 @@ class PlanlistAdapter(
             onPlanSelected(plan)
         }
 
-        holder.rbplan.setOnClickListener {
-            selectedPosition = position
-            notifyDataSetChanged()
-            onPlanSelected(plan)
-        }
+//        holder.rbplan.setOnClickListener {
+//            selectedPosition = position
+//            notifyDataSetChanged()
+//            onPlanSelected(plan)
+//        }
     }
 
     override fun getItemCount(): Int {

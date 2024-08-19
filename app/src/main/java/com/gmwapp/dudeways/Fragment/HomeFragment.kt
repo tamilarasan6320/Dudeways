@@ -19,8 +19,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gmwapp.dudeways.Activity.HomeActivity
 import com.google.gson.Gson
 import com.gmwapp.dudeways.Adapter.HomeProfilesAdapter
+import com.gmwapp.dudeways.Adapter.HomeUserlistAdapter
 import com.gmwapp.dudeways.Model.HomeCategory
 import com.gmwapp.dudeways.Model.HomeProfile
+import com.gmwapp.dudeways.Model.HomeUserlist
 import com.gmwapp.dudeways.R
 import com.gmwapp.dudeways.databinding.FragmentHomeBinding
 import com.gmwapp.dudeways.helper.ApiConfig
@@ -36,7 +38,9 @@ class HomeFragment : Fragment() {
     private lateinit var homeCategoryAdapter: HomeCategorysAdapter
     private val homeCategoryList = ArrayList<HomeCategory>()
     private val homeProfileList = ArrayList<HomeProfile>()
+    private val homeUserlist = ArrayList<HomeUserlist>()
     private lateinit var homeProfilesAdapter: HomeProfilesAdapter
+    private lateinit var homeUserlistAdapter: HomeUserlistAdapter
     private lateinit var activity: Activity
     private lateinit var session: Session
     private var selectedItemPosition = 0
@@ -84,14 +88,18 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupRecyclerViews() {
+
         binding.rvCategoryList.layoutManager = GridLayoutManager(activity, 4)
         binding.rvProfileList.layoutManager = LinearLayoutManager(activity)
+        binding.rvUserList.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
 
         homeCategoryAdapter = HomeCategorysAdapter(activity, homeCategoryList)
         homeProfilesAdapter = HomeProfilesAdapter(activity, homeProfileList)
+        homeUserlistAdapter = HomeUserlistAdapter(activity, homeUserlist)
 
         binding.rvCategoryList.adapter = homeCategoryAdapter
         binding.rvProfileList.adapter = homeProfilesAdapter
+        binding.rvUserList.adapter = homeUserlistAdapter
 
         binding.rvProfileList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -156,6 +164,7 @@ class HomeFragment : Fragment() {
                     total = jsonObject.getString(Constant.TOTAL).toInt()
                     session.setData(Constant.TOTAL, total.toString())
                     updateProfileList(jsonObject)
+                    loadActiveUserList()
                 } else {
                     showProfileListError(jsonObject.getString(Constant.MESSAGE))
                 }
@@ -290,6 +299,59 @@ class HomeFragment : Fragment() {
 
             dialog.show()
         }
+    }
+
+    private fun loadActiveUserList() {
+        if (isLoading) return
+        isLoading = true
+
+        val params = buildActiveUserParams()
+        ApiConfig.RequestToVolley({ result, response ->
+            handleActiveUserResponse(result, response)
+        }, activity, Constant.ACTIVE_USERS_LIST, params, true, 1)
+    }
+
+    private fun buildActiveUserParams(): HashMap<String, String> {
+        return hashMapOf(
+            Constant.USER_ID to session.getData(Constant.USER_ID)
+        )
+    }
+
+    private fun handleActiveUserResponse(result: Boolean, response: String) {
+        isLoading = false
+        if (result) {
+            try {
+                val jsonObject = JSONObject(response)
+                if (jsonObject.getBoolean(Constant.SUCCESS)) {
+                    updateActiveUserList(jsonObject)
+                } else {
+                    showActiveUserListError(jsonObject.getString(Constant.MESSAGE))
+                }
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private fun updateActiveUserList(jsonObject: JSONObject) {
+        binding.rvUserList.visibility = View.VISIBLE
+
+        homeUserlist.clear()
+
+        val jsonArray = jsonObject.getJSONArray(Constant.DATA)
+        val gson = Gson()
+
+        for (i in 0 until jsonArray.length()) {
+            val user = gson.fromJson(jsonArray.getJSONObject(i).toString(), HomeUserlist::class.java)
+            homeUserlist.add(user)
+        }
+
+        homeUserlistAdapter.notifyDataSetChanged()
+    }
+
+    private fun showActiveUserListError(message: String) {
+        binding.rvUserList.visibility = View.GONE
+        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
     }
 }
 

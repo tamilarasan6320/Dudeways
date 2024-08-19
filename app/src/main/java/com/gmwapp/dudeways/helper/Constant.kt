@@ -26,6 +26,7 @@ object Constant {
     const val VERIFY_BACK_IMAGE: String = BaseUrl + "verify_back_image"
     const val VERIFY_SELFIE_IMAGE: String = BaseUrl + "verify_selfie_image"
     const val TRIP_LIST: String = BaseUrl + "trip_list"
+    const val ACTIVE_USERS_LIST: String = BaseUrl + "active_users_list"
     const val UPDATE_LOCATION: String = BaseUrl + "update_location"
     const val ADD_FEEDBACK: String = BaseUrl + "add_feedback"
     const val ADD_CHAT: String = BaseUrl + "add_chat"
@@ -64,6 +65,7 @@ object Constant {
     const val RECHARGE_STATUS: String = BaseUrl + "check_recharge_status"
     const val VERIFICATION_STATUS: String = BaseUrl + "verification_status"
     const val PLAN_LIST: String = BaseUrl + "plan_list"
+    const val PAYMENT_IMAGE_API: String = BaseUrl + "payment_image"
 
     const val STATUS: String = "status"
     const val PAYMENT_STATUS: String = "payment_status"
@@ -127,6 +129,7 @@ object Constant {
     const val FRIEND_USER_ID: String = "friend_user_id"
     const val PROFILE_USER_ID: String = "profile_user_id"
     const val FRIEND: String = "friend"
+    const val PAYMENT_IMAGE: String = "payment_image"
 
     const val NAME: String = "name"
     const val CHAT_STATUS: String = "chat_status"
@@ -134,6 +137,7 @@ object Constant {
     const val UNIQUE_NAME: String = "unique_name"
     const val INSTAGRAM_LINK: String = "instagram_link"
     const val TELEGRAM_LINK: String = "telegram_link"
+    const val UPI_ID: String = "upi_id"
     const val SEARCH: String = "search"
     const val EMAIL: String = "email"
     const val AGE: String = "age"

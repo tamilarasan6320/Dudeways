@@ -30,7 +30,8 @@
 
 
         <RelativeLayout
-            android:padding="@dimen/_10sdp"
+            android:paddingHorizontal="@dimen/_10sdp"
+            android:paddingVertical="@dimen/_5sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -60,18 +61,13 @@
                     android:fontFamily="@font/poppins_medium"
                     />
 
-                <TextView
-                    android:id="@+id/tvDays"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textSize="@dimen/_10sdp"
-                    android:textColor="?attr/textgrey"
-                    android:fontFamily="@font/poppins_medium"
-                    />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
                 <TextView
                     android:id="@+id/tvPlanPrice"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
                     android:textSize="@dimen/_16sdp"
@@ -79,7 +75,17 @@
                     android:fontFamily="@font/poppins_medium"
                     />
 
+                <TextView
+                    android:id="@+id/tvDays"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="@dimen/_10sdp"
+                    android:textColor="?attr/textgrey"
+                    android:fontFamily="@font/poppins_medium"
+                    />
 
+            </LinearLayout>
 
 
 
