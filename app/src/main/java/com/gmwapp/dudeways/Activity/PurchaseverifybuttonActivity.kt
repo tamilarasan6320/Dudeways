@@ -224,7 +224,7 @@ class PurchaseverifybuttonActivity : BaseActivity() {
                     Toast.makeText(activity, "JSON Parsing Error: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
             } else {
-//                Toast.makeText(activity, "$result", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "$result", Toast.LENGTH_SHORT).show()
             }
         }, activity, Constant.PAYMENT_IMAGE_API, params, fileParams)
     }
