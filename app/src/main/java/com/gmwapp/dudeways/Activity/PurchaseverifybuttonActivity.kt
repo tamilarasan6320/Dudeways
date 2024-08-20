@@ -207,6 +207,8 @@ class PurchaseverifybuttonActivity : BaseActivity() {
         val fileParams: MutableMap<String, String> = HashMap()
         if (!filePath1.isNullOrEmpty()) {
             fileParams[Constant.PAYMENT_IMAGE] = filePath1!!
+        } else {
+            Toast.makeText(activity, "No image selected.", Toast.LENGTH_SHORT).show()
         }
         ApiConfig.RequestToVolleyMulti({ result, response ->
             if (result) {
@@ -222,7 +224,7 @@ class PurchaseverifybuttonActivity : BaseActivity() {
                     Toast.makeText(activity, "JSON Parsing Error: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
             } else {
-                Toast.makeText(activity, "$result", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(activity, "$result", Toast.LENGTH_SHORT).show()
             }
         }, activity, Constant.PAYMENT_IMAGE_API, params, fileParams)
     }
