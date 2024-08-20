@@ -61,6 +61,7 @@ class HomeFragment : Fragment() {
 
         (activity as HomeActivity).binding.rltoolbar.visibility = View.VISIBLE
         (activity as HomeActivity).binding.bottomNavigationView.visibility = View.VISIBLE
+        (activity as HomeActivity).binding.ivSearch.visibility = View.VISIBLE
 
         setupRecyclerViews()
         loadCategoryList()

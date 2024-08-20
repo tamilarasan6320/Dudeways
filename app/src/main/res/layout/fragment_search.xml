@@ -29,7 +29,7 @@
                     android:layout_toRightOf="@+id/ivBack"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Search"
+                    android:text="Find Friends"
                     android:textSize="@dimen/_14sdp"
                     android:textColor="?attr/myTextColor"
                     android:fontFamily="@font/poppins_medium"

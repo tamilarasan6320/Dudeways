@@ -66,6 +66,7 @@ class MyProfileFragment : Fragment() {
         session = Session(activity)
 
         (activity as HomeActivity).binding.rltoolbar.visibility = View.GONE
+        (activity as HomeActivity).binding.ivSearch.visibility = View.GONE
 
         // Configure Google Sign-In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

@@ -29,6 +29,7 @@ class TripFragment : Fragment() {
         activity = requireActivity()
 
         (activity as HomeActivity).binding.rltoolbar.visibility = View.GONE
+        (activity as HomeActivity).binding.ivSearch.visibility = View.GONE
 
 
         binding.btnStart.setOnClickListener {

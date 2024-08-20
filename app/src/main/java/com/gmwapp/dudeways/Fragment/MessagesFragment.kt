@@ -41,6 +41,7 @@ class MessagesFragment : Fragment() {
         session = Session(activity)
 
         (activity as HomeActivity).binding.rltoolbar.visibility = View.VISIBLE
+        (activity as HomeActivity).binding.ivSearch.visibility = View.VISIBLE
 
         setupRecyclerView()
         setupSwipeRefreshLayout()

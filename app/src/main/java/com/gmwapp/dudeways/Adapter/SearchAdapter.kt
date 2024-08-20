@@ -1,0 +1,159 @@
+package com.gmwapp.dudeways.Adapter
+
+import android.app.Activity
+import android.content.Intent
+import android.content.res.ColorStateList
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
+import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
+import com.gmwapp.dudeways.Activity.ChatsActivity
+import com.gmwapp.dudeways.Activity.ProfileinfoActivity
+import com.gmwapp.dudeways.Model.Connect
+import com.gmwapp.dudeways.R
+import com.gmwapp.dudeways.helper.Constant
+import com.gmwapp.dudeways.helper.Session
+import com.bumptech.glide.Glide
+import com.gmwapp.dudeways.Model.UsersList
+
+class SearchAdapter(
+    val activity: Activity,
+    usersList: java.util.ArrayList<UsersList>,
+) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    val usersList: ArrayList<UsersList>
+    val activitys: Activity
+
+    init {
+        this.usersList = usersList
+        this.activitys = activity
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val view: View =
+            LayoutInflater.from(activity).inflate(R.layout.layout_home_connect, parent, false)
+        return ItemHolder(view)
+    }
+
+    override fun onBindViewHolder(holderParent: RecyclerView.ViewHolder, position: Int) {
+        val holder: ItemHolder = holderParent as ItemHolder
+        val report: UsersList = usersList[position]
+
+        val session = Session(activity)
+
+        holder.IV_online_status.visibility = View.GONE
+
+        holder.tvAge.text = report.age
+//        holder.tvDistance.text = report.distance
+
+
+        val gender = report.gender
+
+        if(gender == "male") {
+            holder.ivGender.setBackgroundDrawable(activity.resources.getDrawable(R.drawable.male_ic))
+        }
+        else {
+            holder.ivGender.setBackgroundDrawable(activity.resources.getDrawable(R.drawable.female_ic))
+        }
+
+        if (gender == "male") {
+            holder.ivGenderColor.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(activity, R.color.blue_200))
+        } else {
+            holder.ivGenderColor.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(activity, R.color.primary))
+        }
+
+
+        holder.itemView.setOnClickListener{
+            val intent = Intent(activity, ProfileinfoActivity::class.java)
+            activity.startActivity(intent)
+        }
+
+
+
+        val point = session.getData(Constant.POINTS)
+        val userId = session.getData(Constant.USER_ID)
+
+
+        holder.itemView.setOnClickListener {
+
+
+            if (report.id.toString() == userId) {
+                Toast.makeText(activity, "You can't chat with yourself", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                val intent = Intent(activity, ChatsActivity::class.java)
+                intent.putExtra("id", userId)
+                intent.putExtra("name", report.name)
+                session.setData("reciver_profile", report.profile)
+                intent.putExtra("chat_user_id", report.id)
+                intent.putExtra("unique_name", report.unique_name)
+                intent.putExtra("friend_verified", report.verified)
+                activity.startActivity(intent)
+            }
+
+
+
+        }
+
+        holder.ivProfile.setOnClickListener {
+            val intent = Intent(activity, ProfileinfoActivity::class.java)
+            intent.putExtra("name", report.name)
+            intent.putExtra("chat_user_id", report.id.toString())
+            intent.putExtra("id", userId)
+            session.setData("reciver_profile", report.profile)
+            intent.putExtra("friend", report.friend)
+            activity.startActivity(intent)
+
+        }
+
+
+        holder.tvName.text = report.name
+
+
+        //holder.tvLatestseen.text = report.introduction is more than one line mean en with dot
+
+        if (report.introduction!!.length == 0) {
+
+        }
+        else if (report.introduction!!.length > 45) {
+            holder.tvLatestseen.text = report.introduction!!.substring(0, 45) + ".."
+        } else {
+            holder.tvLatestseen.text = report.introduction
+        }
+
+
+
+        Glide.with(activitys)
+            .load(report.profile)
+            .placeholder(R.drawable.profile_placeholder)
+            .into(holder.ivProfile)
+
+
+    }
+
+
+    override fun getItemCount(): Int {
+        return usersList.size
+    }
+
+    internal class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        //
+        val tvName: TextView = itemView.findViewById(R.id.tvName)
+        val tvLatestseen: TextView = itemView.findViewById(R.id.tvLatestseen)
+        val ivProfile:ImageView = itemView.findViewById(R.id.ivProfile)
+        val IV_online_status:ImageView = itemView.findViewById(R.id.IV_online_status)
+        val  ivGender:ImageView = itemView.findViewById(R.id.ivGender)
+        val ivGenderColor:LinearLayout = itemView.findViewById(R.id.ivGenderColor)
+        val  tvAge :TextView = itemView.findViewById(R.id.tvAge)
+        val tvDistance  :TextView = itemView.findViewById(R.id.tvDistance)
+
+
+    }
+
+
+}

@@ -27,6 +27,7 @@ object Constant {
     const val VERIFY_SELFIE_IMAGE: String = BaseUrl + "verify_selfie_image"
     const val TRIP_LIST: String = BaseUrl + "trip_list"
     const val ACTIVE_USERS_LIST: String = BaseUrl + "active_users_list"
+    const val USERS_LIST: String = BaseUrl + "users_list"
     const val UPDATE_LOCATION: String = BaseUrl + "update_location"
     const val ADD_FEEDBACK: String = BaseUrl + "add_feedback"
     const val ADD_CHAT: String = BaseUrl + "add_chat"

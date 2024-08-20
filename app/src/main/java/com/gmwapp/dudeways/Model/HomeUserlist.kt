@@ -57,12 +57,12 @@ class HomeUserlist {
         this.id = id
         this.name = name
         this.unique_name = unique_name
-        this.email = profile
-        this.mobile = profile
-        this.gender = profile
+        this.email = email
+        this.mobile = mobile
+        this.gender = gender
         this.profile = profile
-        this.cover_img = profile
-        this.online_status = profile
+        this.cover_img = cover_img
+        this.online_status = online_status
 //        this.planning = planning
 //        this.from_date = from_date
 //        this.to_date = to_date

@@ -42,15 +42,15 @@
             />
 
 
-        <ImageView
-            android:layout_marginRight="@dimen/_10sdp"
-            android:layout_width="@dimen/_30sdp"
-            android:layout_height="@dimen/_30sdp"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/civProfile"
-            android:id="@+id/ivSearch"
-            android:background="@drawable/search_ic"
-            />
+<!--        <ImageView-->
+<!--            android:layout_marginRight="@dimen/_10sdp"-->
+<!--            android:layout_width="@dimen/_30sdp"-->
+<!--            android:layout_height="@dimen/_30sdp"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:layout_toLeftOf="@+id/civProfile"-->
+<!--            android:id="@+id/ivSearch"-->
+<!--            android:background="@drawable/search_ic"-->
+<!--            />-->
 
 
 
@@ -64,12 +64,26 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/ivSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:src="@drawable/search_ic"
+        android:layout_above="@+id/bottomNavigationView"
+        app:tint="@null"
+        app:backgroundTint="@color/primary"
+        app:maxImageSize="@dimen/_38sdp" />
 
 
 
 
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
             android:paddingVertical="@dimen/_5sdp"
             android:layout_alignParentBottom="true"
             android:id="@+id/bottomNavigationView"
