@@ -118,15 +118,17 @@ class ProfileinfoActivity : BaseActivity() {
             }
         }
 
-        binding.tvmore.setOnClickListener {
-            if (binding.tvDescription.visibility == View.VISIBLE) {
-                binding.tvDescription.visibility = View.GONE
-                binding.tvmore.text = activity.getString(R.string.more)
-            } else {
-                binding.tvDescription.visibility = View.VISIBLE
-                binding.tvmore.text = activity.getString(R.string.less)
-            }
-        }
+        binding.tvmore.visibility = View.GONE
+
+//        binding.tvmore.setOnClickListener {
+//            if (binding.tvDescription.visibility == View.VISIBLE) {
+//                binding.tvDescription.visibility = View.GONE
+//                binding.tvmore.text = activity.getString(R.string.more)
+//            } else {
+//                binding.tvDescription.visibility = View.VISIBLE
+//                binding.tvmore.text = activity.getString(R.string.less)
+//            }
+//        }
 
         profile_view(user_id)
     }

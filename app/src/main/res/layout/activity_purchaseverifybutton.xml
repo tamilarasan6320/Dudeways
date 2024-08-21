@@ -42,7 +42,7 @@
             android:layout_toRightOf="@+id/tvTitle"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
-            android:background="@drawable/verify_ic"
+            android:background="@drawable/verify_icon"
             />
 
 
@@ -202,6 +202,16 @@
 
 
         </LinearLayout>
+
+        <TextView
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pay_above_upi_i_d_and_upload_screenshot"
+            android:textColor="?attr/textgrey"
+            android:textSize="@dimen/_8sdp"
+            android:fontFamily="@font/poppins_medium"
+            />
 
 
 

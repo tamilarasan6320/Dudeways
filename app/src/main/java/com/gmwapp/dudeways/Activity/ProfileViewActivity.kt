@@ -8,6 +8,7 @@ import android.content.res.ColorStateList
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -228,6 +229,7 @@ class ProfileViewActivity : BaseActivity() {
             val proof3 = session.getData(Constant.BACK_IMAGE)
             val status = session.getData(Constant.STATUS)
             val payment_status = session.getData(Constant.PAYMENT_STATUS)
+            val payment_image = session.getData(Constant.PAYMENT_IMAGE)
 
 
             // if proof 1 2 3 is empty
@@ -235,15 +237,16 @@ class ProfileViewActivity : BaseActivity() {
                 val intent = Intent(activity, IdverficationActivity::class.java)
                 startActivity(intent)
             }
-            else if (payment_status == "0") {
+            else if (payment_image == "") {
+//            else if (payment_status == "0") {
                 val intent = Intent(activity, PurchaseverifybuttonActivity::class.java)
                 startActivity(intent)
             }
-            else if (status == "0") {
+            else if (payment_image != "") {
+//            else if (status == "0") {
                 val intent = Intent(activity, Stage4Activity::class.java)
                 startActivity(intent)
             }
-
             else if (status == "1"){
                 val intent = Intent(activity, VerifiedActivity::class.java)
                 startActivity(intent)
@@ -445,12 +448,14 @@ class ProfileViewActivity : BaseActivity() {
                             val back_image = dataObject.getString("back_image")
                             val status = dataObject.getString("status")
                             val payment_status = dataObject.getString("payment_status")
+                            val payment_image = dataObject.getString("payment_image")
 
                             session.setData(Constant.SELFIE_IMAGE, selfieImageUrl)
                             session.setData(Constant.FRONT_IMAGE, front_image)
                             session.setData(Constant.BACK_IMAGE, back_image)
                             session.setData(Constant.STATUS, status)
                             session.setData(Constant.PAYMENT_STATUS, payment_status)
+                            session.setData(Constant.PAYMENT_IMAGE, payment_image)
 
 
                         } else {
@@ -460,7 +465,8 @@ class ProfileViewActivity : BaseActivity() {
                             session.setData(Constant.BACK_IMAGE, "")
                             session.setData(Constant.STATUS, "")
                             session.setData(Constant.PAYMENT_STATUS, "")
-                         //   Toast.makeText(activity, "No data available", Toast.LENGTH_SHORT).show()
+                            session.setData(Constant.PAYMENT_IMAGE, "")
+                            //   Toast.makeText(activity, "No data available", Toast.LENGTH_SHORT).show()
                         }
                     } else {
                         session.setData(Constant.SELFIE_IMAGE, "")
@@ -468,6 +474,7 @@ class ProfileViewActivity : BaseActivity() {
                         session.setData(Constant.BACK_IMAGE, "")
                         session.setData(Constant.STATUS, "")
                         session.setData(Constant.PAYMENT_STATUS, "")
+                        session.setData(Constant.PAYMENT_IMAGE, "")
                     }
                 } catch (e: JSONException) {
                     e.printStackTrace()

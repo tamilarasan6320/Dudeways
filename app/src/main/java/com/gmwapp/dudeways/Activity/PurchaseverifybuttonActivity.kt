@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.canhub.cropper.CropImage
 import com.canhub.cropper.CropImageView
@@ -50,7 +51,6 @@ class PurchaseverifybuttonActivity : BaseActivity() {
         activity = this
         session = Session(activity)
 
-        setting()
 
         val upiId = session.getData(Constant.UPI_ID)
         binding.tvUpiId.text = upiId
@@ -109,6 +109,7 @@ class PurchaseverifybuttonActivity : BaseActivity() {
                     if (imgFile.exists()) {
                         val myBitmap = BitmapFactory.decodeFile(imgFile.absolutePath)
                         binding.btnUploadScreenshots.text = getString(R.string.screenshot_uploaded)
+                        binding.btnUploadScreenshots.setTextColor(ContextCompat.getColor(this, R.color.darkGreen))
                     }
                 }
             }
@@ -119,7 +120,7 @@ class PurchaseverifybuttonActivity : BaseActivity() {
         val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         val clip = ClipData.newPlainText("Refer Text", text)
         clipboard.setPrimaryClip(clip)
-        Toast.makeText(this, "sent to device", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Copied", Toast.LENGTH_SHORT).show()
     }
 
     private fun planlist() {
@@ -162,45 +163,6 @@ class PurchaseverifybuttonActivity : BaseActivity() {
         }, activity, Constant.PLAN_LIST, params, true)
     }
 
-    private fun setting() {
-        val params: MutableMap<String, String> = HashMap()
-        ApiConfig.RequestToVolley({ result, response ->
-            if (result) {
-                try {
-                    val jsonObject: JSONObject = JSONObject(response)
-                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
-
-
-                        val array = jsonObject.getJSONArray("data")
-
-                        session.setData(Constant.INSTAGRAM_LINK, array.getJSONObject(0).getString(Constant.INSTAGRAM_LINK))
-                        session.setData(Constant.TELEGRAM_LINK, array.getJSONObject(0).getString(Constant.TELEGRAM_LINK))
-                        session.setData(Constant.UPI_ID, array.getJSONObject(0).getString(Constant.UPI_ID))
-
-
-
-
-
-
-
-                    } else {
-                        Toast.makeText(
-                            activity,
-                            jsonObject.getString("message"),
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-                    }
-                } catch (e: JSONException) {
-                    e.printStackTrace()
-                }
-            } else {
-                Toast.makeText(activity, response, Toast.LENGTH_SHORT).show()
-            }
-
-        }, activity, Constant.SETTINGS_LIST, params, true, 1)
-    }
-
     private fun uploadPaymentImage() {
         val params: MutableMap<String, String> = HashMap()
         params[Constant.USER_ID] = session.getData(Constant.USER_ID)
@@ -208,7 +170,7 @@ class PurchaseverifybuttonActivity : BaseActivity() {
         if (!filePath1.isNullOrEmpty()) {
             fileParams[Constant.PAYMENT_IMAGE] = filePath1!!
         } else {
-            Toast.makeText(activity, "No image selected.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, "Please upload payment screenshot", Toast.LENGTH_SHORT).show()
         }
         ApiConfig.RequestToVolleyMulti({ result, response ->
             if (result) {
@@ -216,6 +178,9 @@ class PurchaseverifybuttonActivity : BaseActivity() {
                     val jsonObject = JSONObject(response)
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
                         Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
+                        val intent = Intent(activity, HomeActivity::class.java)
+                        startActivity(intent)
+                        finish()
                     } else {
                         Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
                     }
@@ -228,46 +193,6 @@ class PurchaseverifybuttonActivity : BaseActivity() {
             }
         }, activity, Constant.PAYMENT_IMAGE_API, params, fileParams)
     }
-
-//    private fun uploadPaymentImage() {
-//        val params: MutableMap<String, String> = HashMap()
-//        params[Constant.USER_ID] = session.getData(Constant.USER_ID)
-//        if (!filePath1.isNullOrEmpty()) {
-//            fileParams[Constant.TRIP_IMAGE] = filePath1!!
-//        } else {
-//            Toast.makeText(activity, "No image selected.", Toast.LENGTH_SHORT).show()
-//        }
-//        ApiConfig.RequestToVolleyMulti({ result, response ->
-//            if (result) {
-//                try {
-//                    val jsonObject: JSONObject = JSONObject(response)
-//                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
-//
-//
-//                        val array = jsonObject.getJSONArray("data")
-//
-//                        Toast.makeText(
-//                            activity,
-//                            jsonObject.getString("message"),
-//                            Toast.LENGTH_SHORT
-//                        ).show()
-//                    } else {
-//                        Toast.makeText(
-//                            activity,
-//                            jsonObject.getString("message"),
-//                            Toast.LENGTH_SHORT
-//                        ).show()
-//
-//                    }
-//                } catch (e: JSONException) {
-//                    e.printStackTrace()
-//                }
-//            } else {
-//                Toast.makeText(activity, response, Toast.LENGTH_SHORT).show()
-//            }
-//
-//        }, activity, Constant.PAYMENT_IMAGE_API, params, true, 1)
-//    }
 
     private fun showToast(message: String) {
         Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()

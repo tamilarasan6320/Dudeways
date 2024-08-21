@@ -564,14 +564,15 @@
                 android:text=""
                 android:textSize="@dimen/_10sdp"
                 android:fontFamily="@font/poppins_regular"
-                android:textColor="?attr/textgrey"
-                android:maxLines="3"
-                android:ellipsize="end"
-                android:singleLine="false"
-                />
+                android:textColor="?attr/textgrey" />
+<!--                android:maxLines="3"-->
+<!--                android:ellipsize="end"-->
+<!--                android:singleLine="false"-->
+<!--                />-->
 
             <TextView
                 android:id="@+id/tvmore"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/more"

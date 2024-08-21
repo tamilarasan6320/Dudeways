@@ -25,7 +25,7 @@ class CustomerSupportActivity : BaseActivity() {
 
         activity = this
         session = Session(activity)
-        setting()
+//        setting()
         binding.btnchatsupport.setOnClickListener {
             ZohoSalesIQ.Chat.show()
         }
@@ -76,42 +76,42 @@ class CustomerSupportActivity : BaseActivity() {
 
     }
 
-    private fun setting() {
-        val params: MutableMap<String, String> = HashMap()
-        ApiConfig.RequestToVolley({ result, response ->
-            if (result) {
-                try {
-                    val jsonObject: JSONObject = JSONObject(response)
-                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
-
-
-                      val array = jsonObject.getJSONArray("data")
-
-                        session.setData(Constant.INSTAGRAM_LINK, array.getJSONObject(0).getString(Constant.INSTAGRAM_LINK))
-                        session.setData(Constant.TELEGRAM_LINK, array.getJSONObject(0).getString(Constant.TELEGRAM_LINK))
-                        session.setData(Constant.UPI_ID, array.getJSONObject(0).getString(Constant.UPI_ID))
-
-
-
-
-
-
-
-                    } else {
-                        Toast.makeText(
-                            activity,
-                            jsonObject.getString("message"),
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-                    }
-                } catch (e: JSONException) {
-                    e.printStackTrace()
-                }
-            } else {
-                Toast.makeText(activity, response, Toast.LENGTH_SHORT).show()
-            }
-
-        }, activity, Constant.SETTINGS_LIST, params, true, 1)
-    }
+//    private fun setting() {
+//        val params: MutableMap<String, String> = HashMap()
+//        ApiConfig.RequestToVolley({ result, response ->
+//            if (result) {
+//                try {
+//                    val jsonObject: JSONObject = JSONObject(response)
+//                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
+//
+//
+//                      val array = jsonObject.getJSONArray("data")
+//
+//                        session.setData(Constant.INSTAGRAM_LINK, array.getJSONObject(0).getString(Constant.INSTAGRAM_LINK))
+//                        session.setData(Constant.TELEGRAM_LINK, array.getJSONObject(0).getString(Constant.TELEGRAM_LINK))
+//                        session.setData(Constant.UPI_ID, array.getJSONObject(0).getString(Constant.UPI_ID))
+//
+//
+//
+//
+//
+//
+//
+//                    } else {
+//                        Toast.makeText(
+//                            activity,
+//                            jsonObject.getString("message"),
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+//
+//                    }
+//                } catch (e: JSONException) {
+//                    e.printStackTrace()
+//                }
+//            } else {
+//                Toast.makeText(activity, response, Toast.LENGTH_SHORT).show()
+//            }
+//
+//        }, activity, Constant.SETTINGS_LIST, params, true, 1)
+//    }
 }
