@@ -77,8 +77,7 @@
                     android:layout_height="@dimen/_25sdp"
                     android:layout_alignParentRight="true"
                     android:layout_margin="@dimen/_10sdp"
-                    android:background="@drawable/cam_ic"
-                    android:visibility="gone" />
+                    android:background="@drawable/edit_icon" />
 
             </RelativeLayout>
 
@@ -110,8 +109,7 @@
                         android:layout_height="@dimen/_20sdp"
                         android:layout_alignParentRight="true"
                         android:layout_marginTop="@dimen/_45sdp"
-                        android:background="@drawable/add_profile_ic"
-                        android:visibility="gone" />
+                        android:background="@drawable/edit_icon" />
 
                 </RelativeLayout>
 

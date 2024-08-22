@@ -9,6 +9,7 @@ import android.content.res.ColorStateList
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -360,10 +361,14 @@ class MyProfileFragment : Fragment() {
                         val myBitmap = BitmapFactory.decodeFile(imgFile.absolutePath)
                         if (isCameraRequest) {
                             binding.ivCover.setImageBitmap(myBitmap)
+                            Log.d("uploadCover" , "bf uploadCover")
                             uploadCover()
+                            Log.d("uploadCover" , "af uploadCover")
                         } else {
                             binding.civProfile.setImageBitmap(myBitmap)
+                            Log.d("uploadProfile" , "bf uploadProfile")
                             uploadProfile()
+                            Log.d("uploadProfile" , "af uploadProfile")
                         }
                     }
                 }
@@ -417,6 +422,9 @@ class MyProfileFragment : Fragment() {
                 }
             }
         }, activity, Constant.UPDATE_IMAGE, params, FileParams)
+
+        Log.d("UPDATE_IMAGE" , "UPDATE_IMAGE: " + Constant.UPDATE_IMAGE)
+        Log.d("UPDATE_IMAGE" , "UPDATE_IMAGEparams: " + params)
     }
     private fun uploadCover() {
         val params: MutableMap<String, String> = HashMap()
@@ -445,6 +453,10 @@ class MyProfileFragment : Fragment() {
                 }
             }
         }, activity, Constant.UPDATE_COVER_IMG, params, FileParams)
+
+
+        Log.d("UPDATE_COVER_IMG" , "UPDATE_COVER_IMG: " + Constant.UPDATE_COVER_IMG)
+        Log.d("UPDATE_COVER_IMG" , "UPDATE_COVER_IMGparams: " + params)
     }
 
     private fun showLogoutConfirmationDialog() {
