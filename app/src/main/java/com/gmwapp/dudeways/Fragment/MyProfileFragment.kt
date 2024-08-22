@@ -273,7 +273,7 @@ class MyProfileFragment : Fragment() {
             val proof1 = session.getData(Constant.SELFIE_IMAGE)
             val proof2 = session.getData(Constant.FRONT_IMAGE)
             val proof3 = session.getData(Constant.BACK_IMAGE)
-            val status = session.getData(Constant.STATUS)
+            val status = session.getData(Constant.VERIFIED_STATUS)
             val payment_status = session.getData(Constant.PAYMENT_STATUS)
             val payment_image = session.getData(Constant.PAYMENT_IMAGE)
 
@@ -288,8 +288,8 @@ class MyProfileFragment : Fragment() {
                 val intent = Intent(activity, PurchaseverifybuttonActivity::class.java)
                 startActivity(intent)
             }
-            else if (payment_image != "") {
-//            else if (status == "0") {
+//            else if (payment_image != "") {
+            else if (status == "0") {
                 val intent = Intent(activity, Stage4Activity::class.java)
                 startActivity(intent)
             }

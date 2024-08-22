@@ -434,8 +434,10 @@ class HomeActivity : BaseActivity() , NavigationBarView.OnItemSelectedListener {
                         session.setData(Constant.ADD_FRIEND_NOTIFY, jsonobj.getString(Constant.ADD_FRIEND_NOTIFY))
                         session.setData(Constant.VIEW_NOTIFY, jsonobj.getString(Constant.VIEW_NOTIFY))
                         session.setData(Constant.PROFILE_VERIFIED, jsonobj.getString(Constant.PROFILE_VERIFIED))
-                        session.setData(Constant.CHAT_STATUS, jsonobj.getString(Constant.CHAT_STATUS))
+//                        session.setData(Constant.CHAT_STATUS, jsonobj.getString(Constant.CHAT_STATUS))
                         session.setData(Constant.UNREAD_COUNT, jsonobj.getString(Constant.UNREAD_COUNT))
+                        session.setData(Constant.VERIFIED_STATUS, jsonobj.getString(Constant.VERIFIED))
+                        Log.d("USERDETAILS" ,"USERDETAILS VERIFIED_STATUS: " + session.getData(Constant.VERIFIED_STATUS))
 
                         val latitude = jsonobj.getString(Constant.LATITUDE)
                         val longitude = jsonobj.getString(Constant.LONGITUDE)
@@ -458,6 +460,9 @@ class HomeActivity : BaseActivity() , NavigationBarView.OnItemSelectedListener {
                 }
             }
         }, activity, Constant.USERDETAILS, params, false, 1)
+
+        Log.d("USERDETAILS" ,"USERDETAILS: " + Constant.USERDETAILS)
+        Log.d("USERDETAILS" ,"USERDETAILSparams: " + params)
     }
 
     // onstart

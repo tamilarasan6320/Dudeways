@@ -11,10 +11,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gmwapp.dudeways.Activity.HomeActivity
-import com.gmwapp.dudeways.Adapter.ConnectAdapter
 import com.gmwapp.dudeways.Adapter.SearchAdapter
-import com.gmwapp.dudeways.Model.Connect
-import com.gmwapp.dudeways.Model.HomeProfile
 import com.gmwapp.dudeways.Model.UsersList
 import com.gmwapp.dudeways.R
 import com.gmwapp.dudeways.databinding.FragmentSearchBinding

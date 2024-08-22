@@ -3,6 +3,7 @@ package com.gmwapp.dudeways.Adapter
 import android.app.Activity
 import android.content.Intent
 import android.content.res.ColorStateList
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -91,6 +92,11 @@ class ConnectAdapter(
 
         holder.itemView.setOnClickListener {
 
+            Log.d("id","chat_user_id " + report.id)
+            Log.d("id","chat_user_id name " + report.name)
+            Log.d("id","chat_user_id profile " + report.profile)
+            Log.d("id","chat_user_id unique_name " + report.unique_name)
+            Log.d("id","chat_user_id verified " + report.verified)
 
            if (report.friend_user_id == session.getData(Constant.USER_ID)) {
                 Toast.makeText(activity, "You can't chat with yourself", Toast.LENGTH_SHORT).show()

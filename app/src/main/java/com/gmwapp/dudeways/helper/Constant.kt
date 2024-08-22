@@ -150,6 +150,7 @@ object Constant {
     const val INTRODUCTION: String = "introduction"
     const val REFER_CODE: String = "refer_code"
     const val REFERRED_BY: String = "referred_by"
+    const val VERIFIED_STATUS: String = "verified_status"
     const val POINTS: String = "points"
     const val LOGIN: String = "login"
 
