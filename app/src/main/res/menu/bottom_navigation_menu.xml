@@ -23,18 +23,15 @@
         android:icon="@drawable/nav_chat"
         android:title="Chat" />
 
-
     <item
         android:id="@+id/navNotification"
         android:icon="@drawable/nav_notification"
         android:title="Notification" />
 
-<!--
-    <item
+    <!--<item
         android:id="@+id/navProfile"
         android:icon="@drawable/nav_notification"
-        android:title="My Profile" />
--->
+        android:title="My Profile" />-->
 
 
 

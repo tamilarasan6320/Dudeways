@@ -486,22 +486,5 @@ fun ChatsActivity.addChat(
 }
 
 
-private fun ChatsActivity.updateMessageSeenStatus(
-    databaseReference: DatabaseReference,
-    receiverName: String,
-    senderName: String,
-    chatID: String
-) {
-    databaseReference.child("CHATS_V2")
-        .child(receiverName)
-        .child(senderName)
-        .child(chatID)
-        .updateChildren(mapOf("msgSeen" to true))
-        .addOnSuccessListener {
-            logInfo(CHATS_ACTIVITY, "Message seen status updated for chat ID: $chatID")
-        }
-        .addOnFailureListener { exception ->
-            logError(CHATS_ACTIVITY, "Error updating message seen status: ${exception.message}")
-        }
-}
+
 

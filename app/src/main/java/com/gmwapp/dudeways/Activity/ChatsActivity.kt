@@ -551,11 +551,11 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
                         senderName?.let { nonEmptySenderName ->
                             nonEmptyChatModel.chatID?.let { nonEmptyChatID ->
                                 //Todo : This causing the bug in the app. Fix this to enable tick functionality
-//                                updateMessageSeenStatus(
-//                                    receiverName = nonEmptyReceiverName,
-//                                    senderName = nonEmptySenderName,
-//                                    chatID = nonEmptyChatID
-//                                )
+                                updateMessageSeenStatus(
+                                    receiverName = nonEmptyReceiverName,
+                                    senderName = nonEmptySenderName,
+                                    chatID = nonEmptyChatID
+                                )
                             }
                         }
                     }
@@ -684,6 +684,25 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
         // Show the dialog
         dialog.show()
     }
+
+
+    private fun updateMessageSeenStatus(receiverName: String, senderName: String, chatID: String) {
+        val messageReference = databaseReference
+            .child("CHATS_V2")
+            .child(receiverName)
+            .child(senderName)
+            .child(chatID)
+
+        // Update the `msgSeen` field to true
+        messageReference.child("msgSeen").setValue(true).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                logInfo(CHATS_ACTIVITY, "Message seen status updated successfully.")
+            } else {
+                logError(CHATS_ACTIVITY, "Failed to update message seen status.")
+            }
+        }
+    }
+
 
 }
 

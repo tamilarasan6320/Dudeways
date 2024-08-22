@@ -78,6 +78,15 @@ class ChatAdapter(
                         }
                         Glide.with(binding.root.context).load(session.getData(Constant.PROFILE))
                             .placeholder(R.drawable.profile_placeholder).into(binding.ivUserProfile)
+
+                        // Set seen status visibility
+                        if (position == conversations.size - 1) {
+                            // Last message
+                            binding.tvSeenStatus.visibility = View.VISIBLE
+                            binding.tvSeenStatus.text = if (it.msgSeen == true) "Seen" else "Delivered"
+                        } else {
+                            binding.tvSeenStatus.visibility = View.GONE
+                        }
                     }
 
                     is ReceiverChatMessageBinding -> {
@@ -105,6 +114,7 @@ class ChatAdapter(
             return currentDate != previousDate
         }
     }
+
 
     private fun formatTime(timestamp: Long): String {
         val timeFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())

@@ -64,6 +64,20 @@
                 app:layout_constraintTop_toBottomOf="@+id/tvMessage"
                 app:layout_constraintVertical_bias="0.0" />
 
+            <!-- Seen Status TextView -->
+            <TextView
+                android:id="@+id/tvSeenStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Seen"
+                android:textSize="@dimen/_10sdp"
+                android:textColor="?attr/myTextColor"
+                android:fontFamily="@font/poppins_regular"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTime" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <de.hdodenhof.circleimageview.CircleImageView

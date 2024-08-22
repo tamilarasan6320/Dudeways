@@ -4,6 +4,8 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
+import android.content.res.ColorStateList
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
@@ -11,14 +13,33 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.canhub.cropper.CropImage
 import com.canhub.cropper.CropImageView
+import com.gmwapp.dudeways.Activity.CustomerSupportActivity
+import com.gmwapp.dudeways.Activity.DeactivateActivity
+import com.gmwapp.dudeways.Activity.EditProfileActivity
+import com.gmwapp.dudeways.Activity.FreePointsActivity
 import com.gmwapp.dudeways.Activity.GoogleLoginActivity
 import com.gmwapp.dudeways.Activity.HomeActivity
+import com.gmwapp.dudeways.Activity.IdverficationActivity
+import com.gmwapp.dudeways.Activity.InviteFriendsActivity
+import com.gmwapp.dudeways.Activity.MytripsActivity
+import com.gmwapp.dudeways.Activity.NotificationActivity
+import com.gmwapp.dudeways.Activity.PrivacypolicyActivity
+import com.gmwapp.dudeways.Activity.PurchasepointActivity
+import com.gmwapp.dudeways.Activity.PurchaseverifybuttonActivity
+import com.gmwapp.dudeways.Activity.SeetingActivity
+import com.gmwapp.dudeways.Activity.Stage4Activity
+import com.gmwapp.dudeways.Activity.TermsconditionActivity
+import com.gmwapp.dudeways.Activity.VerifiedActivity
 import com.gmwapp.dudeways.R
 import com.gmwapp.dudeways.databinding.FragmentMyProfileBinding
 import com.gmwapp.dudeways.databinding.FragmentTripBinding
@@ -41,6 +62,8 @@ class MyProfileFragment : Fragment() {
     lateinit var session: Session
 
     lateinit var mGoogleSignInClient: GoogleSignInClient
+    private lateinit var sharedPreferences: SharedPreferences
+
 
     private val auth by lazy {
         FirebaseAuth.getInstance()
@@ -66,16 +89,25 @@ class MyProfileFragment : Fragment() {
         session = Session(activity)
 
         (activity as HomeActivity).binding.rltoolbar.visibility = View.GONE
+        (activity as HomeActivity).binding.bottomNavigationView.visibility = View.GONE
         (activity as HomeActivity).binding.ivSearch.visibility = View.GONE
 
+
+
+        sharedPreferences = activity.getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+
+        binding.darkModeSwitch.isChecked = sharedPreferences.getBoolean("dark_mode", false)
+
+        binding.darkModeSwitch.setOnCheckedChangeListener { _, isChecked ->
+            sharedPreferences.edit().putBoolean("dark_mode", isChecked).apply()
+            AppCompatDelegate.setDefaultNightMode(
+                if (isChecked) AppCompatDelegate.MODE_NIGHT_YES
+                else AppCompatDelegate.MODE_NIGHT_NO
+            )
+            requireActivity().recreate() // Recreate activity to apply the new theme
+        }
+
         // Configure Google Sign-In
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestEmail()
-            .build()
-
-        googleSignInClient = GoogleSignIn.getClient(activity, gso)
-
-
 
         val verify = session.getData(Constant.VERIFIED)
 
@@ -87,18 +119,209 @@ class MyProfileFragment : Fragment() {
         }
 
 
+
+        binding.ivAddProfile.setOnClickListener {
+            isCameraRequest = false
+            pickImageFromGallery()
+        }
+
+        binding.ivEdit.setOnClickListener {
+            val intent = Intent(activity, EditProfileActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.ivCamera.setOnClickListener {
+            isCameraRequest = true
+            pickImageFromGallery()
+        }
+
+        binding.rlNotifications.setOnClickListener {
+            val intent = Intent(activity, NotificationActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.rlPrivacy.setOnClickListener {
+            val intent = Intent(activity, PrivacypolicyActivity::class.java)
+            startActivity(intent)
+        }
+
+
+        binding.rlDarkmode.setOnClickListener{
+
+        }
+
+
+        binding.rlTermscondition.setOnClickListener {
+            val intent = Intent(activity, TermsconditionActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.rlInviteFriends.setOnClickListener {
+            val intent = Intent(activity, InviteFriendsActivity::class.java)
+            startActivity(intent)
+        }
+
+        // Configure Google Sign-In
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build()
+
+        googleSignInClient = GoogleSignIn.getClient(activity, gso)
+
         val profile = session.getData(Constant.PROFILE)
         Glide.with(activity).load(profile).placeholder(R.drawable.profile_placeholder)
             .into(binding.civProfile)
         Glide.with(activity).load(session.getData(Constant.COVER_IMG)).placeholder(R.drawable.placeholder_bg).into(binding.ivCover)
-
+//
+//        binding.tvProfessional.text = session.getData(Constant.PROFESSION)
+//        binding.tvCity.text = session.getData(Constant.CITY)
+//        binding.tvState.text = session.getData(Constant.STATE)
+//        binding.tvGender.text = session.getData(Constant.GENDER)
         binding.tvName.text = session.getData(Constant.NAME)
         binding.tvUsername.text = "@"+session.getData(Constant.UNIQUE_NAME)
+//        //   binding.tvPlace.text = session.getData(Constant.CITY) + ", " + session.getData(Constant.STATE)
+//        binding.tvIntroduction.text = session.getData(Constant.INTRODUCTION)
+
+
+        val gender = session.getData(Constant.GENDER)
+        val age = session.getData(Constant.AGE)
+//        binding.ivAge.text = age
+//
+//        if(gender == "male") {
+//            binding.ivGender.setBackgroundDrawable(resources.getDrawable(R.drawable.male_ic))
+//        }
+//        else if (gender == "female"){
+//            binding.ivGender.setBackgroundDrawable(resources.getDrawable(R.drawable.female_ic))
+//        }
+//        else{
+//            binding.ivGender.setBackgroundDrawable(resources.getDrawable(R.drawable.third_gender))
+//        }
+//
+//        if (gender == "male") {
+//            binding.ivGenderColor.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.blue_200))
+//        } else if(gender == "female"){
+//            binding.ivGenderColor.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.primary))
+//        }
+//
+//        else{
+//            binding.ivGenderColor.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.green))
+//        }
+
+
+
+
+
+
+
+        binding.rlMytrips.setOnClickListener {
+            val intent = Intent(activity, MytripsActivity::class.java)
+            startActivity(intent)
+        }
+
+
+        binding.ivBack.setOnClickListener{
+            requireActivity().onBackPressedDispatcher.onBackPressed()
+        }
+
+        binding.rlStorepoints.setOnClickListener {
+            val dialogView = layoutInflater.inflate(R.layout.dialog_custom, null)
+
+            val dialogBuilder = AlertDialog.Builder(activity)
+                .setView(dialogView)
+                .create()
+            val title = dialogView.findViewById<TextView>(R.id.dialog_title)
+            val btnPurchase = dialogView.findViewById<LinearLayout>(R.id.btnPurchase)
+            val btnFreePoints = dialogView.findViewById<LinearLayout>(R.id.btnFreePoints)
+            val tv_min_points = dialogView.findViewById<TextView>(R.id.tv_min_points)
+
+            tv_min_points.visibility = View.GONE
+
+
+
+            title.text = "You have ${session.getData(Constant.POINTS)} Points"
+
+            btnPurchase.setOnClickListener {
+                val intent = Intent(activity, PurchasepointActivity::class.java)
+                startActivity(intent)
+                dialogBuilder.dismiss()
+            }
+
+            btnFreePoints.setOnClickListener {
+                val intent = Intent(activity, FreePointsActivity::class.java)
+                startActivity(intent)
+                dialogBuilder.dismiss()
+            }
+
+
+
+
+            dialogBuilder.show()
+        }
+
+
+        binding.rlDeactiveaccount.setOnClickListener {
+            val intent = Intent(activity, DeactivateActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.rlCustomerSupport.setOnClickListener {
+            val intent = Intent(activity, CustomerSupportActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.rlVerificationBadge.setOnClickListener {
+            val proof1 = session.getData(Constant.SELFIE_IMAGE)
+            val proof2 = session.getData(Constant.FRONT_IMAGE)
+            val proof3 = session.getData(Constant.BACK_IMAGE)
+            val status = session.getData(Constant.STATUS)
+            val payment_status = session.getData(Constant.PAYMENT_STATUS)
+            val payment_image = session.getData(Constant.PAYMENT_IMAGE)
+
+
+            // if proof 1 2 3 is empty
+            if(proof1.isEmpty() || proof2.isEmpty() || proof3.isEmpty()) {
+                val intent = Intent(activity, IdverficationActivity::class.java)
+                startActivity(intent)
+            }
+            else if (payment_image == "") {
+//            else if (payment_status == "0") {
+                val intent = Intent(activity, PurchaseverifybuttonActivity::class.java)
+                startActivity(intent)
+            }
+            else if (payment_image != "") {
+//            else if (status == "0") {
+                val intent = Intent(activity, Stage4Activity::class.java)
+                startActivity(intent)
+            }
+            else if (status == "1"){
+                val intent = Intent(activity, VerifiedActivity::class.java)
+                startActivity(intent)
+            }
+
+        }
+
+        binding.rlLogout.setOnClickListener {
+            showLogoutConfirmationDialog()
+        }
+
+
 
         return binding.root
 
     }
 
+
+    private fun setupDarkModeSwitch() {
+
+    }
+
+    private fun reloadFragment() {
+        parentFragmentManager.beginTransaction().apply {
+            detach(this@MyProfileFragment)
+            attach(this@MyProfileFragment)
+            commit()
+        }
+    }
 
     private fun pickImageFromGallery() {
         val intent = Intent()
@@ -323,6 +546,17 @@ class MyProfileFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         verification_list()
-    }
+        handleOnBackPressed()
 
+    }
+    private fun handleOnBackPressed() {
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // Replace the current fragment with HomeFragment
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, HomeFragment())
+                    .commit()
+            }
+        })
+    }
 }

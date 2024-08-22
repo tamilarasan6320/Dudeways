@@ -187,8 +187,11 @@ class HomeActivity : BaseActivity() , NavigationBarView.OnItemSelectedListener {
             .into(binding.civProfile)
 
         binding.civProfile.setOnClickListener {
-            val intent = Intent(activity, ProfileViewActivity::class.java)
-            startActivity(intent)
+//            val intent = Intent(activity, ProfileViewActivity::class.java)
+//            startActivity(intent)
+            fm.beginTransaction().replace(R.id.fragment_container, myProfileFragment).commit()
+
+
         }
     }
 
@@ -215,7 +218,7 @@ class HomeActivity : BaseActivity() , NavigationBarView.OnItemSelectedListener {
                 transaction.replace(R.id.fragment_container, notification)
                 onStart()
             }
-         /*   R.id.navProfile -> {
+           /* R.id.navProfile -> {
                 transaction.replace(R.id.fragment_container, myProfileFragment)
                 onStart()
             }*/
@@ -232,7 +235,11 @@ class HomeActivity : BaseActivity() , NavigationBarView.OnItemSelectedListener {
         if (currentFragment is SearchFragment) {
             // If current fragment is SearchFragment, replace it with HomeFragment
             fm.beginTransaction().replace(R.id.fragment_container, homeFragment).commit()
-        } else {
+        } else if (currentFragment is MyProfileFragment){
+            fm.beginTransaction().replace(R.id.fragment_container, homeFragment).commit()
+
+        }
+        else {
             // If not, follow the default behavior
             if (backPressedTime + 2000 > System.currentTimeMillis()) {
                 backToast.cancel()
