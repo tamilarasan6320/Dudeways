@@ -83,8 +83,18 @@ class ChatAdapter(
                         if (position == conversations.size - 1) {
                             // Last message
                             binding.tvSeenStatus.visibility = View.VISIBLE
-                            binding.tvSeenStatus.text = if (it.msgSeen == true) "Seen" else "Delivered"
-                        } else {
+//                            binding.tvSeenStatus.text = if (it.msgSeen == true) "Seen" else "Delivered"
+
+                            val msgSeen = session.getData(Constant.MSG_SEEN).toString()
+
+                            if(msgSeen == "0"){
+                                binding.tvSeenStatus.visibility = View.VISIBLE
+                                binding.tvSeenStatus.text = ""
+                            }else{
+                                binding.tvSeenStatus.visibility = View.GONE
+                            }
+                        }
+                        else {
                             binding.tvSeenStatus.visibility = View.GONE
                         }
                     }

@@ -126,7 +126,7 @@ class Stage3Activity : BaseActivity() {
         fileParams[Constant.FRONT_IMAGE] = file.path
 
         // Send the API request
-        ApiConfig.RequestToVolleyMulti({ result, response ->
+        ApiConfig.requestToVolleyMulti({ result, response ->
             if (result) {
                 try {
                     val jsonObject = JSONObject(response)
@@ -171,7 +171,7 @@ class Stage3Activity : BaseActivity() {
         fileParams[Constant.BACK_IMAGE] = file.path
 
         // Send the API request
-        ApiConfig.RequestToVolleyMulti({ result, response ->
+        ApiConfig.requestToVolleyMulti({ result, response ->
             if (result) {
                 try {
                     val jsonObject = JSONObject(response)

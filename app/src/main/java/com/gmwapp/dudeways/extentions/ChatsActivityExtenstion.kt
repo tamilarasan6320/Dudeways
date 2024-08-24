@@ -180,27 +180,7 @@ fun ChatsActivity.clearChatInFirebase(
 /**
  *  Set user status and updates to firebase
  */
-fun ChatsActivity.setUserStatus(
-    firebaseDatabase: FirebaseDatabase,
-    senderID: String,
-    isOnline: Boolean
-) {
-    val userStatusRef = firebaseDatabase.getReference("user_status/$senderID")
 
-    val status = if (isOnline) {
-        mapOf("status" to "online")
-    } else {
-        mapOf("status" to "offline", "last_seen" to System.currentTimeMillis())
-    }
-
-    userStatusRef.setValue(status).addOnCompleteListener { task ->
-        if (task.isSuccessful) {
-            logInfo(CHATS_ACTIVITY, "User status updated: $status")
-        } else {
-            logError(CHATS_ACTIVITY, "Failed to update user status: ${task.exception?.message}")
-        }
-    }
-}
 
 /**
  *  Observes typing status and updates the UI accordingly.
@@ -368,6 +348,7 @@ fun ChatsActivity.updateMessagesForSender(
                 )
                 playSentTone(soundPool, sentTone)
                 logInfo(CHATS_ACTIVITY, "Message sent")
+
             } else {
                 logError(CHATS_ACTIVITY, "Failed to send message")
             }
@@ -393,12 +374,13 @@ private fun ChatsActivity.updateMessagesForReceiver(
         chatID = chatID,
         dateTime = Timestamp.now().toDate().time,
         message = message,
-        msgSeen = false,
+        msgSeen = false, // Initially set to false
         receiverID = senderID,
         senderID = receiverID,
         type = "TEXT",
         sentBy = session.getData(Constant.NAME)
     )
+
     databaseReference.child("CHATS_V2")
         .child(receiverName)
         .child(senderName)
@@ -406,12 +388,18 @@ private fun ChatsActivity.updateMessagesForReceiver(
         .setValue(chatModel)
         .addOnCompleteListener { task ->
             if (task.isSuccessful) {
+                // Log message successfully updated
                 logInfo("updateMessages", "Message updated for receiver")
+            // Listen for changes to msgSeen
             } else {
                 logError("updateMessages", "Failed to send message: ${task.exception?.message}")
             }
         }
 }
+
+
+
+
 
 
 /**
@@ -449,41 +437,12 @@ fun ChatsActivity.playReceiveTone(
 }
 
 
-fun ChatsActivity.addChat(
-    message: String,
-    receiverID: String
-) {
-    val params: MutableMap<String, String> = HashMap()
-    params[Constant.USER_ID] = session.getData(Constant.USER_ID)
-    params[Constant.CHAT_USER_ID] = receiverID
-    params[Constant.UNREAD] = "1"
-    params[Constant.MESSAGE] = message
-    ApiConfig.RequestToVolley({ result, response ->
-        if (result) {
-            try {
-                val jsonObject = JSONObject(response)
-                if (jsonObject.getBoolean(Constant.SUCCESS)) {
-
-                    chat_status = jsonObject.getString("chat_status")
-                    session.setData(Constant.CHAT_STATUS, chat_status)
-
-                 //   Toast.makeText(this, chat_status, Toast.LENGTH_SHORT).show()
 
 
 
-                } else {
-                    chat_status = jsonObject.getString("chat_status")
-                    session.setData(Constant.CHAT_STATUS, chat_status)
 
-                //    Toast.makeText(this, chat_status, Toast.LENGTH_SHORT).show()
 
-                }
-            } catch (e: JSONException) {
-                e.printStackTrace()
-            }
-        }
-    }, activity, Constant.ADD_CHAT, params, false, 1)
-}
+
 
 
 

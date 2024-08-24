@@ -87,23 +87,32 @@ class HomeActivity : BaseActivity() , NavigationBarView.OnItemSelectedListener {
         setupBottomNavigation()
         loadProfilePicture()
 
-
-
         // Restore selected item from saved instance state if available
         if (savedInstanceState != null) {
             val selectedItemId = savedInstanceState.getInt("selectedItemId", R.id.navHome)
             bottomNavigationView?.selectedItemId = selectedItemId
+
+            // Restore the current fragment based on the saved fragment tag
+            val fragmentTag = savedInstanceState.getString("currentFragmentTag")
+            if (fragmentTag != null) {
+                val fragment = when (fragmentTag) {
+                    HomeFragment::class.java.simpleName -> homeFragment
+                    ExploreFragment::class.java.simpleName -> exploreFragment
+                    MessagesFragment::class.java.simpleName -> messagesFragment
+                    NotificationFragment::class.java.simpleName -> notification
+                    MyProfileFragment::class.java.simpleName -> myProfileFragment
+                    SearchFragment::class.java.simpleName -> searchFragment
+                    InterestFragment::class.java.simpleName -> interestFragment
+                    else -> homeFragment // default to homeFragment if unknown tag
+                }
+                fm.beginTransaction().replace(R.id.fragment_container, fragment).commit()
+            }
+        } else {
+            // Set default fragment if no saved instance state
+            fm.beginTransaction().replace(R.id.fragment_container, homeFragment).commit()
         }
-
-
-
-
-
-
-
-
-
     }
+
 
     private fun chatBadge() {
        // Toast.makeText(activity, session.getData(Constant.UNREAD_COUNT.toString()), Toast.LENGTH_SHORT).show()
@@ -126,6 +135,12 @@ class HomeActivity : BaseActivity() , NavigationBarView.OnItemSelectedListener {
         super.onSaveInstanceState(outState)
         // Save the selected item id
         outState.putInt("selectedItemId", bottomNavigationView?.selectedItemId ?: R.id.navHome)
+
+        val currentFragment = fm.findFragmentById(R.id.fragment_container)
+        if (currentFragment != null) {
+            outState.putString("currentFragmentTag", currentFragment::class.java.simpleName)
+        }
+
     }
 
     private fun initializeComponents() {
@@ -149,6 +164,13 @@ class HomeActivity : BaseActivity() , NavigationBarView.OnItemSelectedListener {
         binding.ivSearch.setOnClickListener {
             fm.beginTransaction().replace(R.id.fragment_container, searchFragment).commit()
         }
+
+        binding.civProfile.setOnClickListener {
+            val transaction = fm.beginTransaction()
+            transaction.replace(R.id.fragment_container, myProfileFragment, MyProfileFragment::class.java.simpleName)
+            transaction.commit()
+        }
+
 
     }
 
@@ -186,13 +208,7 @@ class HomeActivity : BaseActivity() , NavigationBarView.OnItemSelectedListener {
         Glide.with(activity).load(profile).placeholder(R.drawable.profile_placeholder)
             .into(binding.civProfile)
 
-        binding.civProfile.setOnClickListener {
-//            val intent = Intent(activity, ProfileViewActivity::class.java)
-//            startActivity(intent)
-            fm.beginTransaction().replace(R.id.fragment_container, myProfileFragment).commit()
 
-
-        }
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -218,11 +234,15 @@ class HomeActivity : BaseActivity() , NavigationBarView.OnItemSelectedListener {
                 transaction.replace(R.id.fragment_container, notification)
                 onStart()
             }
+
            /* R.id.navProfile -> {
                 transaction.replace(R.id.fragment_container, myProfileFragment)
                 onStart()
             }*/
+
         }
+
+
         transaction.commit()
         setting()
         return true

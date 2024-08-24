@@ -317,7 +317,7 @@ class ProfileViewActivity : BaseActivity() {
         params[Constant.USER_ID] = session.getData(Constant.USER_ID)
         val FileParams: MutableMap<String, String> = HashMap()
         FileParams[Constant.PROFILE] = filePath1!!
-        ApiConfig.RequestToVolleyMulti({ result, response ->
+        ApiConfig.requestToVolleyMulti({ result, response ->
             if (result) {
                 try {
                     val jsonObject = JSONObject(response)
@@ -361,7 +361,7 @@ class ProfileViewActivity : BaseActivity() {
         params[Constant.USER_ID] = session.getData(Constant.USER_ID)
         val FileParams: MutableMap<String, String> = HashMap()
         FileParams[Constant.COVER_IMG] = filePath1!!
-        ApiConfig.RequestToVolleyMulti({ result, response ->
+        ApiConfig.requestToVolleyMulti({ result, response ->
             if (result) {
                 try {
                     val jsonObject = JSONObject(response)

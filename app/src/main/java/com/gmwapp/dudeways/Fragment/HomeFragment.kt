@@ -85,6 +85,8 @@ class HomeFragment : Fragment() {
 
 
 
+
+
         return binding.root
     }
 
@@ -102,6 +104,9 @@ class HomeFragment : Fragment() {
         binding.rvProfileList.adapter = homeProfilesAdapter
         binding.rvUserList.adapter = homeUserlistAdapter
 
+
+
+
         binding.rvProfileList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -114,6 +119,8 @@ class HomeFragment : Fragment() {
                 }
             }
         })
+
+
     }
 
     private fun loadCategoryList() {
@@ -352,7 +359,7 @@ class HomeFragment : Fragment() {
 
     private fun showActiveUserListError(message: String) {
         binding.rvUserList.visibility = View.GONE
-        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
+       // Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
     }
 }
 

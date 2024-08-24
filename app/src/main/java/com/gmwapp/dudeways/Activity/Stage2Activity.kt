@@ -84,7 +84,7 @@ class Stage2Activity : BaseActivity() {
         val fileParams: MutableMap<String, String> = HashMap()
         fileParams[Constant.SELFIE_IMAGE] = filePath1!!
 
-        ApiConfig.RequestToVolleyMulti({ result, response ->
+        ApiConfig.requestToVolleyMulti({ result, response ->
             if (result) {
                 try {
                     val jsonObject = JSONObject(response)

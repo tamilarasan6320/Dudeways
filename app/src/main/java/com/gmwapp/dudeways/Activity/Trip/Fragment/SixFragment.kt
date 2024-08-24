@@ -120,7 +120,7 @@ class SixFragment : Fragment() {
         if (!filePath1.isNullOrEmpty()) {
             fileParams[Constant.TRIP_IMAGE] = filePath1!!
         }
-        ApiConfig.RequestToVolleyMulti({ result, response ->
+        ApiConfig.requestToVolleyMulti({ result, response ->
             if (result) {
                 try {
                     val jsonObject = JSONObject(response)

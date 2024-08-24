@@ -111,9 +111,10 @@ class ChatlistAdapter(
                 intent.putExtra("name", report.name)
                 session.setData("reciver_profile", report.profile)
                 intent.putExtra("chat_user_id", report.chat_user_id)
-             intent.putExtra("unread", report.unread)
-             intent.putExtra("unique_name", report.unique_name)
+                intent.putExtra("unread", report.unread)
+                intent.putExtra("unique_name", report.unique_name)
                 intent.putExtra("friend_verified", report.verified)
+                session.setData(Constant.MSG_SEEN, report.msg_seen)
                 activity.startActivity(intent)
             }
 

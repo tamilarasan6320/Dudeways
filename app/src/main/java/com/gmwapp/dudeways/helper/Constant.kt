@@ -18,6 +18,7 @@ object Constant {
     const val OTHER_USER_DETAILS: String = BaseUrl + "other_userdetails"
     const val SETTINGS_LIST: String = BaseUrl + "settings_list"
     const val PRIVACY_POLICY: String = BaseUrl + "privacy_policy"
+    const val REFUND_POLICY: String = BaseUrl + "refund_policy"
     const val TERMS_CONDITIONS: String = BaseUrl + "terms_conditions"
 
     const val UPDATE_IMAGE: String = BaseUrl + "update_image"
@@ -52,6 +53,7 @@ object Constant {
     const val NOTFICATION_LIST: String = BaseUrl + "notification_list"
     const val UPDATE_NOTIFY: String = BaseUrl + "update_notify"
     const val ADD_FRIENDS: String = BaseUrl + "add_friends"
+    const val MSG_SEEN_URL: String = BaseUrl + "msg_seen"
     const val READ_CHATS: String = BaseUrl + "read_chats"
     const val PROFILE_VIEW: String = BaseUrl + "profile_view"
     const val ADD_TRIP: String = BaseUrl + "add_trip"

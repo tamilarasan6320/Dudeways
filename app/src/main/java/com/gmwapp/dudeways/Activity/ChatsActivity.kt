@@ -29,7 +29,6 @@ import com.gmwapp.dudeways.Adapter.ChatAdapter
 import com.gmwapp.dudeways.Model.ChatModel
 import com.gmwapp.dudeways.R
 import com.gmwapp.dudeways.databinding.ActivityChatsBinding
-import com.gmwapp.dudeways.extentions.addChat
 import com.gmwapp.dudeways.extentions.fetchMessages
 import com.gmwapp.dudeways.extentions.logError
 import com.gmwapp.dudeways.extentions.logInfo
@@ -37,7 +36,6 @@ import com.gmwapp.dudeways.extentions.makeToast
 import com.gmwapp.dudeways.extentions.observeUserStatus
 import com.gmwapp.dudeways.extentions.playReceiveTone
 import com.gmwapp.dudeways.extentions.popUpMenu
-import com.gmwapp.dudeways.extentions.setUserStatus
 import com.gmwapp.dudeways.extentions.updateMessagesForSender
 import com.gmwapp.dudeways.helper.ApiConfig
 import com.gmwapp.dudeways.helper.Constant
@@ -75,8 +73,8 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
     private var receiveTone: Int = 0
     private var friend_verified = ""
     private var isConversationsFetching: Boolean = true
-
     private lateinit var typingStatusReference: DatabaseReference
+    private var lastMessageId: String? = null
 
 
     var gender = ""
@@ -97,10 +95,8 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
         receiverName = intent.getStringExtra("unique_name")
         binding.tvName.text = intent.getStringExtra("name")
         read_chats()
-        chatReference =
-            databaseReference.child("CHATS_V2").child(senderName!!).child(receiverName!!)
+        chatReference = databaseReference.child("CHATS_V2").child(senderName!!).child(receiverName!!)
         typingStatusReference = firebaseDatabase.getReference("typing_status/$senderId")
-
         gender = session.getData(Constant.GENDER)
         verified = session.getData(Constant.VERIFIED)
 
@@ -153,6 +149,7 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
                 params[Constant.USER_ID] = session.getData(Constant.USER_ID)
                 params[Constant.CHAT_USER_ID] = receiverId
                 params[Constant.UNREAD] = "1"
+                params[Constant.MSG_SEEN] = "1"
                 params[Constant.MESSAGE] = binding.messageEdittext.text.toString()
                 ApiConfig.RequestToVolley({ result, response ->
                     if (result) {
@@ -161,13 +158,12 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
                             if (jsonObject.getBoolean(Constant.SUCCESS)) {
                                 chat_status = jsonObject.getString("chat_status")
                                 session.setData(Constant.CHAT_STATUS, chat_status)
-
+                                session.setData(Constant.MSG_SEEN, "msg_seen")
                                 val message = binding.messageEdittext.text.toString()
                                 if (message.isNotEmpty()) {
                                     isBlocked(senderId, receiverId) { isBlocked ->
                                         if (isBlocked) {
                                             binding.sendButton.isClickable = true
-
                                             makeToast("You cannot send messages to this user blocked.")
                                         } else {
                                             binding.sendButton.isClickable = true
@@ -340,6 +336,59 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
         })
     }
 
+    fun observeMessageSeenStatus() {
+        val seenStatusReference = firebaseDatabase.getReference("CHATS_V2/$receiverName/$senderName")
+        seenStatusReference.addChildEventListener(object : ChildEventListener {
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                Log.d("SeenStatus", "onChildAdded: ${snapshot.key}")
+                updateSeenStatus(snapshot)
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                Log.d("SeenStatus", "onChildChanged: ${snapshot.key}")
+                updateSeenStatus(snapshot)
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+                // Not needed for seen status
+            }
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                // Not needed for seen status
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                logError("CHATS_ACTIVITY", "Error observing message seen status: ${error.message}")
+            }
+        })
+    }
+
+    private fun updateSeenStatus(snapshot: DataSnapshot) {
+        val chatModel = snapshot.getValue(ChatModel::class.java)
+        chatModel?.let {
+            Log.d("SeenStatus", "Processing message: ${it.message}, ID: ${snapshot.key}, ReceiverID: ${it.receiverID}, SenderID: $senderId, MsgSeen: ${it.msgSeen}")
+
+            // Check if this is the most recent message
+            if (it.receiverID == senderId && it.msgSeen == true) {
+                if (snapshot.key == lastMessageId) {
+                    Log.d("SeenStatus", "Last message seen by receiver: ${it.message}")
+                    makeToast("Your message has been seen.")
+                } else {
+                    Log.d("SeenStatus", "Message is not the last one.")
+                }
+            }
+
+            // Update lastMessageId with the current message ID
+            lastMessageId = snapshot.key
+        } ?: Log.d("SeenStatus", "ChatModel is null for snapshot: ${snapshot.key}")
+    }
+
+    private fun makeToast(message: String) {
+        // Ensure to call this on the main thread if it's not already
+        runOnUiThread {
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        }
+    }
 
 
     override fun onBackPressed() {
@@ -406,6 +455,28 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
                 }
             }
         }, activity, Constant.ADD_FRIENDS, params, true, 1)
+    }
+    fun msg_seen() {
+        val session = Session(activity)
+        val params: MutableMap<String, String> = HashMap()
+        params[Constant.USER_ID] = session.getData(Constant.USER_ID)
+        params[Constant.CHAT_USER_ID] = receiverId!!
+        ApiConfig.RequestToVolley({ result, response ->
+            if (result) {
+                try {
+                    val jsonObject = JSONObject(response)
+                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
+                        session.setData(Constant.MSG_SEEN, "msg_seen")
+                        chatAdapter?.notifyDataSetChanged()
+                        //Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
+                    } else {
+                       // Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }
+        }, activity, Constant.MSG_SEEN_URL, params, false, 1)
     }
 
     private fun read_chats() {
@@ -551,11 +622,11 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
                         senderName?.let { nonEmptySenderName ->
                             nonEmptyChatModel.chatID?.let { nonEmptyChatID ->
                                 //Todo : This causing the bug in the app. Fix this to enable tick functionality
-                                updateMessageSeenStatus(
-                                    receiverName = nonEmptyReceiverName,
-                                    senderName = nonEmptySenderName,
-                                    chatID = nonEmptyChatID
-                                )
+//                                updateMessageSeenStatus(
+//                                    receiverName = nonEmptyReceiverName,
+//                                    senderName = nonEmptySenderName,
+//                                    chatID = nonEmptyChatID
+//                                )
                             }
                         }
                     }
@@ -685,20 +756,25 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
         dialog.show()
     }
 
+    fun setUserStatus(
+        firebaseDatabase: FirebaseDatabase,
+        senderID: String,
+        isOnline: Boolean
+    ) {
+        val userStatusRef = firebaseDatabase.getReference("user_status/$senderID")
 
-    private fun updateMessageSeenStatus(receiverName: String, senderName: String, chatID: String) {
-        val messageReference = databaseReference
-            .child("CHATS_V2")
-            .child(receiverName)
-            .child(senderName)
-            .child(chatID)
+        val status = if (isOnline) {
+            mapOf("status" to "online")
 
-        // Update the `msgSeen` field to true
-        messageReference.child("msgSeen").setValue(true).addOnCompleteListener { task ->
+        } else {
+            mapOf("status" to "offline", "last_seen" to System.currentTimeMillis())
+        }
+
+        userStatusRef.setValue(status).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                logInfo(CHATS_ACTIVITY, "Message seen status updated successfully.")
+                logInfo(CHATS_ACTIVITY, "User status updated: $status")
             } else {
-                logError(CHATS_ACTIVITY, "Failed to update message seen status.")
+                logError(CHATS_ACTIVITY, "Failed to update user status: ${task.exception?.message}")
             }
         }
     }

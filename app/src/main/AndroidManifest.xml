@@ -35,6 +35,9 @@
         tools:replace="android:allowBackup"
         tools:targetApi="31">
         <activity
+            android:name=".Activity.RefundActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.RejectVerifyActivity"
             android:exported="false" />
         <activity

@@ -86,14 +86,13 @@ class ProfileActivity : BaseActivity() {
         params[Constant.USER_ID] = session.getData(Constant.USER_ID)
         val FileParams: MutableMap<String, String> = HashMap()
         FileParams[Constant.PROFILE] = filePath1!!
-        ApiConfig.RequestToVolleyMulti({ result, response ->
+        ApiConfig.requestToVolleyMulti({ result, response ->
             if (result) {
                 try {
                     val jsonObject = JSONObject(response)
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
                         val `object` = JSONObject(response)
                         val jsonobj = `object`.getJSONObject(Constant.DATA)
-
                         session.setData(Constant.NAME, jsonobj.getString(Constant.NAME))
                         session.setData(Constant.UNIQUE_NAME, jsonobj.getString(Constant.UNIQUE_NAME))
                         session.setData(Constant.EMAIL, jsonobj.getString(Constant.EMAIL))

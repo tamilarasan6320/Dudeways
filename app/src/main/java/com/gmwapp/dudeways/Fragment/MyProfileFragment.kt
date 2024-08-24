@@ -37,6 +37,7 @@ import com.gmwapp.dudeways.Activity.NotificationActivity
 import com.gmwapp.dudeways.Activity.PrivacypolicyActivity
 import com.gmwapp.dudeways.Activity.PurchasepointActivity
 import com.gmwapp.dudeways.Activity.PurchaseverifybuttonActivity
+import com.gmwapp.dudeways.Activity.RefundActivity
 import com.gmwapp.dudeways.Activity.SeetingActivity
 import com.gmwapp.dudeways.Activity.Stage4Activity
 import com.gmwapp.dudeways.Activity.TermsconditionActivity
@@ -105,7 +106,15 @@ class MyProfileFragment : Fragment() {
                 if (isChecked) AppCompatDelegate.MODE_NIGHT_YES
                 else AppCompatDelegate.MODE_NIGHT_NO
             )
-            requireActivity().recreate() // Recreate activity to apply the new theme
+            activity.recreate()
+
+
+
+        }
+
+        binding.rlRefund.setOnClickListener {
+            val intent = Intent(activity, RefundActivity::class.java)
+            startActivity(intent)
         }
 
         // Configure Google Sign-In
@@ -312,17 +321,7 @@ class MyProfileFragment : Fragment() {
     }
 
 
-    private fun setupDarkModeSwitch() {
 
-    }
-
-    private fun reloadFragment() {
-        parentFragmentManager.beginTransaction().apply {
-            detach(this@MyProfileFragment)
-            attach(this@MyProfileFragment)
-            commit()
-        }
-    }
 
     private fun pickImageFromGallery() {
         val intent = Intent()
@@ -344,13 +343,13 @@ class MyProfileFragment : Fragment() {
                     CropImage.activity(imageUri)
                         .setAspectRatio(4, 2) // Set aspect ratio for a rectangle
                         .setCropShape(CropImageView.CropShape.RECTANGLE) // Set crop shape to rectangle
-                        .start(activity)
+                        .start(requireContext(),this)
                 } else {
                     // Configure CropImage for circular crop
                     CropImage.activity(imageUri)
                         .setAspectRatio(1, 1) // Set aspect ratio to 1:1 for a square crop
                         .setCropShape(CropImageView.CropShape.OVAL) // Set crop shape to oval
-                        .start(activity)
+                        .start(requireContext(),this)
                 }
             } else if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
                 val result: CropImage.ActivityResult? = CropImage.getActivityResult(data)
@@ -361,14 +360,10 @@ class MyProfileFragment : Fragment() {
                         val myBitmap = BitmapFactory.decodeFile(imgFile.absolutePath)
                         if (isCameraRequest) {
                             binding.ivCover.setImageBitmap(myBitmap)
-                            Log.d("uploadCover" , "bf uploadCover")
                             uploadCover()
-                            Log.d("uploadCover" , "af uploadCover")
                         } else {
                             binding.civProfile.setImageBitmap(myBitmap)
-                            Log.d("uploadProfile" , "bf uploadProfile")
                             uploadProfile()
-                            Log.d("uploadProfile" , "af uploadProfile")
                         }
                     }
                 }
@@ -384,7 +379,7 @@ class MyProfileFragment : Fragment() {
         params[Constant.USER_ID] = session.getData(Constant.USER_ID)
         val FileParams: MutableMap<String, String> = HashMap()
         FileParams[Constant.PROFILE] = filePath1!!
-        ApiConfig.RequestToVolleyMulti({ result, response ->
+        ApiConfig.requestToVolleyMulti({ result, response ->
             if (result) {
                 try {
                     val jsonObject = JSONObject(response)
@@ -431,7 +426,7 @@ class MyProfileFragment : Fragment() {
         params[Constant.USER_ID] = session.getData(Constant.USER_ID)
         val FileParams: MutableMap<String, String> = HashMap()
         FileParams[Constant.COVER_IMG] = filePath1!!
-        ApiConfig.RequestToVolleyMulti({ result, response ->
+        ApiConfig.requestToVolleyMulti({ result, response ->
             if (result) {
                 try {
                     val jsonObject = JSONObject(response)

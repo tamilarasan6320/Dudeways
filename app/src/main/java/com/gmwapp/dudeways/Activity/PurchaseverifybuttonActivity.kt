@@ -172,7 +172,7 @@ class PurchaseverifybuttonActivity : BaseActivity() {
         } else {
             Toast.makeText(activity, "Please upload payment screenshot", Toast.LENGTH_SHORT).show()
         }
-        ApiConfig.RequestToVolleyMulti({ result, response ->
+        ApiConfig.requestToVolleyMulti({ result, response ->
             if (result) {
                 try {
                     val jsonObject = JSONObject(response)
