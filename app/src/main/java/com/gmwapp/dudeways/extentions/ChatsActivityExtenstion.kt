@@ -348,6 +348,7 @@ fun ChatsActivity.updateMessagesForSender(
                 )
                 playSentTone(soundPool, sentTone)
                 logInfo(CHATS_ACTIVITY, "Message sent")
+//                msg_seen()
 
             } else {
                 logError(CHATS_ACTIVITY, "Failed to send message")

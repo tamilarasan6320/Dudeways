@@ -1,6 +1,8 @@
 package com.gmwapp.dudeways.Activity
 
 import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -36,7 +38,26 @@ class RefundActivity : BaseActivity() {
         binding.wvPrivacy.setBackgroundColor(resources.getColor(R.color.primary_light, null))
 
         fetchPrivacyPolicy()
+        handleDeepLink(intent)
 
+    }
+
+    private fun handleDeepLink(intent: Intent?) {
+        val action = intent?.action
+        val data: Uri? = intent?.data
+
+        if (Intent.ACTION_VIEW == action && data != null) {
+            // Extract information from the deep link URL
+            val contentId = data.lastPathSegment
+            val queryParams = data.queryParameterNames
+
+            // Use the extracted data to display the relevant content
+            if (contentId != null) {
+                // For example, load specific content based on the contentId
+                // You could use the contentId to fetch data from a database or API
+             //   displayContent(contentId)
+            }
+        }
     }
 
     private fun fetchPrivacyPolicy() {

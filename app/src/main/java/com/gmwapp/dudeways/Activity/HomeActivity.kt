@@ -43,6 +43,7 @@ import com.zoho.livechat.android.listeners.InitListener
 import com.zoho.salesiqembed.ZohoSalesIQ
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import org.json.JSONException
 import org.json.JSONObject
@@ -75,6 +76,10 @@ class HomeActivity : BaseActivity() , NavigationBarView.OnItemSelectedListener {
 
     private var backPressedTime: Long = 0
     private lateinit var backToast: Toast
+
+
+    // Job for managing ongoing API requests
+    private var apiJob: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -212,41 +217,22 @@ class HomeActivity : BaseActivity() , NavigationBarView.OnItemSelectedListener {
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        // Cancel ongoing API requests
+        apiJob?.cancel()
+
         val transaction = fm.beginTransaction()
         when (item.itemId) {
-            R.id.navHome -> {
-                transaction.replace(R.id.fragment_container, homeFragment)
-                onStart()
-            }
-            R.id.navExplore -> {
-                transaction.replace(R.id.fragment_container, tripFragment)
-               onStart()
-            }
-            R.id.navIntersts -> {
-                transaction.replace(R.id.fragment_container, interestFragment)
-                onStart()
-            }
-            R.id.navMessages -> {
-                transaction.replace(R.id.fragment_container, messagesFragment)
-                onStart()
-            }
-            R.id.navNotification -> {
-                transaction.replace(R.id.fragment_container, notification)
-                onStart()
-            }
-
-           /* R.id.navProfile -> {
-                transaction.replace(R.id.fragment_container, myProfileFragment)
-                onStart()
-            }*/
-
+            R.id.navHome -> transaction.replace(R.id.fragment_container, homeFragment)
+            R.id.navExplore -> transaction.replace(R.id.fragment_container, tripFragment)
+            R.id.navIntersts -> transaction.replace(R.id.fragment_container, interestFragment)
+            R.id.navMessages -> transaction.replace(R.id.fragment_container, messagesFragment)
+            R.id.navNotification -> transaction.replace(R.id.fragment_container, notification)
         }
-
-
         transaction.commit()
         setting()
         return true
     }
+
 
 
     override fun onBackPressed() {
@@ -495,6 +481,7 @@ class HomeActivity : BaseActivity() , NavigationBarView.OnItemSelectedListener {
     // onstop
     override fun onStop() {
         super.onStop()
+        apiJob?.cancel()
         userdetails(session.getData(Constant.USER_ID),"0")
     }
 

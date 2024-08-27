@@ -195,6 +195,7 @@
 
 
                                         <ImageView
+                                            android:layout_marginLeft="@dimen/_5sdp"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_centerVertical="true"
@@ -223,6 +224,7 @@
 
 
                                         <ImageView
+                                            android:layout_marginLeft="@dimen/_5sdp"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_centerVertical="true"
@@ -260,6 +262,7 @@
 
 
                                         <ImageView
+                                            android:layout_marginLeft="@dimen/_5sdp"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_centerVertical="true"
@@ -288,8 +291,9 @@
 
 
                                         <ImageView
-                                            android:layout_width="@dimen/_20sdp"
-                                            android:layout_height="@dimen/_20sdp"
+                                            android:layout_marginLeft="@dimen/_5sdp"
+                                            android:layout_width="@dimen/_18sdp"
+                                            android:layout_height="@dimen/_18sdp"
                                             android:layout_centerVertical="true"
                                             android:background="@drawable/verify_icon" />
 
@@ -316,6 +320,7 @@
 
 
                                         <ImageView
+                                            android:layout_marginLeft="@dimen/_9sdp"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_centerVertical="true"
@@ -344,6 +349,7 @@
 
 
                                         <ImageView
+                                            android:layout_marginLeft="@dimen/_5sdp"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_centerVertical="true"
@@ -372,6 +378,7 @@
 
 
                                         <ImageView
+                                            android:layout_marginLeft="@dimen/_5sdp"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_centerVertical="true"
@@ -400,6 +407,7 @@
 
 
                                         <ImageView
+                                            android:layout_marginLeft="@dimen/_5sdp"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_centerVertical="true"
@@ -428,6 +436,7 @@
 
 
                                         <ImageView
+                                            android:layout_marginLeft="@dimen/_5sdp"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_centerVertical="true"
@@ -485,6 +494,7 @@
 
 
                                         <ImageView
+                                            android:layout_marginLeft="@dimen/_5sdp"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_centerVertical="true"
@@ -513,6 +523,7 @@
 
 
                                         <ImageView
+                                            android:layout_marginLeft="@dimen/_5sdp"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_centerVertical="true"

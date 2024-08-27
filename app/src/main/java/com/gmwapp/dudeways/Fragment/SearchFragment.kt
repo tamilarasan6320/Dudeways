@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,6 +36,7 @@ class SearchFragment : Fragment() {
     private var total = 0
     private var offset = 0
     private val limit = 10
+    private var selectedGender: String? = "all"  // Add gender variable
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -49,8 +51,7 @@ class SearchFragment : Fragment() {
         if (usersList.isEmpty()) {
             loadProfileList()
         }
-
-//        usersList()
+        setupSwipeRefreshLayout()
 
         (activity as HomeActivity).binding.rltoolbar.visibility = View.GONE
         (activity as HomeActivity).binding.bottomNavigationView.visibility = View.GONE
@@ -58,7 +59,42 @@ class SearchFragment : Fragment() {
 
         setupRecyclerView()
 
+        binding.ivMore.setOnClickListener {
+            showPopupMenu()
+        }
+
         return binding.root
+    }
+
+    private fun showPopupMenu() {
+        val popupMenu = PopupMenu(activity, binding.ivMore)
+        popupMenu.inflate(R.menu.filter_menu)
+
+        popupMenu.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.menu_male -> {
+                    selectedGender = "Male"  // Set gender to Male
+                    binding.ivMore.text = "Male"
+                    binding.ivMore.setCompoundDrawablesWithIntrinsicBounds(R.drawable.male_ic, 0, 0, 0)
+                    binding.ivMore.compoundDrawables[0].setTint(resources.getColor(R.color.blue_200))
+                    offset = 0  // Reset offset to 0
+                    loadProfileList()  // Call API to load the male profiles
+                    true
+                }
+                R.id.menu_female -> {
+                    selectedGender = "Female"  // Set gender to Female
+                    binding.ivMore.text = "Female"
+                    binding.ivMore.setCompoundDrawablesWithIntrinsicBounds(R.drawable.female_ic, 0, 0, 0)
+                    binding.ivMore.compoundDrawables[0].setTint(resources.getColor(R.color.primary))
+                    offset = 0  // Reset offset to 0
+                    loadProfileList()  // Call API to load the female profiles
+                    true
+                }
+                else -> false
+            }
+        }
+
+        popupMenu.show()
     }
 
     private fun setupRecyclerView() {
@@ -82,6 +118,13 @@ class SearchFragment : Fragment() {
         })
     }
 
+    private fun setupSwipeRefreshLayout() {
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            offset = 0
+            loadProfileList()
+        }
+    }
+
     override fun onResume() {
         super.onResume()
         handleOnBackPressed()
@@ -90,7 +133,6 @@ class SearchFragment : Fragment() {
     private fun handleOnBackPressed() {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                // Replace the current fragment with HomeFragment
                 requireActivity().supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, HomeFragment())
                     .commit()
@@ -105,14 +147,16 @@ class SearchFragment : Fragment() {
         val params = buildProfileParams()
         ApiConfig.RequestToVolley({ result, response ->
             handleProfileResponse(result, response)
+            binding.swipeRefreshLayout.isRefreshing = false
         }, activity, Constant.USERS_LIST, params, true, 1)
     }
 
-    private fun buildProfileParams(): java.util.HashMap<String, String> {
+    private fun buildProfileParams(): HashMap<String, String> {
         return hashMapOf(
             Constant.USER_ID to session.getData(Constant.USER_ID),
             Constant.OFFSET to offset.toString(),
             Constant.LIMIT to limit.toString(),
+            Constant.GENDER to (selectedGender ?: "")  // Add gender parameter if selected
         )
     }
 
@@ -124,20 +168,6 @@ class SearchFragment : Fragment() {
                 val jsonObject = JSONObject(response)
                 if (jsonObject.getBoolean(Constant.SUCCESS)) {
                     total = jsonObject.getInt(Constant.TOTAL)
-//                    if (offset == 0) {
-//                        usersList.clear()
-//                    }
-
-//                    val jsonArray = jsonObject.getJSONArray(Constant.DATA)
-//                    val gson = Gson()
-//
-//                    for (i in 0 until jsonArray.length()) {
-//                        val jsonObject1 = jsonArray.getJSONObject(i)
-//                        val users = gson.fromJson(jsonObject1.toString(), UsersList::class.java)
-//                        usersList.add(users)
-//                    }
-
-                    searchAdapter.notifyDataSetChanged()
                     updateProfileList(jsonObject)
                 } else {
                     Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
@@ -171,44 +201,4 @@ class SearchFragment : Fragment() {
 
         offset += limit
     }
-
-//    private fun usersList() {
-//        if (isLoading) return
-//        isLoading = true
-//
-//        val params: MutableMap<String, String> = HashMap()
-//        params[Constant.USER_ID] = session.getData(Constant.USER_ID)
-//        Constant.OFFSET to offset.toString()
-//
-//        ApiConfig.RequestToVolley({ result, response ->
-//            isLoading = false
-//
-//            if (result) {
-//                try {
-//                    val jsonObject = JSONObject(response)
-//                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
-//                        total = jsonObject.getInt(Constant.TOTAL)
-//                        if (offset == 0) {
-//                            usersList.clear()
-//                        }
-//
-//                        val jsonArray = jsonObject.getJSONArray(Constant.DATA)
-//                        val gson = Gson()
-//
-//                        for (i in 0 until jsonArray.length()) {
-//                            val jsonObject1 = jsonArray.getJSONObject(i)
-//                            val users = gson.fromJson(jsonObject1.toString(), UsersList::class.java)
-//                            usersList.add(users)
-//                        }
-//
-//                        searchAdapter.notifyDataSetChanged()
-//                    } else {
-//                        Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
-//                    }
-//                } catch (e: JSONException) {
-//                    e.printStackTrace()
-//                }
-//            }
-//        }, activity, Constant.USERS_LIST, params, true, 1)
-//    }
 }

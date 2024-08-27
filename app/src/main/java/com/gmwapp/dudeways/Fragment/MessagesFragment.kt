@@ -2,17 +2,19 @@ package com.gmwapp.dudeways.Fragment
 
 import android.app.Activity
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gmwapp.dudeways.Activity.HomeActivity
 import com.gmwapp.dudeways.Adapter.ChatlistAdapter
 import com.gmwapp.dudeways.Model.Chatlist
+import com.gmwapp.dudeways.R
 import com.gmwapp.dudeways.databinding.FragmentMessagesBinding
 import com.gmwapp.dudeways.helper.ApiConfig
 import com.gmwapp.dudeways.helper.Constant
@@ -78,7 +80,38 @@ class MessagesFragment : Fragment() {
         binding.swipeRefreshLayout.setOnRefreshListener {
             offset = 0
             chatlist()
+            showCustomDialog()
         }
+    }
+
+    private fun showCustomDialog() {
+        val dialogView = LayoutInflater.from(activity).inflate(R.layout.chat_list_dialog, null)
+        val dialogBuilder = androidx.appcompat.app.AlertDialog.Builder(activity)
+            .setView(dialogView)
+            .setCancelable(true)
+
+        val dialog = dialogBuilder.create()
+        dialog.show()
+
+        // Optionally, you can configure the dialog's UI elements here
+        val btnNo: TextView = dialogView.findViewById(R.id.btnNo)
+        val btnYes: TextView = dialogView.findViewById(R.id.btnYes)
+
+        btnNo.setOnClickListener {
+            offset = 0
+
+            // Refresh the chat list
+            chatlist()
+            dialog.dismiss()
+        }
+
+        btnYes.setOnClickListener {
+            read_chats(dialog)
+        }
+
+
+
+
     }
 
     private fun chatlist() {
@@ -135,7 +168,6 @@ class MessagesFragment : Fragment() {
 
         // Refresh the chat list
         chatlist()
-        verification_list()
 
 
         // Display a toast message for debugging purposes
@@ -152,7 +184,7 @@ class MessagesFragment : Fragment() {
 
             // Refresh the chat list
             chatlist()
-            verification_list()
+          //  verification_list()
 
             // Display a toast message for debugging purposes
          //   Toast.makeText(activity, "Fragment is visible", Toast.LENGTH_SHORT).show()
@@ -160,54 +192,28 @@ class MessagesFragment : Fragment() {
     }
 
 
-    private fun verification_list() {
+
+    fun read_chats(dialog: AlertDialog) {
+        val session = Session(activity)
         val params: MutableMap<String, String> = HashMap()
         params[Constant.USER_ID] = session.getData(Constant.USER_ID)
         ApiConfig.RequestToVolley({ result, response ->
             if (result) {
                 try {
-                    val jsonObject: JSONObject = JSONObject(response)
-                    if (jsonObject.getBoolean("success")) {
+                    val jsonObject = JSONObject(response)
+                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
+                        dialog.dismiss()
+                        offset = 0
+                        chatlist()
 
-                        val dataArray = jsonObject.getJSONArray("data")
-                        if (dataArray.length() > 0) {
-                            val dataObject = dataArray.getJSONObject(0)
-                            val selfieImageUrl = dataObject.getString("selfie_image")
-                            val front_image = dataObject.getString("front_image")
-                            val back_image = dataObject.getString("back_image")
-                            val status = dataObject.getString("status")
-                            val payment_status = dataObject.getString("payment_status")
-
-                            session.setData(Constant.SELFIE_IMAGE, selfieImageUrl)
-                            session.setData(Constant.FRONT_IMAGE, front_image)
-                            session.setData(Constant.BACK_IMAGE, back_image)
-                            session.setData(Constant.STATUS, status)
-                            session.setData(Constant.PAYMENT_STATUS, payment_status)
-
-
-                        } else {
-
-                            session.setData(Constant.SELFIE_IMAGE, "")
-                            session.setData(Constant.FRONT_IMAGE, "")
-                            session.setData(Constant.BACK_IMAGE, "")
-                            session.setData(Constant.STATUS, "")
-                            session.setData(Constant.PAYMENT_STATUS, "")
-                            //   Toast.makeText(activity, "No data available", Toast.LENGTH_SHORT).show()
-                        }
-                    } else {
-                        session.setData(Constant.SELFIE_IMAGE, "")
-                        session.setData(Constant.FRONT_IMAGE, "")
-                        session.setData(Constant.BACK_IMAGE, "")
-                        session.setData(Constant.STATUS, "")
-                        session.setData(Constant.PAYMENT_STATUS, "")
+                        //   Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
                     }
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
             }
-        }, activity, Constant.VERIFICATION_LIST, params, false, 1)
+        }, activity, Constant.UNREAD_ALL, params, false, 1)
     }
-
 
 
 }

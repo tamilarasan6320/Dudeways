@@ -55,6 +55,7 @@ object Constant {
     const val ADD_FRIENDS: String = BaseUrl + "add_friends"
     const val MSG_SEEN_URL: String = BaseUrl + "msg_seen"
     const val READ_CHATS: String = BaseUrl + "read_chats"
+    const val UNREAD_ALL: String = BaseUrl + "unread_all"
     const val PROFILE_VIEW: String = BaseUrl + "profile_view"
     const val ADD_TRIP: String = BaseUrl + "add_trip"
     const val UPDATE_TRIP_IMAGE: String = BaseUrl + "update_trip_image"

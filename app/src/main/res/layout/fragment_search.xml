@@ -36,6 +36,23 @@
                     />
 
 
+
+
+
+        <TextView
+            android:id="@+id/ivMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="All"
+            android:background="@drawable/round_corner_pink_stroke"
+            android:layout_alignParentRight="true"
+            android:paddingVertical="@dimen/_5sdp"
+            android:paddingHorizontal="@dimen/_10sdp"
+            android:drawableStart="@drawable/gender_ic"
+            android:drawablePadding="@dimen/_5sdp"
+            android:layout_centerVertical="true"
+            android:onClick="onMoreOptionsClicked" />
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -78,11 +95,20 @@
     </RelativeLayout>
 
 
-    <androidx.recyclerview.widget.RecyclerView
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_below="@+id/rlSearch"
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
 </RelativeLayout>

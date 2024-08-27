@@ -280,33 +280,11 @@ class MyProfileFragment : Fragment() {
         }
 
         binding.rlVerificationBadge.setOnClickListener {
-            val proof1 = session.getData(Constant.SELFIE_IMAGE)
-            val proof2 = session.getData(Constant.FRONT_IMAGE)
-            val proof3 = session.getData(Constant.BACK_IMAGE)
-            val status = session.getData(Constant.VERIFIED_STATUS)
-            val payment_status = session.getData(Constant.PAYMENT_STATUS)
-            val payment_image = session.getData(Constant.PAYMENT_IMAGE)
 
 
-            // if proof 1 2 3 is empty
-            if(proof1.isEmpty() || proof2.isEmpty() || proof3.isEmpty()) {
-                val intent = Intent(activity, IdverficationActivity::class.java)
-                startActivity(intent)
-            }
-            else if (payment_image == "") {
-//            else if (payment_status == "0") {
-                val intent = Intent(activity, PurchaseverifybuttonActivity::class.java)
-                startActivity(intent)
-            }
-//            else if (payment_image != "") {
-            else if (status == "0") {
-                val intent = Intent(activity, Stage4Activity::class.java)
-                startActivity(intent)
-            }
-            else if (status == "1"){
-                val intent = Intent(activity, VerifiedActivity::class.java)
-                startActivity(intent)
-            }
+            verification_list()
+
+
 
         }
 
@@ -321,6 +299,38 @@ class MyProfileFragment : Fragment() {
     }
 
 
+
+    private fun open (){
+        val proof1 = session.getData(Constant.SELFIE_IMAGE)
+        val proof2 = session.getData(Constant.FRONT_IMAGE)
+        val proof3 = session.getData(Constant.BACK_IMAGE)
+        val status = session.getData(Constant.VERIFIED_STATUS)
+        val payment_status = session.getData(Constant.PAYMENT_STATUS)
+        val payment_image = session.getData(Constant.PAYMENT_IMAGE)
+
+
+        // if proof 1 2 3 is empty
+        if(proof1.isEmpty() || proof2.isEmpty() || proof3.isEmpty()) {
+            val intent = Intent(activity, IdverficationActivity::class.java)
+            startActivity(intent)
+        }
+        else if (payment_image == "") {
+//            else if (payment_status == "0") {
+            val intent = Intent(activity, PurchaseverifybuttonActivity::class.java)
+            startActivity(intent)
+        }
+//            else if (payment_image != "") {
+        else if (status == "0") {
+            val intent = Intent(activity, Stage4Activity::class.java)
+            startActivity(intent)
+        }
+        else if (status == "1"){
+            val intent = Intent(activity, VerifiedActivity::class.java)
+            startActivity(intent)
+        }
+
+
+    }
 
 
     private fun pickImageFromGallery() {
@@ -524,6 +534,7 @@ class MyProfileFragment : Fragment() {
                             session.setData(Constant.STATUS, status)
                             session.setData(Constant.PAYMENT_STATUS, payment_status)
 
+                            open()
 
                         } else {
 
@@ -532,6 +543,7 @@ class MyProfileFragment : Fragment() {
                             session.setData(Constant.BACK_IMAGE, "")
                             session.setData(Constant.STATUS, "")
                             session.setData(Constant.PAYMENT_STATUS, "")
+                            open()
                             //   Toast.makeText(activity, "No data available", Toast.LENGTH_SHORT).show()
                         }
                     } else {
@@ -540,6 +552,7 @@ class MyProfileFragment : Fragment() {
                         session.setData(Constant.BACK_IMAGE, "")
                         session.setData(Constant.STATUS, "")
                         session.setData(Constant.PAYMENT_STATUS, "")
+                        open()
                     }
                 } catch (e: JSONException) {
                     e.printStackTrace()
@@ -552,7 +565,7 @@ class MyProfileFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        verification_list()
+       // verification_list()
         handleOnBackPressed()
 
     }

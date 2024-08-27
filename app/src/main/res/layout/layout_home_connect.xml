@@ -51,7 +51,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
                     android:id="@+id/tvName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -60,6 +67,18 @@
                     android:fontFamily="@font/poppins_regular"
                     android:textColor="?attr/myTextColor"
                     />
+                    <ImageView
+                        android:visibility="gone"
+                        android:layout_marginLeft="@dimen/_4sdp"
+                        android:layout_gravity="center"
+                        android:id="@+id/ivVerify"
+                        android:layout_width="@dimen/_16sdp"
+                        android:layout_height="@dimen/_16sdp"
+                        android:background="@drawable/verify_ic"
+                        android:backgroundTint="@color/primary"
+                        />
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/ivGenderColor"

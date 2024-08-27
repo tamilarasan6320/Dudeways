@@ -248,7 +248,7 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
                             e.printStackTrace()
                         }
                     }
-                }, activity, Constant.ADD_CHAT, params, false, 1)
+                }, activity, Constant.ADD_CHAT, params, true, 1)
             }
 
         }
@@ -479,7 +479,7 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
         }, activity, Constant.MSG_SEEN_URL, params, false, 1)
     }
 
-    private fun read_chats() {
+    fun read_chats() {
         val session = Session(activity)
         val params: MutableMap<String, String> = HashMap()
         params[Constant.USER_ID] = session.getData(Constant.USER_ID)
@@ -490,7 +490,7 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
                 try {
                     val jsonObject = JSONObject(response)
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
-                        //Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
+                    //   Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
                     }
                 } catch (e: JSONException) {
                     e.printStackTrace()
@@ -597,6 +597,7 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
                     messages.add(nonEmptyChatModel)
                     initializeRecyclerView(messages)
                     if (messages.any { it?.sentBy != session.getData(Constant.NAME) }) {
+
                         playReceiveTone(
                             soundPool,
                             receiveTone
@@ -632,6 +633,7 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
                     }
                     binding.RVChats.smoothScrollToPosition(chatAdapter?.itemCount?.minus(1) ?: 0)
                     logInfo("$CHATS_ACTIVITY onMessageAdded", "Message added: $chatModel")
+                    read_chats()
                 }
 
                 else -> {

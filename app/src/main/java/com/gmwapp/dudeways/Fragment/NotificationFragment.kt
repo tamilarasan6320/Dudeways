@@ -114,12 +114,15 @@ class NotificationFragment : Fragment() {
 
                         notificationAdapter.notifyDataSetChanged()
                         offset += limit
+                        binding.swipeRefreshLayout.isRefreshing = false
                     } else {
                         Toast.makeText(
                             activity,
                             jsonObject.getString(Constant.MESSAGE),
                             Toast.LENGTH_SHORT
                         ).show()
+                        binding.swipeRefreshLayout.isRefreshing = false
+
                     }
                 } catch (e: JSONException) {
                     e.printStackTrace()

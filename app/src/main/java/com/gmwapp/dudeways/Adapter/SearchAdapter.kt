@@ -53,6 +53,13 @@ class SearchAdapter(
 //        holder.tvDistance.text = report.distance
 
 
+        if (report.verified == "1") {
+            holder.ivVerify.visibility = View.VISIBLE
+        } else {
+            holder.ivVerify.visibility = View.GONE
+        }
+
+
         val gender = report.gender
 
         if(gender == "male") {
@@ -157,6 +164,8 @@ class SearchAdapter(
         val ivGenderColor:LinearLayout = itemView.findViewById(R.id.ivGenderColor)
         val  tvAge :TextView = itemView.findViewById(R.id.tvAge)
         val tvDistance  :TextView = itemView.findViewById(R.id.tvDistance)
+        val ivVerify: ImageView = itemView.findViewById(R.id.ivVerify)
+
 
 
     }

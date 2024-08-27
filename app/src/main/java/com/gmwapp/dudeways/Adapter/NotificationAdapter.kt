@@ -58,6 +58,13 @@ class NotificationAdapter(
 //
 //        }
 
+        if (report.verified == "1") {
+            holder.ivVerify.visibility = View.VISIBLE
+        } else {
+            holder.ivVerify.visibility = View.GONE
+        }
+
+
         holder.itemView.setOnClickListener{
 
             if (report.notify_user_id == session.getData(Constant.USER_ID)) {
@@ -91,6 +98,8 @@ class NotificationAdapter(
         val tvMessage: TextView = itemView.findViewById(R.id.tvMessage)
         val tvtime: TextView = itemView.findViewById(R.id.tvtime)
         val civProfile: ImageView = itemView.findViewById(R.id.civProfile)
+        val ivVerify: ImageView = itemView.findViewById(R.id.ivVerify)
+
 
     }
 

@@ -89,7 +89,7 @@ class ChatAdapter(
 
                             if(msgSeen == "0"){
                                 binding.tvSeenStatus.visibility = View.VISIBLE
-                                binding.tvSeenStatus.text = ""
+                                binding.tvSeenStatus.text = "seen"
                             }else{
                                 binding.tvSeenStatus.visibility = View.GONE
                             }
