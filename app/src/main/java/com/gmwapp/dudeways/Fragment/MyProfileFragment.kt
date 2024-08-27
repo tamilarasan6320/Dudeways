@@ -527,12 +527,14 @@ class MyProfileFragment : Fragment() {
                             val back_image = dataObject.getString("back_image")
                             val status = dataObject.getString("status")
                             val payment_status = dataObject.getString("payment_status")
+                            val payment_image = dataObject.getString("payment_image")
 
                             session.setData(Constant.SELFIE_IMAGE, selfieImageUrl)
                             session.setData(Constant.FRONT_IMAGE, front_image)
                             session.setData(Constant.BACK_IMAGE, back_image)
                             session.setData(Constant.STATUS, status)
                             session.setData(Constant.PAYMENT_STATUS, payment_status)
+                            session.setData(Constant.PAYMENT_IMAGE, payment_image)
 
                             open()
 
