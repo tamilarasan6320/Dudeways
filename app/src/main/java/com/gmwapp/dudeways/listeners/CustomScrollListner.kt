@@ -27,8 +27,8 @@ class CustomScrollListener(
 
             if (viewTop < fortyPercentHeight && viewBottom > 0) {
                 // Item is within the 40% of the viewport
-                val chatItem = adapter.getItemInfo(i)
-                onViewEntered(chatItem)
+               // val chatItem = adapter.getItemInfo(i)
+              //  onViewEntered(chatItem)
             }
         }
     }

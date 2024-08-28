@@ -47,15 +47,15 @@ class RefundActivity : BaseActivity() {
         val data: Uri? = intent?.data
 
         if (Intent.ACTION_VIEW == action && data != null) {
-            // Extract information from the deep link URL
-            val contentId = data.lastPathSegment
-            val queryParams = data.queryParameterNames
+            // Extract the user ID and chat ID from the query parameters
+            val userId = data.getQueryParameter("userid")
+            val chatId = data.getQueryParameter("chatid")
 
-            // Use the extracted data to display the relevant content
-            if (contentId != null) {
-                // For example, load specific content based on the contentId
-                // You could use the contentId to fetch data from a database or API
-             //   displayContent(contentId)
+            // Display the extracted user ID and chat ID in a toast message
+            if (userId != null && chatId != null) {
+                Toast.makeText(this, "User ID: $userId, Chat ID: $chatId", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Missing user ID or chat ID", Toast.LENGTH_SHORT).show()
             }
         }
     }

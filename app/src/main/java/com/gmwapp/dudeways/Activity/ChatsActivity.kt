@@ -8,23 +8,19 @@ import android.content.Intent
 import android.graphics.Rect
 import android.media.AudioAttributes
 import android.media.SoundPool
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.text.format.DateUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.gmwapp.dudeways.Adapter.ChatAdapter
 import com.gmwapp.dudeways.Model.ChatModel
 import com.gmwapp.dudeways.R
@@ -32,10 +28,8 @@ import com.gmwapp.dudeways.databinding.ActivityChatsBinding
 import com.gmwapp.dudeways.extentions.fetchMessages
 import com.gmwapp.dudeways.extentions.logError
 import com.gmwapp.dudeways.extentions.logInfo
-import com.gmwapp.dudeways.extentions.makeToast
 import com.gmwapp.dudeways.extentions.observeUserStatus
 import com.gmwapp.dudeways.extentions.playReceiveTone
-import com.gmwapp.dudeways.extentions.popUpMenu
 import com.gmwapp.dudeways.extentions.updateMessagesForSender
 import com.gmwapp.dudeways.helper.ApiConfig
 import com.gmwapp.dudeways.helper.Constant
@@ -43,16 +37,13 @@ import com.gmwapp.dudeways.helper.Session
 import com.gmwapp.dudeways.listeners.OnMessagesFetchedListener
 import com.bumptech.glide.Glide
 import com.gmwapp.dudeways.extentions.chat_status
-import com.google.firebase.Timestamp
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import org.json.JSONException
 import org.json.JSONObject
-import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
-import kotlin.random.Random
 
 class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
     lateinit var binding: ActivityChatsBinding
@@ -80,6 +71,74 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
     var gender = ""
     var  verified = ""
 
+
+
+
+
+
+    private fun handleDeepLink(intent: Intent?) {
+        val action = intent?.action
+        val data: Uri? = intent?.data
+
+        if (Intent.ACTION_VIEW == action && data != null) {
+            // Handle the deep link
+            val userId = data.getQueryParameter("userid")
+            val chatId = data.getQueryParameter("chatid")
+//            val linkFriendVerified = data.getQueryParameter("friend_verified")
+//            val linkSenderName = data.getQueryParameter("senderName")
+//            val linkReceiverName = data.getQueryParameter("receiverName")
+
+
+            if (userId != null && chatId != null) {
+                // Display the extracted user ID and chat ID in a toast message
+              //  Toast.makeText(this, "User ID: $userId, Chat ID: $chatId", Toast.LENGTH_SHORT).show()
+
+                other_userdetails(userId,chatId)
+
+
+                // You can now use these variables within the current activity as needed
+            } else {
+                Toast.makeText(this, "Missing one or more query parameters", Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            // Handle the case when the intent does not contain a deep link
+            // Get data from the intent extras
+            senderId = session.getData(Constant.USER_ID)
+            receiverId = intent?.getStringExtra("chat_user_id").toString()
+            friend_verified = intent?.getStringExtra("friend_verified").toString()
+            senderName = session.getData(Constant.UNIQUE_NAME)
+            receiverName = intent?.getStringExtra("unique_name").toString()
+            binding.tvName.text = intent!!.getStringExtra("name")
+            read_chats()
+
+
+            chatReference = databaseReference.child("CHATS_V2").child(senderName!!).child(receiverName!!)
+            typingStatusReference = firebaseDatabase.getReference("typing_status/$senderId")
+            // You can now use these variables or proceed to open a new activity if needed
+
+
+            gender = session.getData(Constant.GENDER)
+            verified = session.getData(Constant.VERIFIED)
+
+
+            if (friend_verified == "1") {
+                binding.tvAbout.visibility = View.VISIBLE
+                binding.ivVerified.visibility = View.VISIBLE
+            } else {
+                binding.tvAbout.visibility = View.VISIBLE
+                binding.ivVerified.visibility = View.GONE
+            }
+
+            Glide.with(this)
+                .load(session.getData("reciver_profile"))
+                .placeholder(R.drawable.profile_placeholder)
+                .into(binding.ivProfile)
+
+        }
+    }
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -88,31 +147,39 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
         activity = this
         session = Session(activity)
 
-        senderId = session.getData(Constant.USER_ID)
-        receiverId = intent.getStringExtra("chat_user_id").toString()
-        friend_verified = intent.getStringExtra("friend_verified").toString()
-        senderName = session.getData(Constant.UNIQUE_NAME)
-        receiverName = intent.getStringExtra("unique_name")
-        binding.tvName.text = intent.getStringExtra("name")
-        read_chats()
-        chatReference = databaseReference.child("CHATS_V2").child(senderName!!).child(receiverName!!)
-        typingStatusReference = firebaseDatabase.getReference("typing_status/$senderId")
-        gender = session.getData(Constant.GENDER)
-        verified = session.getData(Constant.VERIFIED)
+        handleDeepLink(intent)
+
+//
+//        senderId = session.getData(Constant.USER_ID)
+//        receiverId = intent.getStringExtra("chat_user_id").toString()
+//        friend_verified = intent.getStringExtra("friend_verified").toString()
+//        senderName = session.getData(Constant.UNIQUE_NAME)
+//        receiverName = intent.getStringExtra("unique_name")
+//        binding.tvName.text = intent.getStringExtra("name")
+//        read_chats()
+//        chatReference = databaseReference.child("CHATS_V2").child(senderName!!).child(receiverName!!)
+//        typingStatusReference = firebaseDatabase.getReference("typing_status/$senderId")
+//
+//        gender = session.getData(Constant.GENDER)
+//        verified = session.getData(Constant.VERIFIED)
+//
+//
+//        if (friend_verified == "1") {
+//            binding.tvAbout.visibility = View.VISIBLE
+//            binding.ivVerified.visibility = View.VISIBLE
+//        } else {
+//            binding.tvAbout.visibility = View.VISIBLE
+//            binding.ivVerified.visibility = View.GONE
+//        }
 
 
-        if (friend_verified == "1") {
-            binding.tvAbout.visibility = View.VISIBLE
-            binding.ivVerified.visibility = View.VISIBLE
-        } else {
-            binding.tvAbout.visibility = View.VISIBLE
-            binding.ivVerified.visibility = View.GONE
-        }
 
-        Glide.with(this)
-            .load(session.getData("reciver_profile"))
-            .placeholder(R.drawable.profile_placeholder)
-            .into(binding.ivProfile)
+
+
+    }
+
+    override fun onResume() {
+        super.onResume()
 
         binding.ivBack.setOnClickListener {
             onBackPressed()
@@ -158,7 +225,7 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
                             if (jsonObject.getBoolean(Constant.SUCCESS)) {
                                 chat_status = jsonObject.getString("chat_status")
                                 session.setData(Constant.CHAT_STATUS, chat_status)
-                                session.setData(Constant.MSG_SEEN, "msg_seen")
+                                session.setData(Constant.MSG_SEEN, "1")
                                 val message = binding.messageEdittext.text.toString()
                                 if (message.isNotEmpty()) {
                                     isBlocked(senderId, receiverId) { isBlocked ->
@@ -248,7 +315,7 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
                             e.printStackTrace()
                         }
                     }
-                }, activity, Constant.ADD_CHAT, params, true, 1)
+                }, activity, Constant.ADD_CHAT, params, false, 1)
             }
 
         }
@@ -260,8 +327,8 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
             val keypadHeight = screenHeight - rect.bottom
             if (keypadHeight > screenHeight * 0.15) { // keyboard is opened
                 binding.RVChats.postDelayed({
-                                            //here
-               //     binding.RVChats.smoothScrollToPosition(chatAdapter?.itemCount?.minus(1) ?: 0)
+                    //here
+                    //     binding.RVChats.smoothScrollToPosition(chatAdapter?.itemCount?.minus(1) ?: 0)
                 }, 100)
             }
         }
@@ -317,6 +384,8 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
         observeTypingStatus(firebaseDatabase, receiverId)
         setUserStatus(firebaseDatabase, senderId, true)
         observeUserStatus(firebaseDatabase, receiverId)
+
+
     }
 
     private fun ChatsActivity.observeTypingStatus(
@@ -466,7 +535,7 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
                 try {
                     val jsonObject = JSONObject(response)
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
-                        session.setData(Constant.MSG_SEEN, "msg_seen")
+                        session.setData(Constant.MSG_SEEN, "1")
                         chatAdapter?.notifyDataSetChanged()
                         //Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
                     } else {
@@ -664,8 +733,17 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
 
     @SuppressLint("NotifyDataSetChanged")
     private fun initializeRecyclerView(conversations: MutableList<ChatModel?>) {
-        chatAdapter = ChatAdapter(conversations, onClick = {}, session)
-        chatAdapter?.notifyDataSetChanged()
+        chatAdapter = ChatAdapter(
+            conversations,
+            onClick = { /* Handle message click */ },
+            session,
+            onMessageDelete = { chatModel ->
+                // Handle message deletion here, e.g., remove from database
+                // You might need to implement logic to actually delete the message from your data source
+                // For example:
+                // chatViewModel.deleteMessage(chatModel)
+            }
+        )
         binding.RVChats.apply {
             layoutManager = LinearLayoutManager(this@ChatsActivity)
             adapter = chatAdapter
@@ -673,6 +751,7 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
             invalidate()
         }
     }
+
 
     override fun onDestroy() {
         super.onDestroy()
@@ -779,6 +858,70 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
                 logError(CHATS_ACTIVITY, "Failed to update user status: ${task.exception?.message}")
             }
         }
+    }
+
+
+
+
+    private fun other_userdetails(user_id: String?, chatId: String?) {
+        val params: MutableMap<String, String> = HashMap()
+        params[Constant.USER_ID] = user_id!!
+        params[Constant.OTHER_USER_ID] = chatId!!
+        ApiConfig.RequestToVolley({ result, response ->
+            if (result) {
+                try {
+                    val jsonObject: JSONObject = JSONObject(response)
+                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
+                        val `object` = JSONObject(response)
+                        val jsonobj = `object`.getJSONObject(Constant.DATA)
+
+
+
+                        // Assign values to variables
+                        senderId = user_id!!
+                        receiverId = chatId!!
+                        friend_verified = jsonobj.getString(Constant.VERIFIED).toString()
+                        senderName = session.getData(Constant.UNIQUE_NAME).toString()
+                        receiverName = jsonobj.getString(Constant.UNIQUE_NAME).toString()
+                        binding.tvName.text = jsonobj.getString(Constant.NAME).toString()
+                        read_chats()
+
+                        chatReference = databaseReference.child("CHATS_V2").child(senderName!!).child(receiverName!!)
+                        typingStatusReference = firebaseDatabase.getReference("typing_status/$senderId")
+
+
+                        gender = session.getData(Constant.GENDER)
+                        verified = session.getData(Constant.VERIFIED)
+
+
+                        if (friend_verified == "1") {
+                            binding.tvAbout.visibility = View.VISIBLE
+                            binding.ivVerified.visibility = View.VISIBLE
+                        } else {
+                            binding.tvAbout.visibility = View.VISIBLE
+                            binding.ivVerified.visibility = View.GONE
+                        }
+
+                        Glide.with(this)
+                            .load(jsonobj.getString(Constant.PROFILE))
+                            .placeholder(R.drawable.profile_placeholder)
+                            .into(binding.ivProfile)
+
+
+                        onResume()
+
+
+                        // Toast.makeText(activity, friend, Toast.LENGTH_SHORT).show()
+
+                    } else {
+                        Toast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_SHORT).show()
+
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }
+        }, activity, Constant.OTHER_USER_DETAILS, params, true, 1)
     }
 
 
