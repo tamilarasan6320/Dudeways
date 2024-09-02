@@ -16,6 +16,7 @@ import com.gmwapp.dudeways.databinding.ReceiverChatMessageBinding
 import com.gmwapp.dudeways.databinding.SenderChatMessageBinding
 import com.gmwapp.dudeways.helper.Constant
 import com.gmwapp.dudeways.helper.Session
+import com.zoho.livechat.android.utils.SalesIQCache.messages
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -112,7 +113,7 @@ class ChatAdapter(
                 val msgSeen = session.getData(Constant.MSG_SEEN).toString()
                 if (msgSeen == "0") {
                     tvSeenStatus.visibility = View.VISIBLE
-                    tvSeenStatus.text = "seen"
+                    tvSeenStatus.text = ""
                 } else {
                     tvSeenStatus.visibility = View.GONE
                 }
@@ -179,5 +180,10 @@ class ChatAdapter(
         val previousMessage = conversations[position - 1]
         val previousDate = previousMessage?.dateTime?.toLong()?.let { formatDate(it) }
         return currentDate != previousDate
+    }
+
+    fun addMessage(message: ChatModel) {
+        conversations.add(message)
+        notifyItemInserted(messages.size - 1)
     }
 }

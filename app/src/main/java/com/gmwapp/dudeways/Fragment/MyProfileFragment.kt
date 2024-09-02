@@ -111,6 +111,9 @@ class MyProfileFragment : Fragment() {
 
 
         }
+        binding.rlDeletemyaccount.setOnClickListener {
+            showDeleteAccountDialog()
+        }
 
         binding.rlRefund.setOnClickListener {
             val intent = Intent(activity, RefundActivity::class.java)
@@ -233,6 +236,7 @@ class MyProfileFragment : Fragment() {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
 
+
         binding.rlStorepoints.setOnClickListener {
             val dialogView = layoutInflater.inflate(R.layout.dialog_custom, null)
 
@@ -296,6 +300,42 @@ class MyProfileFragment : Fragment() {
 
         return binding.root
 
+    }
+
+    private fun showDeleteAccountDialog() {
+        val builder = AlertDialog.Builder(activity)
+        builder.setTitle("Delete My Account")
+        builder.setMessage(
+            "If you wish to permanently delete your Dudeways account, " +
+                    "all your personal information, posts, messages, and data will be removed from our platform. " +
+                    "This action is irreversible, and once your account is deleted, you will not be able to recover any information.\n\n" +
+                    "Are you sure you want to proceed?"
+        )
+
+        builder.setPositiveButton("Yes") { dialog, _ ->
+            // Handle the deletion process here
+            delete_list()
+            dialog.dismiss()
+            // Optionally, you can trigger the account deletion process here
+        }
+
+        builder.setNegativeButton("No") { dialog, _ ->
+            dialog.dismiss()
+        }
+
+
+
+
+        val dialog = builder.create()
+        dialog.show()
+
+
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE)?.setTextColor(
+            ContextCompat.getColor(activity, R.color.primary)
+        )
+        dialog.getButton(AlertDialog.BUTTON_NEGATIVE)?.setTextColor(
+            ContextCompat.getColor(activity, R.color.text_grey)
+        )
     }
 
 
@@ -491,6 +531,8 @@ class MyProfileFragment : Fragment() {
             // Clear session data and redirect to login
             clearSessionData(activity)
             redirectToLogin(activity)
+            session.clearData()
+
 
         }
     }
@@ -561,6 +603,28 @@ class MyProfileFragment : Fragment() {
                 }
             }
         }, activity, Constant.VERIFICATION_LIST, params, true, 1)
+    }
+    private fun delete_list() {
+        val params: MutableMap<String, String> = HashMap()
+        params[Constant.USER_ID] = session.getData(Constant.USER_ID)
+        ApiConfig.RequestToVolley({ result, response ->
+            if (result) {
+                try {
+                    val jsonObject: JSONObject = JSONObject(response)
+                    if (jsonObject.getBoolean("success")) {
+
+                        Toast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_SHORT).show()
+                        logout()
+
+                    } else {
+                        Toast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_SHORT).show()
+
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }
+        }, activity, Constant.DELETE_ACCOUNT, params, true, 1)
     }
 
 

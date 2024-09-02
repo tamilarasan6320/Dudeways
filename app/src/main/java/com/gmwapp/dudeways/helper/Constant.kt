@@ -11,6 +11,7 @@ object Constant {
     const val REGISTER: String = BaseUrl + "register"
     const val PROFESSION_LIST: String = BaseUrl + "profession_list"
     const val VERIFICATION_LIST: String = BaseUrl + "verification_list"
+    const val DELETE_ACCOUNT: String = BaseUrl + "delete_account"
     const val UPDATE_USERS: String = BaseUrl + "update_users"
     const val CHECK_MOBILE: String = BaseUrl + "check_mobile"
     const val CHECK_EMAIL: String = BaseUrl + "check_email"
