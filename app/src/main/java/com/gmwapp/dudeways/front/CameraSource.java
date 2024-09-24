@@ -19,7 +19,6 @@ import androidx.annotation.RequiresPermission;
 import com.google.android.gms.common.images.Size;
 
 
-import net.fitken.rose.Rose;
 
 import java.io.IOException;
 import java.lang.Thread.State;
@@ -282,8 +281,7 @@ public class CameraSource {
         if (pictureSize != null) {
             parameters.setPictureSize(pictureSize.getWidth(), pictureSize.getHeight());
         }
-        Rose.INSTANCE.error("preview size: " +previewWidth + " " + previewSize.getWidth());
-        Rose.INSTANCE.error("preview size: " +previewHeight + " " + previewSize.getHeight());
+
         parameters.setPreviewSize(previewSize.getWidth(), previewSize.getHeight());
         parameters.setPreviewFpsRange(
                 previewFpsRange[Camera.Parameters.PREVIEW_FPS_MIN_INDEX],
