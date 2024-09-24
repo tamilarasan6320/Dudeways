@@ -194,4 +194,5 @@ object Constant {
     const val CART_ID: String = "cart_id"
     const val TYPE_TRIP_DATE: String = "trip_date"
     val RECEIVER_PROFILE: String? = "receiver_profile"
+
 }

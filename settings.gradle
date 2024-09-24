@@ -9,22 +9,32 @@ pluginManagement {
         }
         mavenCentral()
         gradlePluginPortal()
+        maven {
+            url "https://s3-ap-southeast-1.amazonaws.com/godel-release/godel/"
+        }
     }
 }
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
-        google()
+
         mavenCentral()
         jcenter()
         maven { url 'https://jitpack.io' }
         maven {
             url 'https://maven.zohodl.com'
         }
+        maven {
+            url "https://s3-ap-southeast-1.amazonaws.com/godel-release/godel/"
+        }
 
+        google()
 
     }
 }
+
+
+
 
 rootProject.name = "Paring"
 include ':app'
