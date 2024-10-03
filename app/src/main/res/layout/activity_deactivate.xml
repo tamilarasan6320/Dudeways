@@ -211,7 +211,6 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:hint="Your Feedback"
                 app:hintTextColor="@color/primary"
-
                 style="@style/CustomTextInputLayout"
                 android:theme="@style/CustomTextInputEditText">
 

@@ -7,12 +7,12 @@ plugins {
 
 android {
     namespace 'com.gmwapp.dudeways'
-    compileSdk 34
+    compileSdk 35
 
     defaultConfig {
         applicationId "com.gmwapp.dudeways"
         minSdk 24
-        targetSdk 34
+        targetSdk 35
         versionCode 19
         versionName "19.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -28,6 +28,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -36,11 +37,12 @@ android {
         jvmTarget = '1.8'
     }
     buildFeatures {
+        dataBinding = true
         viewBinding = true
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion '1.5.1'
+        kotlinCompilerExtensionVersion '1.5.15'
     }
     packaging {
         resources {
@@ -74,6 +76,7 @@ dependencies {
     implementation libs.androidx.constraintlayout
     implementation libs.firebase.analytics
     implementation libs.billing.ktx
+    implementation libs.androidx.work.runtime
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit
     androidTestImplementation libs.androidx.espresso.core
@@ -125,9 +128,17 @@ dependencies {
 
     implementation 'com.google.android.play:app-update:2.1.0'
     implementation 'com.google.android.play:app-update-ktx:2.1.0'
+//    implementation 'com.rengwuxian.materialedittext:library:2.1.4'
+//    implementation 'in.juspay:godel:0.6.25.4.1423'
+
+//    implementation files(' implementation \'com.instamojo:android-sdk:3.7.1@aar\'')
+//
+//    implementation project(":android-sdk")
 
 
-    implementation 'com.instamojo:android-sdk:1.2.4'
+
+    implementation("com.google.androidbrowserhelper:androidbrowserhelper:2.5.0")
+
 
     // CameraX dependencies
 }

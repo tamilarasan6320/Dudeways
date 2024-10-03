@@ -147,6 +147,7 @@
        </LinearLayout>
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/btnUploadScreenshots"
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
@@ -161,6 +162,8 @@
             android:layout_marginVertical="@dimen/_5sdp"/>
 
         <LinearLayout
+            android:visibility="gone"
+
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -204,6 +207,7 @@
         </LinearLayout>
 
         <TextView
+            android:visibility="gone"
             android:layout_marginHorizontal="@dimen/_10sdp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

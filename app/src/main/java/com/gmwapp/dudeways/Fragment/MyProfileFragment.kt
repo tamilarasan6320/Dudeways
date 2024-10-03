@@ -5,7 +5,6 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.res.ColorStateList
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
@@ -38,13 +37,12 @@ import com.gmwapp.dudeways.Activity.PrivacypolicyActivity
 import com.gmwapp.dudeways.Activity.PurchasepointActivity
 import com.gmwapp.dudeways.Activity.PurchaseverifybuttonActivity
 import com.gmwapp.dudeways.Activity.RefundActivity
-import com.gmwapp.dudeways.Activity.SeetingActivity
 import com.gmwapp.dudeways.Activity.Stage4Activity
 import com.gmwapp.dudeways.Activity.TermsconditionActivity
 import com.gmwapp.dudeways.Activity.VerifiedActivity
+import com.gmwapp.dudeways.Activity.WalletActivity
 import com.gmwapp.dudeways.R
 import com.gmwapp.dudeways.databinding.FragmentMyProfileBinding
-import com.gmwapp.dudeways.databinding.FragmentTripBinding
 import com.gmwapp.dudeways.helper.ApiConfig
 import com.gmwapp.dudeways.helper.Constant
 import com.gmwapp.dudeways.helper.Session
@@ -117,6 +115,12 @@ class MyProfileFragment : Fragment() {
 
         binding.rlRefund.setOnClickListener {
             val intent = Intent(activity, RefundActivity::class.java)
+            startActivity(intent)
+        }
+
+
+        binding.rlWallet.setOnClickListener {
+            val intent = Intent(activity, WalletActivity::class.java)
             startActivity(intent)
         }
 

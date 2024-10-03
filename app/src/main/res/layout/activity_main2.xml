@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+        <com.google.android.material.card.MaterialCardView
+            app:cardElevation="@dimen/_10sdp"
+            android:layout_margin="@dimen/_10sdp"
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+
+            <LinearLayout
+                android:padding="@dimen/_5sdp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/TV_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/myTextColor"
+                    android:textSize="15sp"
+                    android:text="Contact details"
+                    android:fontFamily="@font/poppins_semibold"/>
+
+                <TextView
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:id="@+id/TV_message_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/myTextColor"
+                    android:textSize="12sp"
+                    android:text="Enter mobile number to continue"
+                    android:maxLines="2"
+                    android:fontFamily="@font/poppins_light"/>
+                
+                
+                
+                <RelativeLayout
+                    android:padding="@dimen/_10sdp"
+                    android:background="@drawable/notification_unselect_border"
+                    android:backgroundTint="@color/primary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    
+                    
+                    <LinearLayout
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        
+                        
+                        <ImageView
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:background="@drawable/india_ic"
+                            />
+
+
+                        <com.google.android.material.divider.MaterialDivider
+                            app:dividerColor="@color/grey"
+                            android:layout_marginHorizontal="@dimen/_6sdp"
+                            android:layout_width="@dimen/_1sdp"
+                            android:layout_height="match_parent"/>
+
+
+
+                        <EditText
+                            android:id="@+id/etMobile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Mobile Number"
+                            android:textSize="@dimen/_12sdp"
+                            android:inputType="number"
+                            android:text="6382088746"
+                            android:clickable="false"
+                            android:keyboardNavigationCluster="false"
+                            android:maxLength="10"
+                            android:background="@null"/>
+
+
+                        
+                        
+                        
+                    </LinearLayout>
+
+
+
+                    
+                </RelativeLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_marginHorizontal="@dimen/_50sdp"
+                    android:layout_marginVertical="@dimen/_20sdp"
+                    android:id="@+id/btnContinue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_24sdp"
+                    android:fontFamily="@font/poppins_medium"
+                    app:backgroundTint="@null"
+                    android:background="@drawable/gradient_button"
+                    android:text="Continue"
+                    android:textAllCaps="false"
+                    android:textSize="@dimen/_14sdp"
+                    />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </RelativeLayout>
+
+</layout>

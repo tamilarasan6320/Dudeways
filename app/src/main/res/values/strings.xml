@@ -23,7 +23,6 @@
     <string name="pay_above_upi_i_d_and_upload_screenshot">Pay above UPI I\'d and upload screenshot</string>
 
 
-
     <string name="status_bar">Status bar replacement</string>
     <string name="card_number">Card Number</string>
     <string name="date_hint">Expiry MM/YY</string>
@@ -53,5 +52,8 @@
     <string name="verify_payment_image_description">Verify Payment Image</string>
     <string name="waiting">Waiting&#8230;</string>
     <string name="complete_payment_description">You will receive a notification on your Bank UPI app.\nPlease confirm it to complete the payment.</string>
+    <string name="title_activity_wallet">WalletActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 
 </resources>

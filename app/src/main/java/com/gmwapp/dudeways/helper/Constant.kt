@@ -4,6 +4,8 @@ object Constant {
     const val AppPlayStoreUrl: String =
         "https://play.google.com/store/apps/details?id=com.gmwapp.dudeways"
     const val MainBaseUrl: String = "https://dudeways.com/"
+    const val PAYMENT_LINK: String = "https://gateway.graymatterworks.com/api/create_payment_request.php"
+
 
     const val BaseUrl: String = MainBaseUrl + "api/"
 

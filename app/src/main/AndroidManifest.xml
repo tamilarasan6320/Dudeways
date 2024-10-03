@@ -12,52 +12,90 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.USB_PERMISSION" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="true" />
 
     <application
         android:name=".helper.ApiConfig"
         android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
+        android:enableOnBackInvokedCallback="true"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@drawable/logo"
         android:installLocation="internalOnly"
         android:label="@string/app_name"
         android:launchMode="singleTop"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.Paring"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:allowBackup"
-        tools:node="replace"
         tools:targetApi="31">
-
+        <activity
+            android:name=".Activity.BankDetailsActivity"
+            android:exported="false" />
 
 
         <activity
+            android:name="com.google.androidbrowserhelper.trusted.LauncherActivity"
+            android:exported="true">
+
+            <!-- Edit android:value to change the url opened by the TWA -->
+            <meta-data
+                android:name="android.support.customtabs.trusted.DEFAULT_URL"
+                android:value="https://YOUR_SITE_URL" />
+
+            <!--
+              This intent-filter allows the TWA to handle Intents to open
+              YOUR_SITE_URL
+            -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <!-- Edit android:host to handle links to the target URL-->
+                <data
+                    android:scheme="https"
+                    android:host="YOUR_SITE_URL"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".Activity.WalletActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="false"
+            android:label="@string/title_activity_wallet"
+            android:theme="@style/Theme.Paring.Fullscreen" />
+
+        <activity
             android:name=".Activity.RefundActivity"
-            android:exported="true"
-            >
+            android:exported="true">
             <intent-filter
                 android:autoVerify="true"
-                tools:targetApi="m"
-                >
+                tools:targetApi="m">
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:scheme="https" />
                 <data
                     android:host="www.dudeways.com"
-                    android:pathPrefix="/path/to/serid"/>
-
+                    android:pathPrefix="/path/to/serid" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".Activity.RejectVerifyActivity"
             android:exported="false" />
@@ -160,22 +198,18 @@
             android:exported="true">
             <intent-filter
                 android:autoVerify="true"
-                tools:targetApi="m"
-                >
+                tools:targetApi="m">
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:scheme="https" />
                 <data
                     android:host="www.dudeways.com"
-                    android:pathPrefix="/path/to/userid"/>
-
+                    android:pathPrefix="/path/to/userid" />
             </intent-filter>
-
-
         </activity>
-
         <activity
             android:name=".Activity.ProfileDetailsActivity"
             android:exported="false"
@@ -227,7 +261,6 @@
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/admob_app_id" />
-
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

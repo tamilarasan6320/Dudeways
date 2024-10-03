@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gmwapp.dudeways.R
 import com.gmwapp.dudeways.databinding.ActivityPurchasepointBinding
-import com.gmwapp.dudeways.gateway.MainActivity
 import com.gmwapp.dudeways.helper.ApiConfig
 import com.gmwapp.dudeways.helper.Constant
 import com.gmwapp.dudeways.helper.Session
@@ -145,10 +144,10 @@ class PurchasepointActivity : BaseActivity() {
             holder.itemView.setOnClickListener {
 //                addpurchase(item.id)
 
-                val intent = Intent(activity, MainActivity::class.java)
-                intent.putExtra("id", item.id)
-                session.setData(Constant.AMOUNT,item.price)
-                startActivity(intent)
+//                val intent = Intent(activity, MainActivity::class.java)
+//                intent.putExtra("id", item.id)
+//                session.setData(Constant.AMOUNT,item.price)
+//                startActivity(intent)
 
             }
 

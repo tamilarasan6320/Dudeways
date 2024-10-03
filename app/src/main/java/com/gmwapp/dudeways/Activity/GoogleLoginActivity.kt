@@ -61,6 +61,8 @@ class GoogleLoginActivity : BaseActivity() {
             .build()
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+
+        // firebaseAuth getInstance(...) must not be null
         firebaseAuth = FirebaseAuth.getInstance()
 
         binding.googlelogin.setOnClickListener { view: View? ->

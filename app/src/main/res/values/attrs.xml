@@ -10,6 +10,10 @@
     <attr name="titleBG" format="reference|color" />
     <attr name="MenuBG" format="reference|color" />
     <attr name="radiobgcolor" format="reference|color" />
+    <declare-styleable name="FullscreenAttrs">
+        <attr name="fullscreenBackgroundColor" format="color" />
+        <attr name="fullscreenTextColor" format="color" />
+    </declare-styleable>
 
     <!-- Add more custom attributes as needed -->
 </resources>

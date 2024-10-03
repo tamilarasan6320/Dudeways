@@ -47,11 +47,27 @@
           }
         },
         {
+          "client_id": "789941112934-iacbi0vfnfuiobqm71v6t0gf5mopvc35.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.dudeways",
+            "certificate_hash": "4cc03a162021b009bca7d4555bc96f422fc8d510"
+          }
+        },
+        {
           "client_id": "789941112934-it4nqe2a8sq0iqpsk55fvfem1oiu7oad.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.app.dudeways",
             "certificate_hash": "f2aed7f3cc6bb4a94e8c6e57b6486dc32b672b97"
+          }
+        },
+        {
+          "client_id": "789941112934-nj8ruvpufii6avc82tulm6k1fp74kmd5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.dudeways",
+            "certificate_hash": "63dbf3225a9cc782967fa27cb03862c961c3fa70"
           }
         },
         {
@@ -83,6 +99,46 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "789941112934-2pi92ll8noi7dnsdbsv04hf4hpg4gron.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gmwapp.dudeways",
+            "certificate_hash": "63dbf3225a9cc782967fa27cb03862c961c3fa70"
+          }
+        },
+        {
+          "client_id": "789941112934-56l729gis6uno13r94oe2rm5d7pafohl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gmwapp.dudeways",
+            "certificate_hash": "9e6749bd6438418b95b2c725408dc53ac997cf23"
+          }
+        },
+        {
+          "client_id": "789941112934-aahljev5th1357lop5us3knbk90koq9g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gmwapp.dudeways",
+            "certificate_hash": "8d5a0efd77731bdc552c0c456017ed6c5fb48676"
+          }
+        },
+        {
+          "client_id": "789941112934-d20usjd3lh06guuikj1lql1qknr35fnk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gmwapp.dudeways",
+            "certificate_hash": "4cc03a162021b009bca7d4555bc96f422fc8d510"
+          }
+        },
+        {
+          "client_id": "789941112934-g7n92o43lgt0u3elc68qk15v4p6bkvig.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gmwapp.dudeways",
+            "certificate_hash": "f2aed7f3cc6bb4a94e8c6e57b6486dc32b672b97"
+          }
+        },
         {
           "client_id": "789941112934-m9c5va8lel593k2mecigkq2immqpoeep.apps.googleusercontent.com",
           "client_type": 1,
