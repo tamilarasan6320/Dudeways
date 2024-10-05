@@ -5,6 +5,7 @@ object Constant {
         "https://play.google.com/store/apps/details?id=com.gmwapp.dudeways"
     const val MainBaseUrl: String = "https://dudeways.com/"
     const val PAYMENT_LINK: String = "https://gateway.graymatterworks.com/api/create_payment_request.php"
+    const val ADD_POINTS_REQUEST: String = "https://dudeways.com/dwpay/add_points_requests.php"
 
 
     const val BaseUrl: String = MainBaseUrl + "api/"
@@ -15,6 +16,9 @@ object Constant {
     const val VERIFICATION_LIST: String = BaseUrl + "verification_list"
     const val DELETE_ACCOUNT: String = BaseUrl + "delete_account"
     const val UPDATE_USERS: String = BaseUrl + "update_users"
+    const val UPDATE_BANK: String = BaseUrl + "update_bank"
+    const val WITHDRAWALS: String = BaseUrl + "withdrawals"
+    const val WITHDRAWALS_LIST: String = BaseUrl + "withdrawals_list"
     const val CHECK_MOBILE: String = BaseUrl + "check_mobile"
     const val CHECK_EMAIL: String = BaseUrl + "check_email"
     const val USERDETAILS: String = BaseUrl + "userdetails"
@@ -139,6 +143,12 @@ object Constant {
     const val PAYMENT_IMAGE: String = "payment_image"
 
     const val NAME: String = "name"
+    const val ACCOUNT_HOLDER_NAME: String = "account_holder_name"
+    const val ACCOUNT_NUMBER: String = "account_number"
+    const val IFSC_CODE: String = "ifsc_code"
+    const val BANK_NAME: String = "bank_name"
+    const val BRANCH_NAME: String = "branch_name"
+    const val BALANCE: String = "balance"
     const val CHAT_STATUS: String = "chat_status"
     const val UNREAD_COUNT: String = "unread_count"
     const val UNIQUE_NAME: String = "unique_name"

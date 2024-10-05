@@ -53,7 +53,7 @@
                     android:id="@+id/tvTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pending..."
+                    android:text="@string/pending"
                     android:textSize="@dimen/_12sdp"
                     android:fontFamily="@font/poppins_semibold"
                     android:textColor="@color/primary"
@@ -76,7 +76,7 @@
 
 
             <TextView
-                android:id="@+id/tvMessage"
+                android:id="@+id/tvDateTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="24.09.2024 | 11:30 AM"

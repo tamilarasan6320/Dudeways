@@ -55,5 +55,13 @@
     <string name="title_activity_wallet">WalletActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="branch_name">Branch Name</string>
+    <string name="bank_name">Bank Name</string>
+    <string name="ifsc_code">IFSC Code</string>
+    <string name="account_number">Account Number</string>
+    <string name="account_holder_name">Account Holder Name</string>
+    <string name="your_current_balance">Your Current Balance</string>
+    <string name="add_bank_details">Add Bank Details</string>
+    <string name="pending">Pending...</string>
 
 </resources>

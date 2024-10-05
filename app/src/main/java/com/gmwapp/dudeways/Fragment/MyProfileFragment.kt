@@ -287,14 +287,16 @@ class MyProfileFragment : Fragment() {
             startActivity(intent)
         }
 
-        binding.rlVerificationBadge.setOnClickListener {
+        binding.rlVerificationBadge.visibility = View.GONE
 
-
-            verification_list()
-
-
-
-        }
+//        binding.rlVerificationBadge.setOnClickListener {
+//
+//
+//            verification_list()
+//
+//
+//
+//        }
 
         binding.rlLogout.setOnClickListener {
             showLogoutConfirmationDialog()

@@ -443,6 +443,7 @@ class HomeActivity : BaseActivity() , NavigationBarView.OnItemSelectedListener {
 //                        session.setData(Constant.CHAT_STATUS, jsonobj.getString(Constant.CHAT_STATUS))
                         session.setData(Constant.UNREAD_COUNT, jsonobj.getString(Constant.UNREAD_COUNT))
                         session.setData(Constant.VERIFIED_STATUS, jsonobj.getString(Constant.VERIFIED))
+                        session.setData(Constant.BALANCE, jsonobj.getString(Constant.BALANCE))
                         Log.d("USERDETAILS" ,"USERDETAILS VERIFIED_STATUS: " + session.getData(Constant.VERIFIED_STATUS))
 
                         val latitude = jsonobj.getString(Constant.LATITUDE)

@@ -2,7 +2,9 @@ package com.gmwapp.dudeways.Activity
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +17,7 @@ import com.gmwapp.dudeways.databinding.ActivityPurchasepointBinding
 import com.gmwapp.dudeways.helper.ApiConfig
 import com.gmwapp.dudeways.helper.Constant
 import com.gmwapp.dudeways.helper.Session
+import com.google.androidbrowserhelper.trusted.LauncherActivity
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -151,6 +154,12 @@ class PurchasepointActivity : BaseActivity() {
 
             }
 
+            holder.itemView.setOnClickListener {
+                notifyDataSetChanged()
+//                onPlanSelected(plan)
+                initiatePaymentLink(item.id)
+            }
+
         }
 
         override fun getItemCount(): Int {
@@ -162,5 +171,37 @@ class PurchasepointActivity : BaseActivity() {
             var tvPercentage: TextView = itemView.findViewById(R.id.tvPercentage)
             var tvPrice: TextView = itemView.findViewById(R.id.tvPrice)
         }
+    }
+
+    private fun initiatePaymentLink(pointsId: String) {
+        val params = HashMap<String, String>().apply {
+            put("buyer_name", "tamil")
+            put("amount", "10.00")
+            put("email", "test@gmail.com")
+            put("phone", "6382088746")
+            put("purpose", session.getData(Constant.USER_ID) + "-" + pointsId)
+        }
+
+        ApiConfig.RequestToVolley({ result, response ->
+            if (result) {
+                try {
+                    Log.d("FULL_RESPONSE", response)
+                    val jsonObject = JSONObject(response)
+                    val longUrl = jsonObject.getString("longurl")
+                    val intent= Intent(activity, LauncherActivity::class.java)
+                    intent.setData(Uri.parse(longUrl))
+                    activity.startActivity(intent) // Directly starting the intent without launcher
+
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                    Toast.makeText(activity, "JSON Parsing error: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                Toast.makeText(activity, "Something went wrong", Toast.LENGTH_SHORT).show()
+            }
+        }, activity, Constant.ADD_POINTS_REQUEST, params, true)
+
+        Log.d("ADD_POINTS_REQUEST","ADD_POINTS_REQUEST: " + Constant.ADD_POINTS_REQUEST)
+        Log.d("ADD_POINTS_REQUEST","ADD_POINTS_REQUESTparams: " + params)
     }
 }
