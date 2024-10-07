@@ -175,10 +175,10 @@ class PurchasepointActivity : BaseActivity() {
 
     private fun initiatePaymentLink(pointsId: String) {
         val params = HashMap<String, String>().apply {
-            put("buyer_name", "tamil")
+            put("buyer_name", session.getData(Constant.NAME))
             put("amount", "10.00")
-            put("email", "test@gmail.com")
-            put("phone", "6382088746")
+            put("email", session.getData(Constant.EMAIL))
+            put("phone", "8778624681")
             put("purpose", session.getData(Constant.USER_ID) + "-" + pointsId)
         }
 
@@ -190,7 +190,8 @@ class PurchasepointActivity : BaseActivity() {
                     val longUrl = jsonObject.getString("longurl")
                     val intent= Intent(activity, LauncherActivity::class.java)
                     intent.setData(Uri.parse(longUrl))
-                    activity.startActivity(intent) // Directly starting the intent without launcher
+                    startActivity(intent)
+                    finish()// Directly starting the intent without launcher
 
                 } catch (e: JSONException) {
                     e.printStackTrace()

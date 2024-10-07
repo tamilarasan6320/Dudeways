@@ -82,19 +82,7 @@
         <activity
             android:name=".Activity.RefundActivity"
             android:exported="true">
-            <intent-filter
-                android:autoVerify="true"
-                tools:targetApi="m">
-                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data android:scheme="https" />
-                <data
-                    android:host="www.dudeways.com"
-                    android:pathPrefix="/path/to/serid" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Activity.RejectVerifyActivity"
@@ -192,7 +180,22 @@
             android:exported="false" />
         <activity
             android:name=".Activity.HomeActivity"
-            android:exported="false" />
+            android:exported="true" >
+            <intent-filter
+                android:autoVerify="true"
+                tools:targetApi="m">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="https" />
+                <data
+                    android:host="www.dudeways.com"
+                    android:pathPrefix="/path/to/serid" />
+            </intent-filter>
+
+        </activity>
         <activity
             android:name=".Activity.ChatsActivity"
             android:exported="true">
