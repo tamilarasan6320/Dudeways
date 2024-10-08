@@ -63,5 +63,10 @@
     <string name="your_current_balance">Your Current Balance</string>
     <string name="add_bank_details">Add Bank Details</string>
     <string name="pending">Pending...</string>
+    <string name="submit">Submit</string>
+    <string name="enter_mobile_number">Enter Mobile Number</string>
+    <string name="mobile_number">Mobile number</string>
+    <string name="cancel">Cancel</string>
+    <string name="purchase_point">Purchase Point</string>
 
 </resources>

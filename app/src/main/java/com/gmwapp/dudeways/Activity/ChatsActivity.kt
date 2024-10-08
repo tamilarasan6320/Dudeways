@@ -20,6 +20,7 @@ import android.widget.LinearLayout
 import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gmwapp.dudeways.Adapter.ChatAdapter
 import com.gmwapp.dudeways.Model.ChatModel
@@ -37,6 +38,7 @@ import com.gmwapp.dudeways.helper.Session
 import com.gmwapp.dudeways.listeners.OnMessagesFetchedListener
 import com.bumptech.glide.Glide
 import com.gmwapp.dudeways.extentions.chat_status
+import com.google.android.material.button.MaterialButton
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -121,13 +123,13 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
             verified = session.getData(Constant.VERIFIED)
 
 
-            if (friend_verified == "1") {
-                binding.tvAbout.visibility = View.VISIBLE
-                binding.ivVerified.visibility = View.VISIBLE
-            } else {
-                binding.tvAbout.visibility = View.VISIBLE
-                binding.ivVerified.visibility = View.GONE
-            }
+//            if (friend_verified == "1") {
+//                binding.tvAbout.visibility = View.VISIBLE
+//                binding.ivVerified.visibility = View.VISIBLE
+//            } else {
+//                binding.tvAbout.visibility = View.VISIBLE
+//                binding.ivVerified.visibility = View.GONE
+//            }
 
             Glide.with(this)
                 .load(session.getData("reciver_profile"))
@@ -207,10 +209,58 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
         binding.sendButton.setOnClickListener {
             //disable binding.sendButton.isClickable = false
 
-            if (gender == "male" && verified == "0") {
-                showCustomDialog(this)
-            }
-            else {
+//            if (gender == "male" && verified == "0") {
+//                showCustomDialog(this)
+//            }
+//            if (session.getData(Constant.POINTS) == "0" && session.getData(Constant.GENDER) == "female") {
+//                binding.sendButton.isClickable = true
+//
+////                chat_status = jsonObject.getString("chat_status")
+////                session.setData(Constant.CHAT_STATUS, chat_status)
+//
+//
+//                val dialogView =
+//                    activity.layoutInflater.inflate(R.layout.dialog_custom, null)
+//
+//                val dialogBuilder = AlertDialog.Builder(activity)
+//                    .setView(dialogView)
+//                    .create()
+//                val title = dialogView.findViewById<TextView>(R.id.dialog_title)
+//                val btnPurchase =
+//                    dialogView.findViewById<LinearLayout>(R.id.btnPurchase)
+//                val btnFreePoints =
+//                    dialogView.findViewById<LinearLayout>(R.id.btnFreePoints)
+//                val tvMinPoints =
+//                    dialogView.findViewById<TextView>(R.id.tv_min_points)
+//
+//                val tv_how_points = dialogView.findViewById<TextView>(R.id.tv_how_points)
+//
+//                tv_how_points.text = "Buy 100 points to chat with 10 female users for up to 10 hours."
+//
+//
+//                title.text = "You have ${session.getData(Constant.POINTS)} Points"
+//
+//                btnPurchase.setOnClickListener {
+//                    val intent = Intent(activity, PurchasepointActivity::class.java)
+//                    activity.startActivity(intent)
+//                    dialogBuilder.dismiss()
+//                }
+//
+//                btnFreePoints.visibility = View.GONE
+//                tvMinPoints.visibility = View.GONE
+//
+////                                btnFreePoints.setOnClickListener {
+////                                    val intent = Intent(activity, FreePointsActivity::class.java)
+////                                    activity.startActivity(intent)
+////                                    dialogBuilder.dismiss()
+////                                }
+//
+//
+//                dialogBuilder.show()
+//
+//                //    Toast.makeText(this, chat_status, Toast.LENGTH_SHORT).show()
+//            }
+//            else {
                 binding.sendButton.isClickable = false
                 val params: MutableMap<String, String> = HashMap()
                 params[Constant.USER_ID] = session.getData(Constant.USER_ID)
@@ -266,7 +316,8 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
                                 //   Toast.makeText(this, chat_status, Toast.LENGTH_SHORT).show()
 
 
-                            } else {
+                            }
+                            else {
                                 binding.sendButton.isClickable = true
 
                                 chat_status = jsonObject.getString("chat_status")
@@ -274,32 +325,28 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
 
 
                                 val dialogView =
-                                    activity.layoutInflater.inflate(R.layout.dialog_custom, null)
+                                    activity.layoutInflater.inflate(R.layout.dilog_chat_point, null)
 
                                 val dialogBuilder = AlertDialog.Builder(activity)
                                     .setView(dialogView)
                                     .create()
-                                val title = dialogView.findViewById<TextView>(R.id.dialog_title)
+                                val title = dialogView.findViewById<TextView>(R.id.tvTitle)
                                 val btnPurchase =
-                                    dialogView.findViewById<LinearLayout>(R.id.btnPurchase)
-                                val btnFreePoints =
-                                    dialogView.findViewById<LinearLayout>(R.id.btnFreePoints)
+                                    dialogView.findViewById<MaterialButton>(R.id.btnPurchase)
+                                val tvDescription =
+                                    dialogView.findViewById<TextView>(R.id.tvDescription)
+                                val tvSubDescription =
+                                    dialogView.findViewById<TextView>(R.id.tvSubDescription)
 
-                                val tv_how_points = dialogView.findViewById<TextView>(R.id.tv_how_points)
+                                tvDescription.text = "Buy 100 points to chat with 10 female users for up to 10 hours."
+                                tvDescription.setTextColor(ContextCompat.getColor(activity, R.color.primary))
 
-                                tv_how_points.visibility = View.GONE
-
+                                tvSubDescription.visibility = View.GONE
 
                                 title.text = "You have ${session.getData(Constant.POINTS)} Points"
 
                                 btnPurchase.setOnClickListener {
                                     val intent = Intent(activity, PurchasepointActivity::class.java)
-                                    activity.startActivity(intent)
-                                    dialogBuilder.dismiss()
-                                }
-
-                                btnFreePoints.setOnClickListener {
-                                    val intent = Intent(activity, FreePointsActivity::class.java)
                                     activity.startActivity(intent)
                                     dialogBuilder.dismiss()
                                 }
@@ -312,11 +359,13 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
                             }
 
                         } catch (e: JSONException) {
-                            e.printStackTrace()
+                            Log.d("e.printStackTrace()","e.printStackTrace(): $e")
                         }
                     }
                 }, activity, Constant.ADD_CHAT, params, false, 1)
-            }
+                Log.d("ADD_CHAT","ADD_CHAT: ${Constant.ADD_CHAT}")
+                Log.d("ADD_CHAT","ADD_CHATparams: $params")
+//            }
 
         }
 
@@ -894,13 +943,13 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
                         verified = session.getData(Constant.VERIFIED)
 
 
-                        if (friend_verified == "1") {
-                            binding.tvAbout.visibility = View.VISIBLE
-                            binding.ivVerified.visibility = View.VISIBLE
-                        } else {
-                            binding.tvAbout.visibility = View.VISIBLE
-                            binding.ivVerified.visibility = View.GONE
-                        }
+//                        if (friend_verified == "1") {
+//                            binding.tvAbout.visibility = View.VISIBLE
+//                            binding.ivVerified.visibility = View.VISIBLE
+//                        } else {
+//                            binding.tvAbout.visibility = View.VISIBLE
+//                            binding.ivVerified.visibility = View.GONE
+//                        }
 
                         Glide.with(this)
                             .load(jsonobj.getString(Constant.PROFILE))

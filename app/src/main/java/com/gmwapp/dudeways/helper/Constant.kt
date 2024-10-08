@@ -157,6 +157,7 @@ object Constant {
     const val UPI_ID: String = "upi_id"
     const val SEARCH: String = "search"
     const val EMAIL: String = "email"
+    const val POINT_PAYMENT_MOBILE: String = "point_payment_mobile"
     const val AGE: String = "age"
     const val GENDER: String = "gender"
     const val PROFESSION: String = "profession"

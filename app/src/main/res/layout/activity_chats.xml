@@ -140,38 +140,38 @@
         </RelativeLayout>
 
 
-        <RelativeLayout
-            android:layout_below="@+id/rlToolbar"
-            android:id="@+id/tvAbout"
-            android:layout_width="match_parent"
-            android:background="@color/primary_extra_light"
-            android:layout_height="wrap_content">
+<!--        <RelativeLayout-->
+<!--            android:layout_below="@+id/rlToolbar"-->
+<!--            android:id="@+id/tvAbout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:background="@color/primary_extra_light"-->
+<!--            android:layout_height="wrap_content">-->
 
 
 
-            <TextView
-                android:id="@+id/tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Users are prefer to travel with verified profile"
-                android:gravity="center"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_10sdp"
-                android:layout_centerInParent="true"
-                android:fontFamily="@font/poppins_medium"
-                android:padding="@dimen/_4sdp"
-                />
+<!--            <TextView-->
+<!--                android:id="@+id/tv"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Users are prefer to travel with verified profile"-->
+<!--                android:gravity="center"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textSize="@dimen/_10sdp"-->
+<!--                android:layout_centerInParent="true"-->
+<!--                android:fontFamily="@font/poppins_medium"-->
+<!--                android:padding="@dimen/_4sdp"-->
+<!--                />-->
 
-            <ImageView
-                android:layout_toRightOf="@id/tv"
-                android:layout_width="@dimen/_14sdp"
-                android:layout_height="@dimen/_14sdp"
-                android:background="@drawable/verify_ic"
-                android:backgroundTint="@color/primary"
-                android:layout_centerVertical="true"
-                />
+<!--            <ImageView-->
+<!--                android:layout_toRightOf="@id/tv"-->
+<!--                android:layout_width="@dimen/_14sdp"-->
+<!--                android:layout_height="@dimen/_14sdp"-->
+<!--                android:background="@drawable/verify_ic"-->
+<!--                android:backgroundTint="@color/primary"-->
+<!--                android:layout_centerVertical="true"-->
+<!--                />-->
 
-        </RelativeLayout>
+<!--        </RelativeLayout>-->
 
 
 
@@ -181,7 +181,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_above="@+id/llMessage"
-            android:layout_below="@+id/tvAbout"
+            android:layout_below="@+id/rlToolbar"
             android:id="@+id/RVChats"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -49,6 +49,7 @@ import com.gmwapp.dudeways.helper.Session
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
 import org.json.JSONException
 import org.json.JSONObject
@@ -201,6 +202,7 @@ class MyProfileFragment : Fragment() {
 
 
         val gender = session.getData(Constant.GENDER)
+        Log.d("gender", "gender: $gender")
         val age = session.getData(Constant.AGE)
 //        binding.ivAge.text = age
 //
@@ -225,7 +227,11 @@ class MyProfileFragment : Fragment() {
 //        }
 
 
-
+        if (gender == "male") {
+            binding.rlWallet.visibility = View.GONE
+        } else {
+            binding.rlWallet.visibility = View.VISIBLE
+        }
 
 
 
@@ -242,38 +248,64 @@ class MyProfileFragment : Fragment() {
 
 
         binding.rlStorepoints.setOnClickListener {
-            val dialogView = layoutInflater.inflate(R.layout.dialog_custom, null)
+
+            val dialogView =
+                activity.layoutInflater.inflate(R.layout.dilog_chat_point, null)
 
             val dialogBuilder = AlertDialog.Builder(activity)
                 .setView(dialogView)
                 .create()
-            val title = dialogView.findViewById<TextView>(R.id.dialog_title)
-            val btnPurchase = dialogView.findViewById<LinearLayout>(R.id.btnPurchase)
-            val btnFreePoints = dialogView.findViewById<LinearLayout>(R.id.btnFreePoints)
-            val tv_min_points = dialogView.findViewById<TextView>(R.id.tv_min_points)
+            val title = dialogView.findViewById<TextView>(R.id.tvTitle)
+            val btnPurchase =
+                dialogView.findViewById<MaterialButton>(R.id.btnPurchase)
+            val tvDescription =
+                dialogView.findViewById<TextView>(R.id.tvDescription)
+            val tvSubDescription =
+                dialogView.findViewById<TextView>(R.id.tvSubDescription)
 
-            tv_min_points.visibility = View.GONE
+            tvDescription.text = "Spend 10 points for a one-hour conversation with a user"
+            tvDescription.setTextColor(ContextCompat.getColor(activity, R.color.primary))
 
-
+            tvSubDescription.text = "Minimum 10 points required to chat"
 
             title.text = "You have ${session.getData(Constant.POINTS)} Points"
 
             btnPurchase.setOnClickListener {
                 val intent = Intent(activity, PurchasepointActivity::class.java)
-                startActivity(intent)
+                activity.startActivity(intent)
                 dialogBuilder.dismiss()
             }
-
-            btnFreePoints.setOnClickListener {
-                val intent = Intent(activity, FreePointsActivity::class.java)
-                startActivity(intent)
-                dialogBuilder.dismiss()
-            }
-
-
 
 
             dialogBuilder.show()
+
+//            val dialogView = layoutInflater.inflate(R.layout.dialog_custom, null)
+//
+//            val dialogBuilder = AlertDialog.Builder(activity)
+//                .setView(dialogView)
+//                .create()
+//            val title = dialogView.findViewById<TextView>(R.id.dialog_title)
+//            val btnPurchase = dialogView.findViewById<LinearLayout>(R.id.btnPurchase)
+//            val btnFreePoints = dialogView.findViewById<LinearLayout>(R.id.btnFreePoints)
+//            val tv_min_points = dialogView.findViewById<TextView>(R.id.tv_min_points)
+//
+//            tv_min_points.visibility = View.GONE
+//
+//            title.text = "You have ${session.getData(Constant.POINTS)} Points"
+//
+//            btnPurchase.setOnClickListener {
+//                val intent = Intent(activity, PurchasepointActivity::class.java)
+//                startActivity(intent)
+//                dialogBuilder.dismiss()
+//            }
+//
+//            btnFreePoints.setOnClickListener {
+//                val intent = Intent(activity, FreePointsActivity::class.java)
+//                startActivity(intent)
+//                dialogBuilder.dismiss()
+//            }
+//
+//            dialogBuilder.show()
         }
 
 

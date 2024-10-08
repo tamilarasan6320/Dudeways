@@ -1,13 +1,17 @@
 package com.gmwapp.dudeways.Activity
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -155,12 +159,51 @@ class PurchasepointActivity : BaseActivity() {
             }
 
             holder.itemView.setOnClickListener {
-                notifyDataSetChanged()
-//                onPlanSelected(plan)
-                initiatePaymentLink(item.id)
+                showMobileInputDialog(item.id, item.price)
             }
 
         }
+
+        private fun showMobileInputDialog(pointsId: String, amount: String) {
+            // Inflate custom dialog layout
+            val dialogView = LayoutInflater.from(activity).inflate(R.layout.custom_mobile_dialog, null)
+
+            // Find the views
+            val etMobileNumber: EditText = dialogView.findViewById(R.id.etMobileNumber)
+            val btnSubmit: Button = dialogView.findViewById(R.id.btnSubmit)
+            val btnCancel: Button = dialogView.findViewById(R.id.btnCancel)
+
+            // Create AlertDialog with the custom layout
+            val dialog = AlertDialog.Builder(activity)
+                .setView(dialogView)
+                .create()
+
+            // Set click listener for submit button
+            btnSubmit.setOnClickListener {
+                val mobileNumber = etMobileNumber.text.toString().trim()
+
+                // Validate the mobile number
+                if (mobileNumber.isEmpty()) {
+                    Toast.makeText(activity, "Please enter mobile number", Toast.LENGTH_SHORT).show()
+                } else if (mobileNumber.length != 10) {
+                    Toast.makeText(activity, "Please enter a valid mobile number", Toast.LENGTH_SHORT).show()
+                } else {
+                    session.setData(Constant.POINT_PAYMENT_MOBILE, mobileNumber)
+                    initiatePaymentLink(pointsId, amount)
+                    dialog.dismiss() // Dismiss the dialog after submitting
+                }
+            }
+
+            // Set click listener for cancel button
+            btnCancel.setOnClickListener {
+                dialog.dismiss() // Dismiss the dialog when cancelled
+            }
+
+            // Show the dialog
+            dialog.show()
+        }
+
+
 
         override fun getItemCount(): Int {
             return list.size
@@ -173,12 +216,12 @@ class PurchasepointActivity : BaseActivity() {
         }
     }
 
-    private fun initiatePaymentLink(pointsId: String) {
+    private fun initiatePaymentLink(pointsId: String, amount: String, ) {
         val params = HashMap<String, String>().apply {
             put("buyer_name", session.getData(Constant.NAME))
-            put("amount", "10.00")
+            put("amount", amount)
             put("email", session.getData(Constant.EMAIL))
-            put("phone", "8778624681")
+            put("phone", session.getData(Constant.POINT_PAYMENT_MOBILE))
             put("purpose", session.getData(Constant.USER_ID) + "-" + pointsId)
         }
 
