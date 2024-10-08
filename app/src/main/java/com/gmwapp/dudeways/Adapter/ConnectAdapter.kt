@@ -59,11 +59,11 @@ class ConnectAdapter(
         } else {
              status = ""
         }
-        if (report.verified == "1") {
-            holder.ivVerify.visibility = View.VISIBLE
-        } else {
-            holder.ivVerify.visibility = View.GONE
-        }
+//        if (report.verified == "1") {
+//            holder.ivVerify.visibility = View.VISIBLE
+//        } else {
+//            holder.ivVerify.visibility = View.GONE
+//        }
 
         holder.tvAge.text = report.age
         holder.tvDistance.text = report.distance

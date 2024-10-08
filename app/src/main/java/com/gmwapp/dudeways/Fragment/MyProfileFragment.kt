@@ -128,13 +128,13 @@ class MyProfileFragment : Fragment() {
         // Configure Google Sign-In
 
         val verify = session.getData(Constant.VERIFIED)
-
-        if (verify == "1"){
-            binding.ivVerify.visibility = View.VISIBLE
-        }
-        else{
-            binding.ivVerify.visibility = View.GONE
-        }
+//
+//        if (verify == "1"){
+//            binding.ivVerify.visibility = View.VISIBLE
+//        }
+//        else{
+//            binding.ivVerify.visibility = View.GONE
+//        }
 
 
 

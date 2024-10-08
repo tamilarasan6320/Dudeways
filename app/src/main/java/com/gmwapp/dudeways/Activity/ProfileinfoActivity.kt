@@ -156,11 +156,11 @@ class ProfileinfoActivity : BaseActivity() {
                         val age = jsonobj.getString(Constant.AGE)
                         val verify = jsonobj.getString("verified")
 
-                        if (verify == "1") {
-                            binding.ivVerify.visibility = View.VISIBLE
-                        } else {
-                            binding.ivVerify.visibility = View.GONE
-                        }
+//                        if (verify == "1") {
+//                            binding.ivVerify.visibility = View.VISIBLE
+//                        } else {
+//                            binding.ivVerify.visibility = View.GONE
+//                        }
 
                         binding.ivAge.text = age
 

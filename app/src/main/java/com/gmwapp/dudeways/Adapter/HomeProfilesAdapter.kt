@@ -69,11 +69,11 @@ class HomeProfilesAdapter(
             }
         }
 
-        if (report.verified == "1") {
-            holder.ivVerify.visibility = View.VISIBLE
-        } else {
-            holder.ivVerify.visibility = View.GONE
-        }
+//        if (report.verified == "1") {
+//            holder.ivVerify.visibility = View.VISIBLE
+//        } else {
+//            holder.ivVerify.visibility = View.GONE
+//        }
 
         var friend_data: String = report.friend.toString()
 

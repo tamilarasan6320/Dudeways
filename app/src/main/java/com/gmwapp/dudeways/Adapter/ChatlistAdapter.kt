@@ -60,11 +60,11 @@ class ChatlistAdapter(
         holder.TV_user_name.text = report.name
         holder.TV_message_content.text = report.latest_message
 
-        if (report.verified == "1") {
-            holder.ivVerify.visibility = View.VISIBLE
-        } else {
-            holder.ivVerify.visibility = View.GONE
-        }
+//        if (report.verified == "1") {
+//            holder.ivVerify.visibility = View.VISIBLE
+//        } else {
+//            holder.ivVerify.visibility = View.GONE
+//        }
 
         if (report.online_status == "1") {
             holder.IV_online_status.visibility = View.VISIBLE
