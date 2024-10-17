@@ -32,6 +32,7 @@ import com.gmwapp.dudeways.helper.ApiConfig
 import com.gmwapp.dudeways.helper.Constant
 import com.gmwapp.dudeways.helper.Session
 import com.bumptech.glide.Glide
+import com.gmwapp.dudeways.Fragment.BaseFragment
 import com.gmwapp.dudeways.Fragment.MyProfileFragment
 import com.gmwapp.dudeways.Fragment.SearchFragment
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -60,7 +61,7 @@ class HomeActivity : BaseActivity() , NavigationBarView.OnItemSelectedListener {
 
     val ONESIGNAL_APP_ID = "4f929ed9-584d-4208-a3e8-7de1ae4f679e"
 
-    private var bottomNavigationView: BottomNavigationView? = null
+    public var bottomNavigationView: BottomNavigationView? = null
 
     private var tripFragment = TripFragment()
     private var exploreFragment = ExploreFragment()
@@ -217,19 +218,20 @@ class HomeActivity : BaseActivity() , NavigationBarView.OnItemSelectedListener {
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        // Cancel ongoing API requests
-        apiJob?.cancel()
+        val currentFragment = fm.findFragmentById(R.id.fragment_container) as? BaseFragment
+        // Cancel the API request of the current fragment before switching
+        currentFragment?.apiJob?.cancel()
 
         val transaction = fm.beginTransaction()
-        when (item.itemId) {
-            R.id.navHome -> transaction.replace(R.id.fragment_container, homeFragment)
-            R.id.navExplore -> transaction.replace(R.id.fragment_container, tripFragment)
-            R.id.navIntersts -> transaction.replace(R.id.fragment_container, interestFragment)
-            R.id.navMessages -> transaction.replace(R.id.fragment_container, messagesFragment)
-            R.id.navNotification -> transaction.replace(R.id.fragment_container, notification)
+        val nextFragment = when (item.itemId) {
+            R.id.navHome -> homeFragment
+            R.id.navExplore -> tripFragment
+            R.id.navIntersts -> interestFragment
+            R.id.navMessages -> messagesFragment
+            R.id.navNotification -> notification
+            else -> homeFragment
         }
-        transaction.commit()
-        setting()
+        transaction.replace(R.id.fragment_container, nextFragment).commit()
         return true
     }
 

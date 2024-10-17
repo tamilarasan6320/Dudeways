@@ -130,4 +130,15 @@ class NotificationFragment : Fragment() {
             }
         }, activity, Constant.NOTFICATION_LIST, params, true, 1)
     }
+
+    override fun onPause() {
+        super.onPause()
+        binding.swipeRefreshLayout.isRefreshing = false
+    }
+
+    // Stop refresh on fragment destruction to avoid leaks
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding.swipeRefreshLayout.isRefreshing = false
+    }
 }

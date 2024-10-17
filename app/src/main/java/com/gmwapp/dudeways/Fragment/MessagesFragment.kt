@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -215,5 +216,35 @@ class MessagesFragment : Fragment() {
         }, activity, Constant.UNREAD_ALL, params, false, 1)
     }
 
+
+    override fun onPause() {
+        super.onPause()
+        binding.swipeRefreshLayout.isRefreshing = false
+    }
+
+    // Stop refresh on fragment destruction to avoid leaks
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding.swipeRefreshLayout.isRefreshing = false
+    }
+
+
+
+    private fun chatBadge() {
+        // Toast.makeText(activity, session.getData(Constant.UNREAD_COUNT.toString()), Toast.LENGTH_SHORT).show()
+        val chatBadge =  (activity as HomeActivity).bottomNavigationView!!.getOrCreateBadge(R.id.navMessages)
+        chatBadge.number = session.getData(Constant.UNREAD_COUNT.toString()).toInt()
+
+        if (chatBadge.number == 0) {
+            chatBadge.isVisible = false
+        }
+        else{
+            chatBadge.isVisible = true
+        }
+
+
+        chatBadge.backgroundColor = ContextCompat.getColor(activity, R.color.primary)
+        chatBadge.badgeTextColor = ContextCompat.getColor(activity, R.color.white)
+    }
 
 }

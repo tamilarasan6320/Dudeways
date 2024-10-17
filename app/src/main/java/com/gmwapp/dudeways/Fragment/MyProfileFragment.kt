@@ -27,7 +27,6 @@ import com.gmwapp.dudeways.Activity.CustomerSupportActivity
 import com.gmwapp.dudeways.Activity.DeactivateActivity
 import com.gmwapp.dudeways.Activity.EditProfileActivity
 import com.gmwapp.dudeways.Activity.FreePointsActivity
-import com.gmwapp.dudeways.Activity.GoogleLoginActivity
 import com.gmwapp.dudeways.Activity.HomeActivity
 import com.gmwapp.dudeways.Activity.IdverficationActivity
 import com.gmwapp.dudeways.Activity.InviteFriendsActivity
@@ -46,6 +45,7 @@ import com.gmwapp.dudeways.databinding.FragmentMyProfileBinding
 import com.gmwapp.dudeways.helper.ApiConfig
 import com.gmwapp.dudeways.helper.Constant
 import com.gmwapp.dudeways.helper.Session
+import com.gmwapp.dudeways.ui.GoogleLoginActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions

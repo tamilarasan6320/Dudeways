@@ -51,7 +51,8 @@ class HomeFragment : Fragment() {
     private var selectedDate: String? = null
     private var total = 0
 
-    override fun onCreateView(
+    override fun onCreateView
+                (
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
@@ -62,6 +63,9 @@ class HomeFragment : Fragment() {
         (activity as HomeActivity).binding.rltoolbar.visibility = View.VISIBLE
         (activity as HomeActivity).binding.bottomNavigationView.visibility = View.VISIBLE
         (activity as HomeActivity).binding.ivSearch.visibility = View.VISIBLE
+
+
+
 
         setupRecyclerViews()
         loadCategoryList()
@@ -361,5 +365,19 @@ class HomeFragment : Fragment() {
         binding.rvUserList.visibility = View.GONE
        // Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
     }
+
+
+    override fun onPause() {
+        super.onPause()
+        binding.swipeRefreshLayout.isRefreshing = false
+    }
+
+    // Stop refresh on fragment destruction to avoid leaks
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding.swipeRefreshLayout.isRefreshing = false
+    }
+
+
 }
 
