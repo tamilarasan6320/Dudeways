@@ -598,23 +598,23 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListener {
     }
 
     fun read_chats() {
-        val session = Session(activity)
-        val params: MutableMap<String, String> = HashMap()
-        params[Constant.USER_ID] = session.getData(Constant.USER_ID)
-        params[Constant.CHAT_USER_ID] = receiverId!!
-        params[Constant.MSG_SEEN] = "0"
-        ApiConfig.RequestToVolley({ result, response ->
-            if (result) {
-                try {
-                    val jsonObject = JSONObject(response)
-                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
-                    //   Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
-                    }
-                } catch (e: JSONException) {
-                    e.printStackTrace()
-                }
-            }
-        }, activity, Constant.READ_CHATS, params, false, 1)
+//        val session = Session(activity)
+//        val params: MutableMap<String, String> = HashMap()
+//        params[Constant.USER_ID] = session.getData(Constant.USER_ID)
+//        params[Constant.CHAT_USER_ID] = receiverId!!
+//        params[Constant.MSG_SEEN] = "0"
+//        ApiConfig.RequestToVolley({ result, response ->
+//            if (result) {
+//                try {
+//                    val jsonObject = JSONObject(response)
+//                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
+//                    //   Toast.makeText(activity, jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show()
+//                    }
+//                } catch (e: JSONException) {
+//                    e.printStackTrace()
+//                }
+//            }
+//        }, activity, Constant.READ_CHATS, params, false, 1)
     }
 
     private fun updateBlockStatus(senderId: String, receiverId: String, isBlocked: Boolean) {
